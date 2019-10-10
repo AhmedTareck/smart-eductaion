@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Managegment.Controllers;
-using Managegment.Models;
+using Management.Models;
 using Management.Controllers;
 
 using Microsoft.AspNetCore.Mvc;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Managegment.DTOs
+namespace Management.DTOs
 {
     public class NewMessageDTO
     {

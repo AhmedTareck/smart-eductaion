@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common;
 using Managegment.Controllers;
-using Managegment.Models;
+using Management.Models;
 using Management.LibyanObjects;
 
 using Microsoft.AspNetCore.Mvc;

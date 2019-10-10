@@ -20,7 +20,7 @@ using System.Security.Principal;
 using Common;
 
 using System.Net.Mail;
-using Managegment.Models;
+using Management.Models;
 using Managegment.Controllers;
 using Web.Controllers;
 

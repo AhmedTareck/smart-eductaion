@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Managegment.Models
+namespace Management.Models
 {
     public partial class Messages
     {

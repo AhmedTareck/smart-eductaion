@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Managegment.Models
+namespace Management.Models
 {
     public partial class MailSystemContext : DbContext
     {

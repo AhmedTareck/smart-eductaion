@@ -21,7 +21,7 @@ using System.IO;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Managegment
+namespace Management
 {
     public class Startup
     {
