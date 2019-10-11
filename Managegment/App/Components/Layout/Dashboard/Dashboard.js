@@ -14,12 +14,14 @@
             window.location.href = '/Security/Login';
         }
 
-
+        this.menuFlag[0] = 'nav-item active';
     },
     data() {
         return {            
             loginDetails: null,
-            active:1
+            active: 1,
+            menuFlag: [10],
+            
         };
     },
   
@@ -58,7 +60,14 @@
             }
         },
 
-        href(url) {
+        href(url, id) {
+            for (var i = 0; i < 10; i++) {
+                if (i == id) {
+                    this.$set(this.menuFlag, id, 'nav-item active');
+                } else {
+                    this.$set(this.menuFlag, i, '');
+                }
+            }
             this.$router.push(url);
         },
         OpenDropDown() {

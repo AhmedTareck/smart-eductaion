@@ -33,22 +33,22 @@ namespace Management.Controllers
                 IQueryable<AdTypes> AdTypesQuery;
 
                 AdTypesQuery = from p in db.AdTypes
-          select p;
+                               select p;
 
                 var AdTypesCount = (from p in AdTypesQuery
-                                     select p).Count();
+                                    select p).Count();
 
                 var AdTypesList = (from p in AdTypesQuery
-                                    
-                                    select new AdTypes
-                                    {
-                                        AdTypeName = p.AdTypeName,
 
-                                        AdTypeId = p.AdTypeId
+                                   select new AdTypes
+                                   {
+                                       AdTypeName = p.AdTypeName,
 
-                                   
+                                       AdTypeId = p.AdTypeId
 
-                                    }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+
+                                   }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
                 return Ok(new { AdTypes = AdTypesList, count = AdTypesCount });
             }
@@ -105,9 +105,8 @@ namespace Management.Controllers
                 }
 
                 var AdTypes = (from p in db.AdTypes
-                                where p.AdTypeId == AddAdType.AdTypeId
-                             
-                                select p).SingleOrDefault();
+                               where p.AdTypeId == AddAdType.AdTypeId
+                               select p).SingleOrDefault();
 
                 if (AdTypes == null)
                 {
@@ -116,13 +115,14 @@ namespace Management.Controllers
                 }
 
                 AdTypes.AdTypeName = AddAdType.AdTypeName;
-             
+
                 db.SaveChanges();
                 return Ok("تم تعديل بيانات نوع الرسالة بنجاح");
             }
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
+
             }
         }
 
