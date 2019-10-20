@@ -7,131 +7,74 @@
                         <h4 class="card-title ">عــرض بيانات المكاتب</h4>
                         <p class="card-category"> هذه الصفحه خاصه بالعمليات علي ادراة المكاتب من عرض واضافه وتعديل</p>
                     </div>
-                    <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-md-10">
+
+                            <div class="form-group" v-if="Branches==0">
+                                <br /><br />
+                                <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للإدارات أو الفروع"
+                                          type="info">
+
+                                </el-alert>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                 
+                    <div class="card-body" v-if="Branches!=0">
                         <div class="table-responsive">
                             <table class="table">
-                                <thead class=" text-primary">
+                                <thead class="text-primary">
                                 <th>
-                                    ID
+                                    رقم#
                                 </th>
                                 <th>
-                                    Name
+                                    الأسـم
                                 </th>
                                 <th>
-                                    Country
+                                    المعـلومات
                                 </th>
                                 <th>
-                                    City
+                                    تــاريخ الأنشاء
                                 </th>
                                 <th>
-                                    Salary
+                                    العمليات
                                 </th>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr v-for="branch,index in Branches">
+                                        <td>{{index+1}}</td>
+                                        <td>{{branch.name}}</td>
+                                        <td dir="ltr">{{branch.description}}</td>
+                                        <td dir="ltr">{{branch.createdOn | moment}}</td>
+
                                         <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            Dakota Rice
-                                        </td>
-                                        <td>
-                                            Niger
-                                        </td>
-                                        <td>
-                                            Oud-Turnhout
-                                        </td>
-                                        <td class="text-primary">
-                                            $36,738
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>
-                                            Minerva Hooper
-                                        </td>
-                                        <td>
-                                            Curaçao
-                                        </td>
-                                        <td>
-                                            Sinaai-Waas
-                                        </td>
-                                        <td class="text-primary">
-                                            $23,789
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            3
-                                        </td>
-                                        <td>
-                                            Sage Rodriguez
-                                        </td>
-                                        <td>
-                                            Netherlands
-                                        </td>
-                                        <td>
-                                            Baileux
-                                        </td>
-                                        <td class="text-primary">
-                                            $56,142
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            4
-                                        </td>
-                                        <td>
-                                            Philip Chaney
-                                        </td>
-                                        <td>
-                                            Korea, South
-                                        </td>
-                                        <td>
-                                            Overland Park
-                                        </td>
-                                        <td class="text-primary">
-                                            $38,735
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            5
-                                        </td>
-                                        <td>
-                                            Doris Greene
-                                        </td>
-                                        <td>
-                                            Malawi
-                                        </td>
-                                        <td>
-                                            Feldkirchen in Kärnten
-                                        </td>
-                                        <td class="text-primary">
-                                            $63,542
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            6
-                                        </td>
-                                        <td>
-                                            Mason Porter
-                                        </td>
-                                        <td>
-                                            Chile
-                                        </td>
-                                        <td>
-                                            Gloucester
-                                        </td>
-                                        <td class="text-primary">
-                                            $78,615
+
+                                            <a href="#" @click.prevent="EditBranch(branch)">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>
+
+                                            <a href="#" @click.prevent="DeleteBranch(branch.branchId)">
+                                                <i class="fa fa-remove"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <div style="text-align: center; margin-top: 10px;">
+
+                                <el-pagination background
+                                               layout="prev, pager, next"
+                                               :current-page="pageNo"
+                                               :page-size="pageSize"
+                                               :total="pages"
+                                               @current-change="GetBranches($event)">
+                                </el-pagination>
+
+                            </div>
                         </div>
                     </div>
                 </div>
