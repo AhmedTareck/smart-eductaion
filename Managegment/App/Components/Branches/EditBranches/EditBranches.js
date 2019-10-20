@@ -3,9 +3,9 @@
     created() {
        
         var branch = this.$parent.branchEditObject;
-        this.form.Name = branch.name;
-        this.form.BranchId = branch.branchId;
-        this.form.Description = branch.description;
+        this.ruleForm.Name = branch.name;
+        this.ruleForm.BranchId = branch.branchId;
+        this.ruleForm.Description = branch.description;
        
     },
     data() {
@@ -17,7 +17,21 @@
                 Name: '',
                 Description: '' , 
                 BranchId: ''  
-            },     
+            },  
+            ruleForm: {
+                Name: '',
+                Description: ''
+            },
+            rules: {
+                Name: [
+                    { required: true, message: 'الرجاء ادخال بيانات الإدارة', trigger: 'blur' },
+                    { min: 3, max: 25, message: 'يجب ان يكون الطول مابين 3 الي 25 حرف علي الأقل', trigger: 'blur' }
+                ],
+                Description: [
+                    { required: true, message: 'الرجاء ادخال معلومات عن الإدارة', trigger: 'blur' },
+                    { min: 3, max: 25, message: 'يجب ان يكون الطول مابين 3 الي 25 حرف علي الأقل', trigger: 'blur' }
+                ]
+            }
         };
     },
     methods: {
@@ -25,41 +39,40 @@
             this.$parent.state = 0;
         },
 
-        Edit() {
-            if (!this.form.Name) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء ادخال اداره الفروع'
-                });
-                return;
-            }
-
-            if (!this.form.Description) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إدخال المعلومات عن اداره الفروع '
-                });
-                return;
-            }
-
-
-            this.$http.EditBranches(this.form)
-                .then(response => {
-                    this.$parent.state = 0;
-                    this.$parent.GetBranches(this.pageNo);
-                 
-                    this.$message({
-                        type: 'info',
-                        message: response.data
-                    });
-                })
-                .catch((err) => {
-                    this.$message({
-                        type: 'error',
-                        message: err.response.data
-                    });
-                });    
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.form.BranchLevel = this.$parent.permissionModale;
+                    this.$http.EditBranches(this.ruleForm)
+                        .then(response => {
+                            this.$parent.state = 0;
+                            this.$parent.GetBranches(this.pageNo);
+                            this.$message({
+                                type: 'success',
+                                dangerouslyUseHTMLString: true,
+                                duration: 5000,
+                                message: '<strong>' + response.data + '</strong>'
+                            });
+                        })
+                        .catch((err) => {
+                            this.$message({
+                                type: 'error',
+                                dangerouslyUseHTMLString: true,
+                                duration: 5000,
+                                message: '<strong>' + err.response.data + '</strong>'
+                            });
+                        });    
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
         },
+
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
+
 
     }    
 }

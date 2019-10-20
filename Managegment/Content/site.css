@@ -61,3 +61,45 @@ td {
 .el-message-box__btns {
     text-align: left;
 }
+
+.el-pagination.is-background .el-pager li.active {
+    background-color: #9c27b0;
+}
+
+ .addButton {
+    direction: ltr;
+}
+
+.backButton {
+    margin-left: 15px;
+    direction: ltr;
+}
+
+.table-responsive {
+    overflow-x: unset;
+}
+
+.tile-footer{
+    float:left;
+}
+
+.el-select-dropdown__wrap {
+    margin-bottom: unset!important;
+    margin-right: unset!important;
+}
+
+.el-scrollbar__wrap {
+    overflow: unset;
+}
+
+.el-form-item__error {
+    right: 0;
+}
+
+.el-form-item__error {
+    font-size:14px;
+}
+
+.el-message__content {
+    margin-right: 16px!important;
+}
