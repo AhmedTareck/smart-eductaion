@@ -9,13 +9,13 @@
 
 
 
-        <div class="row" v-if="state==0">
+     
 
-            <div class="col-md-12">
+        
 
-                <div class="tile">
+      
 
-                    <div class="tile-body">
+
               
 
                         <!--Select/Add User-->
@@ -83,32 +83,34 @@
 
                         </div>
 
-                        <!--Now User Alert-->
-                        <div class="row" v-if="Users==0">
-                   
-                            <div class="col-md-10">
-                                <div class="form-group" v-if="Users==0">
-                                    <br /><br />
-                                    <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للإدارات أو الفروععفــوا! لاتوجد بيانات للمستخدمين"
-                                              type="info">
-                                    </el-alert>
-                                </div>
-                            </div>
-                        </div>
+                     
 
                         <!--Table Users Info-->
                         <div class="row">
 
                             <div class="col-md-12">
 
-                                <div class="card" v-if="Users!=0">
+                                <div class="card" >
                                     <div class="card-header card-header-primary">
                                         <h4 class="card-title ">عــرض بيانات المستخدمين</h4>
                                         <p class="card-category"> هذه الصفحه خاصه بالعمليات علي ادراة المستخدمين من عرض واضافه وتعديل</p>
                                     </div>
+
+                                    <!--Now User Alert-->
+                                    <div class="row" v-if="Users==0">
+
+                                        <div class="col-md-10">
+                                            <div class="form-group" v-if="Users==0">
+                                                <br /><br />
+                                                <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للمستخدمين"
+                                                          type="info">
+                                                </el-alert>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="card-body" v-if="Users!=0">
                                         <div class="table-responsive">
-                                            <table class="table" >
+                                            <table class="table">
 
                                                 <thead class="text-primary">
 
@@ -193,13 +195,10 @@
                             </div>
                         </div>
 
-                    </div>
 
-                </div>
 
-            </div>
+   
 
-        </div>
     </div>
 
 </div>
