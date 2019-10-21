@@ -1,150 +1,90 @@
-﻿<main class="app-content" >
-    
+﻿<div class="content">
     <add-Branches v-if="state==1"></add-Branches>
     <edit-Branches v-if="state==2"></edit-Branches>
-    
-    <!--Page Title-->
-    <div class="app-title" v-if="state==0">
-        
-        <div>
-            <h1><i class="pe-7s-settings" style="font-size:25px;margin-left:15px"></i> إدارة المكاتب</h1>
-        
+
+    <div class="container-fluid" v-if="state==0">
+        <div class="row">
+            <div class="col-md-3">
+                <el-select style="width: 100%;"
+                           filterable placeholder="الصلاحية"
+                           v-model="permissionModale"
+                           @change="GetBranches()">
+
+                    <el-option v-for="item in permissions"
+                               :key="item.id"
+                               :label="item.name"
+                               :value="item.id">
+                    </el-option>
+                </el-select>
+            </div>
+            <div class="col-md-9">
+                <div class="row addButton">
+                    <button @click.prevent="RedirectToAddComponent()"
+                            v-if="permissionModale!=0" class="btn btn-primary pull-right">
+                        إضـافة إدارة مكتب
+                    </button>
+                </div>
+            </div>
         </div>
-    
-    </div>
-    
-    <div class="row" v-if="state==0">     
-        
-        <div class="col-md-12">
-            
-            <div class="tile">
-                
-                <div class="tile-body">
-                    <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title ">عــرض بيانات المكاتب</h4>
+                            <p class="card-category"> هذه الصفحه خاصه بالعمليات علي ادراة المكاتب من عرض واضافه وتعديل</p>
+                        </div>
+                        <div class="row">
 
-                    <!--Select / Add Branche-->
-                    <div class="row">
-
-                        <div class="col-md-3">
-
-                            <div >
-
-                                <el-select style="width: 100%;"
-                                           filterable placeholder="الصلاحية"
-                                           v-model="permissionModale"
-                                           @change="GetBranches()">
-
-                                    <el-option v-for="item in permissions"
-                                               :key="item.id"
-                                               :label="item.name"
-                                               :value="item.id">
-                                    </el-option>
-
-                                </el-select>
-
+                            <div class="col-md-10">
+                                <div class="form-group" v-if="Branches==0">
+                                    <br /><br />
+                                    <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للإدارات أو الفروع"
+                                              type="info">
+                                    </el-alert>
+                                </div>
                             </div>
-
                         </div>
 
-                        <div class="col-md-3">
-
-                            <div class="form-group">
-
-                                <el-button type="primary"
-                                           class="btn btn-primary"
-                                           @click.prevent="RedirectToAddComponent()"
-                                           v-if="permissionModale!=0">
-
-                                    إضافة إدارة/ فرع
-
-                                </el-button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <!--Now User Alert-->
-                    <div class="row" v-if="Branches==0">
-
-                        <div class="col-md-10">
-
-                            <div class="form-group">
-
-                                <br /><br />
-                                <br /><br />
-                                <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للإدارات أو الفروع"
-                                          type="info">
-
-                                </el-alert>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <!--Table Users Info-->
-                    <div class="row">
-
-                        <div class="col-md-12">
-
-                            <br /><br />
-                            <div class="content table-responsive bootstrap-switch-info"
-                                 style="margin-top:35px" v-if="Branches!=0">
-
-                                <table class="table table-hover table-striped" style="text-align:center">
-
-                                    <thead style="text-align:center">
-
-                                        <tr>
-                                            <th style="text-align:center">
-                                                الاسم
-                                            </th>
-
-                                            <th style="text-align:center">
-                                                معلومات
-                                            </th>
-
-                                            <th style="text-align:center">
-                                                تاريخ الانشاء
-                                            </th>
-
-                                            <th style="text-align:center">
-                                                العمليات
-                                            </th>
-
-                                        </tr>
-
+                        <div class="card-body" v-if="Branches!=0">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="text-primary">
+                                    <th>
+                                        رقم#
+                                    </th>
+                                    <th>
+                                        الأسـم
+                                    </th>
+                                    <th>
+                                        المعـلومات
+                                    </th>
+                                    <th>
+                                        تــاريخ الأنشاء
+                                    </th>
+                                    <th>
+                                        العمليات
+                                    </th>
                                     </thead>
-
-                                    <tbody style="text-align:center">
-
-                                        <tr v-for="branch in Branches">
-
+                                    <tbody>
+                                        <tr v-for="branch,index in Branches">
+                                            <td>{{index+1}}</td>
                                             <td>{{branch.name}}</td>
                                             <td dir="ltr">{{branch.description}}</td>
                                             <td dir="ltr">{{branch.createdOn | moment}}</td>
 
                                             <td>
-                                                
+
                                                 <a href="#" @click.prevent="EditBranch(branch)">
                                                     <i class="fa fa-pencil-square-o"></i>
                                                 </a>
-                                                
+
                                                 <a href="#" @click.prevent="DeleteBranch(branch.branchId)">
                                                     <i class="fa fa-remove"></i>
                                                 </a>
-                                            
                                             </td>
-
                                         </tr>
-
                                     </tbody>
-
                                 </table>
-
                                 <div style="text-align: center; margin-top: 10px;">
 
                                     <el-pagination background
@@ -152,25 +92,18 @@
                                                    :current-page="pageNo"
                                                    :page-size="pageSize"
                                                    :total="pages"
-                                                   @current-change="FillDetalsTable($event)">
+                                                   @current-change="GetBranches($event)">
                                     </el-pagination>
 
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
-                    <br /><br /><br />
-                
                 </div>
-            
+
             </div>
-        
+
+
         </div>
-    
     </div>
 
-</main>

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace Managegment.Migrations
+namespace Management.Migrations
 {
     [DbContext(typeof(MailSystemContext))]
     partial class MailSystemContextModelSnapshot : ModelSnapshot
@@ -20,7 +20,7 @@ namespace Managegment.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Managegment.Models.AdTypes", b =>
+            modelBuilder.Entity("Management.Models.AdTypes", b =>
                 {
                     b.Property<long>("AdTypeId")
                         .ValueGeneratedOnAdd();
@@ -48,7 +48,7 @@ namespace Managegment.Migrations
                     b.ToTable("AdTypes");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Attachments", b =>
+            modelBuilder.Entity("Management.Models.Attachments", b =>
                 {
                     b.Property<long>("AttachmentId")
                         .ValueGeneratedOnAdd();
@@ -75,7 +75,7 @@ namespace Managegment.Migrations
                     b.ToTable("Attachments");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Branches", b =>
+            modelBuilder.Entity("Management.Models.Branches", b =>
                 {
                     b.Property<long>("BranchId")
                         .ValueGeneratedOnAdd();
@@ -105,7 +105,7 @@ namespace Managegment.Migrations
                     b.ToTable("Branches");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Conversations", b =>
+            modelBuilder.Entity("Management.Models.Conversations", b =>
                 {
                     b.Property<long>("ConversationId")
                         .ValueGeneratedOnAdd()
@@ -137,7 +137,7 @@ namespace Managegment.Migrations
                     b.ToTable("Conversations");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Messages", b =>
+            modelBuilder.Entity("Management.Models.Messages", b =>
                 {
                     b.Property<long>("MessageId")
                         .ValueGeneratedOnAdd()
@@ -161,7 +161,7 @@ namespace Managegment.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Participations", b =>
+            modelBuilder.Entity("Management.Models.Participations", b =>
                 {
                     b.Property<long>("ConversationId");
 
@@ -186,7 +186,7 @@ namespace Managegment.Migrations
                     b.ToTable("Participations");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Transactions", b =>
+            modelBuilder.Entity("Management.Models.Transactions", b =>
                 {
                     b.Property<long>("TransactionId")
                         .ValueGeneratedOnAdd()
@@ -211,7 +211,7 @@ namespace Managegment.Migrations
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Users", b =>
+            modelBuilder.Entity("Management.Models.Users", b =>
                 {
                     b.Property<long>("UserId")
                         .ValueGeneratedOnAdd();
@@ -277,87 +277,87 @@ namespace Managegment.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Managegment.Models.AdTypes", b =>
+            modelBuilder.Entity("Management.Models.AdTypes", b =>
                 {
-                    b.HasOne("Managegment.Models.Users", "CreatedByNavigation")
+                    b.HasOne("Management.Models.Users", "CreatedByNavigation")
                         .WithMany("AdTypesCreatedByNavigation")
                         .HasForeignKey("CreatedBy")
                         .HasConstraintName("FK_AdTypes_Users");
 
-                    b.HasOne("Managegment.Models.Users", "ModifiedByNavigation")
+                    b.HasOne("Management.Models.Users", "ModifiedByNavigation")
                         .WithMany("AdTypesModifiedByNavigation")
                         .HasForeignKey("ModifiedBy")
                         .HasConstraintName("FK_AdTypes_Users1");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Attachments", b =>
+            modelBuilder.Entity("Management.Models.Attachments", b =>
                 {
-                    b.HasOne("Managegment.Models.Conversations", "Conversation")
+                    b.HasOne("Management.Models.Conversations", "Conversation")
                         .WithMany("Attachments")
                         .HasForeignKey("ConversationId")
                         .HasConstraintName("FK_Attachments_Conversations");
 
-                    b.HasOne("Managegment.Models.Users", "CreatedByNavigation")
+                    b.HasOne("Management.Models.Users", "CreatedByNavigation")
                         .WithMany("Attachments")
                         .HasForeignKey("CreatedBy")
                         .HasConstraintName("FK_Attachments_Users");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Conversations", b =>
+            modelBuilder.Entity("Management.Models.Conversations", b =>
                 {
-                    b.HasOne("Managegment.Models.AdTypes", "AdType")
+                    b.HasOne("Management.Models.AdTypes", "AdType")
                         .WithMany("Conversations")
                         .HasForeignKey("AdTypeId")
                         .HasConstraintName("FK_Conversations_AdTypes");
 
-                    b.HasOne("Managegment.Models.Users", "CreatorNavigation")
+                    b.HasOne("Management.Models.Users", "CreatorNavigation")
                         .WithMany("Conversations")
                         .HasForeignKey("Creator")
                         .HasConstraintName("FK_Conversations_Users");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Messages", b =>
+            modelBuilder.Entity("Management.Models.Messages", b =>
                 {
-                    b.HasOne("Managegment.Models.Users", "Author")
+                    b.HasOne("Management.Models.Users", "Author")
                         .WithMany("Messages")
                         .HasForeignKey("AuthorId")
                         .HasConstraintName("FK_Messages_Users");
 
-                    b.HasOne("Managegment.Models.Conversations", "Conversation")
+                    b.HasOne("Management.Models.Conversations", "Conversation")
                         .WithMany("Messages")
                         .HasForeignKey("ConversationId")
                         .HasConstraintName("FK_Messages_Conversations");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Participations", b =>
+            modelBuilder.Entity("Management.Models.Participations", b =>
                 {
-                    b.HasOne("Managegment.Models.Conversations", "Conversation")
+                    b.HasOne("Management.Models.Conversations", "Conversation")
                         .WithMany("Participations")
                         .HasForeignKey("ConversationId")
                         .HasConstraintName("FK_Participations_Conversations");
 
-                    b.HasOne("Managegment.Models.Users", "User")
+                    b.HasOne("Management.Models.Users", "User")
                         .WithMany("Participations")
                         .HasForeignKey("UserId")
                         .HasConstraintName("FK_Participations_Users");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Transactions", b =>
+            modelBuilder.Entity("Management.Models.Transactions", b =>
                 {
-                    b.HasOne("Managegment.Models.Messages", "Message")
+                    b.HasOne("Management.Models.Messages", "Message")
                         .WithMany("Transactions")
                         .HasForeignKey("MessageId")
                         .HasConstraintName("FK_Transactions_Messages");
 
-                    b.HasOne("Managegment.Models.Users", "User")
+                    b.HasOne("Management.Models.Users", "User")
                         .WithMany("Transactions")
                         .HasForeignKey("UserId")
                         .HasConstraintName("FK_Transactions_Users");
                 });
 
-            modelBuilder.Entity("Managegment.Models.Users", b =>
+            modelBuilder.Entity("Management.Models.Users", b =>
                 {
-                    b.HasOne("Managegment.Models.Branches", "Branch")
+                    b.HasOne("Management.Models.Branches", "Branch")
                         .WithMany("Users")
                         .HasForeignKey("BranchId")
                         .HasConstraintName("FK_Users_Branches");

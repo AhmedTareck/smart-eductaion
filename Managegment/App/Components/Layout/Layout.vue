@@ -1,32 +1,23 @@
-﻿<template src="./Layout.html"></template>
+﻿<template src="./Layout.html">
+</template>
 
 <script src="./Layout.js"></script>
-<style scoped>
 
+<style>
 
-    .sidebar {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: auto;
-        right: 0;
-        width: 231px;
-        display: block;
-        z-index: 1;
-        color: #fff;
-        font-weight: 200;
-        background-size: cover;
-        background-position: center center;
+    body,
+    a,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .h1,
+    .h2,
+    .h3,
+    .h4 {
+        font-family: "Cairo";
     }
-        .sidebar:after {
-           
-            background-size: 150% 150%;
-            z-index: 3;
-            opacity: 1;
-        }
-        .sidebar:before {
-            opacity: 2.33;
-            background: #1f69b67d;
-        }
+
 </style>
-  

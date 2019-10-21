@@ -1,202 +1,65 @@
-﻿<div>
+﻿<div class="sidebar" data-color="purple" data-background-color="white" data-image="/img/img/sidebar.jpg">
+    <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
-    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-
-    <aside class="app-sidebar">
-
-        <!--USER INFO-->
-        <div class="app-sidebar__user">
-
-            <img class="app-sidebar__user-avatar"
-                 style="height:50px;"
-                 alt="User Image"
-                 :src="'http://localhost:4810/Api/Admin/User/' + loginDetails.userId + '/image'" />
-
-            <div>
-
-                <p class="app-sidebar__user-name">{{loginDetails.fullName.slice(0,20)}}</p>
-
-                <p class="app-sidebar__user-designation" v-if="loginDetails.userType==1">مدير النظام</p>
-
-                <p class="app-sidebar__user-designation" v-if="loginDetails.userType==2">موظف</p>
-
-
-            </div>
-           
-
-
-        </div>
-
-        <!--NEW MESSSAGE-->
-        <div align="center" style="padding:10px">
-            
-            <el-button type="success"
-                       @click.prevent="href('NewMessage')"
-                       href="bootstrap-components.html"
-                       icon="el-icon-plus"
-                       round style="background-color: rgb(40, 114, 206);
-                       border-top: 4px solid rgb(39, 40, 40);
-                       border-right: none;
-                       border-bottom: 4px solid rgb(33, 36, 35);
-                       border-left: none;
-                       border-image: initial;
-                       outline: none;"> 
-                        
-                        انشاء رسالة 
-            </el-button>
-        
-        </div>
-
-        <!--MENU-->
-        <ul class="app-menu">
-
-            <li @click="active = 1" :class="{'active':1 == active}">
-
-                <a class="app-menu__item " href="#" @click.prevent="href('/')">
-
-                    <i class="app-menu__icon fa fa-dashboard"></i>
-
-                    <span class="app-menu__label">
-
-                        الصفحة الرئيسية
-
-                    </span>
-
-                </a>
-
-            </li>
-
-            <li @click="active = 2" :class="{'active':2 == active}">
-
-                <a class="app-menu__item " href="#" @click.prevent="href('/Inbox')">
-
-                    <i class="app-menu__icon fa fa-inbox"></i>
-
-                    <span class="app-menu__label">
-
-                        صندوق الوارد
-
-                    </span>
-
-                    <span class="badge badge-danger pull-left">2</span>
-
-                </a>
-
-            </li>
-
-            <li @click="active = 3" :class="{'active':3 == active}">
-
-                <a class="app-menu__item" href="" @click.prevent="href('/Sent')">
-
-                    <i class="app-menu__icon fa fa-inbox"></i>
-
-                    <span class="app-menu__label">
-
-                        صندوق المرسل
-
-                    </span>
-
-
-                </a>
-
-            </li>
-
-            <li @click="active = 4" :class="{'active':4 == active}">
-
-                <a class="app-menu__item" @click.prevent="href('/AdTypes')" href="">
-
-                    <i class="app-menu__icon fa fa-envelope-o"></i>
-                    <span class="app-menu__label">
-
-                        نوع الرسالة
-
-                    </span>
-                    
-                </a>
-
-            </li>
-
-            <li @click="active = 5" :class="{'active':5 == active}" v-if="loginDetails.userType==1">
-
-                <a class="app-menu__item" @click.prevent="href('/Branches')" href="">
-
-                    <i class="app-menu__icon pe-7s-settings"></i>
-                  
-                    <span class="app-menu__label">
-
-                        إدارة المكاتب
-
-                    </span>
-                </a>
-
-            </li>
-
-            <li @click="active = 6" :class="{'active':6 == active}" v-if="loginDetails.userType==1">
-
-                <a @click.prevent="href('/Users')" class="app-menu__item" href="">
-
-                    <i class="app-menu__icon fa fa-users"></i>
-                    <span class="app-menu__label">
-
-                        إدارة المستخدمين
-
-                    </span>
-               
-                </a>
-
-            </li>
-            <!--<li class="treeview">
-
-        <a class="app-menu__item" href="" data-toggle="treeview">
-
-            <i class="app-menu__icon fa fa-location-arrow"></i>
-
-            <span class="app-menu__label">
-                إدارة النظام
-            </span>
-
-            <i class="treeview-indicator fa fa-angle-right"></i>
-
+        Tip 2: you can also add an image using data-image tag
+    -->
+    <div class="logo">
+        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+            نـظام الأرشفه
         </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
 
-        <ul class="treeview-menu">
-
-            <li @click="active = 4" :class="{'active':4 == active}">
-
-                <a class="treeview-item" @click.prevent="href('/AdTypes')" href="">
-
-                    <i class="icon fa fa-circle-t"></i>
-                    نوع الرسالة
+            <li :class="menuFlag[0]">
+                <a class="nav-link" href="/">
+                    <i class="material-icons">dashboard</i>
+                    <p> الصفحة الرئيسية</p>
                 </a>
-
             </li>
 
-            <li @click="active = 5" :class="{'active':5 == active}">
-
-                <a class="treeview-item" @click.prevent="href('/Branches')" href="">
-
-                    <i class="icon fa fa-circle-o"></i>
-                    إدارة المكاتب
+            <li :class="menuFlag[1]">
+                <a class="nav-link" href="#" @click.prevent="href('/Branches',1)">
+                    <i class="material-icons">bubble_chart</i>
+                    <p>‌إدارة المكاتب</p>
                 </a>
-
             </li>
 
-            <li @click="active = 6" :class="{'active':6 == active}">
-
-                <a @click.prevent="href('/Users')" class="treeview-item" href="">
-
-                    <i class="icon fa fa-circle-o"></i>
-                    إدارة المستخدمين
+            <li :class="menuFlag[2]">
+                <a class="nav-link" href="#" @click.prevent="href('/Branches',2)">
+                    <i class="material-icons">person</i>
+                    <p>صندوق الوارد</p>
                 </a>
-
+            </li>
+            <li :class="menuFlag[3]">
+                <a class="nav-link" href="#" @click.prevent="href('/Branches',3)">
+                    <i class="material-icons">content_paste</i>
+                    <p>صندوق المرسل</p>
+                </a>
+            </li>
+            <li :class="menuFlag[4]">
+                <a class="nav-link" href="#" @click.prevent="href('/Branches',4)">
+                    <i class="material-icons">library_books</i>
+                    <p>نوع الرسالة</p>
+                </a>
             </li>
 
+
+            <li :class="menuFlag[5]">
+                <a class="nav-link" href="#" @click.prevent="href('/Branches',5)">
+                    <i class="material-icons">language</i>
+                    <p>
+                        إدارة المستخدمين
+                    </p>
+                </a>
+            </li>
+            <li :class="menuFlag[6]">
+                <a class="nav-link" href="#" @click.prevent="href('/Branches',6)">
+                    <i class="material-icons">unarchive</i>
+                    <p>إدارة النظام</p>
+                </a>
+            </li>
         </ul>
-
-    </li>-->
-
-        </ul>
-
-    </aside>
-
+    </div>
 </div>

@@ -1,87 +1,27 @@
-@import "assets/css/bootstrap.min.rtl.css";
-@import "assets/css/animate.min.css";
-@import "assets/css/light-bootstrap-dashboard.rtl.css";
-@import "assets/css/demo.rtl.css";
+/*@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css";
+@import "https://fonts.googleapis.com/css?family=Cairo&amp;subset=arabic";*/
+
+/*@import "css/CDN_CSS/font-awesome.min.css";*/
 @import "fonts/font-awesome.min.css";
-@import "assets/css/pe-icon-7-stroke.css";
-/*@import "csselement.css";*/
-@import "main.css";
-@import "fonts/font-awesome.min.css";
+@import "css/CDN_CSS/cssv1.css?family=Cairo&amp;subset=arabic";
+@import "css/CDN_CSS/css.css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
 
 
-
-ol,ul{
-    padding-left:0px!important;
-}
-
-.el-form-item__content {
-    margin-right: 0px !important;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-.UploadButton {
-    margin-top: 27px;
-}
-
-.custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-}
+@import "assets/css/material-dashboard.css?v=2.1.0";
+@import "assets/css/material-dashboard-rtl.css?v=1.1s";
 
 
-.Color-Code {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-}
+@import "assets/demo/demo.css";
 
-@media print {
-    @page {
-        margin: 0;
-    }
-
-    body {
-        margin: 1.6cm;
-    }
-}
-
-@media print {
-    html, body {
-        border: 1px solid white;
-        height: 99%;
-        page-break-after: avoid;
-        page-break-before: avoid;
-     
-    }
-}
-
-@media print {
-    div {
-        page-break-inside: avoid;
-    }
-}
-
-.AddButton {
-    float: left;
-    margin-bottom: 16px;
+.el-alert{
+    height: 70px!important;
+    margin-right: 82px!important;
+    font-weight: bold!important;
 }
 
 .el-alert__title {
-    font-size: 32px;
-    line-height: 18px;
-}
-
-.el-alert {
-    height: 92px;
-}
-
-.el-scrollbar__wrap {
-    overflow: no-display;
+    font-size: 26px!important;
 }
 
 @font-face {
@@ -91,6 +31,75 @@ input[type="file"] {
     font-style: normal;
 }
 
-* {
+*,h4 {
     font-family: 'DroidArabicKufiRegular';
+}
+
+th {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+td {
+    font-size: 16px;
+}
+
+.el-message-box {
+    direction: ltr;
+    text-align: right;
+}
+
+.el-message-box__title {
+    padding-left: 300px;
+}
+
+
+.el-message-box__content {
+    margin-right: 23px;
+}
+
+.el-message-box__btns {
+    text-align: left;
+}
+
+.el-pagination.is-background .el-pager li.active {
+    background-color: #9c27b0;
+}
+
+ .addButton {
+    direction: ltr;
+}
+
+.backButton {
+    margin-left: 15px;
+    direction: ltr;
+}
+
+.table-responsive {
+    overflow-x: unset;
+}
+
+.tile-footer{
+    float:left;
+}
+
+.el-select-dropdown__wrap {
+    margin-bottom: unset!important;
+    margin-right: unset!important;
+}
+
+.el-scrollbar__wrap {
+    overflow: unset;
+}
+
+.el-form-item__error {
+    right: 0;
+}
+
+.el-form-item__error {
+    font-size:14px;
+}
+
+.el-message__content {
+    margin-right: 16px!important;
 }

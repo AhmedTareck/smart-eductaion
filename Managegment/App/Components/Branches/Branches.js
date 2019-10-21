@@ -55,22 +55,22 @@ export default {
     },
     methods: {
 
-        GetBranches()
-        {
+        //GetBranches()
+        //{
 
-            this.$blockUI.Start();
-            this.$http.GetBranchesByLevel(this.permissionModale)
+        //    this.$blockUI.Start();
+        //    this.$http.GetBranchesByLevel(this.permissionModale)
 
-                .then(response => {
-                    this.$blockUI.Stop();
-                    this.Branches = response.data.branches;
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-                    console.error(err);
-                    this.pages = 0;
-                });
-        },
+        //        .then(response => {
+        //            this.$blockUI.Stop();
+        //            this.Branches = response.data.branches;
+        //        })
+        //        .catch((err) => {
+        //            this.$blockUI.Stop();
+        //            console.error(err);
+        //            this.pages = 0;
+        //        });
+        //},
 
 
 
@@ -85,24 +85,34 @@ export default {
         },
 
         DeleteBranch(BranchId) {
-            this.$confirm('أنت علي وشك القيام بحدف الإدارة / الفرع هل تريد الإستمرار ؟', 'تنبيه', {
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No',
-            type: 'warning'
+
+        
+
+            this.$confirm('<strong>أنت علي وشك القيام بحدف الإدارة / الفرع هل تريد الإستمرار ؟</strong>', 'تنبيه', {
+                
+                cancelButtonText: 'إلغاء',
+                confirmButtonText: 'نعـم',
+                type: 'warning',
+                dangerouslyUseHTMLString: true
             }).then(() => {
                 this.$http.DeleteBranch(BranchId)
                     .then(response => {    
                         this.$message({
-                            type: 'info',
-                            message: "Branch has been successfully deleted"
+                            type: 'success',
+                            dangerouslyUseHTMLString: true,
+                            duration: 5000,
+                            message: '<strong>'+response.data+'</strong>'
                         });  
                         this.GetBranches(this.pageNo);
                     })
                     .catch((err) => {
                         this.$message({
                             type: 'error',
-                            message: err.response.data
-                        });
+                            dangerouslyUseHTMLString: true,
+                            duration: 5000,
+                            showClose: true,
+                            message: '<strong>' + err.response.data+'</strong>'
+                        });  
                     });
             });
         },
