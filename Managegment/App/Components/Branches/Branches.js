@@ -8,6 +8,10 @@ export default {
         this.GetBranches(this.pageNo);
         
         this.permissions = [
+            {
+                id: 0,
+                name: "الـكل"
+            },
                 {
                     id: 1,
                     name: "الإدارات"

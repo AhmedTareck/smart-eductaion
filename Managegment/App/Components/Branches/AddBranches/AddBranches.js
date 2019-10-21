@@ -8,15 +8,11 @@
             pageNo: 1,
             pageSize: 10,
             pages: 0,
-            form: {
-                Name: '',
-                Description: '',
-                BranchLevel:0,
-            },
 
             ruleForm: {
                 Name: '',
-                Description: ''
+                Description: '',
+                BranchLevel: 0
             },
             rules: {
                 Name: [
@@ -34,7 +30,7 @@
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.form.BranchLevel = this.$parent.permissionModale;
+                    this.ruleForm.BranchLevel = this.$parent.permissionModale;
                     this.$http.AddBranches(this.ruleForm)
                         .then(response => {
                             this.$parent.state = 0;

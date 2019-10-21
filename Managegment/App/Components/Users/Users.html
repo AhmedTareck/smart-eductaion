@@ -6,30 +6,14 @@
     <!--TITLE-->
     <div class="container-fluid" v-if="state==0">
 
-
-
-
-     
-
-        
-
-      
-
-
-              
-
                         <!--Select/Add User-->
                         <div class="row">
 
                             <div class="col-md-3">
-
-                            
-
                                     <el-select style="width: 100%;"
-                                               filterable placeholder="الصلاحية"
+                                               filterable placeholder="نـوع المكتب"
                                                v-model="permissionModale"
                                                @change="GetBranches()">
-
                                         <el-option v-for="item in permissions"
                                                    :key="item.id"
                                                    :label="item.name"
@@ -37,21 +21,14 @@
                                         </el-option>
 
                                     </el-select>
-
-                        
-
                             </div>
 
                             <div class="col-md-3">
-
-                              
-
                                     <el-select style="width: 100%;"
                                                v-if="permissionModale!=0"
                                                filterable :placeholder="branchesPlaceholder"
                                                v-model="BrancheModel"
                                                @change="GetUserByBranch()">
-
                                         <el-option v-for="item in Branches"
                                                    :key="item.branchId"
                                                    :label="item.name"
@@ -113,40 +90,52 @@
                                             <table class="table">
 
                                                 <thead class="text-primary">
+                                                <th>
+                                                    الاسم
+                                                </th>
 
-                                                   
-                                                        <th >
-                                                            الاسم
-                                                        </th>
+                                                <th>
+                                                    إسم الدخول
+                                                </th>
 
-                                                        <th >
-                                                            إسم الدخول
-                                                        </th>
+                                                <th>
+                                                    تاريخ الميلاد
+                                                </th>
+                                                <th>
+                                                    نوع المستخدم
+                                                </th>
+                                                <th>
+                                                   نوع المكتب
+                                                </th>
+                                                <th>
+                                                    المكـاتب
+                                                </th>
+                                                <th>
+                                                    الإعدادت
+                                                </th>
 
-                                                        <th>
-                                                            تاريخ الميلاد
-                                                        </th>
 
-                                                        <th >
-                                                            الصلاحية
-                                                        </th>
-
-                                                        <th >
-                                                            الإعدادت
-                                                        </th>
-
-                                                  
 
                                                 </thead>
 
-                                                <tbody >
+                                                <tbody>
 
                                                     <tr v-for="User in Users">
 
                                                         <td>{{User.fullName}}</td>
-                                                        <td >{{User.loginName}}</td>
-                                                        <td >{{User.dateOfBirth | moment}}</td>
-                                                        <td >{{User.branchName}}</td>
+                                                        <td>{{User.loginName}}</td>
+                                                        <td>{{User.dateOfBirth | moment}}</td>
+                                                        <td>
+                                                            <span v-if="User.userType==1">
+                                                                مسـؤول النظام
+                                                            </span>
+                                                            <span v-if="User.userType==2">
+                                                                مــوظف
+                                                            </span>
+                                                        </td>
+                                                      
+                                                        <td>{{permissions[User.branchLevel-1].name}}</td>
+                                                        <td>{{User.branchName}}</td>
 
                                                         <td>
 
