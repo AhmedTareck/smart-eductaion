@@ -9,7 +9,7 @@
         <div class="container">
             <div>
                 <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
-                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-position="top" label-width="120px" class="demo-ruleForm">
+                    <el-form :model="form" :rules="rules" ref="ruleForm" label-position="top" label-width="120px" class="demo-ruleForm">
 
                         <div class="card card-login">
                             <div class="card-header card-header-rose text-center">
@@ -36,7 +36,7 @@
                                                 <i class="material-icons">face</i>
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control" v-model="ruleForm.Email" placeholder="First Name...">
+                                        <input type="text" class="form-control" v-model="form.Email" placeholder="First Name...">
 
                                     </div>
                                 </span>
@@ -48,12 +48,12 @@
                                                 <i class="material-icons">lock_outline</i>
                                             </span>
                                         </div>
-                                        <input type="password" class="form-control" placeholder="Password" v-model="ruleForm.Password" />
+                                        <input type="password" class="form-control" placeholder="Password" v-model="form.Password" />
                                     </div>
                                 </span>
                             </div>
                             <div class="card-footer justify-content-center">
-                                <a href="#pablo" class="btn btn-rose btn-link btn-lg" @click.prevent="login('ruleForm')">الدخول</a>
+                                <a href="#pablo" class="btn btn-rose btn-link btn-lg" @click.prevent="login()">الدخول</a>
                             </div>
                         </div>
 

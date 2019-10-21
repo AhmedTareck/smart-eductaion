@@ -9,7 +9,7 @@
     data() {
         return {
             returnurl: '',
-            ruleForm: {
+            form: {
                 Password: null,
                 Email: null
             },
@@ -32,7 +32,7 @@
         //},
 
         login() {
-            if (!this.ruleForm.Email) {
+            if (!this.form.Email) {
                 this.$message({
                     type: 'error',
                     message: 'الرجاء إدخال لبريد الإلكتروني'
