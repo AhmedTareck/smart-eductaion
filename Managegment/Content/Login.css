@@ -14,6 +14,13 @@
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
 }
+
+@font-face {
+    font-family: 'DroidArabicKufiRegular';
+    src: url('fonts/DroidKufi-Regular.eot') format('embedded-opentype'), url('fonts/DroidKufi-Regular.woff') format('woff'), url('fonts/DroidKufi-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 /*! CSS Used from: https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css */
 .fa {
     display: inline-block;
@@ -388,7 +395,7 @@ h4 {
 }
 
 .float-right {
-    float: right !important;
+ 
 }
 
 .mr-auto {
@@ -466,6 +473,8 @@ h4 {
 
                 .btn.btn-rose.btn-link, .btn.btn-rose.btn-link:active, .btn.btn-rose.btn-link:focus, .btn.btn-rose.btn-link:hover {
                     background-color: transparent;
+                    font-family: 'DroidArabicKufiRegular' !important;
+                    font-size: 17px;
                     color: #9c27b0;
                 }
 
@@ -661,6 +670,9 @@ h4 {
 }
 
 .card-description {
+    text-align: center;
+    font-family: 'DroidArabicKufiRegular' !important;
+    font-size: 17px;
     color: #999;
 }
 
@@ -906,7 +918,9 @@ a {
     }
 
 .login-page .footer .copyright, .login-page .footer a {
-    color: #fff;
+    font-size: 15px;
+    color: #9c27b0;
+    font-family: 'DroidArabicKufiRegular' !important;
 }
 
 .login-page .card-login {
