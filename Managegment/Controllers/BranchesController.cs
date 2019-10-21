@@ -60,7 +60,8 @@ namespace Management.Controllers
                                          Description = p.Description,
                                          CreatedOn = p.CreatedOn,
                                          Status = p.Status,
-                                         BranchId = p.BranchId 
+                                         BranchId = p.BranchId,
+                                         BranchLevel = p.BranchLevel
 
                                      }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 

@@ -58,6 +58,7 @@ namespace Management.Controllers
                                      Email = p.Email,
                                      FullName = p.FullName,
                                      BranchName = p.Branch.Name,
+                                     BranchLevel = p.Branch.BranchLevel,
                                      DateOfBirth = p.DateOfBirth,
                                      Gender = p.Gender,
                                      Password = p.Password,

@@ -103,3 +103,19 @@ td {
 .el-message__content {
     margin-right: 16px!important;
 }
+
+.el-alert{
+    margin-bottom: 43px!important;
+}
+
+.el-form-item__label {
+    height: 32px;
+}
+
+.el-message-box__headerbtn {
+    left: 15px;
+}
+
+.el-date-editor.el-input, .el-date-editor.el-input__inner {
+    width: 100%!important;
+}

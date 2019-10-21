@@ -123,11 +123,14 @@ export default
             }
             else if(this.permissionModale==2)
             {
-                this.branchesPlaceholder='الفرع';
+                this.branchesPlaceholder='الـفروع';
             }
-            else if(this.permissionModale==3 || this.permissionModale==4)
+            else if (this.permissionModale == 3) {
+                this.branchesPlaceholder = 'مكـتب الإصدار';
+            }
+            else if(this.permissionModale==4)
             {
-                this.branchesPlaceholder='المكتب';
+                this.branchesPlaceholder=' المكتب الخدمي';
             }
         },
 

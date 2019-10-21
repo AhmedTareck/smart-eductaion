@@ -29,8 +29,6 @@ namespace Management.Models
         public DateTime? LoginTryAttemptDate { get; set; }
         public DateTime? LastLoginOn { get; set; }
         public byte[] Photo { get; set; }
-        public long? NationalId { get; set; }
-        public int? PersonId { get; set; }
         public short Status { get; set; }
         public DateTime CreatedOn { get; set; }
         public long CreatedBy { get; set; }
