@@ -9,13 +9,15 @@
         <div class="container">
             <div>
                 <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
-                    <form class="form" method="" action="">
+                    <el-form :model="form" :rules="rules" ref="ruleForm" label-position="top" label-width="120px" class="demo-ruleForm">
+
                         <div class="card card-login">
                             <div class="card-header card-header-rose text-center">
                                 <h4 class="card-title">تسـجيل دخـول</h4>
                                 <div class="social-line">
-                                    <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
+                                    <a href="https://web.facebook.com/LibyaCra/?_rdc=1&_rdr" class="btn btn-just-icon btn-link btn-white">
                                         <i class="fa fa-facebook-square"></i>
+
                                     </a>
                                     <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
                                         <i class="fa fa-twitter"></i>
@@ -26,7 +28,7 @@
                                 </div>
                             </div>
                             <div class="card-body ">
-                                <p class="card-description text-center">Or Be Classical</p>
+                                <p class="card-description text-center">هذا النظام للمخولين فقط بمصلحة الاحوال المدنية</p>
                                 <span class="bmd-form-group">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -35,9 +37,10 @@
                                             </span>
                                         </div>
                                         <input type="text" class="form-control" v-model="form.Email" placeholder="First Name...">
+
                                     </div>
                                 </span>
-                               
+
                                 <span class="bmd-form-group">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -50,43 +53,20 @@
                                 </span>
                             </div>
                             <div class="card-footer justify-content-center">
-                                <a href="#pablo" class="btn btn-rose btn-link btn-lg"  @click.prevent="login()">Login</a>
+                                <a href="#pablo" class="btn btn-rose btn-link btn-lg" @click.prevent="login()">الدخول</a>
                             </div>
                         </div>
-                    </form>
+
+                    </el-form>
                 </div>
             </div>
         </div>
         <footer class="footer">
             <div class="container">
-                <nav class="float-left">
-                    <ul>
-                        <li>
-                            <a href="https://www.creative-tim.com">
-                                Creative Tim
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://creative-tim.com/presentation">
-                                About Us
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://blog.creative-tim.com">
-                                Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.creative-tim.com/license">
-                                Licenses
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+ 
                 <div class="copyright float-right">
-                    �
-                    2019, made with <i class="material-icons">favorite</i> by
-                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+                    جميع الحقوق محفوظه - لمصلحة الأحوال المدنية © 
+                
                 </div>
             </div>
         </footer>
