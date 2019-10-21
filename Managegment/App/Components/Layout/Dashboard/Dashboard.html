@@ -5,8 +5,8 @@
         Tip 2: you can also add an image using data-image tag
     -->
     <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-            نـظام الأرشفه
+        <a href="" class="simple-text logo-normal">
+            نـظام التــعميم
         </a>
     </div>
     <div class="sidebar-wrapper">
@@ -21,14 +21,15 @@
 
             <li :class="menuFlag[1]">
                 <a class="nav-link" href="#" @click.prevent="href('/Branches',1)">
-                    <i class="material-icons">bubble_chart</i>
+                    <i class="fa fa-cogs"></i>
+
                     <p>‌إدارة المكاتب</p>
                 </a>
             </li>
 
             <li :class="menuFlag[2]">
                 <a class="nav-link" href="#" @click.prevent="href('/Branches',2)">
-                    <i class="material-icons">person</i>
+                    <i class="fa fa-inbox"></i>
                     <p>صندوق الوارد</p>
                 </a>
             </li>
@@ -47,19 +48,14 @@
 
 
             <li :class="menuFlag[5]">
-                <a class="nav-link" href="#" @click.prevent="href('/Branches',5)">
-                    <i class="material-icons">language</i>
+                <a class="nav-link" href="#" @click.prevent="href('/Users',5)">
+                    <i class="fa fa-users"></i>
                     <p>
                         إدارة المستخدمين
                     </p>
                 </a>
             </li>
-            <li :class="menuFlag[6]">
-                <a class="nav-link" href="#" @click.prevent="href('/Branches',6)">
-                    <i class="material-icons">unarchive</i>
-                    <p>إدارة النظام</p>
-                </a>
-            </li>
+       
         </ul>
     </div>
 </div>
