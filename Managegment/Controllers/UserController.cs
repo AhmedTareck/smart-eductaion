@@ -47,9 +47,6 @@ namespace Management.Controllers
                 var userBranch = UsersQuery.First().BranchId;
 
           
-                //    long?[] CivilId = db.Offices.AsEnumerable().Where(x => issusId.ToList().Contains(x.OfficeIndexId))
-                //.Select(r => (long?)r.OfficeId)
-                //.ToArray();
                
                 var UsersCount = (from p in UsersQuery
                                   select p).Count();

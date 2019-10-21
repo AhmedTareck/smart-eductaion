@@ -1,15 +1,15 @@
 ﻿export default {
     name: 'EditUser',
     created() {
-        this.form.FullName = this.$parent.EditUsersObj.fullName;
-        this.form.LoginName = this.$parent.EditUsersObj.loginName;
-        this.form.Phone = this.$parent.EditUsersObj.phone;
-        this.form.Email = this.$parent.EditUsersObj.email;
-        this.form.Gender = this.$parent.EditUsersObj.gender;
-        this.form.DateOfBirth = this.$parent.EditUsersObj.dateOfBirth;
-        this.form.UserId = this.$parent.EditUsersObj.userId;
+        this.ruleForm.FullName = this.$parent.EditUsersObj.fullName;
+        this.ruleForm.LoginName = this.$parent.EditUsersObj.loginName;
+        this.ruleForm.Phone = this.$parent.EditUsersObj.phone;
+        this.ruleForm.Email = this.$parent.EditUsersObj.email;
+        this.ruleForm.Gender = this.$parent.EditUsersObj.gender;
+        this.ruleForm.DateOfBirth = this.$parent.EditUsersObj.dateOfBirth;
+        this.ruleForm.UserId = this.$parent.EditUsersObj.userId;
 
-        this.form.UserType = this.$parent.EditUsersObj.userType;
+        this.ruleForm.UserType= this.$parent.EditUsersObj.userType;
 
 
 
@@ -26,18 +26,60 @@
             state: 0,
 
             PermissionModale: [],
-            form: {
+            ruleForm: {
+                UserId: 0,
                 LoginName: '',
-                Phone: '',
                 Password: '',
                 FullName: '',
                 UserType: '',
                 Email: '',
                 Gender: '',
+                Phone: '',
                 DateOfBirth: '',
-                BranchId:1,
+                Status: 0,
+                BranchId: 1,
+          
+
+
+
+
             },
-            ConfimPassword: ''
+            ConfimPassword: '',
+
+            rules: {
+                DateOfBirth: [
+                    { required: true, message: 'الرجاء إدخال تاريخ الميلاد', trigger: 'blur', type: 'date' }
+                ],
+                UserType: [
+                    { required: true, message: 'الرجاء اختيار  الصلاحيه', trigger: 'blur' }
+                ],
+                FullName: [
+                    { required: true, message: 'الرجاء إدخال الاسم التلاثي', trigger: 'blur' },
+                    { required: true, message: /^[\u0621-\u064A\u0660-\u0669 ]+$/, trigger: 'blur' }
+                ],
+                LoginName: [
+                    { required: true, message: 'الرجاء إدخال اسم الدخول', trigger: 'blur' },
+                    { required: true, pattern: /^[A-Za-z]{0,40}$/, message: 'الرجاء إدخال اسم الدخول بطريقه صحيحه', trigger: 'blur' }
+                ],
+                Phone: [
+                    { required: true, message: 'الرجاء إدخال رقم الهاتف', trigger: 'blur' },
+                    { min: 9, max: 10, message: 'الرجاء إدخال رقم الهاتف  بطريقه صحيحه', trigger: 'blur' }
+                ],
+                Password: [
+                    { required: true, message: 'الرجاء إدخال كلمة المرور', trigger: 'blur' },
+                    { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}.*$/, message: 'الرجاء إدخال كلمة المرور  بطريقه صحيحه', trigger: 'blur' }
+                ],
+
+                Email: [
+                    { required: true, message: 'الرجاء إدخال البريد الإلكتروني', trigger: 'blur' },
+                    { required: true, pattern: /\S+@\S+\.\S+/, message: 'الرجاء إدخال البريد الإلكتروني بطريقه صحيحه', trigger: 'blur' }
+                ],
+                Gender: [
+                    { required: true, message: 'الرجاء اختيار الجنس', trigger: 'change' }
+
+                ],
+
+            }
 
         };
     },
@@ -67,60 +109,18 @@
         },
 
         Edit() {
-            this.form.BranchId=this.$parent.Users.branchId;
-            if (!this.form.Email) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إدخال البريد الإلكتروني '
-                });
-                return;
-            } else if (!this.validEmail(this.form.Email)) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إدخال البريد الإلكتروني بطريقه صحيحه '
-                });
-                return;
-            }
-
-            if (!this.form.Gender) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إختيار الجنس '
-                });
-                return;
-            }
-
-            if (!this.form.DateOfBirth) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إختيار تاريخ الميلاد '
-                });
-                return;
-            }
-
-
-            if (!this.form.Phone) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء رقم الهاتف '
-                });
-                return;
-            } else if (!this.validPhone(this.form.Phone)) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إدخال رقم الهاتف  بطريقه صحيحه '
-                });
-                return;
-            }
+            this.ruleForm.BranchId=this.$parent.Users.branchId;
+    
 
             this.$http.EditUser(this.form)
                 .then(response => {
                     
                     this.$message({
-                        type: 'info',
-                        message: response.data
+                        type: 'success',
+                        dangerouslyUseHTMLString: true,
+                        duration: 5000,
+                        message: '<strong>' + response.data + '</strong>'
                     });
-
 
                     this.$parent.GetUsers(this.pageNo);
                     this.$parent.state = 0;
@@ -129,7 +129,9 @@
                 .catch((err) => {
                     this.$message({
                         type: 'error',
-                        message: err.response.data
+                        dangerouslyUseHTMLString: true,
+                        duration: 5000,
+                        message: '<strong>' + err.response.data + '</strong>'
                     });
                 });
         }

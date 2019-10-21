@@ -114,39 +114,39 @@
 
                                                 <thead class="text-primary">
 
-                                                    <tr>
-                                                        <th style="text-align:center">
+                                                   
+                                                        <th >
                                                             الاسم
                                                         </th>
 
-                                                        <th style="text-align:center">
+                                                        <th >
                                                             إسم الدخول
                                                         </th>
 
-                                                        <th style="text-align:center">
+                                                        <th>
                                                             تاريخ الميلاد
                                                         </th>
 
-                                                        <th style="text-align:center">
+                                                        <th >
                                                             الصلاحية
                                                         </th>
 
-                                                        <th style="text-align:center">
+                                                        <th >
                                                             الإعدادت
                                                         </th>
 
-                                                    </tr>
+                                                  
 
                                                 </thead>
 
-                                                <tbody style="text-align:center">
+                                                <tbody >
 
                                                     <tr v-for="User in Users">
 
                                                         <td>{{User.fullName}}</td>
-                                                        <td dir="ltr">{{User.loginName}}</td>
-                                                        <td dir="ltr">{{User.dateOfBirth | moment}}</td>
-                                                        <td dir="ltr">{{User.branchName}}</td>
+                                                        <td >{{User.loginName}}</td>
+                                                        <td >{{User.dateOfBirth | moment}}</td>
+                                                        <td >{{User.branchName}}</td>
 
                                                         <td>
 

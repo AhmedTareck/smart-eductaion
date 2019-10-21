@@ -26,17 +26,29 @@ namespace Management.Controllers
         }
 
         [HttpGet("Get")]
-        public IActionResult Get(int pageNo, int pageSize)
+        public IActionResult Get(int pageNo, int pageSize,int BranchLevel)
         {
             try
             {
 
+
                 IQueryable<Branches> BranchesQuery;
-      
+
+
+                if (BranchLevel == 0)
+                {
                     BranchesQuery = from p in db.Branches
-                                     where p.Status == 1 
-                                     select p;
-                         
+                                    where p.Status == 1
+                                    select p;
+                }
+                else
+                {
+                   
+                    BranchesQuery = from p in db.Branches
+                                    where p.Status == 1 && p.BranchLevel== BranchLevel
+                                    select p;
+                }
+
                 var BranchesCount = (from p in BranchesQuery
                                       select p).Count();
 

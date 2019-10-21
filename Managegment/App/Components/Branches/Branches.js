@@ -55,22 +55,6 @@ export default {
     },
     methods: {
 
-        //GetBranches()
-        //{
-
-        //    this.$blockUI.Start();
-        //    this.$http.GetBranchesByLevel(this.permissionModale)
-
-        //        .then(response => {
-        //            this.$blockUI.Stop();
-        //            this.Branches = response.data.branches;
-        //        })
-        //        .catch((err) => {
-        //            this.$blockUI.Stop();
-        //            console.error(err);
-        //            this.pages = 0;
-        //        });
-        //},
 
 
 
@@ -123,7 +107,7 @@ export default {
                 this.pageNo = 1;
             }
             this.$blockUI.Start();
-            this.$http.GetBranches(this.pageNo, this.pageSize)
+            this.$http.GetBranches(this.pageNo, this.pageSize, this.permissionModale)
                 .then(response => {
                     this.$blockUI.Stop();
                     this.Branches = response.data.branches;
