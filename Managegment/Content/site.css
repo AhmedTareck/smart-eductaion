@@ -1,6 +1,11 @@
-@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
+/*@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css";
-@import "https://fonts.googleapis.com/css?family=Cairo&amp;subset=arabic";
+@import "https://fonts.googleapis.com/css?family=Cairo&amp;subset=arabic";*/
+
+/*@import "css/CDN_CSS/font-awesome.min.css";*/
+@import "fonts/font-awesome.min.css";
+@import "css/CDN_CSS/cssv1.css?family=Cairo&amp;subset=arabic";
+@import "css/CDN_CSS/css.css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
 
 
 @import "assets/css/material-dashboard.css?v=2.1.0";
@@ -8,3 +13,109 @@
 
 
 @import "assets/demo/demo.css";
+
+.el-alert{
+    height: 70px!important;
+    margin-right: 82px!important;
+    font-weight: bold!important;
+}
+
+.el-alert__title {
+    font-size: 26px!important;
+}
+
+@font-face {
+    font-family: 'DroidArabicKufiRegular';
+    src: url('fonts/DroidKufi-Regular.eot') format('embedded-opentype'), url('fonts/DroidKufi-Regular.woff') format('woff'), url('fonts/DroidKufi-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*,h4 {
+    font-family: 'DroidArabicKufiRegular';
+}
+
+th {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+td {
+    font-size: 16px;
+}
+
+.el-message-box {
+    direction: ltr;
+    text-align: right;
+}
+
+.el-message-box__title {
+    padding-left: 300px;
+}
+
+
+.el-message-box__content {
+    margin-right: 23px;
+}
+
+.el-message-box__btns {
+    text-align: left;
+}
+
+.el-pagination.is-background .el-pager li.active {
+    background-color: #9c27b0;
+}
+
+ .addButton {
+    direction: ltr;
+}
+
+.backButton {
+    margin-left: 15px;
+    direction: ltr;
+}
+
+.table-responsive {
+    overflow-x: unset;
+}
+
+.tile-footer{
+    float:left;
+}
+
+.el-select-dropdown__wrap {
+    margin-bottom: unset!important;
+    margin-right: unset!important;
+}
+
+.el-scrollbar__wrap {
+    overflow: unset;
+}
+
+.el-form-item__error {
+    right: 0;
+}
+
+.el-form-item__error {
+    font-size:14px;
+}
+
+.el-message__content {
+    margin-right: 16px!important;
+}
+
+.el-alert{
+    margin-bottom: 43px!important;
+}
+
+.el-form-item__label {
+    height: 32px;
+}
+
+.el-message-box__headerbtn {
+    left: 15px;
+}
+
+.el-date-editor.el-input, .el-date-editor.el-input__inner {
+    width: 100%!important;
+}

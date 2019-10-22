@@ -47,9 +47,6 @@ namespace Management.Controllers
                 var userBranch = UsersQuery.First().BranchId;
 
           
-                //    long?[] CivilId = db.Offices.AsEnumerable().Where(x => issusId.ToList().Contains(x.OfficeIndexId))
-                //.Select(r => (long?)r.OfficeId)
-                //.ToArray();
                
                 var UsersCount = (from p in UsersQuery
                                   select p).Count();
@@ -61,6 +58,7 @@ namespace Management.Controllers
                                      Email = p.Email,
                                      FullName = p.FullName,
                                      BranchName = p.Branch.Name,
+                                     BranchLevel = p.Branch.BranchLevel,
                                      DateOfBirth = p.DateOfBirth,
                                      Gender = p.Gender,
                                      Password = p.Password,
@@ -106,6 +104,7 @@ namespace Management.Controllers
                                      Email = p.Email,
                                      FullName = p.FullName,
                                      BranchName = p.Branch.Name,
+                                     BranchLevel = p.Branch.BranchLevel,
                                      DateOfBirth = p.DateOfBirth,
                                      Gender = p.Gender,
                                      Password = p.Password,

@@ -26,17 +26,29 @@ namespace Management.Controllers
         }
 
         [HttpGet("Get")]
-        public IActionResult Get(int pageNo, int pageSize)
+        public IActionResult Get(int pageNo, int pageSize,int BranchLevel)
         {
             try
             {
 
+
                 IQueryable<Branches> BranchesQuery;
-      
+
+
+                if (BranchLevel == 0)
+                {
                     BranchesQuery = from p in db.Branches
-                                     where p.Status == 1 
-                                     select p;
-                         
+                                    where p.Status == 1
+                                    select p;
+                }
+                else
+                {
+                   
+                    BranchesQuery = from p in db.Branches
+                                    where p.Status == 1 && p.BranchLevel== BranchLevel
+                                    select p;
+                }
+
                 var BranchesCount = (from p in BranchesQuery
                                       select p).Count();
 
@@ -48,7 +60,8 @@ namespace Management.Controllers
                                          Description = p.Description,
                                          CreatedOn = p.CreatedOn,
                                          Status = p.Status,
-                                         BranchId = p.BranchId 
+                                         BranchId = p.BranchId,
+                                         BranchLevel = p.BranchLevel
 
                                      }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
@@ -91,7 +104,7 @@ namespace Management.Controllers
 
 
         [HttpPost("{BranchId}/delete")]
-        public IActionResult DeleteCountry(long BranchId)
+        public IActionResult DeleteBranch(long BranchId)
         {
             try
             {
@@ -102,21 +115,21 @@ namespace Management.Controllers
                     return StatusCode(401, "Please make sure you are logged-in");
                 }
 
-                var Country = (from p in db.Branches
+                var Branch = (from p in db.Branches
                                where p.BranchId == BranchId
                                && (p.Status == 1)
                                select p).SingleOrDefault();
 
-                if (Country == null)
+                if (Branch == null)
                 {
                     return NotFound("ERROR: The country does not exist");
                 }
 
-                Country.Status = 9;
-                Country.ModifiedBy = userId;
-                Country.ModifiedOn = DateTime.Now;
+                Branch.Status = 9;
+                Branch.ModifiedBy = userId;
+                Branch.ModifiedOn = DateTime.Now;
                 db.SaveChanges();
-                return Ok("Branch Deleted");
+                return Ok("لقد قمت بمسح الفرع بنـجاح");
             }
             catch (Exception e)
             {

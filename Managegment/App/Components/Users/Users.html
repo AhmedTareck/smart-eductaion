@@ -1,211 +1,193 @@
-﻿<main class="app-content">
+﻿<div class="content">
 
     <add-Users v-if="state==1"></add-Users>
     <edit-Users v-if="state==2"></edit-Users>
 
     <!--TITLE-->
-    <div class="app-title" v-if="state==0">
+    <div class="container-fluid" v-if="state==0">
 
-        <div>
+                        <!--Select/Add User-->
+                        <div class="row">
 
-            <h1><i class="fa fa-users" style="font-size:25px;margin-left:15px"></i> إدارة المستخدمين</h1>
+                            <div class="col-md-3">
+                                    <el-select style="width: 100%;"
+                                               filterable placeholder="نـوع المكتب"
+                                               v-model="permissionModale"
+                                               @change="GetBranches()">
+                                        <el-option v-for="item in permissions"
+                                                   :key="item.id"
+                                                   :label="item.name"
+                                                   :value="item.id">
+                                        </el-option>
 
-        </div>
+                                    </el-select>
+                            </div>
 
-    </div>
+                            <div class="col-md-3">
+                                    <el-select style="width: 100%;"
+                                               v-if="permissionModale!=0"
+                                               filterable :placeholder="branchesPlaceholder"
+                                               v-model="BrancheModel"
+                                               @change="GetUserByBranch()">
+                                        <el-option v-for="item in Branches"
+                                                   :key="item.branchId"
+                                                   :label="item.name"
+                                                   :value="item.branchId">
+                                        </el-option>
 
-    <div class="row" v-if="state==0">
+                                    </el-select>
 
-        <div class="col-md-12">
+                          
 
-            <div class="tile">
+                            </div>
 
-                <div class="tile-body">
-                    <br />
+                            <div class="col-md-3">
 
-                    <!--Select/Add User-->
-                    <div class="row">
+                               
 
-                        <div class="col-md-3">
+                                    <el-button type="primary"
+                                               class="btn btn-primary"
+                                               @click.prevent="AddUser()"
+                                               v-if="BrancheModel!=0">
 
-                            <div class="form-group">
+                                        إضافة مستخدم
 
-                                <el-select style="width: 100%;"
-                                           filterable placeholder="الصلاحية"
-                                           v-model="permissionModale"
-                                           @change="GetBranches()">
+                                    </el-button>
 
-                                    <el-option v-for="item in permissions"
-                                               :key="item.id"
-                                               :label="item.name"
-                                               :value="item.id">
-                                    </el-option>
-
-                                </el-select>
+                        
 
                             </div>
 
                         </div>
 
-                        <div class="col-md-3">
+                     
 
-                            <div class="form-group">
+                        <!--Table Users Info-->
+                        <div class="row">
 
-                                <el-select style="width: 100%;"
-                                           v-if="permissionModale!=0"
-                                           filterable :placeholder="branchesPlaceholder"
-                                           v-model="BrancheModel"
-                                           @change="GetUserByBranch()">
+                            <div class="col-md-12">
 
-                                    <el-option v-for="item in Branches"
-                                               :key="item.branchId"
-                                               :label="item.name"
-                                               :value="item.branchId">
-                                    </el-option>
+                                <div class="card" >
+                                    <div class="card-header card-header-primary">
+                                        <h4 class="card-title ">عــرض بيانات المستخدمين</h4>
+                                        <p class="card-category"> هذه الصفحه خاصه بالعمليات علي ادراة المستخدمين من عرض واضافه وتعديل</p>
+                                    </div>
 
-                                </el-select>
+                                    <!--Now User Alert-->
+                                    <div class="row" v-if="Users==0">
 
-                            </div>
+                                        <div class="col-md-10">
+                                            <div class="form-group" v-if="Users==0">
+                                                <br /><br />
+                                                <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للمستخدمين"
+                                                          type="info">
+                                                </el-alert>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" v-if="Users!=0">
+                                        <div class="table-responsive">
+                                            <table class="table">
 
-                        </div>
+                                                <thead class="text-primary">
+                                                <th>
+                                                    الاسم
+                                                </th>
 
-                        <div class="col-md-3">
+                                                <th>
+                                                    إسم الدخول
+                                                </th>
 
-                            <div class="form-group">
-
-                                <el-button type="primary"
-                                           class="btn btn-primary"
-                                           @click.prevent="AddUser()"
-                                           v-if="BrancheModel!=0">
-
-                                    إضافة مستخدم
-
-                                </el-button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <!--Now User Alert-->
-                    <div class="row" v-if="Users==0">
-
-                        <div class="col-md-10">
-
-                            <div class="form-group">
-
-                                <br /><br />
-                                <br /><br />
-
-                                <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للمستخدمين"
-                                          type="info">
-
-                                </el-alert>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <!--Table Users Info-->
-                    <div class="row">
-
-                        <div class="col-md-12">
-
-                            <br /><br />
-                            <div class="content table-responsive bootstrap-switch-info"
-                                 style="margin-top:35px" v-if="Users!=0">
-
-                                <table class="table table-hover table-striped" style="text-align:center">
-
-                                    <thead style="text-align:center" >
-
-                                        <tr>
-                                            <th style="text-align:center">
-                                                الاسم
-                                            </th>
-
-                                            <th style="text-align:center">
-                                                إسم الدخول
-                                            </th>
-
-                                            <th style="text-align:center">
-                                                تاريخ الميلاد
-                                            </th>
-
-                                            <th style="text-align:center">
-                                                الصلاحية
-                                            </th>
-
-                                            <th style="text-align:center">
-                                                الإعدادت
-                                            </th>
-
-                                        </tr>
-
-                                    </thead>
-
-                                    <tbody style="text-align:center">
-
-                                        <tr v-for="User in Users">
-
-                                            <td>{{User.fullName}}</td>
-                                            <td dir="ltr">{{User.loginName}}</td>
-                                            <td dir="ltr">{{User.dateOfBirth | moment}}</td>
-                                            <td dir="ltr">{{User.branchName}}</td>
-
-                                            <td>
-
-                                                <a href="#" @click.prevent="EditUser(User)">
-                                                    <i class="fa fa-pencil-square-o"></i>
-                                                </a>
-
-                                                <a href="#" @click.prevent="DeleteUser(User.userId)">
-                                                    <i class="fa fa-remove" title="حدف"></i>
-                                                </a>
-
-                                                <a href="#" v-if="User.status==1" @click.prevent="DeactivateUser(User.userId)">
-                                                    <i class="fa fa-lock" title="ايقاف"></i>
-                                                </a>
-
-                                                <a href="#" v-if="User.status==2 || User.status==0" @click.prevent="ActivateUser(User.userId)">
-                                                    <i class="fa fa-unlock" title="تفعيل"></i>
-                                                </a>
-                                            </td>
+                                                <th>
+                                                    تاريخ الميلاد
+                                                </th>
+                                                <th>
+                                                    نوع المستخدم
+                                                </th>
+                                                <th>
+                                                   نوع المكتب
+                                                </th>
+                                                <th>
+                                                    المكـاتب
+                                                </th>
+                                                <th>
+                                                    الإعدادت
+                                                </th>
 
 
-                                        </tr>
 
-                                    </tbody>
+                                                </thead>
 
-                                </table>
+                                                <tbody>
 
-                                <div style="text-align: center; margin-top: 10px;">
+                                                    <tr v-for="User in Users">
 
-                                    <el-pagination background
-                                                   layout="prev, pager, next"
-                                                   :current-page="pageNo"
-                                                   :page-size="pageSize"
-                                                   :total="pages"
-                                                   @current-change="FillDetalsTable($event)">
-                                    </el-pagination>
+                                                        <td>{{User.fullName}}</td>
+                                                        <td>{{User.loginName}}</td>
+                                                        <td>{{User.dateOfBirth | moment}}</td>
+                                                        <td>
+                                                            <span v-if="User.userType==1">
+                                                                مسـؤول النظام
+                                                            </span>
+                                                            <span v-if="User.userType==2">
+                                                                مــوظف
+                                                            </span>
+                                                        </td>
+                                                      
+                                                        <td>{{permissions[User.branchLevel-1].name}}</td>
+                                                        <td>{{User.branchName}}</td>
+
+                                                        <td>
+
+                                                            <a href="#" @click.prevent="EditUser(User)">
+                                                                <i class="fa fa-pencil-square-o"></i>
+                                                            </a>
+
+                                                            <a href="#" @click.prevent="DeleteUser(User.userId)">
+                                                                <i class="fa fa-remove" title="حدف"></i>
+                                                            </a>
+
+                                                            <a href="#" v-if="User.status==1" @click.prevent="DeactivateUser(User.userId)">
+                                                                <i class="fa fa-lock" title="ايقاف"></i>
+                                                            </a>
+
+                                                            <a href="#" v-if="User.status==2 || User.status==0" @click.prevent="ActivateUser(User.userId)">
+                                                                <i class="fa fa-unlock" title="تفعيل"></i>
+                                                            </a>
+                                                        </td>
+
+
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
+
+                                            <div style="text-align: center; margin-top: 10px;">
+
+                                                <el-pagination background
+                                                               layout="prev, pager, next"
+                                                               :current-page="pageNo"
+                                                               :page-size="pageSize"
+                                                               :total="pages"
+                                                               @current-change="FillDetalsTable($event)">
+                                                </el-pagination>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
 
                                 </div>
 
                             </div>
-
                         </div>
 
-                    </div>
 
-                </div>
 
-            </div>
+   
 
-        </div>
+    </div>
 
-    </div> 
-
-</main>
+</div>

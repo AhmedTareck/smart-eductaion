@@ -26,8 +26,7 @@ export default {
     },
 
     AddUser(User) {
-        //axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        //return axios.post( 'api/admin/User/AddUser', User);
+     
 
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + '/Admin/User/AddUser', User);
@@ -99,9 +98,9 @@ export default {
     },
 
     //*******************************************  Branches Service *********************************
-    GetBranches(pageNo, pageSize) {
+    GetBranches(pageNo, pageSize, permissionModale) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Admin/Branches/Get?pageno=${pageNo}&pagesize=${pageSize}`);
+        return axios.get(`/Api/Admin/Branches/Get?pageno=${pageNo}&pagesize=${pageSize}&BranchLevel=${permissionModale}`);
     },
     GetBranchsV1() {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
