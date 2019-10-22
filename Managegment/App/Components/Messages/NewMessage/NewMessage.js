@@ -1,8 +1,8 @@
-﻿import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
+﻿import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
 
-import { quillEditor } from 'vue-quill-editor'
+import { quillEditor } from 'vue-quill-editor';
 
 export default {
 
@@ -33,21 +33,21 @@ export default {
             state: 1,
             list: [],
             editorOption: {
-                debug: 'info',
-                placeholder: " ",
-                readOnly: true,
-                theme: 'snow',
-                modules: {
-                    toolbar: [
-                        ['bold', 'italic', 'underline'],
-                        ['code-block'],
-                        [{ 'color': [] }, { 'background': [] }],
-                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                        [{ 'direction': 'rtl' }],
-                        [{ 'align': [] }],
+                //debug: 'info',
+                //placeholder: " ",
+                //readOnly: true,
+                //theme: 'snow',
+                //modules: {
+                //    toolbar: [
+                //        ['bold', 'italic', 'underline'],
+                //        ['code-block'],
+                //        [{ 'color': [] }, { 'background': [] }],
+                //        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                //        [{ 'direction': 'rtl' }],
+                //        [{ 'align': [] }],
 
-                    ],
-                },
+                //    ],
+                //},
             },
             types: [],
             loading: false,

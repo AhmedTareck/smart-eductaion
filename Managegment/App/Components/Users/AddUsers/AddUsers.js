@@ -3,7 +3,7 @@
     created() 
     {
         this.BranchId = this.$parent.BrancheModel;
-        console.log(this.$parent.BrancheModel);
+     
     },
     
     data() {

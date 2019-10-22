@@ -2,7 +2,7 @@
 </template>
 
 <script src="./NewMessage.js"></script>
-<style>
+<!--<style>
 
 
 .el-popper{
@@ -56,4 +56,4 @@
     font-size: 14px;
     margin-top: 10px;
 }
-</style>
+</style>-->
