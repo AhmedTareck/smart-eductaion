@@ -1,5 +1,5 @@
-﻿import addAdTypes from './AddAdTypes/AddAdTypes.vue';
-import editAdTypes from './EditAdTypes/EditAdTypes.vue';
+﻿import addMessageTypes from './AddMessageTypes/AddMessageTypes.vue';
+import editMessageTypes from './EditMessageTypes/EditMessageTypes.vue';
 import moment from 'moment';
 
 export default {
@@ -8,8 +8,8 @@ export default {
         this.GetAdTypes(this.pageNo);
     },
     components: {
-        'add-AdTypes': addAdTypes,
-        'edit-AdTypes':editAdTypes
+        'add-MessageTypes': addMessageTypes,
+        'edit-MessageTypes': editMessageTypes
     },
     filters: {
         moment: function (date) {

@@ -11,8 +11,8 @@ namespace Management.Models
         }
 
         public long MessageId { get; set; }
-        public long? AuthorId { get; set; }
         public long? ConversationId { get; set; }
+        public long? AuthorId { get; set; }
         public DateTime? DateTime { get; set; }
         public string Subject { get; set; }
 

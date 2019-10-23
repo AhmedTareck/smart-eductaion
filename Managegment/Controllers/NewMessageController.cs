@@ -58,10 +58,10 @@ namespace Managegment.Controllers
         {
             try
             {
-                var result = await db.AdTypes.Where(w => w.Status != 9).Select(s => new
+                var result = await db.MessageType.Where(w => w.Status != 9).Select(s => new
                 {
-                    AdTypeName = s.AdTypeName,
-                    AdTypeId = s.AdTypeId
+                    AdTypeName = s.Name,
+                    AdTypeId = s.MessageTypeId
                 }).ToListAsync();
                 return Ok(new { data= result });
             }
@@ -114,7 +114,7 @@ namespace Managegment.Controllers
                     await saveAttachment(newMessageDTO, userId, conversationId);
                 }
                 await db.SaveChangesAsync();
-                var AdTypeName = db.AdTypes.SingleOrDefault(s => s.AdTypeId == newMessageDTO.Type).AdTypeName;
+                var AdTypeName = db.MessageType.SingleOrDefault(s => s.MessageTypeId == newMessageDTO.Type).Name;
                 switch (newMessageDTO.SelectedOption)
                 {
                     case SelectedOption.All:
@@ -144,7 +144,7 @@ namespace Managegment.Controllers
             Conversations conversations = new Conversations()
             {
                 LastSubject = LastSubject,
-                AdTypeId = newMessageDTO.Type,
+                MessageTypeId = newMessageDTO.Type,
                 Body = newMessageDTO.Content,
                 Priolti = newMessageDTO.Priority,
                 TimeStamp = DateTime.Now,

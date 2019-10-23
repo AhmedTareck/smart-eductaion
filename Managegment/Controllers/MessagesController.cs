@@ -139,7 +139,7 @@ namespace Managegment.Controllers
                     Priolti = conversation.Priolti,
                     SubjectBody = conversation.Body,
                     Replay= conversation.IsGroup,
-                    Type = conversation.AdType.AdTypeName,
+                    Type = conversation.MessageType.Name,
                     UserName = conversation.Participations.
                     SingleOrDefault(user => user.User.UserId == conversation.Creator).User.FullName,
                     UserId = conversation.Creator,

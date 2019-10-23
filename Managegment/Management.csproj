@@ -53,7 +53,8 @@
     <Compile Remove="Content\Quiz\**" />
     <Compile Remove="Content\vuetify\**" />
     <Compile Remove="Modelss\**" />
-    <Compile Remove="Modelsv1\**" />
+    <Compile Remove="ModelsV1\**" />
+    <Compile Remove="ModelsV2\**" />
     <Compile Remove="Uploads\**" />
     <Compile Remove="Views\Game\**" />
 
@@ -61,7 +62,8 @@
     <Content Remove="App\**" />
     <Content Remove="Content\**" />
     <Content Remove="Modelss\**" />
-    <Content Remove="Modelsv1\**" />
+    <Content Remove="ModelsV1\**" />
+    <Content Remove="ModelsV2\**" />
     <Content Remove="Uploads\**" />
     <Content Remove="Views\Game\**" />
     <EmbeddedResource Remove="App\Components\Library\CourseChaptersKill\**" />
@@ -76,7 +78,8 @@
     <EmbeddedResource Remove="Content\Quiz\**" />
     <EmbeddedResource Remove="Content\vuetify\**" />
     <EmbeddedResource Remove="Modelss\**" />
-    <EmbeddedResource Remove="Modelsv1\**" />
+    <EmbeddedResource Remove="ModelsV1\**" />
+    <EmbeddedResource Remove="ModelsV2\**" />
     <EmbeddedResource Remove="Uploads\**" />
     <EmbeddedResource Remove="Views\Game\**" />
     <None Remove="App\Components\Library\CourseChaptersKill\**" />
@@ -91,7 +94,8 @@
     <None Remove="Content\Quiz\**" />
     <None Remove="Content\vuetify\**" />
     <None Remove="Modelss\**" />
-    <None Remove="Modelsv1\**" />
+    <None Remove="ModelsV1\**" />
+    <None Remove="ModelsV2\**" />
     <None Remove="Uploads\**" />
     <None Remove="Views\Game\**" />
     <Compile Remove="Controllers\CoursesController.cs" />
@@ -99,8 +103,6 @@
     <Compile Remove="Controllers\DateController.cs" />
     <Compile Remove="Controllers\Security.cs" />
     <Compile Remove="Controllers\Validation.cs" />
-    <Compile Remove="Models\MailContext.cs" />
-    <Compile Remove="Models\MailDBContext.cs" />
     <Content Remove="package-lock.json" />
    
   </ItemGroup>

@@ -13,19 +13,17 @@ namespace Management.Models
         }
 
         public long ConversationId { get; set; }
-        public string Body { get; set; }
-        public long? Creator { get; set; }
-        public bool? IsGroup { get; set; }
         public string LastSubject { get; set; }
-        public string Priolti { get; set; }
-        public string Subject { get; set; }
         public DateTime? TimeStamp { get; set; }
-        public long MessageTypeId { get; set; }
+        public string Subject { get; set; }
+        public bool? IsGroup { get; set; }
+        public long? Creator { get; set; }
+        public string Body { get; set; }
+        public string Priolti { get; set; }
+        public long? AdTypeId { get; set; }
 
-        public Conversations Conversation { get; set; }
+        public AdTypes AdType { get; set; }
         public Users CreatorNavigation { get; set; }
-        public MessageType MessageType { get; set; }
-        public Conversations InverseConversation { get; set; }
         public ICollection<Attachments> Attachments { get; set; }
         public ICollection<Messages> Messages { get; set; }
         public ICollection<Participations> Participations { get; set; }

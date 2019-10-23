@@ -83,18 +83,18 @@ export default {
     //*******************************************  AdTypes Service *********************************
     GetAdTypes(pageNo, pageSize) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Admin/AdTypes/Get?pageno=${pageNo}&pagesize=${pageSize}`);
+        return axios.get(`/Api/Admin/MessageTypes/Get?pageno=${pageNo}&pagesize=${pageSize}`);
     },
 
 
 
-    AddAdTypes(AdTypes) {
+    AddAdTypes(MessageTypes) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/Api/Admin/AdTypes/Add`, AdTypes);
+        return axios.post(`/Api/Admin/MessageTypes/Add`, MessageTypes);
     },
-    EditAdTypes(AdTypes) {
+    EditAdTypes(MessageTypes) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/Api/Admin/AdTypes/Edit`, AdTypes);
+        return axios.post(`/Api/Admin/MessageTypes/Edit`, MessageTypes);
     },
 
     //*******************************************  Branches Service *********************************

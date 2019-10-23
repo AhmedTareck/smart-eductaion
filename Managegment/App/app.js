@@ -8,7 +8,7 @@ import BlockUIService from './Shared/BlockUIService.js';
 import Layout from './Components/Layout/Layout.vue';
 import Home from './Components/Home/Home.vue';
 import Branches from './Components/Branches/Branches.vue';
-import AdTypes from './Components/AdTypes/AdTypes.vue';
+import MessageTypes from './Components/MessageTypes/MessageTypes.vue';
 import Inbox from './Components/Messages/Inbox/Inbox.vue';
 import Sent from './Components/Messages/Sent/Sent.vue';
 
@@ -49,7 +49,7 @@ const router = new VueRouter({
         { path: '/Inbox', component: Inbox },
         { path: '/Sent', component: Sent }, 
         { path: '/Branches', component: Branches }, 
-        { path: '/AdTypes', component: AdTypes }, 
+        { path: '/MessageTypes', component: MessageTypes }, 
         { path: '/Users', component: Users },
         { path: '/EditUsersProfile', component: EditUsersProfile },
         { path: '/ChangePassword', component: ChangePassword },  

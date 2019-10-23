@@ -13,12 +13,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace Management.Controllers
 {
     [Produces("application/json")]
-    [Route("Api/Admin/AdTypes")]
-    public class AdTypesController : Controller
+    [Route("Api/Admin/MessageTypes")]
+    public class MessageTypesController : Controller
     {
         private readonly MailSystemContext db;
         private Helper help;
-        public AdTypesController(MailSystemContext context)
+        public MessageTypesController(MailSystemContext context)
         {
             this.db = context;
             help = new Helper();
@@ -30,27 +30,25 @@ namespace Management.Controllers
             try
             {
 
-                IQueryable<AdTypes> AdTypesQuery;
+                IQueryable<MessageType> MessageTypeQuery;
 
-                AdTypesQuery = from p in db.AdTypes
+                MessageTypeQuery = from p in db.MessageType
                                select p;
 
-                var AdTypesCount = (from p in AdTypesQuery
+                var MessageTypeCount = (from p in MessageTypeQuery
                                     select p).Count();
 
-                var AdTypesList = (from p in AdTypesQuery
+                var MessageTypeList = (from p in MessageTypeQuery
 
-                                   select new AdTypes
+                                   select new MessageType
                                    {
-                                       AdTypeName = p.AdTypeName,
-
-                                       AdTypeId = p.AdTypeId
-
-
-
+                                       Name=p.Name,
+                                       Description=p.Description,
+                                       CreatedOn=p.CreatedOn,
+                                       MessageTypeId=p.MessageTypeId
                                    }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
-                return Ok(new { AdTypes = AdTypesList, count = AdTypesCount });
+                return Ok(new { MessageType = MessageTypeList, count = MessageTypeCount });
             }
             catch (Exception e)
             {
@@ -59,11 +57,11 @@ namespace Management.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult AddAdTypes([FromBody] AdTypes AddAdType)
+        public IActionResult AddMessageType([FromBody] MessageType AddMessageType)
         {
             try
             {
-                if (AddAdType == null)
+                if (AddMessageType == null)
                 {
                     return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
 
@@ -73,15 +71,13 @@ namespace Management.Controllers
 
                 if (userId <= 0)
                 {
-
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-
                 }
 
-                AddAdType.CreatedBy = userId;
-                AddAdType.CreatedOn = DateTime.Now;
-                AddAdType.Status = 1;
-                db.AdTypes.Add(AddAdType);
+                AddMessageType.CreatedBy = userId;
+                AddMessageType.CreatedOn = DateTime.Now;
+                AddMessageType.Status = 1;
+                db.MessageType.Add(AddMessageType);
                 db.SaveChanges();
                 return Ok("لقد قمت بتسـجيل نوع الرساله بنــجاح");
 
@@ -93,7 +89,7 @@ namespace Management.Controllers
         }
 
         [HttpPost("Edit")]
-        public IActionResult EditAdTypes([FromBody] AdTypes AddAdType)
+        public IActionResult EditMessageType([FromBody] MessageType EditMessageType)
         {
             try
             {
@@ -104,17 +100,20 @@ namespace Management.Controllers
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
                 }
 
-                var AdTypes = (from p in db.AdTypes
-                               where p.AdTypeId == AddAdType.AdTypeId
+                var MessageTypePayLoad = (from p in db.MessageType
+                               where p.MessageTypeId == EditMessageType.MessageTypeId
                                select p).SingleOrDefault();
 
-                if (AdTypes == null)
+                if (MessageTypePayLoad == null)
                 {
                     return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
 
                 }
 
-                AdTypes.AdTypeName = AddAdType.AdTypeName;
+                MessageTypePayLoad.Name = EditMessageType.Name;
+                MessageTypePayLoad.Description = EditMessageType.Description;
+                MessageTypePayLoad.ModifiedBy = userId;
+                MessageTypePayLoad.ModifiedOn = DateTime.Now;
 
                 db.SaveChanges();
                 return Ok("تم تعديل بيانات نوع الرسالة بنجاح");
