@@ -122,14 +122,14 @@ namespace Management.Controllers
 
                 if (Branch == null)
                 {
-                    return NotFound("ERROR: The country does not exist");
+                    return NotFound("لا توجد بيانات لهذا المكتب");
                 }
 
                 Branch.Status = 9;
                 Branch.ModifiedBy = userId;
                 Branch.ModifiedOn = DateTime.Now;
                 db.SaveChanges();
-                return Ok("لقد قمت بمسح الفرع بنـجاح");
+                return Ok("لقد قمت بمسح المكتب بنـجاح");
             }
             catch (Exception e)
             {
@@ -137,6 +137,9 @@ namespace Management.Controllers
             }
         }
 
+        
+        
+        
         [HttpPost("Add")]
         public IActionResult AddBranches([FromBody] Branches Branch)
         {

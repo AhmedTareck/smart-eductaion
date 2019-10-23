@@ -80,21 +80,23 @@ export default {
     },
 
 
-    //*******************************************  AdTypes Service *********************************
-    GetAdTypes(pageNo, pageSize) {
+    //*******************************************  Add Message Type Service *********************************
+    GetMessageTypes(pageNo, pageSize) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(`/Api/Admin/MessageTypes/Get?pageno=${pageNo}&pagesize=${pageSize}`);
     },
-
-
-
-    AddAdTypes(MessageTypes) {
+    AddMessageType(MessageTypes) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(`/Api/Admin/MessageTypes/Add`, MessageTypes);
     },
-    EditAdTypes(MessageTypes) {
+    EditMessageType(MessageTypes) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(`/Api/Admin/MessageTypes/Edit`, MessageTypes);
+    },
+    
+    DeleteMessageType(MessageTypeId) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(`/Api/Admin/MessageTypes/${MessageTypeId}/delete`);
     },
 
     //*******************************************  Branches Service *********************************

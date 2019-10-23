@@ -5,9 +5,6 @@
     },
     data() {
         return {
-            pageNo: 1,
-            pageSize: 10,
-            pages: 0,
 
             ruleForm: {
                 Name: '',
@@ -17,11 +14,11 @@
             rules: {
                 Name: [
                     { required: true, message: 'الرجاء ادخال بيانات الإدارة', trigger: 'blur' },
-                    { min: 3, max: 25, message: 'يجب ان يكون الطول مابين 3 الي 25 حرف علي الأقل', trigger: 'blur' }
+                    { min: 3, max: 100, message: 'يجب ان يكون الطول مابين 3 الي 100 حرف علي الأقل', trigger: 'blur' }
                 ],
                 Description: [
                     { required: true, message: 'الرجاء ادخال معلومات عن الإدارة', trigger: 'blur' },
-                    { min: 3, max: 25, message: 'يجب ان يكون الطول مابين 3 الي 25 حرف علي الأقل', trigger: 'blur' }
+                    { min: 3, max: 450, message: 'يجب ان يكون الطول مابين 3 الي 450 حرف علي الأقل', trigger: 'blur' }
                 ]
             }
         };

@@ -1,10 +1,11 @@
 ﻿export default {
-    name: 'EditAdTypes',    
+    name: 'EditMessageType',    
     created() {
        
-        var branch = this.$parent.AdTypeEditObject;
-        this.form.AdTypeName = branch.adTypeName;
-        this.form.AdTypeId = branch.adTypeId;
+        this.ruleForm.Name = this.$parent.EditMessageTypeObj.name;
+        console.log(this.$parent.EditMessageTypeObj.description);
+        this.ruleForm.Description = this.$parent.EditMessageTypeObj.description;
+        this.ruleForm.MessageTypeId = this.$parent.EditMessageTypeObj.messageTypeId;
        
     },
     data() {
@@ -12,10 +13,22 @@
             pageNo: 1,
             pageSize: 10,
             pages: 0,
-            form: {
-                AdTypeName: '',
-                AdTypeId:''
-            },     
+            ruleForm: {
+                Name: '',
+                Description: '',
+                MessageTypeId:''
+            },
+            rules: {
+                Name: [
+                    { required: true, message: 'الرجاء ادخال  نوع الرسالة', trigger: 'blur' },
+                    { min: 3, max: 100, message: 'يجب ان يكون الطول مابين 3 الي 100 حرف علي الأقل', trigger: 'blur' }
+                ],
+                Description: [
+                    { required: true, message: 'الرجاء ادخال معلومات عن نوع الرسالة', trigger: 'blur' },
+                    { min: 3, max: 450, message: 'يجب ان يكون الطول مابين 3 الي 450 حرف علي الأقل', trigger: 'blur' }
+                ]
+            }
+            
         };
     },
     methods: {
@@ -23,33 +36,35 @@
             this.$parent.state = 0;
         },
 
-        Edit() {
-            if (!this.form.AdTypeName) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء ادخال النوع '
-                });
-                return;
-            }
-
-
-            this.$http.EditAdTypes(this.form)
-                .then(response => {
-                    this.$parent.state = 0;
-                    this.$parent.GetAdTypes(this.pageNo);
-                 
-                    this.$message({
-                        type: 'info',
-                        message: response.data
-                    });
-                })
-                .catch((err) => {
-                    this.$message({
-                        type: 'error',
-                        message: err.response.data
-                    });
-                });    
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.$http.EditMessageType(this.ruleForm)
+                        .then(response => {
+                            this.$parent.state = 0;
+                            this.$parent.GetMessageTypes(this.pageNo);
+                            this.$message({
+                                type: 'success',
+                                dangerouslyUseHTMLString: true,
+                                duration: 5000,
+                                message: '<strong>' + response.data + '</strong>'
+                            });
+                        })
+                        .catch((err) => {
+                            this.$message({
+                                type: 'error',
+                                dangerouslyUseHTMLString: true,
+                                duration: 5000,
+                                message: '<strong>' + err.response.data + '</strong>'
+                            });
+                        });
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
         },
+
 
     }    
 }

@@ -73,9 +73,6 @@ export default {
         },
 
         DeleteBranch(BranchId) {
-
-        
-
             this.$confirm('<strong>أنت علي وشك القيام بحدف الإدارة / الفرع هل تريد الإستمرار ؟</strong>', 'تنبيه', {
                 
                 cancelButtonText: 'إلغاء',

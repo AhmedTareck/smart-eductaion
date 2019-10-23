@@ -3,9 +3,9 @@ import editMessageTypes from './EditMessageTypes/EditMessageTypes.vue';
 import moment from 'moment';
 
 export default {
-    name: 'AdTypes',    
+    name: 'MessageType',    
     created() {
-        this.GetAdTypes(this.pageNo);
+        this.GetMessageTypes(this.pageNo);
     },
     components: {
         'add-MessageTypes': addMessageTypes,
@@ -25,8 +25,8 @@ export default {
             pageNo: 1,
             pageSize: 10,
             pages: 0,  
-            AdTypes: [],
-            AdTypeEditObject:[],
+            MessageType: [],
+            EditMessageTypeObj:[],
             state: 0,
         };
     },
@@ -38,16 +38,16 @@ export default {
         RedirectToAddComponent() {
             this.state = 1;
         },
-        GetAdTypes(pageNo) {
+        GetMessageTypes(pageNo) {
             this.pageNo = pageNo;
             if (this.pageNo === undefined) {
                 this.pageNo = 1;
             }
             this.$blockUI.Start();
-            this.$http.GetAdTypes(this.pageNo, this.pageSize)
+            this.$http.GetMessageTypes(this.pageNo, this.pageSize)
                 .then(response => {
                     this.$blockUI.Stop();
-                    this.AdTypes = response.data.adTypes;
+                    this.MessageType = response.data.messageType;
                     this.pages = response.data.count;
                 })
                 .catch((err) => {
@@ -56,10 +56,40 @@ export default {
                     this.pages = 0;
                 });
         },
-        EditAdTypes(AdType) {
+
+        EditMessageType(MessageType) {
             this.state = 2;
-            this.AdTypeEditObject = AdType;
-        }
+            this.EditMessageTypeObj = MessageType;
+        },
+
+         DeleteMessageType(MessageTypeId) {
+            this.$confirm('<strong>أنت علي وشك القيام بحدف نـوع الرسالة هل تريد الإستمرار ؟</strong>', 'تنبيه', {
+                cancelButtonText: 'إلغاء',
+                confirmButtonText: 'نعـم',
+                type: 'warning',
+                dangerouslyUseHTMLString: true
+            }).then(() => {
+                this.$http.DeleteMessageType(MessageTypeId)
+                    .then(response => {
+                        this.$message({
+                            type: 'success',
+                            dangerouslyUseHTMLString: true,
+                            duration: 5000,
+                            message: '<strong>' + response.data + '</strong>'
+                        });
+                        this.GetMessageTypes(this.pageNo);
+                    })
+                    .catch((err) => {
+                        this.$message({
+                            type: 'error',
+                            dangerouslyUseHTMLString: true,
+                            duration: 5000,
+                            showClose: true,
+                            message: '<strong>' + err.response.data + '</strong>'
+                        });
+                    });
+            });
+        },
 
  
        

@@ -33,6 +33,7 @@ namespace Management.Controllers
                 IQueryable<MessageType> MessageTypeQuery;
 
                 MessageTypeQuery = from p in db.MessageType
+                                   where p.Status==1
                                select p;
 
                 var MessageTypeCount = (from p in MessageTypeQuery
@@ -55,7 +56,7 @@ namespace Management.Controllers
                 return StatusCode(500, e.Message);
             }
         }
-
+ 
         [HttpPost("Add")]
         public IActionResult AddMessageType([FromBody] MessageType AddMessageType)
         {
@@ -124,6 +125,44 @@ namespace Management.Controllers
 
             }
         }
+
+
+        [HttpPost("{MessageTypeId}/delete")]
+        public IActionResult DeleteMessageType(long MessageTypeId)
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "Please make sure you are logged-in");
+                }
+
+                var MessageType = (from p in db.MessageType
+                              where p.MessageTypeId == MessageTypeId
+                              && (p.Status == 1)
+                              select p).SingleOrDefault();
+
+                if (MessageType == null)
+                {
+                    return NotFound("لا توجد بيانات لهذه الرسالة");
+                }
+
+                MessageType.Status = 9;
+                MessageType.ModifiedBy = userId;
+                MessageType.ModifiedOn = DateTime.Now;
+                db.SaveChanges();
+                return Ok("لقد قمت بمسح نوع الرسالة بنـجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+
+
 
     }
 }
