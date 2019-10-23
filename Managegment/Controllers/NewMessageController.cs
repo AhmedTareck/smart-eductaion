@@ -32,12 +32,7 @@ namespace Managegment.Controllers
         {
             try
             {
-                var userId = this.help.GetCurrentUser(HttpContext);
-                if (userId <= 1)
-                {
-                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-                }
-            
+                
 
 
 
