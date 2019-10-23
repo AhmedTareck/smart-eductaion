@@ -1,0 +1,63 @@
+﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon.png">
+    <link rel="icon" type="img/png" href="img/favicon.png">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="ABDULLAH ELAMEIR - WEB DEVELOPMENT | MOBAIL APPS DEVELOPMENT">
+    <meta name="csrf-token" content="@GetAntiXsrfRequestToken()">
+    <meta name="api-token" content="@TempData["token"]">
+    <meta name="current-user" content="">
+    <link rel="shortcut icon" href="~/img/favicon.png" type="image/x-icon">
+    <title>تعميم - نظام البريد الإلكتروني</title>
+    <link rel="stylesheet" id="vueui" href="~/css/vueui.css" asp-append-version="true" />
+    <link rel="stylesheet" id="main" href="~/css/main.css" asp-append-version="true" />
+</head>
+<body class="">
+    <div id="app"></div>
+    <script src="~/js/manifest.js" asp-append-version="true"></script>
+    <script src="~/js/vendor.js" asp-append-version="true"></script>
+    <script src="~/js/main.js" asp-append-version="true"></script>
+    <script src="~/assets/js/core/jquery.min.js" type="text/javascript"></script>
+    <script src="~/assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="~/assets/js/core/bootstrap-material-design.min.js" type="application/javascript"></script>
+    <script src="~/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!--  Google Maps Plugin    -->
+    
+    <!-- Chartist JS -->
+    <script src="~/assets/js/plugins/chartist.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="~/assets/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="~/assets/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
+    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+    <script src="~/assets/demo/demo.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Javascript method's body can be found in assets/js/demos.js
+            md.initDashboardPageCharts();
+
+        });
+    </script>
+
+
+
+
+    @*<script src="~/js/mainApp.js" asp-append-version="true"></script>*@
+
+</body>
+</html>
+

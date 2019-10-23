@@ -1,0 +1,204 @@
+﻿<div class="content">
+
+    <add-Users v-if="state==1"></add-Users>
+    <edit-Users v-if="state==2"></edit-Users>
+
+    <!--TITLE-->
+    <div class="container-fluid" v-if="state==0">
+
+
+
+
+     
+
+        
+
+      
+
+
+              
+
+                        <!--Select/Add User-->
+                        <div class="row">
+
+                            <div class="col-md-3">
+
+                            
+
+                                    <el-select style="width: 100%;"
+                                               filterable placeholder="الصلاحية"
+                                               v-model="permissionModale"
+                                               @change="GetBranches()">
+
+                                        <el-option v-for="item in permissions"
+                                                   :key="item.id"
+                                                   :label="item.name"
+                                                   :value="item.id">
+                                        </el-option>
+
+                                    </el-select>
+
+                        
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                              
+
+                                    <el-select style="width: 100%;"
+                                               v-if="permissionModale!=0"
+                                               filterable :placeholder="branchesPlaceholder"
+                                               v-model="BrancheModel"
+                                               @change="GetUserByBranch()">
+
+                                        <el-option v-for="item in Branches"
+                                                   :key="item.branchId"
+                                                   :label="item.name"
+                                                   :value="item.branchId">
+                                        </el-option>
+
+                                    </el-select>
+
+                          
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                               
+
+                                    <el-button type="primary"
+                                               class="btn btn-primary"
+                                               @click.prevent="AddUser()"
+                                               v-if="BrancheModel!=0">
+
+                                        إضافة مستخدم
+
+                                    </el-button>
+
+                        
+
+                            </div>
+
+                        </div>
+
+                     
+
+                        <!--Table Users Info-->
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card" >
+                                    <div class="card-header card-header-primary">
+                                        <h4 class="card-title ">عــرض بيانات المستخدمين</h4>
+                                        <p class="card-category"> هذه الصفحه خاصه بالعمليات علي ادراة المستخدمين من عرض واضافه وتعديل</p>
+                                    </div>
+
+                                    <!--Now User Alert-->
+                                    <div class="row" v-if="Users==0">
+
+                                        <div class="col-md-10">
+                                            <div class="form-group" v-if="Users==0">
+                                                <br /><br />
+                                                <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للمستخدمين"
+                                                          type="info">
+                                                </el-alert>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" v-if="Users!=0">
+                                        <div class="table-responsive">
+                                            <table class="table">
+
+                                                <thead class="text-primary">
+
+                                                    <tr>
+                                                        <th style="text-align:center">
+                                                            الاسم
+                                                        </th>
+
+                                                        <th style="text-align:center">
+                                                            إسم الدخول
+                                                        </th>
+
+                                                        <th style="text-align:center">
+                                                            تاريخ الميلاد
+                                                        </th>
+
+                                                        <th style="text-align:center">
+                                                            الصلاحية
+                                                        </th>
+
+                                                        <th style="text-align:center">
+                                                            الإعدادت
+                                                        </th>
+
+                                                    </tr>
+
+                                                </thead>
+
+                                                <tbody style="text-align:center">
+
+                                                    <tr v-for="User in Users">
+
+                                                        <td>{{User.fullName}}</td>
+                                                        <td dir="ltr">{{User.loginName}}</td>
+                                                        <td dir="ltr">{{User.dateOfBirth | moment}}</td>
+                                                        <td dir="ltr">{{User.branchName}}</td>
+
+                                                        <td>
+
+                                                            <a href="#" @click.prevent="EditUser(User)">
+                                                                <i class="fa fa-pencil-square-o"></i>
+                                                            </a>
+
+                                                            <a href="#" @click.prevent="DeleteUser(User.userId)">
+                                                                <i class="fa fa-remove" title="حدف"></i>
+                                                            </a>
+
+                                                            <a href="#" v-if="User.status==1" @click.prevent="DeactivateUser(User.userId)">
+                                                                <i class="fa fa-lock" title="ايقاف"></i>
+                                                            </a>
+
+                                                            <a href="#" v-if="User.status==2 || User.status==0" @click.prevent="ActivateUser(User.userId)">
+                                                                <i class="fa fa-unlock" title="تفعيل"></i>
+                                                            </a>
+                                                        </td>
+
+
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
+
+                                            <div style="text-align: center; margin-top: 10px;">
+
+                                                <el-pagination background
+                                                               layout="prev, pager, next"
+                                                               :current-page="pageNo"
+                                                               :page-size="pageSize"
+                                                               :total="pages"
+                                                               @current-change="FillDetalsTable($event)">
+                                                </el-pagination>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+   
+
+    </div>
+
+</div>

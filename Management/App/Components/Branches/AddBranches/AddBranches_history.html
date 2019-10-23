@@ -1,0 +1,110 @@
+﻿<div class="row">
+    <div class="row addButton">
+        <button
+                 class="btn btn-primary pull-right">
+            إضـافة إدارة مكتب
+        </button>
+    </div>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">إضـافة بيانات المكاتب</h4>
+                <p class="card-category"> هذه الصفحه خاصه بالعمليات علي ادراة المكاتب من عرض واضافه وتعديل</p>
+            </div>
+
+
+            <div class="card-body">
+                <div class="table-responsive">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <!--Title-->
+    <div class="app-title">
+
+        <h1>
+            <i class="fa fa-edit" style="font-size:25px;margin-left:15px"></i>
+            اضافه الادارة/ الفرع
+        </h1>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="card">
+
+                <!--Sub Title-->
+                <div class="card-header card-header-primary card-header-icon">
+
+                    <h1 style="margin-top:10px">
+
+                        <i class="fa fa-list" dir="rtl" style="font-size:25px;margin-left:10px;"></i>
+                        بيانات الادارة/ الفرع
+
+                    </h1>
+
+                </div>
+
+                <div class="content" style="color:black!important">
+
+                    <form>
+                        <!--Name Branch/Mangment-->
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group">
+
+                                    <label for="exampleInputEmail1">اسم الادارة/ الفرع</label>
+
+                                    <input class="form-control" v-model="form.Name" id="exampleInputEmail1" type="text" placeholder="اسم المكتب">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!--Discreption-->
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group">
+
+                                    <label for="exampleTextarea">معــلومات</label>
+
+                                    <textarea placeholder="معــلومات" class="form-control" v-model="form.Description" id="exampleTextarea" rows="3"></textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!--Add / Back-->
+                        <div class="tile-footer" style="margin-right: 50%;">
+
+                            <button class="btn btn-primary" type="submit" @click.prevent="Save()">حفظ</button>
+
+                            <button class="btn btn-danger" type="submit" @click.prevent="Back()">رجوع</button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
