@@ -28,7 +28,7 @@ namespace Managegment.Controllers
             help = new Helper();
         }
         [HttpGet("GetAllUsers")]
-        public async Task<ActionResult> GetAllUsers()
+        public ActionResult GetAllUsers()
         {
             try
             {
@@ -37,13 +37,32 @@ namespace Managegment.Controllers
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
                 }
-                var result = await db.Users.Where(w=>w.UserId != userId).Select(s => new UsersDTO
-                {
-                    Email = s.Email,
-                    UserName = s.FullName,
-                    UserId=s.UserId
-                }).ToListAsync();
-                return Ok(new { AllUsers = result });
+            
+
+
+
+                IQueryable<Users> UsersQuery;
+
+                UsersQuery = from p in db.Users
+
+                               where p.Status != 9
+                               select p;
+
+
+
+                var UsersList = (from p in UsersQuery
+
+                                   select new 
+                                   {
+                                       Email = p.Email,
+                                       UserName = p.FullName,
+                                       UserId = p.UserId
+
+
+
+                                   }).ToList();
+
+                return Ok(new { Users = UsersList });
 
             }
             catch (Exception e)
@@ -54,16 +73,33 @@ namespace Managegment.Controllers
         }
 
         [HttpGet("GetAllAdTypes")]
-        public async Task<ActionResult> GetAllAdTypes()
+        public  ActionResult GetAllAdTypes()
         {
             try
             {
-                var result = await db.AdTypes.Where(w => w.Status != 9).Select(s => new
-                {
-                    AdTypeName = s.AdTypeName,
-                    AdTypeId = s.AdTypeId
-                }).ToListAsync();
-                return Ok(new { data= result });
+
+
+                IQueryable<AdTypes> AdTypesQuery;
+
+                AdTypesQuery = from p in db.AdTypes
+                               where p.Status!=9
+                               select p;
+
+            
+
+                var AdTypesList = (from p in AdTypesQuery
+
+                                   select new AdTypes
+                                   {
+                                       AdTypeName = p.AdTypeName,
+
+                                       AdTypeId = p.AdTypeId
+
+
+
+                                   }).ToList();
+
+                return Ok(new { AdTypes = AdTypesList });
             }
             catch (Exception e)
             {
@@ -73,7 +109,7 @@ namespace Managegment.Controllers
         }
 
         [HttpPost("NewMessage")]
-        public async Task <ActionResult> NewMessage([FromBody] NewMessageDTO newMessageDTO)
+        public  ActionResult NewMessage([FromBody] NewMessageDTO newMessageDTO)
         {
             try
             {
@@ -102,35 +138,76 @@ namespace Managegment.Controllers
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
                 }
 
-                var conversationId= await saveConversations(newMessageDTO, userId, messageWithOutHTML);
+                //Insert Message
+                Conversations conversations = new Conversations()
+                {
+                    
+                    AdTypeId = newMessageDTO.Type,
+                    Body = newMessageDTO.Content,
+                    Priolti = newMessageDTO.Priority,
+                    CreatedOn = DateTime.Now,
+                    Subject = newMessageDTO.Subject,
+                    IsGroup = newMessageDTO.Replay,
+                    CreatedBy = userId
+                };
+                 db.Conversations.Add(conversations);
 
+              
+
+                //Insert Participation
                 foreach (var item in userRecevies)
                 {
-                    await saveParticipations(item, conversationId);
-                }
 
-                if(newMessageDTO.Files.Length>0)
-                {
-                    await saveAttachment(newMessageDTO, userId, conversationId);
+                    Participations Participation = new Participations()
+                   
+                    {
+                        ConversationId = conversations.ConversationId,
+                        Archive = false,
+                        UserId = item,
+                        CreatedOn = DateTime.Now,
+                        IsDelete = false,
+                        IsFavorate = false,
+                        IsRead = false,
+                    };
+
+                    db.Participations.Add(Participation);
                 }
-                await db.SaveChangesAsync();
-                var AdTypeName = db.AdTypes.SingleOrDefault(s => s.AdTypeId == newMessageDTO.Type).AdTypeName;
-                switch (newMessageDTO.SelectedOption)
+               
+                if (newMessageDTO.Files.Length > 0)
                 {
-                    case SelectedOption.All:
-                        // EmIal and SMS
-                        await SendSMS(newMessageDTO, AdTypeName);
-                        await SendEmailToUsers(newMessageDTO,userId, AdTypeName);
-                        break;
-                    case SelectedOption.Email:
-                        //Email
-                        await SendEmailToUsers(newMessageDTO,userId, AdTypeName);
-                        break;
-                    case SelectedOption.SMS:
-                        //SMS
-                        await SendSMS(newMessageDTO, AdTypeName);
-                        break;
+                   
+
+                    foreach (var item in newMessageDTO.Files)
+                    {
+                        db.Attachments.AddRange(new Attachments()
+                        {
+                            ConversationId = conversations.ConversationId,
+                            FileName = item.FileName,
+                            Extension = item.Type,
+                        ContentFile = Convert.FromBase64String(item.FileBase64.Substring(item.FileBase64.IndexOf(",") + 1)),
+                            CreatedBy = userId,
+                            CreatedOn = DateTime.Now
+                        });
+                    }
                 }
+                db.SaveChanges();
+                //   var AdTypeName = db.AdTypes.SingleOrDefault(s => s.AdTypeId == newMessageDTO.Type).AdTypeName;
+                //switch (newMessageDTO.SelectedOption)
+                //{
+                //    case SelectedOption.All:
+                //        // EmIal and SMS
+                //        await SendSMS(newMessageDTO, AdTypeName);
+                //        await SendEmailToUsers(newMessageDTO,userId, AdTypeName);
+                //        break;
+                //    case SelectedOption.Email:
+                //        //Email
+                //        await SendEmailToUsers(newMessageDTO,userId, AdTypeName);
+                //        break;
+                //    case SelectedOption.SMS:
+                //        //SMS
+                //        await SendSMS(newMessageDTO, AdTypeName);
+                //        break;
+                //}
                 return Ok("تم عملية الارسال التعميم بنجاح");
             }
             catch (Exception e)
@@ -139,24 +216,7 @@ namespace Managegment.Controllers
             }
         }
 
-        private async Task<long>  saveConversations( NewMessageDTO newMessageDTO ,long userId,string LastSubject)
-        {
-            Conversations conversations = new Conversations()
-            {
-                LastSubject = LastSubject,
-                AdTypeId = newMessageDTO.Type,
-                Body = newMessageDTO.Content,
-                Priolti = newMessageDTO.Priority,
-                TimeStamp = DateTime.Now,
-                Subject = newMessageDTO.Subject,
-                IsGroup = newMessageDTO.Replay,
-                Creator = userId
-            };
-            await db.Conversations.AddAsync(conversations);
-            db.Entry(conversations).State = EntityState.Added;
-            return conversations.ConversationId;
-          
-        }
+
 
         public async Task saveParticipations(long userId,long conversationId)
         {

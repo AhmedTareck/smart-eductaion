@@ -13,11 +13,11 @@ namespace Management.Models
         }
 
         public long ConversationId { get; set; }
-        public string LastSubject { get; set; }
-        public DateTime? TimeStamp { get; set; }
+      
+        public DateTime? CreatedOn { get; set; }
         public string Subject { get; set; }
         public bool? IsGroup { get; set; }
-        public long? Creator { get; set; }
+        public long? CreatedBy { get; set; }
         public string Body { get; set; }
         public string Priolti { get; set; }
         public long? AdTypeId { get; set; }

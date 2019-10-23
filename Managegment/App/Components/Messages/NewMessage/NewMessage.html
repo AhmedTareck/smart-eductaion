@@ -19,23 +19,23 @@
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <el-form :model="form" :rules="rules" ref="ruleForm" label-position="top" label-width="120px" class="demo-ruleForm">
+                        <el-form :model="ruleForm"  :rules="rules" ref="ruleForm" label-position="top" label-width="120px" class="demo-ruleForm">
 
                             <el-row class="row">
 
-                                <el-col class="col-md-6">
+                                <el-col class="col-md-4">
 
-
-                                    <el-form-item label="مرسل الي">
-                                        <el-select v-model="form.selectedusers" multiple filterable remote reserve-keyword
-                                                   placeholder=""
+                                  
+                                    <el-form-item label="مرسل الي" prop="selectedusers">
+                                        <el-select v-model="ruleForm.selectedusers" multiple filterable remote reserve-keyword
+                                                   placeholder="مرسل الي"
                                                    :remote-method="remoteMethod"
-                                                   :loading="loading"
-                                                   style="direction: initial;width:100%">
-                                            <el-option v-for="user in form.users"
-                                                       :key="user.value"
-                                                       :label="user.label"
-                                                       :value="user.value">
+                                                  
+                                                   style="width:100%">
+                                            <el-option v-for="user in users"
+                                                       :key="user.userId"
+                                                       :label="user.userName"
+                                                       :value="user.userId">
                                             </el-option>
                                         </el-select>
                                     </el-form-item>
@@ -43,17 +43,35 @@
 
                                 </el-col>
 
-                                <el-col class="col-md-6">
+                                <el-col class="col-md-4">
 
 
 
-                                    <el-form-item label=" عنوان التعميم">
-                                        <el-input v-model="form.subject"></el-input>
+                                    <el-form-item label=" عنوان التعميم" prop="subject">
+                                        <el-input v-model="ruleForm.subject"></el-input>
                                     </el-form-item>
 
 
                                 </el-col>
+                                <el-col class="col-md-4">
 
+
+
+                                    <el-form-item label=" نوع التعميم" prop="type">
+
+
+                                        <el-select v-model="ruleForm.type" placeholder="نوع التعميم">
+                                            <el-option v-for="item in types"
+                                                       :key="item.adTypeId"
+                                                       :label="item.adTypeName"
+                                                       :value="item.adTypeId">
+                                            </el-option>
+                                        </el-select>
+
+                                    </el-form-item>
+
+
+                                </el-col>
                             </el-row>
 
 
@@ -62,8 +80,8 @@
                                 <el-col class="col-md-4">
 
 
-                                    <el-form-item label=" قابلية الرد ">
-                                        <el-switch v-model="form.replay"
+                                    <el-form-item label=" قابلية الرد " prop="replay" >
+                                        <el-switch v-model="ruleForm.replay"
                                                    active-color="#009688">
                                         </el-switch>
                                     </el-form-item>
@@ -71,7 +89,7 @@
 
                                 <el-col class="col-md-4">
 
-                                    <el-form-item label=" اهمية ">
+                                    <el-form-item label=" اهمية " prop="priorityint" >
                                         <el-rate v-model="priorityint"
                                                  :texts="[' عادي ', ' متوسط ', ' مهم ']"
                                                  :colors="['#009688', '#FF0000']"
@@ -85,7 +103,7 @@
 
                                 <el-col class="col-md-4">
 
-                                    <el-form-item label=" طريقة الارسال ">
+                                    <el-form-item label=" طريقة الارسال " prop="checkOptions" >
                                         <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange"><span style="margin-right:5px;">الكل</span></el-checkbox>
                                         <div style="margin: 15px 0;"></div>
                                         <el-checkbox-group v-model="checkOptions" @change="handleCheckedOptionChange">
@@ -120,7 +138,7 @@
                                             <i class="el-icon-plus"></i>
                                         </el-upload>
                                         <el-dialog :visible.sync="dialogVisible">
-                                            <img width="100%" :src="form.dialogImageUrl" alt="">
+                                            <img width="100%" :src="ruleForm.dialogImageUrl" alt="">
                                         </el-dialog>
                                     </el-form-item>
 
@@ -135,8 +153,8 @@
                                 <el-col class="col-md-12">
 
 
-                                    <el-form-item>
-                                        <quill-editor v-model="form.content"
+                                    <el-form-item prop="content">
+                                        <quill-editor v-model="ruleForm.content"
                                                       ref="myQuillEditor"
                                                       :options="editorOption" style=" height: 150px;
 
