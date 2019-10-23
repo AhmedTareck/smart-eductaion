@@ -16,22 +16,47 @@ export default {
         return {
 
 
-            form: {
+            ruleForm: {
                 from: "",
-                users: [],
+                SentGroup:'',
                 selectedusers:[],
                 subject: "",
-                type: "",
+                MessageType: "",
+                PermissionModale:[],
                 replay: true,
                 priority:"",
                 dialogImageUrl: '',
                 content: "",
                 selectedOption: 3,
-                files: []
+                files: [],
+                PermissionModalePersonal: []
+
+            },
+            rules: {
+            
+                SentGroup: [
+                    { required: true, message: 'الرجاء اختيار المرسل الي ', trigger: 'change' }
+                ],
+                subject: [
+                    { required: true, message: 'الرجاء ادخال   عنوان التعميم', trigger: 'blur' }
+                ],
+                MessageType: [
+                    { required: true, message: 'الرجاء إدخال نوع التعميم ', trigger: 'change' }
+                   
+                ],
+                replay: [
+                    { required: true, message: 'اختيار قابليه الرد ', trigger: 'blur' }
+                ],
+                SentType: [
+                    { required: true, message: 'اختيار نوع الارسال ', trigger: 'change' }
+                ]
+
 
             },
             state: 1,
             list: [],
+            users: [],
+            SentType:[],
             editorOption: {
                 //debug: 'info',
                 //placeholder: " ",
@@ -58,16 +83,66 @@ export default {
             options: ['البريد الإلكتروني', 'رسالة نصية'],
             isIndeterminate: false,
             checkOptions: [],
-            selectFiles: []
+            selectFiles: [],
+            Permissions:[]
 
         };
     },
+  
     created() {
-        this.remoteMethod(" ");
+      
         this.GetAllAdTypes();
+        this.Permissions = [
+            {
+                id: 1,
+                name: "الإدارات"
+            },
+            {
+                id: 2,
+                name: 'إدارة الفروع'
+            },
+            {
+                id: 3,
+                name: 'مكاتب اللإصدار'
+            },
+            {
+                id: 4,
+                name: 'المكاتب الخدمية'
+            }
+
+        ];
+        this.SentType = [
+            {
+                id: 1,
+                name: "الكل"
+            },
+            {
+                id: 2,
+                name: 'البريد الالكتروني'
+            },
+            {
+                id: 3,
+                name: 'رساله قصيره'
+            }
+           
+
+        ];
     },
 
     methods: {
+
+        selectUser() {
+            if (this.ruleForm.SentGroup == 1) {
+                this.GetAllUsers();
+                this.ruleForm.PermissionModale = [];
+        } else {
+                this.ruleForm.PermissionModalePersonal = [];
+                this.ruleForm.selectedusers = [];
+        }
+    },
+        SelectUserByType() {
+            this.GetAllUsers();
+        },
         handleCheckAllChange(val) {
             
             this.checkOptions = val ? this.options : [];
@@ -82,14 +157,14 @@ export default {
            
             this.isIndeterminate = checkedCount > 0 && checkedCount < this.options.length;
             if (this.checkAll) {
-                this.form.selectedOption = 0;
+                this.ruleForm.selectedOption = 0;
                 return;
-            } else if (value[0]== this.options[0]) {
-                this.form.selectedOption = 1;
-            } else if (value[0]== this.options[1]) {
-                this.form.selectedOption = 2;
+            } else if (value[0]=== this.options[0]) {
+                this.ruleForm.selectedOption = 1;
+            } else if (value[0]=== this.options[1]) {
+                this.ruleForm.selectedOption = 2;
             } else {
-                this.form.selectedOption = 3;
+                this.ruleForm.selectedOption = 3;
             }
 
         },
@@ -98,10 +173,13 @@ export default {
             var fileSize = (file.size / 1024) | 0;
             if (fileSize > 8000) 
             {
+               
                 this.$message({
                     type: 'error',
-                    message: "حجم الملف كبير لايمكن تحميله"
-                }); 
+                    dangerouslyUseHTMLString: true,
+                    duration: 5000,
+                    message: '<strong>' + 'الرجاء تطابق كلمة المرورحجم الملف كبير لايمكن تحميله' + '</strong>'
+                });
                 return;
             }
             var $this = this;
@@ -114,51 +192,43 @@ export default {
                     fileBase64: reader.result,
                     type: file.raw.type
                 };
-                $this.form.files.push(obj);
+                $this.ruleForm.files.push(obj);
                 
 
             }
-            console.log($this.form.files);
+            console.log($this.ruleForm.files);
         },
         handleRemove(file) {
             var $this = this;
             var reader = new FileReader();
             reader.readAsDataURL(file.raw);
             reader.onload = function (e) {
-                $this.form.files.splice($this.form.files.indexOf(reader.result), 1);
+                $this.ruleForm.files.splice($this.form.files.indexOf(reader.result), 1);
             }
         },
         handlePictureCardPreview(file) {
-            this.form.dialogImageUrl = file.url;
-            this.form.dialogVisible = true;
+            this.ruleForm.dialogImageUrl = file.url;
+            this.ruleForm.dialogVisible = true;
         },
-        remoteMethod(query) {
-            if (query !== '') {
-                this.loading = true;
+        GetAllUsers() {
+      
                 this.$blockUI.Start();
-                this.$http.GetAllUsers()
+            this.$http.GetAllUsers(this.ruleForm.PermissionModalePersonal)
                     .then(response => {
-                        this.loading = false;
+                       
                         this.$blockUI.Stop();
-                        this.list = response.data.allUsers.map(user => {
-                            return { value: user.userId, label: user.userName }
-                        });
-                        this.form.users = this.list.filter(i => {
-                            return i.label.toLowerCase()
-                                .indexOf(query.toLowerCase()) > -1;
-                        });
+                        this.users = response.data.users;
+                       
                     })
                     .catch((err) => {
-                        this.loading = false;
+                      
                         this.$blockUI.Stop();
                         this.$message({
                             type: 'error',
                             message: err.message.data
                         }); 
                     });
-            } else {
-                this.form.Users = [];
-            }
+           
         },
         GetAllAdTypes()
         {
@@ -166,12 +236,10 @@ export default {
             this.$blockUI.Start();
             this.$http.GetAllAdTypes()
                 .then(response => {
-                    this.form.loading = false;
+                  
                     this.$blockUI.Stop();
-                    this.types = response.data.data.map(type => {
-                        return { value: type.adTypeId, label: type.adTypeName }
-                    });
-                     
+                    this.types = response.data.adTypes;
+             
                 })
                 .catch((err) => {
                     this.loading = false;
@@ -186,37 +254,37 @@ export default {
         {
  
 
-            if (this.form.selectedusers.length < 1)
-            {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء اختيار علي الاقل مستقبل واحد'
-                });
-                return;
-            }
-            if (!this.form.subject) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء ادخال العنوان'
-                });
-                return;
-            }
-            if (!this.form.type) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء اختيار نوع التعميم'
-                });
-                return;
-            }
-            if (!this.form.content) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء ادخال محتوي التعميم'
-                });
-                return;
-            }
+            //if (this.form.selectedusers.length < 1)
+            //{
+            //    this.$message({
+            //        type: 'error',
+            //        message: 'الرجاء اختيار علي الاقل مستقبل واحد'
+            //    });
+            //    return;
+            //}
+            //if (!this.form.subject) {
+            //    this.$message({
+            //        type: 'error',
+            //        message: 'الرجاء ادخال العنوان'
+            //    });
+            //    return;
+            //}
+            //if (!this.form.type) {
+            //    this.$message({
+            //        type: 'error',
+            //        message: 'الرجاء اختيار نوع التعميم'
+            //    });
+            //    return;
+            //}
+            //if (!this.form.content) {
+            //    this.$message({
+            //        type: 'error',
+            //        message: 'الرجاء ادخال محتوي التعميم'
+            //    });
+            //    return;
+            //}
             this.$blockUI.Start();
-            this.form.priority = this.Prioritytexts[this.priorityint - 1];
+            this.ruleForm.priority = this.Prioritytexts[this.priorityint - 1];
             this.$http.NewMessage(this.form)
                 .then(response => {
                     this.$message({
@@ -234,7 +302,47 @@ export default {
                     }); 
                     this.$blockUI.Stop();
                 });
-        }
+        },
+           Save(formName) {
 
+           
+               this.$blockUI.Start();
+               this.ruleForm.priority = this.Prioritytexts[this.priorityint - 1];
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                 
+                 
+                    this.$http.NewMessage(this.ruleForm)
+                        .then(response => {
+                           
+                            this.$message({
+                                type: 'success',
+                                dangerouslyUseHTMLString: true,
+                                duration: 5000,
+                                message: '<strong>' + response.data + '</strong>'
+                            });
+
+                            this.form = [];
+                            this.$router.push('/Inbox');
+                            this.$blockUI.Stop();
+                        })
+                        .catch((err) => {
+                            this.$blockUI.Stop();
+                            this.$message({
+                                type: 'error',
+                                dangerouslyUseHTMLString: true,
+                                duration: 5000,
+                                message: '<strong>' + err.response.data + '</strong>'
+                            });
+                        });
+                } else {
+                    this.$blockUI.Stop();
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+
+
+        }
     }
 }

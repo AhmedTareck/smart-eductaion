@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Management.Models
 {
-    public partial class AdTypes
+    public partial class MessageType
     {
-        public AdTypes()
+        public MessageType()
         {
             Conversations = new HashSet<Conversations>();
         }
 
-        public long AdTypeId { get; set; }
-        public string AdTypeName { get; set; }
+        public long MessageTypeId { get; set; }
+        public string Name { get; set; }
         public short? Status { get; set; }
         public DateTime? CreatedOn { get; set; }
         public long? CreatedBy { get; set; }
