@@ -3,7 +3,7 @@
     created() 
     {
         this.BranchId = this.$parent.BrancheModel;
-        console.log(this.$parent.BrancheModel);
+     
     },
     
     data() {
@@ -116,7 +116,7 @@
                     this.ruleForm.BranchLevel = this.$parent.permissionModale;
                     if (this.ruleForm.Password != this.ConfimPassword) {
                         this.$message({
-                            type: 'success',
+                            type: 'error',
                             dangerouslyUseHTMLString: true,
                             duration: 5000,
                             message: '<strong>' + 'الرجاء تطابق كلمة المرور' + '</strong>'

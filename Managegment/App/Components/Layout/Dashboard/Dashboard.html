@@ -26,7 +26,12 @@
                     <p>‌إدارة المكاتب</p>
                 </a>
             </li>
-
+            <li :class="menuFlag[7]">
+                <a class="nav-link" href="#" @click.prevent="href('/NewMessage',7)">
+                    <i class="fa fa-envelope"></i>
+                    <p>ارسال رسالة</p>
+                </a>
+            </li>
             <li :class="menuFlag[2]">
                 <a class="nav-link" href="#" @click.prevent="href('/Branches',2)">
                     <i class="fa fa-inbox"></i>
@@ -55,7 +60,7 @@
                     </p>
                 </a>
             </li>
-       
+
         </ul>
     </div>
 </div>

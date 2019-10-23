@@ -88,7 +88,7 @@ namespace Management.Models
 
                 entity.Property(e => e.ConversationId).HasColumnName("ConversationID");
 
-                entity.Property(e => e.TimeStamp).HasColumnType("datetime");
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.HasOne(d => d.AdType)
                     .WithMany(p => p.Conversations)
@@ -97,7 +97,7 @@ namespace Management.Models
 
                 entity.HasOne(d => d.CreatorNavigation)
                     .WithMany(p => p.Conversations)
-                    .HasForeignKey(d => d.Creator)
+                    .HasForeignKey(d => d.CreatedBy)
                     .HasConstraintName("FK_Conversations_Users");
             });
 

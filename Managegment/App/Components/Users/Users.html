@@ -6,14 +6,30 @@
     <!--TITLE-->
     <div class="container-fluid" v-if="state==0">
 
+
+
+
+     
+
+        
+
+      
+
+
+              
+
                         <!--Select/Add User-->
                         <div class="row">
 
                             <div class="col-md-3">
+
+                            
+
                                     <el-select style="width: 100%;"
-                                               filterable placeholder="نـوع المكتب"
+                                               filterable placeholder="الصلاحية"
                                                v-model="permissionModale"
                                                @change="GetBranches()">
+
                                         <el-option v-for="item in permissions"
                                                    :key="item.id"
                                                    :label="item.name"
@@ -21,14 +37,21 @@
                                         </el-option>
 
                                     </el-select>
+
+                        
+
                             </div>
 
                             <div class="col-md-3">
+
+                              
+
                                     <el-select style="width: 100%;"
                                                v-if="permissionModale!=0"
                                                filterable :placeholder="branchesPlaceholder"
                                                v-model="BrancheModel"
                                                @change="GetUserByBranch()">
+
                                         <el-option v-for="item in Branches"
                                                    :key="item.branchId"
                                                    :label="item.name"
@@ -90,52 +113,40 @@
                                             <table class="table">
 
                                                 <thead class="text-primary">
-                                                <th>
-                                                    الاسم
-                                                </th>
 
-                                                <th>
-                                                    إسم الدخول
-                                                </th>
+                                                    <tr>
+                                                        <th style="text-align:center">
+                                                            الاسم
+                                                        </th>
 
-                                                <th>
-                                                    تاريخ الميلاد
-                                                </th>
-                                                <th>
-                                                    نوع المستخدم
-                                                </th>
-                                                <th>
-                                                   نوع المكتب
-                                                </th>
-                                                <th>
-                                                    المكـاتب
-                                                </th>
-                                                <th>
-                                                    الإعدادت
-                                                </th>
+                                                        <th style="text-align:center">
+                                                            إسم الدخول
+                                                        </th>
 
+                                                        <th style="text-align:center">
+                                                            تاريخ الميلاد
+                                                        </th>
 
+                                                        <th style="text-align:center">
+                                                            الصلاحية
+                                                        </th>
+
+                                                        <th style="text-align:center">
+                                                            الإعدادت
+                                                        </th>
+
+                                                    </tr>
 
                                                 </thead>
 
-                                                <tbody>
+                                                <tbody style="text-align:center">
 
                                                     <tr v-for="User in Users">
 
                                                         <td>{{User.fullName}}</td>
-                                                        <td>{{User.loginName}}</td>
-                                                        <td>{{User.dateOfBirth | moment}}</td>
-                                                        <td>
-                                                            <span v-if="User.userType==1">
-                                                                مسـؤول النظام
-                                                            </span>
-                                                            <span v-if="User.userType==2">
-                                                                مــوظف
-                                                            </span>
-                                                        </td>
-                                                      
-                                                        <td>{{permissions[User.branchLevel-1].name}}</td>
-                                                        <td>{{User.branchName}}</td>
+                                                        <td dir="ltr">{{User.loginName}}</td>
+                                                        <td dir="ltr">{{User.dateOfBirth | moment}}</td>
+                                                        <td dir="ltr">{{User.branchName}}</td>
 
                                                         <td>
 

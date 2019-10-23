@@ -54,6 +54,9 @@
             {
                 this.active = 6;
             }
+            else if (route == "NewMessage") {
+                this.active = 7;
+            }
             else 
             {
                 this.active = 1;
