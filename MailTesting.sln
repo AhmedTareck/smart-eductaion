@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management", "Managegment\Management.csproj", "{555E28D5-23AE-4F21-A262-4FD7CA8123D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management", "Management\Management.csproj", "{555E28D5-23AE-4F21-A262-4FD7CA8123D9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{A64478F3-DAC3-482A-A0EB-DAD73F572E22}"
 EndProject
