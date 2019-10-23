@@ -30,6 +30,7 @@
     <None Remove="App\Components\Branches\AddBranches\AddBranches_history.html" />
     <None Remove="App\Components\Branches\Branches _history.html" />
     <None Remove="App\Components\Branches\EditBranches\EditBranches_history.html" />
+    <None Remove="App\Components\MessageTypes\EditMessageTypes\MessageTypes.html" />
     <None Remove="App\Components\Packages\SuperPackages.html~RF22273dc6.TMP" />
     <None Remove="Content\csselement.css" />
     <None Remove="Content\cssvuetify.css" />
