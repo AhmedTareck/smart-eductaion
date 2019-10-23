@@ -8,10 +8,10 @@
         this.ruleForm.Gender = this.$parent.EditUsersObj.gender;
         this.ruleForm.DateOfBirth = this.$parent.EditUsersObj.dateOfBirth;
         this.ruleForm.UserId = this.$parent.EditUsersObj.userId;
-
-        this.ruleForm.UserType= this.$parent.EditUsersObj.userType;
-
-
+     
+        this.ruleForm.UserType = "" + this.$parent.EditUsersObj.userType;
+      
+  
 
     },
     data() {
@@ -108,32 +108,44 @@
             return loginArabic.test(FullName);
         },
 
-        Edit() {
-            this.ruleForm.BranchId=this.$parent.Users.branchId;
-    
-
-            this.$http.EditUser(this.form)
-                .then(response => {
-                    
-                    this.$message({
-                        type: 'success',
-                        dangerouslyUseHTMLString: true,
-                        duration: 5000,
-                        message: '<strong>' + response.data + '</strong>'
-                    });
-
-                    this.$parent.GetUsers(this.pageNo);
-                    this.$parent.state = 0;
-
-                })
-                .catch((err) => {
-                    this.$message({
-                        type: 'error',
-                        dangerouslyUseHTMLString: true,
-                        duration: 5000,
-                        message: '<strong>' + err.response.data + '</strong>'
-                    });
-                });
+        Edit(formName) {
+            this.ruleForm.BranchId = this.$parent.EditUsersObj.branchId;
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.ruleForm.BranchLevel = this.$parent.permissionModale;
+                    if (this.ruleForm.Password != this.ConfimPassword) {
+                        this.$message({
+                            type: 'success',
+                            dangerouslyUseHTMLString: true,
+                            duration: 5000,
+                            message: '<strong>' + 'الرجاء تطابق كلمة المرور' + '</strong>'
+                        });
+                        return;
+                    }
+                    this.$http.EditUser(this.ruleForm)
+                        .then(response => {
+                            this.$parent.state = 0;
+                            this.$parent.GetUsers(this.pageNo);
+                            this.$message({
+                                type: 'success',
+                                dangerouslyUseHTMLString: true,
+                                duration: 5000,
+                                message: '<strong>' + response.data + '</strong>'
+                            });
+                        })
+                        .catch((err) => {
+                            this.$message({
+                                type: 'error',
+                                dangerouslyUseHTMLString: true,
+                                duration: 5000,
+                                message: '<strong>' + err.response.data + '</strong>'
+                            });
+                        });
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
         }
 
     }

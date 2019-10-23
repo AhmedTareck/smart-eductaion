@@ -6,24 +6,24 @@ export default
 
     name: 'Users',
     
-    created() 
+        created() 
     {
 
-        var loginDetails = sessionStorage.getItem('currentUser');
+        //var loginDetails = sessionStorage.getItem('currentUser');
         
-        if (loginDetails != null) 
-        {
-            this.loginDetails = JSON.parse(loginDetails);
+        //if (loginDetails != null) 
+        //{
+        //    this.loginDetails = JSON.parse(loginDetails);
             
-            if (this.loginDetails.userType != 1) 
-            {
-                window.location.href = '/Security/Login';
-            }
-        } 
-        else 
-        {
-            window.location.href = '/Security/Login';
-        }
+        //    if (this.loginDetails.userType != "1) 
+        //    {
+        //        window.location.href = '/Security/Login';
+        //    }
+        //} 
+        //else 
+        //{
+        //    window.location.href = '/Security/Login';
+        //}
        
         this.GetUsers(this.pageNo);
         
@@ -123,14 +123,11 @@ export default
             }
             else if(this.permissionModale==2)
             {
-                this.branchesPlaceholder='الـفروع';
+                this.branchesPlaceholder='الفرع';
             }
-            else if (this.permissionModale == 3) {
-                this.branchesPlaceholder = 'مكـتب الإصدار';
-            }
-            else if(this.permissionModale==4)
+            else if(this.permissionModale==3 || this.permissionModale==4)
             {
-                this.branchesPlaceholder=' المكتب الخدمي';
+                this.branchesPlaceholder='المكتب';
             }
         },
 
@@ -157,23 +154,17 @@ export default
                                 this.pageNo = 1;
                             }
                         }
-                   
                         this.$message({
-                            type: 'success',
-                            dangerouslyUseHTMLString: true,
-                            duration: 5000,
-                            message: '<strong>' + 'تم تفعيل المستخدم بنجاح' + '</strong>'
-                        });  
+                            type: 'info',
+                            message: 'تم تفعيل المستخدم بنجاح',
+                        });
                         this.GetUsers();
                     })
                     .catch((err) => {
                         this.$message({
                             type: 'error',
-                            dangerouslyUseHTMLString: true,
-                            duration: 5000,
-                            showClose: true,
-                            message: '<strong>' + err.response.data + '</strong>'
-                        });  
+                            message: err.response.data
+                        });
                     });
             });
 
@@ -197,24 +188,17 @@ export default
                                 this.pageNo = 1;
                             }
                         }
-                  
-
                         this.$message({
-                            type: 'success',
-                            dangerouslyUseHTMLString: true,
-                            duration: 5000,
-                            message: '<strong>' + 'تم ايقاف التفعيل المستخدم بنجاح' + '</strong>'
-                        });  
+                            type: 'info',
+                            message: 'تم ايقاف التفعيل المستخدم بنجاح',
+                        });
                         this.GetUsers();
                     })
                     .catch((err) => {
                         this.$message({
                             type: 'error',
-                            dangerouslyUseHTMLString: true,
-                            duration: 5000,
-                            showClose: true,
-                            message: '<strong>' + err.response.data + '</strong>'
-                        }); 
+                            message: err.response.data
+                        });
                     });
             });
         },
@@ -303,24 +287,17 @@ export default
                                 this.pageNo = 1;
                             }
                         }
-                   
-
                         this.$message({
-                            type: 'success',
-                            dangerouslyUseHTMLString: true,
-                            duration: 5000,
-                            message: '<strong>' + 'تم حدف المستخدم بنجاح' + '</strong>'
-                        });  
+                            type: 'info',
+                            message: 'تم حدف المستخدم بنجاح',
+                        });
                         this.GetUsers();
                     })
                     .catch((err) => {
                         this.$message({
                             type: 'error',
-                            dangerouslyUseHTMLString: true,
-                            duration: 5000,
-                            showClose: true,
-                            message: '<strong>' + err.response.data + '</strong>'
-                        }); 
+                            message: err.response.data
+                        });
                     });
             });
 

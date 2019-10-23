@@ -35,15 +35,22 @@
             if (!this.form.Email) {
                 this.$message({
                     type: 'error',
-                    message: 'الرجاء إدخال لبريد الإلكتروني'
+                    dangerouslyUseHTMLString: true,
+                    duration: 5000,
+                    message: '<strong>' + 'الرجاء إدخال لبريد الإلكتروني' + '</strong>'
                 });
                 return;
             }
             if (!this.form.Password) {
+
+
                 this.$message({
                     type: 'error',
-                    message: 'الرجاء إدخال الرقم السري'
+                    dangerouslyUseHTMLString: true,
+                    duration: 5000,
+                    message: '<strong>' + 'الرجاء إدخال الرقم السري' + '</strong>'
                 });
+                
                 return;
             }
 
@@ -59,11 +66,30 @@
                 })
                 .catch((error) => {
                     $blockUI.close()
-                    this.$alert('<h4>' + error.response.data + '</h4>', '', this.warning);
+               
+
+                    this.$message({
+                        type: 'error',
+                        dangerouslyUseHTMLString: true,
+                        duration: 5000,
+                        message: '<strong>' + error.response.data  + '</strong>'
+                    });
                     if (error.response.status == 400) {
-                        this.$alert('<h4>' + error.response.data + '</h4>', '', this.warning);
+                        this.$message({
+                            type: 'warning',
+                            dangerouslyUseHTMLString: true,
+                            duration: 5000,
+                            message: '<strong>' + error.response.data + '</strong>'
+                        });
+                      
                     } else if (error.response.status == 404) {
-                        this.$alert('<h4>' + error.response.data + '</h4>', '', this.error);
+                        this.$message({
+                            type: 'warning',
+                            dangerouslyUseHTMLString: true,
+                            duration: 5000,
+                            message: '<strong>' + error.response.data + '</strong>'
+                        });
+
                     } else {
                         console.log(error.response);
                     }
