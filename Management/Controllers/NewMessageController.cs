@@ -141,6 +141,7 @@ namespace Managegment.Controllers
                     CreatedBy = userId,
                     SentType = newMessageDTO.SentType
                 };
+
                 db.Conversations.Add(conversations);
   //Insert Participation
                 if (newMessageDTO.SentGroup == 1)
@@ -208,6 +209,23 @@ namespace Managegment.Controllers
                     }
                 }
                 db.SaveChanges();
+
+                //if(newMessageDTO.SentType == 1)
+                //{
+                //    //ALL
+
+
+                //} else if (newMessageDTO.SentType == 2)
+                //{
+                //    // Send Email
+
+
+                //} else
+                //{
+                //    // Send SMS
+
+
+                //}
                 //   var AdTypeName = db.AdTypes.SingleOrDefault(s => s.AdTypeId == newMessageDTO.Type).AdTypeName;
                 //switch (newMessageDTO.SelectedOption)
                 //{
@@ -232,6 +250,8 @@ namespace Managegment.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+
 
 
 
