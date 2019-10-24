@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Management.Migrations
 {
-    public partial class Mail : Migration
+    public partial class MailSys : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,9 +48,7 @@ namespace Management.Migrations
                     LoginTryAttempts = table.Column<short>(nullable: false),
                     ModifiedBy = table.Column<long>(nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    NationalId = table.Column<long>(nullable: true),
                     Password = table.Column<string>(maxLength: 200, nullable: false),
-                    PersonId = table.Column<int>(nullable: true),
                     Phone = table.Column<string>(maxLength: 24, nullable: true),
                     Photo = table.Column<byte[]>(nullable: true),
                     Status = table.Column<short>(nullable: false),
@@ -68,21 +66,22 @@ namespace Management.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AdTypes",
+                name: "MessageType",
                 columns: table => new
                 {
-                    AdTypeId = table.Column<long>(nullable: false)
+                    MessageTypeId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AdTypeName = table.Column<string>(nullable: true),
                     CreatedBy = table.Column<long>(nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    Description = table.Column<string>(maxLength: 500, nullable: true),
                     ModifiedBy = table.Column<long>(nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    Name = table.Column<string>(maxLength: 250, nullable: true),
                     Status = table.Column<short>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AdTypes", x => x.AdTypeId);
+                    table.PrimaryKey("PK_MessageType", x => x.MessageTypeId);
                     table.ForeignKey(
                         name: "FK_AdTypes_Users",
                         column: x => x.CreatedBy,
@@ -103,29 +102,29 @@ namespace Management.Migrations
                 {
                     ConversationID = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AdTypeId = table.Column<long>(nullable: true),
                     Body = table.Column<string>(nullable: true),
-                    Creator = table.Column<long>(nullable: true),
+                    CreatedBy = table.Column<long>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     IsGroup = table.Column<bool>(nullable: true),
-                    LastSubject = table.Column<string>(nullable: true),
+                    MessageTypeId = table.Column<long>(nullable: true),
                     Priolti = table.Column<string>(nullable: true),
-                    Subject = table.Column<string>(nullable: true),
-                    TimeStamp = table.Column<DateTime>(type: "datetime", nullable: true)
+                    SentType = table.Column<int>(nullable: false),
+                    Subject = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Conversations", x => x.ConversationID);
                     table.ForeignKey(
-                        name: "FK_Conversations_AdTypes",
-                        column: x => x.AdTypeId,
-                        principalTable: "AdTypes",
-                        principalColumn: "AdTypeId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Conversations_Users",
-                        column: x => x.Creator,
+                        column: x => x.CreatedBy,
                         principalTable: "Users",
                         principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Conversations_MessageTypeId",
+                        column: x => x.MessageTypeId,
+                        principalTable: "MessageType",
+                        principalColumn: "MessageTypeId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -192,16 +191,15 @@ namespace Management.Migrations
                 columns: table => new
                 {
                     ConversationId = table.Column<long>(nullable: false),
-                    UserID = table.Column<long>(nullable: false),
-                    Archive = table.Column<bool>(nullable: true),
+                    RecivedBy = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     IsDelete = table.Column<bool>(nullable: true),
-                    IsFavorate = table.Column<bool>(nullable: true),
-                    IsRead = table.Column<bool>(nullable: true)
+                    SentBy = table.Column<long>(nullable: true),
+                    Status = table.Column<short>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Participations", x => new { x.ConversationId, x.UserID });
+                    table.PrimaryKey("PK_Participations", x => new { x.ConversationId, x.RecivedBy });
                     table.ForeignKey(
                         name: "FK_Participations_Conversations",
                         column: x => x.ConversationId,
@@ -210,7 +208,7 @@ namespace Management.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Participations_Users",
-                        column: x => x.UserID,
+                        column: x => x.RecivedBy,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
@@ -245,16 +243,6 @@ namespace Management.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AdTypes_CreatedBy",
-                table: "AdTypes",
-                column: "CreatedBy");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AdTypes_ModifiedBy",
-                table: "AdTypes",
-                column: "ModifiedBy");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Attachments_ConversationId",
                 table: "Attachments",
                 column: "ConversationId");
@@ -265,14 +253,14 @@ namespace Management.Migrations
                 column: "CreatedBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Conversations_AdTypeId",
+                name: "IX_Conversations_CreatedBy",
                 table: "Conversations",
-                column: "AdTypeId");
+                column: "CreatedBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Conversations_Creator",
+                name: "IX_Conversations_MessageTypeId",
                 table: "Conversations",
-                column: "Creator");
+                column: "MessageTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_AuthorId",
@@ -285,9 +273,19 @@ namespace Management.Migrations
                 column: "ConversationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Participations_UserID",
+                name: "IX_AdTypes_CreatedBy",
+                table: "MessageType",
+                column: "CreatedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AdTypes_ModifiedBy",
+                table: "MessageType",
+                column: "ModifiedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Participations_RecivedBy",
                 table: "Participations",
-                column: "UserID");
+                column: "RecivedBy");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_MessageId",
@@ -323,7 +321,7 @@ namespace Management.Migrations
                 name: "Conversations");
 
             migrationBuilder.DropTable(
-                name: "AdTypes");
+                name: "MessageType");
 
             migrationBuilder.DropTable(
                 name: "Users");

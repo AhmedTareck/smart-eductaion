@@ -102,6 +102,7 @@
     <Compile Remove="Controllers\CoursesController.cs" />
     <Compile Remove="Controllers\CustometsController.cs" />
     <Compile Remove="Controllers\DateController.cs" />
+    <Compile Remove="Controllers\MessagesController.cs" />
     <Compile Remove="Controllers\Security.cs" />
     <Compile Remove="Controllers\Validation.cs" />
     <Content Remove="package-lock.json" />

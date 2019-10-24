@@ -67,34 +67,24 @@ namespace Management.Models
                 entity.Property(e => e.Name).HasMaxLength(250);
             });
 
+
             modelBuilder.Entity<Conversations>(entity =>
             {
                 entity.HasKey(e => e.ConversationId);
 
-                entity.HasIndex(e => e.Creator);
+                entity.Property(e => e.ConversationId).HasColumnName("ConversationID");
 
-                entity.Property(e => e.ConversationId)
-                    .HasColumnName("ConversationID")
-                    .ValueGeneratedOnAdd();
-
-                entity.Property(e => e.TimeStamp).HasColumnType("datetime");
-
-                entity.HasOne(d => d.Conversation)
-                    .WithOne(p => p.InverseConversation)
-                    .HasForeignKey<Conversations>(d => d.ConversationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Conversations_Conversations4");
-
-                entity.HasOne(d => d.CreatorNavigation)
-                    .WithMany(p => p.Conversations)
-                    .HasForeignKey(d => d.Creator)
-                    .HasConstraintName("FK_Conversations_Users");
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.HasOne(d => d.MessageType)
                     .WithMany(p => p.Conversations)
                     .HasForeignKey(d => d.MessageTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Conversations_MessageType");
+                    .HasConstraintName("FK_Conversations_MessageTypeId");
+
+                entity.HasOne(d => d.CreatorNavigation)
+                    .WithMany(p => p.Conversations)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_Conversations_Users");
             });
 
             modelBuilder.Entity<Messages>(entity =>
@@ -149,11 +139,9 @@ namespace Management.Models
 
             modelBuilder.Entity<Participations>(entity =>
             {
-                entity.HasKey(e => new { e.ConversationId, e.UserId });
+                entity.HasKey(e => new { e.ConversationId, e.RecivedBy });
 
-                entity.HasIndex(e => e.UserId);
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.RecivedBy).HasColumnName("RecivedBy");
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
@@ -165,10 +153,11 @@ namespace Management.Models
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Participations)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.RecivedBy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Participations_Users");
             });
+
 
             modelBuilder.Entity<Transactions>(entity =>
             {

@@ -4,3 +4,9 @@ Scaffold-DbContext "server=DESKTOP-PTGVLQG;Database=MailSystem;Trusted_Connectio
 
 Abdala PC : 
 Scaffold-DbContext "server=DESKTOP-4AI87L8\SQLEXPRESS;Database=Mail;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+-----------------------------------------
+
+Code-First Approach
+
+Add-Migration Mail
+ update-database

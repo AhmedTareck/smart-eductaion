@@ -11,8 +11,8 @@ using System;
 namespace Management.Migrations
 {
     [DbContext(typeof(MailSystemContext))]
-    [Migration("20191019150651_Mail")]
-    partial class Mail
+    [Migration("20191024081155_MailSys")]
+    partial class MailSys
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,34 +20,6 @@ namespace Management.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Management.Models.AdTypes", b =>
-                {
-                    b.Property<long>("AdTypeId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AdTypeName");
-
-                    b.Property<long?>("CreatedBy");
-
-                    b.Property<DateTime?>("CreatedOn")
-                        .HasColumnType("datetime");
-
-                    b.Property<long?>("ModifiedBy");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime");
-
-                    b.Property<short?>("Status");
-
-                    b.HasKey("AdTypeId");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.ToTable("AdTypes");
-                });
 
             modelBuilder.Entity("Management.Models.Attachments", b =>
                 {
@@ -112,28 +84,28 @@ namespace Management.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("ConversationID");
 
-                    b.Property<long?>("AdTypeId");
-
                     b.Property<string>("Body");
 
-                    b.Property<long?>("Creator");
+                    b.Property<long?>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime");
 
                     b.Property<bool?>("IsGroup");
 
-                    b.Property<string>("LastSubject");
+                    b.Property<long?>("MessageTypeId");
 
                     b.Property<string>("Priolti");
 
-                    b.Property<string>("Subject");
+                    b.Property<int>("SentType");
 
-                    b.Property<DateTime?>("TimeStamp")
-                        .HasColumnType("datetime");
+                    b.Property<string>("Subject");
 
                     b.HasKey("ConversationId");
 
-                    b.HasIndex("AdTypeId");
+                    b.HasIndex("CreatedBy");
 
-                    b.HasIndex("Creator");
+                    b.HasIndex("MessageTypeId");
 
                     b.ToTable("Conversations");
                 });
@@ -162,27 +134,59 @@ namespace Management.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("Management.Models.MessageType", b =>
+                {
+                    b.Property<long>("MessageTypeId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long?>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500);
+
+                    b.Property<long?>("ModifiedBy");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(250);
+
+                    b.Property<short?>("Status");
+
+                    b.HasKey("MessageTypeId");
+
+                    b.HasIndex("CreatedBy")
+                        .HasName("IX_AdTypes_CreatedBy");
+
+                    b.HasIndex("ModifiedBy")
+                        .HasName("IX_AdTypes_ModifiedBy");
+
+                    b.ToTable("MessageType");
+                });
+
             modelBuilder.Entity("Management.Models.Participations", b =>
                 {
                     b.Property<long>("ConversationId");
 
-                    b.Property<long>("UserId")
-                        .HasColumnName("UserID");
-
-                    b.Property<bool?>("Archive");
+                    b.Property<long>("RecivedBy")
+                        .HasColumnName("RecivedBy");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<bool?>("IsDelete");
 
-                    b.Property<bool?>("IsFavorate");
+                    b.Property<long?>("SentBy");
 
-                    b.Property<bool?>("IsRead");
+                    b.Property<short>("Status");
 
-                    b.HasKey("ConversationId", "UserId");
+                    b.HasKey("ConversationId", "RecivedBy");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("RecivedBy");
 
                     b.ToTable("Participations");
                 });
@@ -254,13 +258,9 @@ namespace Management.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<long?>("NationalId");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(200);
-
-                    b.Property<int?>("PersonId");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(24);
@@ -278,19 +278,6 @@ namespace Management.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Management.Models.AdTypes", b =>
-                {
-                    b.HasOne("Management.Models.Users", "CreatedByNavigation")
-                        .WithMany("AdTypesCreatedByNavigation")
-                        .HasForeignKey("CreatedBy")
-                        .HasConstraintName("FK_AdTypes_Users");
-
-                    b.HasOne("Management.Models.Users", "ModifiedByNavigation")
-                        .WithMany("AdTypesModifiedByNavigation")
-                        .HasForeignKey("ModifiedBy")
-                        .HasConstraintName("FK_AdTypes_Users1");
-                });
-
             modelBuilder.Entity("Management.Models.Attachments", b =>
                 {
                     b.HasOne("Management.Models.Conversations", "Conversation")
@@ -306,15 +293,15 @@ namespace Management.Migrations
 
             modelBuilder.Entity("Management.Models.Conversations", b =>
                 {
-                    b.HasOne("Management.Models.AdTypes", "AdType")
-                        .WithMany("Conversations")
-                        .HasForeignKey("AdTypeId")
-                        .HasConstraintName("FK_Conversations_AdTypes");
-
                     b.HasOne("Management.Models.Users", "CreatorNavigation")
                         .WithMany("Conversations")
-                        .HasForeignKey("Creator")
+                        .HasForeignKey("CreatedBy")
                         .HasConstraintName("FK_Conversations_Users");
+
+                    b.HasOne("Management.Models.MessageType", "MessageType")
+                        .WithMany("Conversations")
+                        .HasForeignKey("MessageTypeId")
+                        .HasConstraintName("FK_Conversations_MessageTypeId");
                 });
 
             modelBuilder.Entity("Management.Models.Messages", b =>
@@ -330,6 +317,19 @@ namespace Management.Migrations
                         .HasConstraintName("FK_Messages_Conversations");
                 });
 
+            modelBuilder.Entity("Management.Models.MessageType", b =>
+                {
+                    b.HasOne("Management.Models.Users", "CreatedByNavigation")
+                        .WithMany("MessageTypeCreatedByNavigation")
+                        .HasForeignKey("CreatedBy")
+                        .HasConstraintName("FK_AdTypes_Users");
+
+                    b.HasOne("Management.Models.Users", "ModifiedByNavigation")
+                        .WithMany("MessageTypeModifiedByNavigation")
+                        .HasForeignKey("ModifiedBy")
+                        .HasConstraintName("FK_AdTypes_Users1");
+                });
+
             modelBuilder.Entity("Management.Models.Participations", b =>
                 {
                     b.HasOne("Management.Models.Conversations", "Conversation")
@@ -339,7 +339,7 @@ namespace Management.Migrations
 
                     b.HasOne("Management.Models.Users", "User")
                         .WithMany("Participations")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("RecivedBy")
                         .HasConstraintName("FK_Participations_Users");
                 });
 
