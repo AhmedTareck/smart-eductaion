@@ -328,7 +328,7 @@ namespace Management.Controllers
                     db.SaveChanges();
 
                 }
-                return Ok();
+                return Ok("تمت عمليه تعديل بنجاح");
             }
             catch (Exception)
             {

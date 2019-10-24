@@ -49,7 +49,7 @@
                                         </el-form-item>
                                 </el-col>
                                 <el-col class="col-md-4" v-if="ruleForm.SentGroup==1">
-                                    <el-form-item label="الافراد">
+                                    <el-form-item label="الافراد"  >
                                         <el-select v-model="ruleForm.selectedusers" multiple placeholder="الافراد"  style="width:100%">
                                             <el-option v-for="user in users"
                                                        :key="user.userId"
@@ -61,7 +61,7 @@
                                 </el-col>
                                 <el-col class="col-md-4" v-if="ruleForm.SentGroup==2">
                                  
-                                    <el-form-item label="الصلاحيه">
+                                    <el-form-item label="الصلاحيه" prop="PermissionModale" >
                                         <el-select class="SelectUser"
                                                    v-model="ruleForm.PermissionModale"
                                                    multiple

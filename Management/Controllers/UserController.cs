@@ -533,7 +533,11 @@ namespace Management.Controllers
                 }
 
                 Users.Email = user.Email;
-
+                Users.Gender = user.Gender;
+                Users.FullName = user.FullName;
+                Users.DateOfBirth = user.DateOfBirth;
+                Users.LoginName = user.LoginName;
+              
                 Users.Phone = user.Phone;
 
                 Users.ModifiedBy = userId;

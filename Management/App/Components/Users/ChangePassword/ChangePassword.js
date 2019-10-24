@@ -5,13 +5,55 @@
 
     },
     data() {
+        var validatePass = (rules, value, callback) => {
+            if (value === '') {
+                callback(new Error('الرجاء إدخال كلمة المرور الجديده'));
+            } else {
+                if (this.form.ConfimPassword !== '') {
+                    this.$refs.form.validateField('ConfimPassword');
+                }
+                callback();
+            }
+        };
+        var validatePass2 = (rules, value, callback) => {
+            if (value === '') {
+                callback(new Error('الرجاء إدخال تاكيد كلمة المرور الجديده'));
+            } else if (value !== this.form.NewPassword) {
+                callback(new Error('الرجاء التأكد من تطابق كلمة المرور'));
+            } else {
+                callback();
+            }
+        };
         return {
 
             form: {
                 Password: '',
                 NewPassword: '',
+                ConfimPassword:''
             },
-            ConfimPassword: '',
+
+            rules: {
+                Password: [
+                    { required: true, message: 'الرجاء إدخال كلمة المرور الحاليه', trigger: 'blur' },
+                    { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}.*$/, message: 'الرجاء إدخال كلمة المرور  بطريقه صحيحه', trigger: 'blur' }
+            
+                ],
+              
+                NewPassword: [
+                    { validator: validatePass, trigger: 'blur' },
+                    { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}.*$/, message: 'الرجاء إدخال كلمة المرور  بطريقه صحيحه', trigger: 'blur' }
+                ],
+                ConfimPassword: [
+                    { validator: validatePass2, trigger: 'blur' },
+                    { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}.*$/, message: 'الرجاء إدخال كلمة المرور  بطريقه صحيحه', trigger: 'blur' }
+                ],
+            
+
+
+        
+
+            },
+       
 
         };
     },
@@ -23,70 +65,39 @@
             return PasswordT.test(NewPassword);
         },
       
-        Save() {
+        Save(formName) {
 
 
-            if (!this.form.Password) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إدخال كلمه المرورالحاليه '
-                });
-                return;
-            }
 
-            if (!this.form.NewPassword) {
-                this.$message({
-                    type: 'error',
-                    message: '  الرجاء إدخال كلمه المرور الجديده '
-                });
-                return;
-            }
-            if (!this.ConfimPassword) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إدخال تأكيد كلمه المرور جديده '
-                });
-                return;
-            }
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
 
-
-            if (this.form.NewPassword != this.ConfimPassword) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء التأكد من تطابق الرقم السري'
-                });
-                return;
-            }
-            if (this.form.NewPassword.length <= 6) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إدخال الرقم السري تحتوي علي سته ارقام '
-                });
-                return;
-            }
-            if (!this.validPassword(this.form.NewPassword)) {
-                this.$message({
-                    type: 'error',
-                    message: 'عـفوا : يجب ان يحتوي الرقم السري علي حروف صغيرة وكبيرة وارقام'
-                });
-                return;
-            }
-            this.$http.ChangePassword(this.form)
-                .then(response => {
-                    this.form.NewPassword = '';
-                    this.ConfimPassword = '';
-                    this.form.Password = '';
-                    this.$message({
-                        type: 'info',
-                        message: 'تم تغير بنجاح',
-                    });
-                })
-                .catch((err) => {
-                    this.$message({
-                        type: 'error',
-                        message: err.response.data
-                    });
-                });
+                    this.$http.ChangePassword(this.form)
+                        .then(response => {
+                            this.form.NewPassword = '';
+                            this.form.ConfimPassword = '';
+                            this.form.Password = '';
+                            this.$message({
+                                type: 'success',
+                                dangerouslyUseHTMLString: true,
+                                duration: 5000,
+                                message: '<strong>' + response.data + '</strong>'
+                            });
+                        })
+                        .catch((err) => {
+                            this.$message({
+                                type: 'error',
+                                dangerouslyUseHTMLString: true,
+                                duration: 5000,
+                                message: '<strong>' + err.response.data + '</strong>'
+                            });
+                        });
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+   
 
 
 

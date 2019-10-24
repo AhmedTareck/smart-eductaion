@@ -5,20 +5,18 @@
         var loginDetails = sessionStorage.getItem('currentUser');
         if (loginDetails != null) {
             this.loginDetails = JSON.parse(loginDetails);
-            this.form.FullName = this.loginDetails.fullName;
-            this.form.Phone = this.loginDetails.phone;
-            this.form.LoginName = this.loginDetails.loginName;
-            this.form.Email = this.loginDetails.email;
-            this.form.Gender = this.loginDetails.gender;
-            this.form.DateOfBirth = this.loginDetails.dateOfBirth;
-            this.form.OfficeName = this.loginDetails.officeName;
+            this.ruleForm.FullName = this.loginDetails.fullName;
+            this.ruleForm.Phone = this.loginDetails.phone;
+            this.ruleForm.LoginName = this.loginDetails.loginName;
+            this.ruleForm.Email = this.loginDetails.email;
+            this.ruleForm.Gender = this.loginDetails.gender;
+            this.ruleForm.DateOfBirth = this.loginDetails.dateOfBirth;
+         
             var type = this.loginDetails.userType;
             if (type == 1) {
-                this.form.UserType = 'المديـر';
-            } else if (type == 2) {
-                this.form.UserType = 'البحث بدون قيود';
-            } else {
-                this.form.UserType = 'المكــاتب';
+                this.ruleForm.UserType = 'المديـر';
+            }  else {
+                this.ruleForm.UserType = 'موظف';
             }
         } else {
             window.location.href = '/Security/Login';
@@ -30,14 +28,7 @@
        
         return {
             form: {
-                LoginName: '',
-                Password: '',
-                FullName: '',
-                UserType: '',
-                Email: '',
-                Gender: '',
-                Phone:'',
-                DateOfBirth: '',
+                
                 Status: 0,
                 OfficeName: '',
                 AllData: [],
@@ -45,13 +36,51 @@
                 photo:[]
 
             }, 
-            
-            form2: {
+            ruleForm: {
+             
+                LoginName: '',
                
-                Phone: '',
+                FullName: '',
+                UserType: '',
                 Email: '',
-                Status: 0,
-            },   
+                Gender: '',
+                Phone: '',
+                DateOfBirth: '',
+            },
+            rules: {
+                DateOfBirth: [
+                    { required: true, message: 'الرجاء إدخال تاريخ الميلاد', trigger: 'blur' }
+                ],
+              
+             
+                UserType: [
+                    { required: true, message: 'الرجاء اختيار  الصلاحيه', trigger: 'blur' }
+                ],
+                FullName: [
+                    { required: true, message: 'الرجاء إدخال الاسم التلاثي', trigger: 'blur' },
+                    { required: true, message: /^[\u0621-\u064A\u0660-\u0669 ]+$/, trigger: 'blur' }
+                ],
+                LoginName: [
+                    { required: true, message: 'الرجاء إدخال اسم الدخول', trigger: 'blur' },
+                    { required: true, pattern: /^[A-Za-z]{0,40}$/, message: 'الرجاء إدخال اسم الدخول بطريقه صحيحه', trigger: 'blur' }
+                ],
+                Phone: [
+                    { required: true, message: 'الرجاء إدخال رقم الهاتف', trigger: 'blur' },
+                    { min: 9, max: 10, message: 'الرجاء إدخال رقم الهاتف  بطريقه صحيحه', trigger: 'blur' }
+                ],
+
+
+                Email: [
+                    { required: true, message: 'الرجاء إدخال البريد الإلكتروني', trigger: 'blur' },
+                    { required: true, pattern: /\S+@\S+\.\S+/, message: 'الرجاء إدخال البريد الإلكتروني بطريقه صحيحه', trigger: 'blur' }
+                ],
+                Gender: [
+                    { required: true, message: 'الرجاء اختيار الجنس', trigger: 'change' }
+
+                ],
+
+            }
+           
             
         }
     },
@@ -103,8 +132,10 @@
                 .then(response => {
                     this.$blockUI.Stop();
                     this.$message({
-                        type: 'info',
-                        message: response.data
+                        type: 'success',
+                        dangerouslyUseHTMLString: true,
+                        duration: 5000,
+                        message: '<strong>' + response.data + '</strong>'
                     });
                     setTimeout(() =>
                         window.location.href = '/EditUsersProfile'
@@ -125,88 +156,59 @@
             var login = /^[a-zA-Z]{0,40}$/;
             return login.test(LoginName);
         },
-        Save() {
+        Save(formName) {
 
-            if (!this.form.LoginName) {
-                this.$message({
-                    type: 'error',
-                    message: 'الـرجاء إدخال اسم الدخول'
-                });
-                return;
-            } else if (!this.validLoginName(this.form.LoginName)) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إدخال اسم الدخول بطريقه صحيحه '
-                });
-                return;
-            }
-            if (!this.form.Email) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إدخال البريد الإلكتروني '
-                });
-                return;
-            } else if (!this.validEmail(this.form.Email)) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إدخال البريد الإلكتروني بطريقه صحيحه '
-                });
-                return;
-            }
+      
 
-            if (!this.form.Gender) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إختيار الجنس '
-                });
-                return;
-            }
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    
+                    console.log(this.ruleForm);
+                    this.ruleForm.UserType = '';
+                    this.$http.EditUsersProfile(this.ruleForm)
+                        .then(response => {
 
-            if (!this.form.DateOfBirth) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إختيار تاريخ الميلاد '
-                });
-                return;
-            }
-            if (!this.form.Phone) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء رقم الهاتف '
-                });
-                return;
-            } else if (!this.validPhone(this.form.Phone)) {
-                this.$message({
-                    type: 'error',
-                    message: 'الرجاء إدخال رقم الهاتف  بطريقه صحيحه '
-                });
-                return;
-            }
+                            this.loginDetails.email = this.ruleForm.Email;
+                            this.loginDetails.phone = this.ruleForm.Phone;
+
+                            this.loginDetails.fullName=this.ruleForm.FullName;
+                            this.loginDetails.phone=this.ruleForm.Phone;
+                            this.loginDetails.loginName=this.ruleForm.LoginName;
+                      
+                           this.loginDetails.gender =this.ruleForm.Gender;
+                            this.loginDetails.dateOfBirth = this.ruleForm.DateOfBirth;
+                            var type = this.loginDetails.userType;
+                            if (type == 1) {
+                                this.ruleForm.UserType = 'المديـر';
+                            } else {
+                                this.ruleForm.UserType = 'موظف';
+                            }
+                            sessionStorage.setItem('currentUser', JSON.stringify(this.loginDetails));
+                
+
+          
+                            this.$message({
+                                type: 'success',
+                                dangerouslyUseHTMLString: true,
+                                duration: 5000,
+                                message: '<strong>' + response.data + '</strong>'
+                            });
+                        })
+                        .catch((err) => {
+                            this.$message({
+                                type: 'error',
+                                dangerouslyUseHTMLString: true,
+                                duration: 5000,
+                                message: '<strong>' + err.response.data + '</strong>'
+                            });
+                        });
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
 
 
-            this.form2.Phone = this.form.Phone
-            this.form2.Email = this.form.Email;
-       
-            this.$http.EditUsersProfile(this.form2)
-                .then(response => {
-                    this.$parent.state = 0;
-               
-                    this.loginDetails.email = this.form2.Email;
-                    this.loginDetails.phone = this.form2.Phone;
-                    sessionStorage.setItem('currentUser', JSON.stringify(this.loginDetails));
-                   
-                    this.$message({
-                        type: 'info',
-                        message: response.data
-                    });
-                  
-                })
-                .catch((err) => {
-                    this.$message({
-                        type: 'error',
-                        message: err.response.data
-                    });
-                });
         },
 
     }

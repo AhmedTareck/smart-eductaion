@@ -153,9 +153,9 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(`/Api/NewMessage/GetAllUsers?UserType=${UserType}`);
     },
-    GetAllAdTypes() {
+    GetAllMessageTypes() {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/NewMessage/GetAllAdTypes`);
+        return axios.get(`/Api/NewMessage/GetAllMessageTypes`);
     },
     NewMessage(NewMessage) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');

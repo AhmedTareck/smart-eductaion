@@ -48,7 +48,7 @@
 
             rules: {
                 DateOfBirth: [
-                    { required: true, message: 'الرجاء إدخال تاريخ الميلاد', trigger: 'blur', type: 'date' }
+                    { required: true, message: 'الرجاء إدخال تاريخ الميلاد', trigger: 'blur' }
                 ],
                 UserType: [
                     { required: true, message: 'الرجاء اختيار  الصلاحيه', trigger: 'blur' }

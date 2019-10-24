@@ -7,6 +7,26 @@
     },
     
     data() {
+
+        var validatePass = (rules, value, callback) => {
+            if (value === '') {
+                callback(new Error('الرجاء إدخال كلمة المرور'));
+            } else {
+                if (this.ruleForm.ConfimPassword !== '') {
+                    this.$refs.ruleForm.validateField('ConfimPassword');
+                }
+                callback();
+            }
+        };
+        var validatePass2 = (rrulesule, value, callback) => {
+            if (value === '') {
+                callback(new Error('الرجاء كتابه اعاده كلمه المرور'));
+            } else if (value !== this.ruleForm.Password) {
+                callback(new Error('الرجاء التأكد من تطابق كلمة المرور'));
+            } else {
+                callback();
+            }
+        };
         return {
             pageNo: 1,
             pageSize: 10,
@@ -33,7 +53,15 @@
        
             rules: {
                 DateOfBirth: [
-                    { required: true, message: 'الرجاء إدخال تاريخ الميلاد', trigger: 'blur', type: 'date'}
+                    { required: true, message: 'الرجاء إدخال تاريخ الميلاد', trigger: 'blur'}
+                ],
+                Password: [
+                    { validator: validatePass, trigger: 'blur' },
+                      { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}.*$/, message: 'الرجاء إدخال كلمة المرور  بطريقه صحيحه', trigger: 'blur' }
+                ],
+                ConfimPassword: [
+                    { validator: validatePass2, trigger: 'blur' },
+                      { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}.*$/, message: 'الرجاء إدخال كلمة المرور  بطريقه صحيحه', trigger: 'blur' }
                 ],
                 UserType: [
                     { required: true, message: 'الرجاء اختيار  الصلاحيه', trigger: 'blur' }
@@ -50,10 +78,7 @@
                     { required: true, message: 'الرجاء إدخال رقم الهاتف', trigger: 'blur' },
                     { min: 9, max: 10, message: 'الرجاء إدخال رقم الهاتف  بطريقه صحيحه', trigger: 'blur' }
                 ],
-                Password: [
-                    { required: true, message: 'الرجاء إدخال كلمة المرور', trigger: 'blur' },
-                    { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}.*$/, message: 'الرجاء إدخال كلمة المرور  بطريقه صحيحه', trigger: 'blur' }
-                ],
+               
 
                 Email: [
                     { required: true, message: 'الرجاء إدخال البريد الإلكتروني', trigger: 'blur' },
@@ -114,15 +139,7 @@
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.ruleForm.BranchLevel = this.$parent.permissionModale;
-                    if (this.ruleForm.Password != this.ConfimPassword) {
-                        this.$message({
-                            type: 'error',
-                            dangerouslyUseHTMLString: true,
-                            duration: 5000,
-                            message: '<strong>' + 'الرجاء تطابق كلمة المرور' + '</strong>'
-                        });
-                        return;
-                    }
+                  
                     this.$http.AddUser(this.ruleForm)
                         .then(response => {
                             this.$parent.state = 0;
