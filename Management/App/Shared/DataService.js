@@ -149,9 +149,9 @@ export default {
     //    axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
     //    return axios.get(`/Api/Messages/GetAllInboxSender?page=${pageNo}&pagesize=${pageSize}`);
     //},
-    GetAllUsers() {
+    GetAllUsers(UserType) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/NewMessage/GetAllUsers`);
+        return axios.get(`/Api/NewMessage/GetAllUsers?UserType=${UserType}`);
     },
     GetAllAdTypes() {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');

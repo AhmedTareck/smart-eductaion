@@ -7,8 +7,8 @@ namespace Management.Models
     {
         public Users()
         {
-            AdTypesCreatedByNavigation = new HashSet<AdTypes>();
-            AdTypesModifiedByNavigation = new HashSet<AdTypes>();
+            AdTypesCreatedByNavigation = new HashSet<MessageType>();
+            AdTypesModifiedByNavigation = new HashSet<MessageType>();
             Attachments = new HashSet<Attachments>();
             Conversations = new HashSet<Conversations>();
             Messages = new HashSet<Messages>();
@@ -37,8 +37,8 @@ namespace Management.Models
         public long? BranchId { get; set; }
 
         public Branches Branch { get; set; }
-        public ICollection<AdTypes> AdTypesCreatedByNavigation { get; set; }
-        public ICollection<AdTypes> AdTypesModifiedByNavigation { get; set; }
+        public ICollection<MessageType> AdTypesCreatedByNavigation { get; set; }
+        public ICollection<MessageType> AdTypesModifiedByNavigation { get; set; }
         public ICollection<Attachments> Attachments { get; set; }
         public ICollection<Conversations> Conversations { get; set; }
         public ICollection<Messages> Messages { get; set; }

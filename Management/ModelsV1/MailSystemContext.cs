@@ -13,7 +13,7 @@ namespace Management.Models
             : base(options)
         {
         }
-        public virtual DbSet<AdTypes> AdTypes { get; set; }
+        public virtual DbSet<MessageType> MessageType { get; set; }
         public virtual DbSet<Attachments> Attachments { get; set; }
         public virtual DbSet<Branches> Branches { get; set; }
         public virtual DbSet<Conversations> Conversations { get; set; }
@@ -33,9 +33,9 @@ namespace Management.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AdTypes>(entity =>
+            modelBuilder.Entity<MessageType>(entity =>
             {
-                entity.HasKey(e => e.AdTypeId);
+                entity.HasKey(e => e.MessageTypeId);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
@@ -88,16 +88,16 @@ namespace Management.Models
 
                 entity.Property(e => e.ConversationId).HasColumnName("ConversationID");
 
-                entity.Property(e => e.TimeStamp).HasColumnType("datetime");
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-                entity.HasOne(d => d.AdType)
+                entity.HasOne(d => d.MessageType)
                     .WithMany(p => p.Conversations)
-                    .HasForeignKey(d => d.AdTypeId)
+                    .HasForeignKey(d => d.MessageTypeId)
                     .HasConstraintName("FK_Conversations_AdTypes");
 
                 entity.HasOne(d => d.CreatorNavigation)
                     .WithMany(p => p.Conversations)
-                    .HasForeignKey(d => d.Creator)
+                    .HasForeignKey(d => d.CreatedBy)
                     .HasConstraintName("FK_Conversations_Users");
             });
 
@@ -122,9 +122,9 @@ namespace Management.Models
 
             modelBuilder.Entity<Participations>(entity =>
             {
-                entity.HasKey(e => new { e.ConversationId, e.UserId });
+                entity.HasKey(e => new { e.ConversationId, e.RecivedBy });
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.RecivedBy).HasColumnName("RecivedBy");
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
@@ -136,7 +136,7 @@ namespace Management.Models
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Participations)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.RecivedBy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Participations_Users");
             });
