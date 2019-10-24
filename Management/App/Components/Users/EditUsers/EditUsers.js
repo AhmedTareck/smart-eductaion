@@ -29,7 +29,7 @@
             ruleForm: {
                 UserId: 0,
                 LoginName: '',
-                Password: '',
+               
                 FullName: '',
                 UserType: '',
                 Email: '',
@@ -44,7 +44,7 @@
 
 
             },
-            ConfimPassword: '',
+         
 
             rules: {
                 DateOfBirth: [
@@ -65,10 +65,7 @@
                     { required: true, message: 'الرجاء إدخال رقم الهاتف', trigger: 'blur' },
                     { min: 9, max: 10, message: 'الرجاء إدخال رقم الهاتف  بطريقه صحيحه', trigger: 'blur' }
                 ],
-                Password: [
-                    { required: true, message: 'الرجاء إدخال كلمة المرور', trigger: 'blur' },
-                    { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}.*$/, message: 'الرجاء إدخال كلمة المرور  بطريقه صحيحه', trigger: 'blur' }
-                ],
+             
 
                 Email: [
                     { required: true, message: 'الرجاء إدخال البريد الإلكتروني', trigger: 'blur' },
@@ -112,16 +109,7 @@
             this.ruleForm.BranchId = this.$parent.EditUsersObj.branchId;
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.ruleForm.BranchLevel = this.$parent.permissionModale;
-                    if (this.ruleForm.Password != this.ConfimPassword) {
-                        this.$message({
-                            type: 'success',
-                            dangerouslyUseHTMLString: true,
-                            duration: 5000,
-                            message: '<strong>' + 'الرجاء تطابق كلمة المرور' + '</strong>'
-                        });
-                        return;
-                    }
+                    this.ruleForm.BranchLevel = this.$parent.permissionModale; 
                     this.$http.EditUser(this.ruleForm)
                         .then(response => {
                             this.$parent.state = 0;

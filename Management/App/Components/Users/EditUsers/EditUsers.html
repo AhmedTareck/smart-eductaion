@@ -93,24 +93,7 @@
                         <!--Pass / ConfirmPass / PhoneNumber-->
                         <div class="row">
 
-                            <div class="col-md-4">
 
-
-                                <el-form-item label="الرقم السري" prop="Password">
-                                    <el-input placeholder="الرقم السري" v-model="ruleForm.Password" type="password"></el-input>
-                                </el-form-item>
-
-
-                            </div>
-
-                            <div class="col-md-4">
-
-
-                                <el-form-item label="تأكيد الرقم السري" prop="ConfimPassword">
-                                    <el-input placeholder="تأكيد الرقم السري" v-model="ConfimPassword" type="password"></el-input>
-
-                                </el-form-item>
-                            </div>
 
                             <div class="col-md-4">
 
@@ -120,25 +103,25 @@
                                 </el-form-item>
                             </div>
 
+
+
+                            <!--Permations-->
+                            <div class="col-md-4">
+
+
+
+
+
+
+
+                                <el-form-item label="صلاحيات الإستخدام" prop="UserType">
+                                    <el-radio v-model="ruleForm.UserType" label=1 border><label style="padding-right:10px">مسئول</label></el-radio>
+                                    <el-radio v-model="ruleForm.UserType" label=2 border><label style="padding-right:10px">مستخدم</label></el-radio>
+                                </el-form-item>
+
+
+                            </div>
                         </div>
-
-                        <!--Permations-->
-                        <div class="col-md-4">
-
-
-
-
-
-
-
-                            <el-form-item label="صلاحيات الإستخدام" prop="UserType">
-                                <el-radio v-model="ruleForm.UserType" label=1 border><label style="padding-right:10px">مسئول</label></el-radio>
-                                <el-radio v-model="ruleForm.UserType" label=2 border><label style="padding-right:10px">مستخدم</label></el-radio>
-                            </el-form-item>
-
-
-                        </div>
-
                         <!--Add User-->
                         <div class="tile-footer">
                             <button class="btn btn-danger" @click.prevent="Back()">رجوع</button>

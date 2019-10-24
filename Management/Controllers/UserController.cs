@@ -455,7 +455,7 @@ namespace Management.Controllers
                         }
                     }
                 }
-                // Users.LoginName = user.LoginName;
+                Users.LoginName = user.LoginName;
                 Users.FullName = user.FullName;
                 Users.Phone = user.Phone;
                 Users.Email = user.Email;
