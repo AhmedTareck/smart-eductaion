@@ -4,70 +4,13 @@
 <script src="./Sent.js"></script>
 <style>
 
-    
-.el-popper{
-    margin-top: -46px !important;
-   
-}
-::-webkit-scrollbar { 
-    display: none; 
-}
-.fa.fa-refresh:hover{
-     cursor: pointer;
-     color:#409EFF;
-}
-.table-inbox {
-    border: 1px solid #d3d3d3;
-    margin-bottom: 0;
-}
-.table-inbox tr td {
-    padding: 12px !important;
-}
-.table-inbox tr td:hover {
-    cursor: pointer;
-}
-.table-inbox tr td .fa-star.inbox-started, .table-inbox tr td .fa-star:hover {
-    color: #f78a09;
-}
-.table-inbox tr td .fa-star {
-    color: #d5d5d5;
-}
-.table-inbox tr.unread td {
-    background: none repeat scroll 0 0 #f7f7f7;
-    font-weight: 600;
-}
+    .unread {
+        background-color: whitesmoke;
+    }
 
-.box-footer {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-top: 1px solid #f4f4f4;
-    padding: 10px;
-    background-color: #fff;
-}
 
-.list-unstyled, .chart-legend, .contacts-list, .users-list, .mailbox-attachments {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
 
-.mailbox-attachment-icon {
-    text-align: center;
-    font-size: 20px;
-    color: #666;
-    padding: 20px 10px;
-}
-.mailbox-attachments li {
-    float: right;
-    width: 200px;
-    border: 1px solid #eee;
-    margin-bottom: 10px;
-    margin-right: 10px;
-}
-.mailbox-attachment-icon.has-img {
-    padding: 0;
-}
-
+    .TableRow:hover {
+        box-shadow: 0 0 11px rgba(33,33,33,.2);
+    }
 </style>

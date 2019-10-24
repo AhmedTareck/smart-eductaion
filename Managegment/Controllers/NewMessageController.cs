@@ -156,13 +156,13 @@ namespace Managegment.Controllers
                     Participations Participation = new Participations()
                    
                     {
-                        ConversationId = conversations.ConversationId,
-                        Archive = false,
-                        UserId = item,
-                        CreatedOn = DateTime.Now,
-                        IsDelete = false,
-                        IsFavorate = false,
-                        IsRead = false,
+                        //ConversationId = conversations.ConversationId,
+                        //Archive = false,
+                        //UserId = item,
+                        //CreatedOn = DateTime.Now,
+                        //IsDelete = false,
+                        //IsFavorate = false,
+                        //IsRead = false,
                     };
 
                     db.Participations.Add(Participation);
@@ -219,13 +219,13 @@ namespace Managegment.Controllers
                 (
                   new Participations()
                   {
-                      ConversationId= conversationId,
-                      Archive = false,
-                      UserId = userId,
-                      CreatedOn=DateTime.Now,
-                      IsDelete=false,
-                      IsFavorate=false,
-                      IsRead=false,
+                      //ConversationId= conversationId,
+                      //Archive = false,
+                      //UserId = userId,
+                      //CreatedOn=DateTime.Now,
+                      //IsDelete=false,
+                      //IsFavorate=false,
+                      //IsRead=false,
                   }
                 );
         }

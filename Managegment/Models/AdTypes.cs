@@ -12,11 +12,11 @@ namespace Management.Models
 
         public long AdTypeId { get; set; }
         public string AdTypeName { get; set; }
-        public short? Status { get; set; }
-        public DateTime? CreatedOn { get; set; }
         public long? CreatedBy { get; set; }
-        public DateTime? ModifiedOn { get; set; }
+        public DateTime? CreatedOn { get; set; }
         public long? ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public short? Status { get; set; }
 
         public Users CreatedByNavigation { get; set; }
         public Users ModifiedByNavigation { get; set; }

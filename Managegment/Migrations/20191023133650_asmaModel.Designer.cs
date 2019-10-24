@@ -11,9 +11,10 @@ using System;
 namespace Management.Migrations
 {
     [DbContext(typeof(MailSystemContext))]
-    partial class MailSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20191023133650_asmaModel")]
+    partial class asmaModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,222 +1,222 @@
-﻿import MessageDisplay from './MessageDisplay/MessageDisplay.vue';
-import { release } from 'os';
+﻿import MassageDetals from './MassageDetals/MassageDetals.vue';
+import moment from 'moment';
 
 export default {
-    name: 'Inbox',
+    name: 'Inbox',    
+    created() {
+  
+        this.GetMassages(this.pageNo);
+    },
 
     components: {
-        'message-Display': MessageDisplay,
+        'MassageDetals': MassageDetals,
     },
-    created() {
-        this.filterMessage();
+
+    filters: {
+        moment: function (date) {
+            if (date === null) {
+                return "فارغ";
+            }
+            // return moment(date).format('MMMM Do YYYY, h:mm:ss a');
+            return moment(date).format('h:mm A');
+        }
     },
+
     data() {
-        return {
-            state: 1,
-            inbox: {},
+        return {  
             pageNo: 1,
-            pageSize: 5,
-            pages: 0,
-            isAttachment: "",
-            isFavorate: false,
-            conversationId: "",
-            resultState: false,
-            filter: "0",
-            messageFiltter:""
-        
+            pageSize: 10,
+            pages: 0,  
+            state:0,
+            
+            Massages:[],
+            SelectedMassages:[],
         };
     },
-    computed: {
-        IsAttachmentComputed: function () {
-            this.isAttachment = "fa fa-paperclip";
-        },
-        isFavorateClassName: function () {
-            return (this.isFavorate) ? "inbox-started":" ";
-        }
-    },
-    watch: {
-        isFavorate: function (value) {
-            
-        }
-    },
-    methods: {
 
-        RefreshInpox() {
-            this.filter = "0";
-            this.messageFiltter = "";
-            this.filterMessage();
+    methods: 
+    {
 
-        },
-
-        getPagintion(pageNo) {
+        GetMassages(pageNo) {
             this.pageNo = pageNo;
-
-            let inboxType = 0;
+                if (this.pageNo === undefined) {
+                    this.pageNo = 1;
+                }
             this.$blockUI.Start();
-            this.$http.FilterInbox(this.pageNo, this.pageSize, inboxType, this.filter, this.messageFiltter)
+            this.$http.GetReceivedMassage(this.pageNo, this.pageSize)
                 .then(response => {
                     this.$blockUI.Stop();
-                    this.inbox = response.data.data;
+                    this.Massages = response.data.praticipations;
                     this.pages = response.data.count;
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();
+                    console.error(err);
                     this.pages = 0;
-                    this.$message({
-                        type: 'error',
-                        message: err.message.data
-                    });
-                });
-
-        },
-
-        filterMessage() {
-            this.pageNo = 1;
-            this.getPagintion(this.pageNo);
-        },
-        RedirectToMessageDisplay(conversationId) {
-            this.conversationId = conversationId;
-            this.state = 2;
-        },
-        IsFavorateMethod(item, index) {
-            let msg="";
-            if(!item.isFavorate)
-            {
-                msg="تم إضافة الي المفضلة";
-            }else{
-                msg="تم إزالة من المفضلة";
-            }
-            this.$http.IsFavorate(!item.isFavorate, item.conversationID)
-                .then(response => {
-                    this.$blockUI.Stop();
-                    this.resultState = response.data.state;
-                    if (this.resultState)
-                    {
-                        this.inbox[index].isFavorate = !item.isFavorate;
-                        this.resultState = false;
-                        this.showMessage(msg);
-                    }
-                      
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-                    this.pages = 0;
-                    this.resultState = false;
-                    this.$message({
-                        type: 'error',
-                        message: err.message.data
-                    }); 
                 });
         },
-        
-        //GetInbox(pageNo) {
-            
 
-        //    this.pageNo = pageNo;
-        //    if (this.pageNo === undefined) {
-        //        this.pageNo = 1;
-        //    }
-        //    this.$blockUI.Start();
-        //    this.$http.GetInbox(this.pageNo, this.pageSize)
-        //        .then(response => {
-        //            this.$blockUI.Stop();
-        //            this.inbox = response.data.inbox;
-        //            this.pages = response.data.count;
-        //        })
-        //        .catch((err) => {
-        //            this.$blockUI.Stop();
-        //            this.pages = 0;
-        //            this.$message({
-        //                type: 'error',
-        //                message: "Error"
-        //            }); 
-        //        });
-        //},
+        //1-AddToBockmarck
+        //2-RemoveBockmarck
+        //3-SetReadStatus
+        //4-ChangeUnReadState
+        //5-AddToArcive
 
-        ArchaveInbox(index, item) {
-
-            let setArchive = !item.isArchive;
-            let msg="";
-            if(setArchive)
-            {
-                msg="تم إضافة الي الارشيف";
-            }else{
-                msg="تم إزالة من الارشيف";
-            }
-            this.$http.SetArchaveInbox(setArchive, item.conversationID)
-                .then(response => {
-                    this.$blockUI.Stop();
-                    this.resultState = response.data.state;
-                    if (this.resultState)
-                    {
-                        this.inbox.splice(index, 1);
-                        this.showMessage(msg);
-                    }
-                    this.resultState = false;
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-                    
-                    this.pages = 0;
-                    this.resultState = false;
-                    this.$message({
-                        type: 'error',
-                        message: err.message.data
-                    }); 
-                });
-            },
-        DeleteInbox(index, item) {
-            let setDelete = true;
-            this.$http.DeleteInbox(setDelete, item.conversationID)
-                .then(response => {
-                    this.$blockUI.Stop();
-                    this.resultState = response.data.state;
-                    if (this.resultState)
-                        this.inbox.splice(index, 1);
-                    this.resultState = false;
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-                    this.pages = 0;
-                    this.resultState = false;
-                    this.$message({
-                        type: 'error',
-                        message: err.message.data
-                    }); 
-                });
-        },
-        showMessage(msg)
+        ChangeMassageStatus(item,operation)
         {
-            const h = this.$createElement;
-            this.$message({
-                message: h('p', null, [
-                h('span', { style: 'margin-right: 5px' }, msg)
-                ])
-            });
+            var status=0;
+            if(operation==1)
+            {
+                if(item.status==1 || item.status==3 || item.status==5 || item.status==6)
+                {
+                    return;
+                }else  if(item.status==0)
+                {
+                    status=3;
+                }else if(item.status==2)
+                {
+                    status=5;
+                }else if(item.status==4)
+                {
+                    status=6;
+                }else if(item.status==7)
+                {
+                    status=1;
+                }
+            }else if(operation==2)
+            {
+                var status=0;
+                if(item.status==0 || item.status==2 || item.status==4 || item.status==7)
+                {
+                    return;
+                }else  if(item.status==1)
+                {
+                    status=7;
+                }else if(item.status==3)
+                {
+                    status=0;
+                }else if(item.status==5)
+                {
+                    status=2;
+                }else if(item.status==6)
+                {
+                    status=4;
+                }
+            }else if(operation==3)
+            {
+                if(item.status==2 || item.status==4 || item.status==5 || item.status==6)
+                {
+                    return;
+                }else  if(item.status==0)
+                {
+                    status=4;
+                }else if(item.status==1)
+                {
+                    status=5;
+                }else if(item.status==3)
+                {
+                    status=6;
+                }else if(item.status==7)
+                {
+                    status=2;
+                }
+            }else if(operation==4)
+            {
+                if(item.status==0 || item.status==1 || item.status==3 || item.status==7)
+                {
+                    return;
+                }else  if(item.status==2)
+                {
+                    status=7;
+                }else if(item.status==4)
+                {
+                    status=0;
+                }else if(item.status==5)
+                {
+                    status=1;
+                }else if(item.status==6)
+                {
+                    status=3;
+                }
+            }else if(operation==5)
+            {
+                if(item.status==0 || item.status==3 || item.status==4 || item.status==6)
+                {
+                    return;
+                }else  if(item.status==1)
+                {
+                    status=3;
+                }else if(item.status==2)
+                {
+                    status=4;
+                }else if(item.status==5)
+                {
+                    status=6;
+                }else if(item.status==7)
+                {
+                    status=0;
+                }
+            }
+
+            var MassageHint="";
+            if(operation==1)
+            {
+                MassageHint="تم تحديد الرسالة كمفظلة";
+            }else if(operation==2)
+            {
+                MassageHint="تم إزالة الرسالة من الرسائل المفضلة";
+            }else if(operation==5)
+            {
+                MassageHint="تم إضافة الرسالة إلي الأرشيف";
+            }
+
+            this.$http.ChangeMassageState(item.conversationId,status)
+                    .then(response => {   
+                        this.GetMassages(this.pageNo);
+                    })
+                    .catch((err) => {
+                        this.$message({
+                            type: 'error',
+                            dangerouslyUseHTMLString: true,
+                            duration: 5000,
+                            showClose: true,
+                            message: '<strong>' + err.response.data+'</strong>'
+                        });  
+                    });
+
         },
-        ReadInbox(index, item) {
-            let readUnRead = !item.isRead;
-            this.$http.ReadUnReadInbox(readUnRead, item.conversationID)
-                .then(response => {
-                    this.$blockUI.Stop();
-                    this.resultState = response.data.state;
-                    if (this.resultState) {
-                        this.inbox[index].isRead = readUnRead;
-                        this.inbox[index].messageCountNotRead = 0;
-                    }
-                   
-                    this.resultState = false;
+
+        DeleteMassage(item)
+        {
+            this.$http.DeleteMassage(item.conversationId)
+                .then(response => {    
+                    this.$message({
+                        type: 'success',
+                        dangerouslyUseHTMLString: true,
+                        duration: 5000,
+                        message: '<strong>'+response.data+'</strong>'
+                    });  
+                    this.GetMassages(this.pageNo);
                 })
                 .catch((err) => {
-                    this.$blockUI.Stop();
-                    this.pages = 0;
-                    this.resultState = false;
                     this.$message({
                         type: 'error',
-                        message: err.message.data
-                    }); 
+                        dangerouslyUseHTMLString: true,
+                        duration: 5000,
+                        showClose: true,
+                        message: '<strong>' + err.response.data+'</strong>'
+                    });  
                 });
+
         },
+
+        MassageDetals(item)
+        {
+            this.ChangeMassageStatus(item,4)
+            this.SelectedMassages=item;
+            this.state=1;
+        }
        
-    }
+    }    
+
 }

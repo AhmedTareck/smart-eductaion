@@ -1,5 +1,6 @@
 ﻿
 import moment from 'moment';
+
 export default {
     name: 'MessageDisplay',
     props:["ConversationId"],
