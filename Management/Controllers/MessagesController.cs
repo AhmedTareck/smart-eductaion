@@ -103,6 +103,95 @@ namespace Managegment.Controllers
                                               MassageCreatedOn = p.Conversation.CreatedOn,
 
                                           }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+                var result = praticipationsList.GroupBy(test => test.ConversationId)
+                         .Select(grp => grp.First())
+                         .ToList();
+                return Ok(new { praticipations = result, count = praticiapationsCount });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+        [HttpGet("GetSentMassage")]
+        public IActionResult GetSentMassage(int pageNo, int pageSize, int operateion)
+        {
+            try
+            {
+                //0-reseved
+                //1-sent
+                //2-archive
+                //3-delete
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                var praticipations = (from p in db.Participations select p);
+
+                if (operateion == 0)
+                {
+                    praticipations = (from p in db.Participations
+                                      where
+          p.IsDelete != true &&
+          p.RecivedBy == userId &&
+          p.Status != 0 &&
+          p.Status != 3 &&
+          p.Status != 4 &&
+          p.Status != 6
+                                      select p);
+                }
+                else if (operateion == 1)
+                {
+                    praticipations = (from p in db.Participations
+                                      where
+          p.IsDelete != true &&
+          p.SentBy == userId &&
+          p.Status != 0 &&
+          p.Status != 3 &&
+          p.Status != 4 &&
+          p.Status != 6
+                                      select p);
+                }
+                else if (operateion == 2)
+                {
+                    praticipations = (from p in db.Participations
+                                      where
+          p.IsDelete != true &&
+          (p.SentBy == userId || p.RecivedBy == userId) &&
+          p.Status == 0 ||
+          p.Status == 3 ||
+          p.Status == 4 ||
+          p.Status == 6
+                                      select p);
+                }
+                else if (operateion == 3)
+                {
+                    praticipations = (from p in db.Participations
+                                      where
+          p.IsDelete == true
+                                      select p);
+                }
+
+
+
+                var praticiapationsCount = (from p in praticipations
+                                            select p).Count();
+
+                var praticipationsList = (from p in praticipations
+                                          orderby p.CreatedOn descending
+                                          select new
+                                          {
+                                              ConversationId = p.ConversationId,
+                                              SentBy = p.SentBy,
+                                              SentName = p.SentByNavigation.FullName,
+                                              Status = p.Status,
+                                              CreatedOn = p.CreatedOn,
+                                              is_Delete = p.IsDelete,
+                                              AdType = p.Conversation.MessageType.Name,
+                                              Body = help.GetPlainTextFromHtml(p.Conversation.Body),
+                                              Priolti = p.Conversation.Priolti,
+                                              Subject = p.Conversation.Subject,
+                                              MassageCreatedOn = p.Conversation.CreatedOn,
+
+                                          }).Skip((pageNo - 1) * pageSize).Take(pageSize).SingleOrDefault();
 
                 return Ok(new { praticipations = praticipationsList, count = praticiapationsCount });
             }
@@ -111,7 +200,6 @@ namespace Managegment.Controllers
                 return StatusCode(500, e.Message);
             }
         }
-
         [HttpPost("ChangeMassageState")]
         public IActionResult ChangeMassageState(long conversationId, short status)
         {
@@ -124,7 +212,7 @@ namespace Managegment.Controllers
                     return StatusCode(401, "Please make sure you are logged-in");
                 }
 
-                var Massage = (from p in db.Participations where p.ConversationId == conversationId select p).SingleOrDefault();
+                var Massage = (from p in db.Participations where p.ConversationId == conversationId  && p.RecivedBy==userId select p).SingleOrDefault();
 
                 if (null == Massage)
                 {
@@ -142,6 +230,8 @@ namespace Managegment.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+  
 
         [HttpPost("DeleteMassage")]
         public IActionResult DeleteMassage(long conversationId)

@@ -196,6 +196,10 @@ export default {
         return axios.post(`/api/admin/Messages/ChangeMassageState?conversationId=${conversationId}&status=${status}`);
     },
 
+    ChangeMassageStateSent(conversationId, status) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(`/api/admin/Messages/ChangeMassageStateSent?conversationId=${conversationId}&status=${status}`);
+    },
     DeleteMassage(conversationId) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(`/api/admin/Messages/DeleteMassage?conversationId=${conversationId}`);

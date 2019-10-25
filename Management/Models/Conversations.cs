@@ -21,7 +21,7 @@ namespace Management.Models
         public string Body { get; set; }
         public string Priolti { get; set; }
         public long? MessageTypeId { get; set; }
-        public int SentType { get; set; }
+        public short SentType { get; set; }
         public MessageType MessageType { get; set; }
         public Users CreatorNavigation { get; set; }
         public ICollection<Attachments> Attachments { get; set; }
