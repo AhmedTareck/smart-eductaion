@@ -2,7 +2,7 @@
 import moment from 'moment';
 
 export default {
-    name: 'Inbox',    
+    name: 'DeletedMessage',    
     created() {
   
         this.GetMassages(this.pageNo);
@@ -43,7 +43,7 @@ export default {
                     this.pageNo = 1;
                 }
             this.$blockUI.Start();
-            this.$http.GetReceivedMassage(this.pageNo, this.pageSize,0)//reseved Massage
+            this.$http.GetReceivedMassage(this.pageNo, this.pageSize,3)//delete Massage
                 .then(response => {
                     this.$blockUI.Stop();
                     this.Massages = response.data.praticipations;

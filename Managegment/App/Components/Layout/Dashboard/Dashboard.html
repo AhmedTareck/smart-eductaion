@@ -44,6 +44,18 @@
                     <p>صندوق المرسل</p>
                 </a>
             </li>
+            <li :class="menuFlag[8]">
+                <a class="nav-link" href="#" @click.prevent="href('/Archive',8)">
+                    <i class="fa fa-archive"></i>
+                    <p>الإرشيف</p>
+                </a>
+            </li>
+            <li :class="menuFlag[9]">
+                <a class="nav-link" href="#" @click.prevent="href('/DeletedMessage',9)">
+                    <i class="el-icon-delete"></i>
+                    <p>الرسائل المحذوفة</p>
+                </a>
+            </li>
             <li :class="menuFlag[4]">
                 <a class="nav-link" href="#" @click.prevent="href('/Branches',4)">
                     <i class="material-icons">library_books</i>

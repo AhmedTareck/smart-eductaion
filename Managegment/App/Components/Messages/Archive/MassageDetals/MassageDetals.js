@@ -1,18 +1,22 @@
-﻿import MassageDetals from './MassageDetals/MassageDetals.vue';
+﻿
 import moment from 'moment';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
+
+import { quillEditor } from 'vue-quill-editor';
 
 export default {
-    name: 'Inbox',    
-    created() {
-  
-        this.GetMassages(this.pageNo);
-    },
+name: 'MassageDetals',    
+created() {
+    this.MassageDetals=this.$parent.SelectedMassages;
+    this.GetReplayes(this.pageNo);
+    this.MassageStatus=this.MassageDetals.status;
+    //this.GetMassages(this.pageNo);
+},
 
-    components: {
-        'MassageDetals': MassageDetals,
-    },
 
-    filters: {
+filters: {
         moment: function (date) {
             if (date === null) {
                 return "فارغ";
@@ -20,33 +24,55 @@ export default {
             // return moment(date).format('MMMM Do YYYY, h:mm:ss a');
             return moment(date).format('h:mm A');
         }
-    },
+    
+},
 
     data() {
-        return {  
+        return { 
             pageNo: 1,
             pageSize: 10,
-            pages: 0,  
-            state:0,
-            
-            Massages:[],
-            SelectedMassages:[],
+            pages: 0,
+
+            MassageDetals:[],
+            Replayes:[],
+
+            content: "",
+            ReplayBody:"",
+            MassageStatus:0,
+
+            editorOption: {
+                //debug: 'info',
+                //placeholder: " ",
+                //readOnly: true,
+                //theme: 'snow',
+                //modules: {
+                //    toolbar: [
+                //        ['bold', 'italic', 'underline'],
+                //        ['code-block'],
+                //        [{ 'color': [] }, { 'background': [] }],
+                //        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                //        [{ 'direction': 'rtl' }],
+                //        [{ 'align': [] }],
+
+                //    ],
+                //},
+            },
         };
     },
 
-    methods: 
+methods: 
     {
-
-        GetMassages(pageNo) {
+        GetReplayes(pageNo) {
             this.pageNo = pageNo;
-                if (this.pageNo === undefined) {
-                    this.pageNo = 1;
-                }
+            if (this.pageNo === undefined) {
+                this.pageNo = 1;
+            }
+
             this.$blockUI.Start();
-            this.$http.GetReceivedMassage(this.pageNo, this.pageSize,0)//reseved Massage
+            this.$http.GetReplayes(this.pageNo, this.pageSize,this.$parent.SelectedMassages.conversationId)
                 .then(response => {
                     this.$blockUI.Stop();
-                    this.Massages = response.data.praticipations;
+                    this.Replayes = response.data.replayesLists;
                     this.pages = response.data.count;
                 })
                 .catch((err) => {
@@ -63,7 +89,7 @@ export default {
         //5-AddToArcive
 
         ChangeMassageStatus(item,operation)
-        {
+        {debugger
             var status=0;
             if(operation==1)
             {
@@ -156,6 +182,21 @@ export default {
                 {
                     status=0;
                 }
+            }else if(operation==6)
+            {
+                if(item.status==0)
+                {
+                    status=7;
+                }else if(item.status==3)
+                {
+                    status=1;
+                }else if(item.status==4)
+                {
+                    status=2;
+                }else if(item.status==6)
+                {
+                    status=5;
+                }
             }
 
             var MassageHint="";
@@ -171,8 +212,13 @@ export default {
             }
 
             this.$http.ChangeMassageState(item.conversationId,status)
-                    .then(response => {   
-                        this.GetMassages(this.pageNo);
+                    .then(response => { 
+                        this.MassageStatus=status;
+                        this.MassageDetals.status=status;
+                        if(operation==5 || operation==6)
+                        {
+                            this.$parent.state=0;
+                        }
                     })
                     .catch((err) => {
                         this.$message({
@@ -196,7 +242,8 @@ export default {
                         duration: 5000,
                         message: '<strong>'+response.data+'</strong>'
                     });  
-                    this.GetMassages(this.pageNo);
+                    this.$parent.GetMassages();
+                    this.$parent.state=0;
                 })
                 .catch((err) => {
                     this.$message({
@@ -210,11 +257,32 @@ export default {
 
         },
 
-        MassageDetals(item)
+        AddReplay()
         {
-            this.ChangeMassageStatus(item,4)
-            this.SelectedMassages=item;
-            this.state=1;
+            this.$http.AddReplay(this.$parent.SelectedMassages.conversationId,this.ReplayBody)
+                .then(response => {    
+                    this.$message({
+                        type: 'success',
+                        dangerouslyUseHTMLString: true,
+                        duration: 5000,
+                        message: '<strong>'+response.data+'</strong>'
+                    });  
+                    this.GetReplayes(this.pageNo);
+                })
+                .catch((err) => {
+                    this.$message({
+                        type: 'error',
+                        dangerouslyUseHTMLString: true,
+                        duration: 5000,
+                        showClose: true,
+                        message: '<strong>' + err.response.data+'</strong>'
+                    });  
+                });
+        },
+
+        Back()
+        {
+            this.$parent.state=0;
         }
        
     }    

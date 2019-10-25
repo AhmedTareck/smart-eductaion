@@ -43,7 +43,7 @@ methods:
                 this.pageNo = 1;
             }
             this.$blockUI.Start();
-            this.$http.GetReceivedMassage(this.pageNo, this.pageSize)
+            this.$http.GetReceivedMassage(this.pageNo, this.pageSize,1)//sent
                 .then(response => {
                     this.$blockUI.Stop();
                     this.Massages = response.data.praticipations;

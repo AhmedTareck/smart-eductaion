@@ -25,13 +25,21 @@ namespace Managegment.Controllers
         }
 
         [HttpGet("GetReceivedMassage")]
-        public IActionResult GetReceivedMassage(int pageNo, int pageSize)
+        public IActionResult GetReceivedMassage(int pageNo, int pageSize,int operateion)
         {
             try
             {
+                //0-reseved
+                //1-sent
+                //2-archive
+                //3-delete
                 var userId = this.help.GetCurrentUser(HttpContext);
 
-                var praticipations = (from p in db.Participations where 
+                var praticipations= (from p in db.Participations select p);
+
+                if(operateion==0)
+                {
+                    praticipations = (from p in db.Participations where 
                                       p.IsDelete!=true && 
                                       p.ReceivedBy==userId && 
                                       p.Status!=0 &&
@@ -39,6 +47,36 @@ namespace Managegment.Controllers
                                       p.Status != 4 &&
                                       p.Status != 6 
                                       select p);
+                }else if(operateion==1)
+                {
+                    praticipations = (from p in db.Participations where 
+                                      p.IsDelete!=true && 
+                                      p.SentBy==userId && 
+                                      p.Status!=0 &&
+                                      p.Status != 3 &&
+                                      p.Status != 4 &&
+                                      p.Status != 6 
+                                      select p);
+                }
+                else if(operateion==2)
+                {
+                    praticipations = (from p in db.Participations where 
+                                      p.IsDelete!=true && 
+                                      (p.SentBy==userId || p.ReceivedBy == userId) &&
+                                      p.Status==0 ||
+                                      p.Status == 3 ||
+                                      p.Status == 4 ||
+                                      p.Status == 6 
+                                      select p);
+                }
+                else if(operateion==3)
+                {
+                    praticipations = (from p in db.Participations where 
+                                      p.IsDelete==true
+                                      select p);
+                }
+
+                
 
                 var praticiapationsCount = (from p in praticipations
                                             select p).Count();

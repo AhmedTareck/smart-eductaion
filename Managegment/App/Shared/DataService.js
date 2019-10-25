@@ -183,10 +183,10 @@ export default {
         return axios.get(`/Api/Admin/Branches/GetBranchesByLevel?branchLevel=${BranchLevel}`);
     },
 
-    GetReceivedMassage(pageNo, pageSize)
+    GetReceivedMassage(pageNo, pageSize,operateion)
     {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Admin/Messages/GetReceivedMassage?pageNo=${pageNo}&pageSize=${pageSize}`);
+        return axios.get(`/Api/Admin/Messages/GetReceivedMassage?pageNo=${pageNo}&pageSize=${pageSize}&operateion=${operateion}`);
     },
 
     ChangeMassageState(conversationId,status) {
