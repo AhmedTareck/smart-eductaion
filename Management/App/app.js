@@ -11,7 +11,8 @@ import Branches from './Components/Branches/Branches.vue';
 import MessageTypes from './Components/MessageTypes/MessageTypes.vue';
 import Inbox from './Components/Messages/Inbox/Inbox.vue';
 import Sent from './Components/Messages/Sent/Sent.vue';
-
+import Archive from './Components/Messages/Archive/Archive.vue';
+import DeletedMessage from './Components/Messages/DeletedMessage/DeletedMessage.vue';
 import Users from './Components/Users/Users.vue';
 import EditUsersProfile from './Components/Users/EditUsersProfile/EditUsersProfile.vue';
 import ChangePassword from './Components/Users/ChangePassword/ChangePassword.vue';
@@ -54,6 +55,8 @@ const router = new VueRouter({
         { path: '/EditUsersProfile', component: EditUsersProfile },
         { path: '/ChangePassword', component: ChangePassword },  
         { path: '/NewMessage', component: NewMessage },
+        { path: '/Archive', component: Archive },
+        { path: '/DeletedMessage', component: DeletedMessage },
     ]
 });
 

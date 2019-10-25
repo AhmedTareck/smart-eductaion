@@ -2,7 +2,7 @@
 import moment from 'moment';
 
 export default {
-    name: 'Inbox',    
+    name: 'Archive',    
     created() {
   
         this.GetMassages(this.pageNo);
@@ -43,7 +43,7 @@ export default {
                     this.pageNo = 1;
                 }
             this.$blockUI.Start();
-            this.$http.GetReceivedMassage(this.pageNo, this.pageSize,0)//reseved Massage
+            this.$http.GetReceivedMassage(this.pageNo, this.pageSize,2)//reseved Massage
                 .then(response => {
                     this.$blockUI.Stop();
                     this.Massages = response.data.praticipations;
@@ -61,6 +61,7 @@ export default {
         //3-SetReadStatus
         //4-ChangeUnReadState
         //5-AddToArcive
+        //6-removeArcive
 
         ChangeMassageStatus(item,operation)
         {
@@ -155,6 +156,22 @@ export default {
                 }else if(item.status==7)
                 {
                     status=0;
+                }
+            }
+            else if(operation==6)
+            {
+                if(item.status==0)
+                {
+                    status=7;
+                }else if(item.status==3)
+                {
+                    status=1;
+                }else if(item.status==4)
+                {
+                    status=2;
+                }else if(item.status==6)
+                {
+                    status=5;
                 }
             }
 

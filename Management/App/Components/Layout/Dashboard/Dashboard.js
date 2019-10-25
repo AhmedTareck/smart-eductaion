@@ -57,6 +57,12 @@
             else if (route == "NewMessage") {
                 this.active = 7;
             }
+            else if (route == "Archive") {
+                this.active = 8;
+            }
+            else if (route == "DeletedMessage") {
+                this.active = 9;
+            }
             else 
             {
                 this.active = 1;

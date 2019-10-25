@@ -1,7 +1,7 @@
-﻿<template src="./Inbox.html">
+﻿<template src="./Archive.html">
 </template>
 
-<script src="./Inbox.js"></script>
+<script src="./Archive.js"></script>
 <style>
 
     .unread{

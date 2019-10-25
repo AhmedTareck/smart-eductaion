@@ -2,7 +2,7 @@
 import moment from 'moment';
 
 export default {
-    name: 'Inbox',    
+    name: 'DeletedMessage',    
     created() {
   
         this.GetMassages(this.pageNo);
@@ -36,14 +36,14 @@ export default {
 
     methods: 
     {
-
+        //dsf
         GetMassages(pageNo) {
             this.pageNo = pageNo;
                 if (this.pageNo === undefined) {
                     this.pageNo = 1;
                 }
             this.$blockUI.Start();
-            this.$http.GetReceivedMassage(this.pageNo, this.pageSize,0)//reseved Massage
+            this.$http.GetReceivedMassage(this.pageNo, this.pageSize,3)//delete Massage
                 .then(response => {
                     this.$blockUI.Stop();
                     this.Massages = response.data.praticipations;

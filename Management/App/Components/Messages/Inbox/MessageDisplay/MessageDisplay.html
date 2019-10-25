@@ -1,4 +1,7 @@
 ﻿<div class="mailbox-view-area mg-tb-15">
+    
+    <add-Branches v-if="state==1"></add-Branches>
+
     <div class="container-fluid">
 
         <div class="col-md-12 col-md-12 col-sm-12 col-xs-12">
@@ -34,7 +37,7 @@
                     </div>
                 </div>
                 <!--File Upload-->
-                <div class="border-bottom border-left border-right bg-white mg-tb-15"  v-if="contentInbox.attachmentDTOs !=0">
+                <div class="border-bottom border-left border-right bg-white mg-tb-15" v-if="contentInbox.attachmentDTOs !=0">
                     <p class="m-b-md">
                         <span><i class="fa fa-paperclip"></i> ملفات المرفقة </span>
                     </p>
@@ -50,7 +53,7 @@
                                         <span class="mailbox-attachment-icon has-img"></span>
                                         <div class="mailbox-attachment-info">
                                             <a href="#" class="mailbox-attachment-name">
-                                                <i  class="  attachment-margin fa fa-file"   ></i> {{item.fileName}}
+                                                <i class="  attachment-margin fa fa-file"></i> {{item.fileName}}
                                             </a>
                                             <span class="mailbox-attachment-size">
                                                 <a href="#" @click.prevent="downloadFile(item)" class="btn btn-default btn-xs pull-right">
@@ -59,7 +62,7 @@
                                             </span>
                                         </div>
                                     </li>
-                                 </template>
+                                </template>
 
                             </ul>
                         </div>
@@ -83,7 +86,7 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="user-comment user-coment2">
-                                     <!--<img src="../../../../../Img/User.png" alt="" class="img-circle">-->
+                                    <!--<img src="../../../../../Img/User.png" alt="" class="img-circle">-->
                                     <img :src="`data:image/png;base64,${item.imageUser}`" alt="" class="img-circle">
                                     <div class="comment-details">
                                         <h4>
@@ -100,7 +103,7 @@
                         </div>
                     </template>
                 </template>
-              
+
                 <!--/Comment-->
                 <template v-if="contentInbox.replay">
                     <transition name="fade">
@@ -150,9 +153,9 @@
                     </transition>
 
                 </template>
-             
 
-             
+
+
 
 
 

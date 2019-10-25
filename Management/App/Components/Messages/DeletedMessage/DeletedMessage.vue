@@ -1,7 +1,7 @@
-﻿<template src="./Inbox.html">
+﻿<template src="./DeletedMessage.html">
 </template>
 
-<script src="./Inbox.js"></script>
+<script src="./DeletedMessage.js"></script>
 <style>
 
     .unread{
