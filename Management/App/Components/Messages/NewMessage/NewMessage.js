@@ -12,7 +12,7 @@ export default {
         quillEditor
     },
     data() {
-
+ 
         return {
 
 
@@ -58,21 +58,7 @@ export default {
             users: [],
             SentType:[],
             editorOption: {
-                //debug: 'info',
-                //placeholder: " ",
-                //readOnly: true,
-                //theme: 'snow',
-                //modules: {
-                //    toolbar: [
-                //        ['bold', 'italic', 'underline'],
-                //        ['code-block'],
-                //        [{ 'color': [] }, { 'background': [] }],
-                //        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                //        [{ 'direction': 'rtl' }],
-                //        [{ 'align': [] }],
-
-                //    ],
-                //},
+             
             },
             types: [],
             loading: false,
@@ -80,7 +66,7 @@ export default {
             Prioritytexts: [' عادي ', ' متوسط ', ' مهم '],
             priorityint: null,
             checkAll: false,
-            options: ['البريد الإلكتروني', 'رسالة نصية'],
+           
             isIndeterminate: false,
             checkOptions: [],
             selectFiles: [],
@@ -91,7 +77,7 @@ export default {
   
     created() {
       
-        this.GetAllAdTypes();
+        this.GetAllMessageTypes();
         this.Permissions = [
             {
                 id: 1,
@@ -150,24 +136,7 @@ export default {
             this.isIndeterminate = false;
             
         },
-        handleCheckedOptionChange(value) {
-            
-            let checkedCount = value.length;
-            this.checkAll = checkedCount === this.options.length;
-           
-            this.isIndeterminate = checkedCount > 0 && checkedCount < this.options.length;
-            if (this.checkAll) {
-                this.ruleForm.selectedOption = 0;
-                return;
-            } else if (value[0]=== this.options[0]) {
-                this.ruleForm.selectedOption = 1;
-            } else if (value[0]=== this.options[1]) {
-                this.ruleForm.selectedOption = 2;
-            } else {
-                this.ruleForm.selectedOption = 3;
-            }
-
-        },
+  
         FileChanged(file, fileList) {
           
             var fileSize = (file.size / 1024) | 0;
@@ -225,84 +194,36 @@ export default {
                         this.$blockUI.Stop();
                         this.$message({
                             type: 'error',
-                            message: err.message.data
-                        }); 
+                            dangerouslyUseHTMLString: true,
+                            duration: 5000,
+                            message: '<strong>' + err.response.data + '</strong>'
+                        });
                     });
            
         },
-        GetAllAdTypes()
+        GetAllMessageTypes()
         {
-            this.loading = true;
+        
             this.$blockUI.Start();
-            this.$http.GetAllAdTypes()
+            this.$http.GetAllMessageTypes()
                 .then(response => {
                   
                     this.$blockUI.Stop();
-                    this.types = response.data.adTypes;
+                    this.types = response.data.messageTypes;
              
                 })
                 .catch((err) => {
-                    this.loading = false;
+             
                     this.$blockUI.Stop();
                     this.$message({
                         type: 'error',
-                        message: err.message.data
-                    }); 
-                });
-        },
-        SendMessage()
-        {
- 
-
-            //if (this.form.selectedusers.length < 1)
-            //{
-            //    this.$message({
-            //        type: 'error',
-            //        message: 'الرجاء اختيار علي الاقل مستقبل واحد'
-            //    });
-            //    return;
-            //}
-            //if (!this.form.subject) {
-            //    this.$message({
-            //        type: 'error',
-            //        message: 'الرجاء ادخال العنوان'
-            //    });
-            //    return;
-            //}
-            //if (!this.form.type) {
-            //    this.$message({
-            //        type: 'error',
-            //        message: 'الرجاء اختيار نوع التعميم'
-            //    });
-            //    return;
-            //}
-            //if (!this.form.content) {
-            //    this.$message({
-            //        type: 'error',
-            //        message: 'الرجاء ادخال محتوي التعميم'
-            //    });
-            //    return;
-            //}
-            this.$blockUI.Start();
-            this.ruleForm.priority = this.Prioritytexts[this.priorityint - 1];
-            this.$http.NewMessage(this.form)
-                .then(response => {
-                    this.$message({
-                        type: 'info',
-                        message: response.data
+                        dangerouslyUseHTMLString: true,
+                        duration: 5000,
+                        message: '<strong>' + err.response.data + '</strong>'
                     });
-                    this.form = [];
-                    this.$router.push('/Inbox');
-                    this.$blockUI.Stop();
-                })
-                .catch((err) => {
-                    this.$message({
-                        type: 'error',
-                        message: err.message.data
-                    }); 
-                    this.$blockUI.Stop();
                 });
         },
+   
            Save(formName) {
 
            

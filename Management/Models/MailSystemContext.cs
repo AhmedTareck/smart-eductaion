@@ -151,11 +151,15 @@ namespace Management.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Participations_Conversations");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Participations)
+                entity.HasOne(d => d.ReceivedByNavigation)
+                    .WithMany(p => p.ParticipationsReceivedByNavigation)
                     .HasForeignKey(d => d.RecivedBy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Participations_Users");
+                entity.HasOne(d => d.SentByNavigation)
+                   .WithMany(p => p.ParticipationsSentByNavigation)
+                   .HasForeignKey(d => d.SentBy)
+                   .HasConstraintName("FK_Participations_Users2");
             });
 
 

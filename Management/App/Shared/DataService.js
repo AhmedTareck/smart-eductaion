@@ -153,9 +153,9 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(`/Api/NewMessage/GetAllUsers?UserType=${UserType}`);
     },
-    GetAllAdTypes() {
+    GetAllMessageTypes() {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/NewMessage/GetAllAdTypes`);
+        return axios.get(`/Api/NewMessage/GetAllMessageTypes`);
     },
     NewMessage(NewMessage) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
@@ -183,6 +183,33 @@ export default {
     GetBranchesByLevel(BranchLevel) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(`/Api/Admin/Branches/GetBranchesByLevel?branchLevel=${BranchLevel}`);
+    },
+
+    GetReceivedMassage(pageNo, pageSize,operateion)
+    {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(`/Api/Admin/Messages/GetReceivedMassage?pageNo=${pageNo}&pageSize=${pageSize}&operateion=${operateion}`);
+    },
+
+    ChangeMassageState(conversationId,status) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(`/api/admin/Messages/ChangeMassageState?conversationId=${conversationId}&status=${status}`);
+    },
+
+    DeleteMassage(conversationId) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(`/api/admin/Messages/DeleteMassage?conversationId=${conversationId}`);
+    },
+
+    GetReplayes(pageNo, pageSize,conversationId)
+    {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(`/Api/Admin/Messages/GetReplayes?pageNo=${pageNo}&pageSize=${pageSize}&conversationId=${conversationId}`);
+    },
+
+    AddReplay(conversationId,ReplayBody) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(`/api/admin/Messages/AddReplay?conversationId=${conversationId}&ReplayBody=${ReplayBody}`);
     },
 
     

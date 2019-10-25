@@ -67,8 +67,8 @@ namespace Managegment.Controllers
 
         }
 
-        [HttpGet("GetAllAdTypes")]
-        public  ActionResult GetAllAdTypes()
+        [HttpGet("GetAllMessageTypes")]
+        public  ActionResult GetAllMessageTypes()
         {
             try
             {
@@ -77,7 +77,7 @@ namespace Managegment.Controllers
                 IQueryable<MessageType> MessageQuery;
 
                 MessageQuery = from p in db.MessageType
-                               where p.Status!=9
+                               where p.Status==1
                                select p;
 
             
@@ -94,7 +94,52 @@ namespace Managegment.Controllers
 
                                    }).ToList();
 
-                return Ok(new { AdTypes = MessageList });
+                return Ok(new { MessageTypes = MessageList });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+        }
+
+        [HttpGet("GetAllSentMessage")]
+        public ActionResult GetAllSentMessage()
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+
+
+            
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                IQueryable<Participations> MessageQuery;
+
+                MessageQuery = from p in db.Participations
+                               where p.SentBy== userId
+                               select p;
+
+
+
+                var MessageList = (from p in MessageQuery
+
+                                   select new 
+                                   {
+                                       dateConversation = p.Conversation.CreatedOn,
+                                       priolti=p.Conversation.Priolti,
+
+
+                                      lastSubjectBody= p.Conversation.Subject
+
+
+                                   }).ToList();
+
+                return Ok(new { MessageTypes = MessageList });
             }
             catch (Exception e)
             {
