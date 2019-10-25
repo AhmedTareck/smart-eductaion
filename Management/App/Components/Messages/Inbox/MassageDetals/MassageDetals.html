@@ -28,7 +28,7 @@
 
 
                                 <a href="#" @click.prevent="ChangeMassageStatus(MassageDetals,1)" v-if="MassageStatus==0 || MassageStatus==2 || MassageStatus==4 || MassageStatus==7">
-                                    
+
                                     <i class="el-icon-star-off" style="font-size:20px;color:white;margin-right:10px"></i>
                                 </a>
 
@@ -58,24 +58,27 @@
                         <div class="card-body">
 
                             <div class="col-md-12">
-
-                                <h2 style="display:block;position:relative;top:20px;">{{MassageDetals.subject}}</h2>
+                                <h4 style="display:block;position:relative;top:20px;">الموضوع:</h4>
+                                <h4 style="display:block;position:relative;top:20px;">{{MassageDetals.subject}}</h4>
 
                             </div>
 
                         </div>
 
+
+
+                    </div>
+                    <div class="row">
                         <div class="card-body">
 
                             <div class="col-md-12">
-
+                                <h4 style="display:block;position:relative;top:20px;">المحتوي</h4>
                                 <h4 style="display:block;position:relative;top:20px;">{{MassageDetals.body}}</h4>
                                 <br /><br />
                                 <hr />
                             </div>
 
                         </div>
-
                     </div>
 
                     <div class="row">

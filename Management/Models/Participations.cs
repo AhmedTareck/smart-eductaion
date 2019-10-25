@@ -14,6 +14,7 @@ namespace Management.Models
         public bool? IsDelete { get; set; }
 
         public Conversations Conversation { get; set; }
-        public Users User { get; set; }
+        public Users ReceivedByNavigation { get; set; }
+        public Users SentByNavigation { get; set; }
     }
 }
