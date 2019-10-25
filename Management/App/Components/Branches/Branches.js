@@ -5,6 +5,19 @@ import moment from 'moment';
 export default {
     name: 'Branches',    
     created() {
+
+        var loginDetails = sessionStorage.getItem('currentUser');
+
+        if (loginDetails != null) {
+            this.loginDetails = JSON.parse(loginDetails);
+
+            if (this.loginDetails.userType != 1) {
+                window.location.href = '/Security/Login';
+            }
+        }
+        else {
+            window.location.href = '/Security/Login';
+        }
         this.GetBranches(this.pageNo);
         
         this.permissions = [
