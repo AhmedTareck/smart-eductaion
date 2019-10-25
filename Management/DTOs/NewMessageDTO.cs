@@ -11,11 +11,11 @@ namespace Management.DTOs
         public bool Replay { get; set; }
         public long MessageType { get; set; }
         public string Priority { get; set; }
-        public long[] Selectedusers { get; set; }
+        public List<long> Selectedusers { get; set; }
         public long[] PermissionModale { get; set; }
         public int SentGroup { get; set; }
         public string Content { get; set; }
-        public int SentType { get; set; }
+        public short SentType { get; set; }
         public AttachmentUpload[] Files { get; set; }
     }
     public enum SelectedOption

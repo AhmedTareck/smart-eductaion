@@ -149,25 +149,33 @@ namespace Managegment.Controllers
         }
 
         [HttpPost("NewMessage")]
-        public  ActionResult NewMessage([FromBody] NewMessageDTO newMessageDTO)
+        public ActionResult NewMessage([FromBody] NewMessageDTO newMessageDTO)
         {
             try
-            {
+                
+            {var userId = this.help.GetCurrentUser(HttpContext);
                 if (newMessageDTO == null)
                 {
                     return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
                 }
-
-                if (newMessageDTO.Selectedusers == null)
+                if (newMessageDTO.SentGroup == 1) { 
+                    if (newMessageDTO.Selectedusers.Count==0)
+                    {
+                        return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                    }
+                    
+            }
+             if (newMessageDTO.SentGroup == 2) { 
+                if (newMessageDTO.PermissionModale == null)
                 {
                     return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
-                }
+                } }
 
-                var userId = this.help.GetCurrentUser(HttpContext);
+                
 
 
 
-                var messageWithOutHTML = help.GetPlainTextFromHtml(newMessageDTO.Content);
+              //  var messageWithOutHTML = help.GetPlainTextFromHtml(newMessageDTO.Content);
                 if (userId <= 0)
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
@@ -192,7 +200,7 @@ namespace Managegment.Controllers
                 if (newMessageDTO.SentGroup == 1)
                 { 
               
-                foreach (var item in newMessageDTO.Selectedusers)
+                foreach (var item in newMessageDTO.Selectedusers )
                 {
 
                     Participations Participation = new Participations()

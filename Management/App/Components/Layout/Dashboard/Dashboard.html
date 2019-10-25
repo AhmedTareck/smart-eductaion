@@ -12,27 +12,27 @@
     <div class="sidebar-wrapper">
         <ul class="nav">
 
-            <li :class="menuFlag[0]">
+            <li :class="menuFlag[0]" v-if="loginDetails.userType==1">
                 <a class="nav-link" href="/">
                     <i class="material-icons">dashboard</i>
                     <p> الصفحة الرئيسية</p>
                 </a>
             </li>
 
-            <li :class="menuFlag[1]">
+            <li :class="menuFlag[1]"  v-if="loginDetails.userType==1">
                 <a class="nav-link" href="#" @click.prevent="href('/Branches',1)">
                     <i class="fa fa-cogs"></i>
 
                     <p>‌إدارة المكاتب</p>
                 </a>
             </li>
-            <li :class="menuFlag[7]">
+            <li :class="menuFlag[7]" >
                 <a class="nav-link" href="#" @click.prevent="href('/NewMessage',7)">
                     <i class="fa fa-envelope"></i>
                     <p>ارسال رسالة</p>
                 </a>
             </li>
-            <li :class="menuFlag[2]">
+            <li :class="menuFlag[2]" >
                 <a class="nav-link" href="#" @click.prevent="href('/Inbox',2)">
                     <i class="fa fa-inbox"></i>
                     <p>صندوق الوارد</p>
@@ -56,7 +56,7 @@
                     <p>الرسائل المحذوفة</p>
                 </a>
             </li>
-            <li :class="menuFlag[4]">
+            <li :class="menuFlag[4]" v-if="loginDetails.userType==1">
                 <a class="nav-link" href="#" @click.prevent="href('/MessageTypes',4)">
                     <i class="material-icons">library_books</i>
                     <p>نوع الرسالة</p>
@@ -64,7 +64,7 @@
             </li>
 
 
-            <li :class="menuFlag[5]">
+            <li :class="menuFlag[5]" v-if="loginDetails.userType==1">
                 <a class="nav-link" href="#" @click.prevent="href('/Users',5)">
                     <i class="fa fa-users"></i>
                     <p>
