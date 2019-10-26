@@ -147,7 +147,7 @@ export default {
                     type: 'error',
                     dangerouslyUseHTMLString: true,
                     duration: 5000,
-                    message: '<strong>' + 'الرجاء تطابق كلمة المرورحجم الملف كبير لايمكن تحميله' + '</strong>'
+                    message: '<strong>' + 'حجم الملف كبير لايمكن تحميله' + '</strong>'
                 });
                 return;
             }

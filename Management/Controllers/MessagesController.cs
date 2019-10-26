@@ -41,44 +41,41 @@ namespace Managegment.Controllers
                 {
                     praticipations = (from p in db.Participations
                                       where
-          p.IsDelete != true &&
-          p.RecivedBy == userId &&
-          p.Status != 0 &&
-          p.Status != 3 &&
-          p.Status != 4 &&
-          p.Status != 6
+                                      p.IsDelete != true &&
+                                      p.RecivedBy == userId &&
+                                      p.Status != 0 &&
+                                      p.Status != 3 &&
+                                      p.Status != 4 &&
+                                      p.Status != 6
                                       select p);
                 }
                 else if (operateion == 1)
                 {
                     praticipations = (from p in db.Participations
                                       where
-          p.IsDelete != true &&
-          p.SentBy == userId &&
-          p.Status != 0 &&
-          p.Status != 3 &&
-          p.Status != 4 &&
-          p.Status != 6
+                                      p.IsDelete != true &&
+                                      p.SentBy == userId &&
+                                      p.Status != 0 &&
+                                      p.Status != 3 &&
+                                      p.Status != 4 &&
+                                      p.Status != 6
                                       select p);
                 }
                 else if (operateion == 2)
                 {
                     praticipations = (from p in db.Participations
                                       where
-          p.IsDelete != true &&
-          (p.SentBy == userId || p.RecivedBy == userId) &&
-          p.Status == 0 ||
-          p.Status == 3 ||
-          p.Status == 4 ||
-          p.Status == 6
+                                      p.IsDelete != true &&
+                                      (p.SentBy == userId || p.RecivedBy == userId) &&
+                                      p.Status == 0 ||
+                                      p.Status == 3 ||
+                                      p.Status == 4 ||
+                                      p.Status == 6
                                       select p);
                 }
                 else if (operateion == 3)
                 {
-                    praticipations = (from p in db.Participations
-                                      where
-          p.IsDelete == true
-                                      select p);
+                    praticipations = (from p in db.Participations where p.IsDelete == true select p);
                 }
 
 
@@ -102,7 +99,8 @@ namespace Managegment.Controllers
                                               Priolti = p.Conversation.Priolti,
                                               Subject = p.Conversation.Subject,
                                               MassageCreatedOn = p.Conversation.CreatedOn,
-                                              
+                                              Is_Replay = p.Conversation.IsGroup
+
                                           }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
                 var result = praticipationsList.GroupBy(test => test.ConversationId)
                          .Select(grp => grp.First())
@@ -191,6 +189,7 @@ namespace Managegment.Controllers
                                               Priolti = p.Conversation.Priolti,
                                               Subject = p.Conversation.Subject,
                                               MassageCreatedOn = p.Conversation.CreatedOn,
+                                              Is_Replay = p.Conversation.IsGroup
 
                                           }).Skip((pageNo - 1) * pageSize).Take(pageSize).SingleOrDefault();
 
@@ -279,6 +278,14 @@ namespace Managegment.Controllers
                 var ReplayesCount = (from p in Replayes
                                      select p).Count();
 
+                var Attachment=(from p in db.Attachments where p.ConversationId==conversationId select
+                                new { FileName=p.FileName,
+                                      AttachmentId=p.AttachmentId,
+                                      ContentFile =p.ContentFile,
+                                      UserName=p.CreatedByNavigation.LoginName,
+                                      CreatedOn=p.CreatedOn,
+                                      Extension=p.Extension});
+
 
                 var ReplayesList = (from p in Replayes
                                     orderby p.MessageId descending
@@ -292,7 +299,7 @@ namespace Managegment.Controllers
 
                                     }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
-                return Ok(new { ReplayesLists = ReplayesList, count = ReplayesCount });
+                return Ok(new { ReplayesLists = ReplayesList, count = ReplayesCount , Attachments= Attachment });
             }
             catch (Exception e)
             {

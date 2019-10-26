@@ -81,11 +81,61 @@
                         </div>
                     </div>
 
+
+
+                    <div class="row" v-if="Attachment!=0">
+                        <br />
+                        <div class="card-body">
+
+                            <div class="col-md-12">
+
+                                <h4 style="display:block;position:relative;top:20px;">المرفقات</h4>
+                                <br />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row" v-if="Attachment!=0" style="margin-right:20px">
+                        
+                        <div class="card-body">
+
+                            <template v-for="(Attachment,index) in Attachment">
+
+                                <div class="col-md-12">
+
+                                    <a href="#" @click.prevent="downloadFile(Attachment)">
+                                        <i class="fa fa-cloud-download" style="margin-right:5px;
+                                            font-size:120px;color:blueviolet"></i>
+                                    </a>
+
+                                </div>
+
+                                <div class="col-md-12">
+
+                                    <a href="#" @click.prevent="downloadFile(Attachment)">
+                                        <span style="font-size:15px;margin-right:10px" >
+                                            {{Attachment.fileName}}
+                                        </span>
+                                    </a>
+
+                                </div>
+                                
+
+                            </template>
+
+                            
+
+                        </div>
+
+                    </div>
+
                     <div class="row">
 
                         <div class="col-md-10">
 
-                            <div class="form-group" v-if="Replayes==0">
+                            <div class="form-group" v-if="Replayes==0 && MassageDetals.is_Replay==true">
 
                                 <br /><br />
 
@@ -178,7 +228,7 @@
 
                     </div>
 
-                    <div class="row" style="height:auto">
+                    <div class="row" style="height:auto" v-if="MassageDetals.is_Replay==true">
                         <br />
                         <div class="card-body">
 
@@ -208,7 +258,7 @@
 
                             <div class="tile-footer" style="margin-left:10px">
                                 <button class="btn btn-danger" @click.prevent="Back()">رجوع</button>
-                                <button class="btn btn-primary" @click.prevent="AddReplay()">ارسـال</button>
+                                <button class="btn btn-primary" @click.prevent="AddReplay()" v-if="MassageDetals.is_Replay==false">ارسـال</button>
                             </div>
                         </el-col>
                     </el-row>
