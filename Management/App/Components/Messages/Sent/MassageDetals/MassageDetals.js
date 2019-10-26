@@ -252,7 +252,9 @@ methods:
                         duration: 5000,
                         message: '<strong>'+response.data+'</strong>'
                     });  
+                    this.ReplayBody = '';
                     this.GetReplayes(this.pageNo);
+
                 })
                 .catch((err) => {
                     this.$message({

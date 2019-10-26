@@ -35,6 +35,7 @@ filters: {
 
             MassageDetals:[],
             Replayes:[],
+            Attachment:[],
 
             content: "",
             ReplayBody:"",
@@ -73,6 +74,7 @@ methods:
                 .then(response => {
                     this.$blockUI.Stop();
                     this.Replayes = response.data.replayesLists;
+                    this.Attachment = response.data.attachments;
                     this.pages = response.data.count;
                 })
                 .catch((err) => {
@@ -244,6 +246,16 @@ methods:
 
         AddReplay()
         {
+            if (!this.ReplayBody) {
+                this.$message({
+                    type: 'error',
+                    dangerouslyUseHTMLString: true,
+                    duration: 5000,
+                    showClose: true,
+                    message: '<strong>' + 'الرجاء ادخل محتوي الرسالة' + '</strong>'
+                });  
+                return;
+            }
             this.$http.AddReplay(this.$parent.SelectedMassages.conversationId,this.ReplayBody)
                 .then(response => {    
                     this.$message({
@@ -268,7 +280,32 @@ methods:
         Back()
         {
             this.$parent.state=0;
-        }
+        },
+
+        downloadFile(item) {
+            this.$blockUI.Start();
+            this.$http.downloadFile(item.attachmentId).then(response => {
+                this.$blockUI.Stop();
+                this.forceFileDownload(response, item);
+            })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    this.$message({
+                        type: 'error',
+                        message: err.response.data
+                    });
+                });
+        },
+
+        forceFileDownload(response, item) {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement('a')
+            link.href = url
+            link.setAttribute('download', item.fileName)
+            document.body.appendChild(link)
+            link.click()
+        },
        
     }    
 

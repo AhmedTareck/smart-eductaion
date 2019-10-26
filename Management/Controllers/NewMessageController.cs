@@ -13,6 +13,7 @@ using MimeKit;
 using MimeKit.Utils;
 using System.IO;
 using SMSService;
+using Microsoft.Extensions.Configuration;
 
 namespace Managegment.Controllers
 {
@@ -22,22 +23,21 @@ namespace Managegment.Controllers
     {
         private readonly MailSystemContext db;
         private Helper help;
-        public NewMessageController(MailSystemContext context)
+        private IConfiguration Configuration { get; }
+        public NewMessageController(MailSystemContext context, IConfiguration configuration)
         {
             this.db = context;
             help = new Helper();
+            Configuration = configuration;
         }
+
+
         [HttpGet("GetAllUsers")]
         public ActionResult GetAllUsers(int UserType)
         {
             try
-            {
-                
-
-
-
+            { 
                 IQueryable<Users> UsersQuery;
-
                 UsersQuery = from p in db.Users
                              
                                where p.Status != 9 && p.Branch.BranchLevel == UserType
@@ -194,6 +194,7 @@ namespace Managegment.Controllers
                     CreatedBy = userId,
                     SentType = newMessageDTO.SentType
                 };
+
                 db.Conversations.Add(conversations);
   //Insert Participation
                 if (newMessageDTO.SentGroup == 1)
@@ -260,7 +261,26 @@ namespace Managegment.Controllers
                         });
                     }
                 }
+               
+                Task.Factory.StartNew(() => SentMessageBEmail("Any Data", "Informations"));
                 db.SaveChanges();
+
+                //if(newMessageDTO.SentType == 1)
+                //{
+                //    //ALL
+
+
+                //} else if (newMessageDTO.SentType == 2)
+                //{
+                //    // Send Email
+
+
+                //} else
+                //{
+                //    // Send SMS
+
+
+                //}
                 //   var AdTypeName = db.AdTypes.SingleOrDefault(s => s.AdTypeId == newMessageDTO.Type).AdTypeName;
                 //switch (newMessageDTO.SelectedOption)
                 //{
@@ -286,6 +306,30 @@ namespace Managegment.Controllers
             }
         }
 
+
+        public string SentMessageBEmail(string UserName, string path)
+        {
+
+            string WebServer = Configuration.GetSection("Links")["WebServer"],
+                   EmailSupport = Configuration.GetSection("Links")["EmailSupport"];
+            return "<!DOCTYPE html>" +
+                   "<html lang = \"ar\" dir = \"rtl\"><head><meta charset = \"UTF-8\"><style>" +
+                   "div.wrapper{ margin: auto; margin-top:13vh; max-width:550px; }" +
+                   "img{ width: 100 %; height: 45px; } footer{ width: 85 %; margin: auto; }" +
+                    "p{ line-height: 1.4; text-align: justify; }" +
+                  ".grey{ color: grey; }.padd{padding: 10px 5px; }" +
+                  ".Helvetica{ font-family: Helvetica; font-size: 14.5px; }" +
+                  "footer div { text-align: center; }" +
+                  "body{ font-family: Arial; font-size:15.5px; }" +
+                  "</style></head><body>" +
+                  "<div class=\"wrapper\"><header><img src = \"" + WebServer + "/img/ddd.png\" /></header><div class=\"padd\"><p>عزيزي المستخدم<span>" + " " + UserName + " " + "</span></p>" +
+                  "<p>  لتتمكن من استرجاع حسابك عليك ادخال كلمة مرور جديدة عن طريق النقر على الرابط أدناه :</p> " +
+                 "<p>الرابط: <a href = \" " + WebServer + path + "\" > Click Here</a></p>" +
+                 "<br><p>فريق عمل مشروع<b>مصلحة الاحوال المدنية</b> </p>" +
+                "</div><footer class=\"Helvetica\"><div class=\"grey\"><a href = \"" + WebServer + "\"> visit our website</a> | <a href = \"" + WebServer + "\"> log in to your account</a> | <a href = \"mailto:" + EmailSupport + "\"> get support</a></div>" +
+                "<div class=\"grey\"> All rights reserved ,مشروع مصلحة الاحوال المدنية  Copyright © CRA</div></footer></div></body></html>";
+
+        }
 
 
         // Attachment
