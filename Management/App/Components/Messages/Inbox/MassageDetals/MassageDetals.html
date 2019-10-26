@@ -73,7 +73,7 @@
 
                             <div class="col-sm-5">
                                 <h4 style="display:block;position:relative;top:20px;">المحتوي</h4>
-                                <h4 style="display:block;position:relative;top:20px;">{{MassageDetals.body}}</h4>
+                                <h4 style="display:block;position:relative;top:20px;" v-html="MassageDetals.bodyWithHtml"></h4>
                                 <br /><br />
                                 <hr />
                             </div>
@@ -184,7 +184,7 @@
 
                             <div class="TablesReplay">
                                 <div class="col-md-12">
-                                    <h4 style="display:block;position:relative;top:20px;">إظافة رد </h4>
+                                    <h4 style="display:block;position:relative;top:20px;">إضافة رد </h4>
 
                                     <el-input type="textarea"
                                               style="display:block;position:relative;top:20px"
@@ -208,7 +208,7 @@
 
                             <div class="tile-footer" style="margin-left:10px">
                                 <button class="btn btn-danger" @click.prevent="Back()">رجوع</button>
-                                <button class="btn btn-primary" @click.prevent="AddReplay()">حفظ</button>
+                                <button class="btn btn-primary" @click.prevent="AddReplay()">ارسـال</button>
                             </div>
                         </el-col>
                     </el-row>

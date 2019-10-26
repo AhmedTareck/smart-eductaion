@@ -244,6 +244,16 @@ methods:
 
         AddReplay()
         {
+            if (!this.ReplayBody) {
+                this.$message({
+                    type: 'error',
+                    dangerouslyUseHTMLString: true,
+                    duration: 5000,
+                    showClose: true,
+                    message: '<strong>' + 'الرجاء ادخل محتوي الرسالة' + '</strong>'
+                });  
+                return;
+            }
             this.$http.AddReplay(this.$parent.SelectedMassages.conversationId,this.ReplayBody)
                 .then(response => {    
                     this.$message({

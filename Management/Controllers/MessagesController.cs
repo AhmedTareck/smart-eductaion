@@ -98,10 +98,11 @@ namespace Managegment.Controllers
                                               is_Delete = p.IsDelete,
                                               AdType = p.Conversation.MessageType.Name,
                                               Body = help.GetPlainTextFromHtml(p.Conversation.Body),
+                                              BodyWithHtml = p.Conversation.Body,
                                               Priolti = p.Conversation.Priolti,
                                               Subject = p.Conversation.Subject,
                                               MassageCreatedOn = p.Conversation.CreatedOn,
-
+                                              
                                           }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
                 var result = praticipationsList.GroupBy(test => test.ConversationId)
                          .Select(grp => grp.First())
