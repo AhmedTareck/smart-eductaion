@@ -201,6 +201,8 @@ namespace Managegment.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+
         [HttpPost("ChangeMassageState")]
         public IActionResult ChangeMassageState(long conversationId, short status)
         {
