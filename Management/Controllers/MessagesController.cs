@@ -53,13 +53,15 @@ namespace Managegment.Controllers
                 {
                     praticipations = (from p in db.Participations
                                       where
-                                      p.IsDelete != true &&
-                                      p.SentBy == userId &&
-                                      p.Status != 0 &&
-                                      p.Status != 3 &&
-                                      p.Status != 4 &&
-                                      p.Status != 6
+                                      p.SentBy == userId
+                                      // && p.IsDelete != true &&
+                                      //p.Status != 0 &&
+                                      //p.Status != 3 &&
+                                      //p.Status != 4 &&
+                                      //p.Status != 6
+                                    
                                       select p);
+                   
                 }
                 else if (operateion == 2)
                 {
@@ -101,11 +103,11 @@ namespace Managegment.Controllers
                                               MassageCreatedOn = p.Conversation.CreatedOn,
                                               Is_Replay = p.Conversation.IsGroup
 
-                                          }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+                                          }).ToList();
+
                 var result = praticipationsList.GroupBy(test => test.ConversationId)
-                         .Select(grp => grp.First())
-                         .ToList();
-                return Ok(new { praticipations = result, count = praticiapationsCount });
+                         .Select(grp => grp.FirstOrDefault());
+                return Ok(new { praticipations = result.Skip((pageNo - 1) * pageSize).Take(pageSize), count = result.Count() });
             }
             catch (Exception e)
             {
