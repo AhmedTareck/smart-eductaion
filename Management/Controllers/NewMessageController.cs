@@ -161,21 +161,21 @@ namespace Managegment.Controllers
                 if (newMessageDTO.SentGroup == 1) { 
                     if (newMessageDTO.Selectedusers.Count==0)
                     {
-                        return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                        return BadRequest("الرجاء اختيار الاشخاص المراد ارسال لهم رساله");
                     }
                     
             }
              if (newMessageDTO.SentGroup == 2) { 
-                if (newMessageDTO.PermissionModale == null)
+                if (newMessageDTO.PermissionModale.Count() == 0)
                 {
-                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
-                } }
+                        return BadRequest("الرجاء اختيار المجموعه المراد ارسال لهم رساله");
+                    } }
 
                 
 
 
 
-              //  var messageWithOutHTML = help.GetPlainTextFromHtml(newMessageDTO.Content);
+            
                 if (userId <= 0)
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
@@ -242,7 +242,7 @@ namespace Managegment.Controllers
                     }
 
                 }
-               
+               //Insert file
                 if (newMessageDTO.Files.Length > 0)
                 {
                    
