@@ -106,7 +106,7 @@ namespace Managegment.Controllers
                                           }).ToList();
 
                 var result = praticipationsList.GroupBy(test => test.ConversationId)
-                         .Select(grp => grp.FirstOrDefault());
+                         .Select(grp => grp.SingleOrDefault());
                 return Ok(new { praticipations = result.Skip((pageNo - 1) * pageSize).Take(pageSize), count = result.Count() });
             }
             catch (Exception e)

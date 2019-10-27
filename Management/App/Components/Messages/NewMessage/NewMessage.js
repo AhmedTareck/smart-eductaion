@@ -140,8 +140,8 @@ export default {
         FileChanged(file, fileList) {
           
             var fileSize = (file.size / 1024) | 0;
-            console.log(file.raw.type);
-            if (file.raw.type !== 'image/jpeg' && file.raw.type !== 'image/png' && file.raw.type !== 'application/pdf' && file.raw.type !== 'xlsx' && file.raw.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+           
+            if (file.raw.type !== 'image/jpeg' && file.raw.type !== 'image/png' && file.raw.type !== 'application/pdf' && file.raw.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' && file.raw.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
                 this.$message({
                     type: 'error',
                     dangerouslyUseHTMLString: true,
