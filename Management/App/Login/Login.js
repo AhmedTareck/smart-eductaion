@@ -1,8 +1,12 @@
-﻿export default {
+﻿import CryptoJS from 'crypto-js';
+
+
+export default {
     name: 'login',
     created() {
         this.returnurl = location.pathname;
         this.SetRules();
+        this.SECRET_KEY = 'P@SSWORDTAMEME';
 
 
     },
@@ -16,6 +20,7 @@
             form2: {
                 Email: null
             },
+            SECRET_KEY:'',
             success: { confirmButtonText: 'OK', type: 'success', dangerouslyUseHTMLString: true, center: true },
             error: { confirmButtonText: 'OK', type: 'error', dangerouslyUseHTMLString: true, center: true },
             warning: { confirmButtonText: 'OK', type: 'warning', dangerouslyUseHTMLString: true, center: true },
@@ -27,6 +32,22 @@
         };
     },
     methods: {
+        hash: function hash(key) {
+            key = CryptoJS.SHA256(key, SECRET_KEY);
+
+            return key.toString();
+        },
+        encrypt: function encrypt(data) {
+            debugger;
+            var dataSet = CryptoJS.AES.encrypt(JSON.stringify(data), this.SECRET_KEY);
+            dataSet = dataSet.toString();
+            return dataSet;
+        },
+        decrypt: function decrypt(data) {
+            data = CryptoJS.AES.decrypt(data, SECRET_KEY);
+            data = data.toString(CryptoJS.enc.Utf8);
+            return data;
+        },
         //Login() {
         //    this.$emit('authenticated');
         //},
@@ -61,7 +82,8 @@
             this.$http.loginUserAccount(this.form)
                 .then(response => {
                     $blockUI.close();
-                    sessionStorage.setItem('currentUser', JSON.stringify(response.data));
+                    //this.secureStorage.setItem('currentUser', response.data);
+                    sessionStorage.setItem('currentUser', this.encrypt(response.data));
                     window.location.href = '/';
                 })
                 .catch((error) => {

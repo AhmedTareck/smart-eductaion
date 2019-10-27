@@ -1,10 +1,17 @@
-﻿export default {
+﻿import CryptoJS from 'crypto-js';
+export default {
     name: 'EditUsersProfile',    
     created() {
 
-        var loginDetails = sessionStorage.getItem('currentUser');
-        if (loginDetails != null) {
-            this.loginDetails = JSON.parse(loginDetails);
+        this.SECRET_KEY = 'P@SSWORDTAMEME';
+
+        try {
+            this.loginDetails = this.decrypt(sessionStorage.getItem('currentUser'));
+        } catch (error) {
+            window.location.href = '/Security/Login';
+        }
+        if (this.loginDetails != null) {
+            this.loginDetails = JSON.parse(this.loginDetails);
             this.ruleForm.FullName = this.loginDetails.fullName;
             this.ruleForm.Phone = this.loginDetails.phone;
             this.ruleForm.LoginName = this.loginDetails.loginName;
@@ -85,6 +92,22 @@
         }
     },
     methods: {
+        hash: function hash(key) {
+            key = CryptoJS.SHA256(key, SECRET_KEY);
+
+            return key.toString();
+        },
+        encrypt: function encrypt(data) {
+            var dataSet = CryptoJS.AES.encrypt(data.toString(), this.SECRET_KEY);
+            dataSet = dataSet.toString();
+            return dataSet;
+        },
+        decrypt: function decrypt(data) {
+            var dataSet = CryptoJS.AES.decrypt(data, this.SECRET_KEY);
+            var plaintext = dataSet.toString(CryptoJS.enc.Utf8);
+            dataSet = plaintext.toString(CryptoJS.enc.Utf8);
+            return dataSet;
+        },
         validPhone: function (Phone) {
 
             var mobileRegex = /^09[1|2|3|4|5][0-9]{7}$/i;
