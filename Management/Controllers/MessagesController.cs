@@ -114,88 +114,43 @@ namespace Managegment.Controllers
                 return StatusCode(500, e.Message);
             }
         }
-        [HttpGet("GetSentMassage")]
-        public IActionResult GetSentMassage(int pageNo, int pageSize, int operateion)
+        [HttpGet("GetControlMessages")]
+        public IActionResult GetControlMessages(int pageNo, int pageSize)
         {
             try
             {
-                //0-reseved
-                //1-sent
-                //2-archive
-                //3-delete
+         
                 var userId = this.help.GetCurrentUser(HttpContext);
 
-                var praticipations = (from p in db.Participations select p);
-
-                if (operateion == 0)
-                {
-                    praticipations = (from p in db.Participations
-                                      where
-          p.IsDelete != true &&
-          p.RecivedBy == userId &&
-          p.Status != 0 &&
-          p.Status != 3 &&
-          p.Status != 4 &&
-          p.Status != 6
+                var Conversations = (from p in db.Conversations
+                                    
                                       select p);
-                }
-                else if (operateion == 1)
-                {
-                    praticipations = (from p in db.Participations
-                                      where
-          p.IsDelete != true &&
-          p.SentBy == userId &&
-          p.Status != 0 &&
-          p.Status != 3 &&
-          p.Status != 4 &&
-          p.Status != 6
-                                      select p);
-                }
-                else if (operateion == 2)
-                {
-                    praticipations = (from p in db.Participations
-                                      where
-          p.IsDelete != true &&
-          (p.SentBy == userId || p.RecivedBy == userId) &&
-          p.Status == 0 ||
-          p.Status == 3 ||
-          p.Status == 4 ||
-          p.Status == 6
-                                      select p);
-                }
-                else if (operateion == 3)
-                {
-                    praticipations = (from p in db.Participations
-                                      where
-          p.IsDelete == true
-                                      select p);
-                }
 
 
 
-                var praticiapationsCount = (from p in praticipations
-                                            select p).Count();
+                var ConversationsCount = (from p in Conversations
+                                          select p).Count();
 
-                var praticipationsList = (from p in praticipations
+                var praticipationsList = (from p in Conversations
                                           orderby p.CreatedOn descending
                                           select new
                                           {
                                               ConversationId = p.ConversationId,
-                                              SentBy = p.SentBy,
-                                              SentName = p.SentByNavigation.FullName,
-                                              Status = p.Status,
+                                              Sent = p.Participations.Where(x=>x.ConversationId==p.ConversationId).Select(u => new { u.ReceivedByNavigation.FullName, name = u.SentByNavigation.FullName ,u.Status,u.IsDelete}).ToList(),
+                                        
+                                          
                                               CreatedOn = p.CreatedOn,
-                                              is_Delete = p.IsDelete,
-                                              AdType = p.Conversation.MessageType.Name,
-                                              Body = help.GetPlainTextFromHtml(p.Conversation.Body),
-                                              Priolti = p.Conversation.Priolti,
-                                              Subject = p.Conversation.Subject,
-                                              MassageCreatedOn = p.Conversation.CreatedOn,
-                                              Is_Replay = p.Conversation.IsGroup
+                                         
+                                              AdType = p.MessageType.Name,
+                                          
+                                              Priolti = p.Priolti,
+                                              Subject = p.Subject,
+                                              MassageCreatedOn = p.CreatedOn,
+                                              Is_Replay = p.IsGroup
 
-                                          }).Skip((pageNo - 1) * pageSize).Take(pageSize).SingleOrDefault();
+                                          }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
-                return Ok(new { praticipations = praticipationsList, count = praticiapationsCount });
+                return Ok(new { praticipations = praticipationsList, count = ConversationsCount });
             }
             catch (Exception e)
             {

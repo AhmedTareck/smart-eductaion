@@ -10,6 +10,7 @@ import Home from './Components/Home/Home.vue';
 import Branches from './Components/Branches/Branches.vue';
 import MessageTypes from './Components/MessageTypes/MessageTypes.vue';
 import Inbox from './Components/Messages/Inbox/Inbox.vue';
+import ControlMessages from './Components/Messages/ControlMessages/ControlMessages.vue';
 import Sent from './Components/Messages/Sent/Sent.vue';
 import Archive from './Components/Messages/Archive/Archive.vue';
 import DeletedMessage from './Components/Messages/DeletedMessage/DeletedMessage.vue';
@@ -57,6 +58,7 @@ const router = new VueRouter({
         { path: '/NewMessage', component: NewMessage },
         { path: '/Archive', component: Archive },
         { path: '/DeletedMessage', component: DeletedMessage },
+        { path: '/ControlMessages', component: ControlMessages }
     ]
 });
 
