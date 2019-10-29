@@ -150,12 +150,25 @@ namespace Managegment.Controllers
 
         }
 
+
+        public class MailObject
+        {
+            public string Subject { get; set; }
+            public string Content { get; set; }
+            public string Email { get; set; }
+            public string Name { get; set; }
+        }
+
+
         [HttpPost("NewMessage")]
         public ActionResult NewMessageAsync([FromBody] NewMessageDTO newMessageDTO)
         {
             try
-                
-            {var userId = this.help.GetCurrentUser(HttpContext);
+            {
+                // Creat list of emails that you want to sent
+                List<MailObject> MList = new List<MailObject>();
+
+                var userId = this.help.GetCurrentUser(HttpContext);
                 if (newMessageDTO == null)
                 {
                     return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
@@ -204,9 +217,7 @@ namespace Managegment.Controllers
               
                 foreach (var item in newMessageDTO.Selectedusers )
                 {
-
                     Participations Participation = new Participations()
-
                     {
                         ConversationId = conversations.ConversationId,
                         SentBy = userId,
@@ -215,7 +226,16 @@ namespace Managegment.Controllers
                         IsDelete = false,
                         Status = 7
                     };
+                        var users = db.Users.Where(x => x.UserId == item).SingleOrDefault();
+                    MailObject MO = new MailObject()
+                    {
+                        Subject = newMessageDTO.Subject,
+                        Content = newMessageDTO.Content, //.GetPlainTextFromHtml(newMessageDTO.Content),
+                        Email = users.Email,
+                        Name = users.FullName
+                    };
 
+                    MList.Add(MO);
                     db.Participations.Add(Participation);
                 }
             }
@@ -239,6 +259,18 @@ namespace Managegment.Controllers
                                 IsDelete = false,
                                 Status = 7
                             };
+
+                            var users = db.Users.Where(x => x.UserId == RecivedBy).SingleOrDefault();
+
+                            MailObject MO = new MailObject()
+                            {
+                                Subject = newMessageDTO.Subject,
+                                Content = newMessageDTO.Content, //.GetPlainTextFromHtml(newMessageDTO.Content),
+                                Email = users.Email,
+                                Name = users.FullName
+                            };
+
+                            MList.Add(MO);
 
                             db.Participations.Add(Participation);
                         }
@@ -267,46 +299,20 @@ namespace Managegment.Controllers
               
                 db.SaveChanges();
 
-                MailMessage mail = new MailMessage();
-
-                mail.From = new MailAddress("noreply@cra.gov.ly");
-
-                mail.To.Add("abdullahelameer@gmail.com");
-
-                mail.Subject = "مصلحة الاحوال المدنية - تـعميم";
-
-                mail.Body = SentMessageBEmail("Abdullah Elamir");
-
-                mail.IsBodyHtml = true;
-
-                var smtp = new System.Net.Mail.SmtpClient("webmail.cra.gov.ly")
+                if (newMessageDTO.SentType == 1)
                 {
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("noreply@cra.gov.ly", "Qwerty@!@#123"),
-                    Port = Int32.Parse(Configuration.GetSection("Links")["SMTPPORT"]),
-                    EnableSsl = Configuration.GetSection("Links")["SMTSSL"] == "1"
-                };
-               
-                
-                //SendEmailAsync(mail, smtp);
-                 Task.Factory.StartNew(() => SendEmailAsync(mail, smtp));
-
-                //if(newMessageDTO.SentType == 1)
-                //{
-                //    //ALL
-
-
-                //} else if (newMessageDTO.SentType == 2)
-                //{
-                //    // Send Email
-
-
-                //} else
-                //{
-                //    // Send SMS
-
-
-                //}
+                    //ALL
+                    Task.Factory.StartNew(() => SendEmailAsync(MList));
+                }
+                else if (newMessageDTO.SentType == 2)
+                {
+                    // Send Email
+                    Task.Factory.StartNew(() => SendEmailAsync(MList));
+                }
+                else
+                {
+                    // Send SMS
+                }
                 //   var AdTypeName = db.AdTypes.SingleOrDefault(s => s.AdTypeId == newMessageDTO.Type).AdTypeName;
                 //switch (newMessageDTO.SelectedOption)
                 //{
@@ -332,20 +338,43 @@ namespace Managegment.Controllers
             }
         }
 
-        public void SendEmailAsync(MailMessage Mail, System.Net.Mail.SmtpClient smtp)
+        public void SendEmailAsync(List<MailObject> MList)
         {
-            for (var x = 0; x < 10; x++)
+            foreach(var x in MList)
             {
-                 smtp.Send(Mail);  
+                MailMessage mail = new MailMessage();
+
+                mail.From = new MailAddress("noreply@cra.gov.ly");
+
+                mail.To.Add(x.Email);
+
+                mail.Subject = String.Format("تعمـيم - {0} ",x.Subject);
+
+                mail.Body = SentMessageBEmail(x.Content,x.Name);
+
+                mail.IsBodyHtml = true;
+
+                var smtp = new System.Net.Mail.SmtpClient("webmail.cra.gov.ly")
+                {
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("noreply@cra.gov.ly", "Qwerty@!@#123"),
+                    Port = Int32.Parse(Configuration.GetSection("Links")["SMTPPORT"]),
+                    EnableSsl = Configuration.GetSection("Links")["SMTSSL"] == "1"
+                };
+                smtp.Send(mail);       
             }
         }
 
 
-        public string SentMessageBEmail(string UserName)
+        public string SentMessageBEmail(string Content,string Name)
         {
 
-            string WebServer = Configuration.GetSection("Links")["WebServer"],
-                   EmailSupport = Configuration.GetSection("Links")["EmailSupport"];
+            string WebServer = Configuration.GetSection("Links")["WebServer"];
+            string EmailSupport = Configuration.GetSection("Links")["EmailSupport"];
+            string LoginPage = Configuration.GetSection("Links")["LoginPage"];
+            string ApiServer = Configuration.GetSection("Links")["ApiServer"];
+
+            //  return Content;
             return "<!DOCTYPE html>" +
                    "<html lang = \"ar\" dir = \"rtl\"><head><meta charset = \"UTF-8\"><style>" +
                    "div.wrapper{ margin: auto; margin-top:13vh; max-width:550px; }" +
@@ -356,11 +385,11 @@ namespace Managegment.Controllers
                   "footer div { text-align: center; }" +
                   "body{ font-family: Arial; font-size:15.5px; }" +
                   "</style></head><body>" +
-                  "<div class=\"wrapper\"><header><img src = \"" + WebServer + "/img/ddd.png\" /></header><div class=\"padd\"><p>عزيزي المستخدم<span>" + " " + UserName + " " + "</span></p>" +
-                  "<p>  لتتمكن من استرجاع حسابك عليك ادخال كلمة مرور جديدة عن طريق النقر على الرابط أدناه :</p> " +
-                 "<p>الرابط: <a href = \"#\" > Click Here</a></p>" +
-                 "<br><p>فريق عمل مشروع<b>مصلحة الاحوال المدنية</b> </p>" +
-                "</div><footer class=\"Helvetica\"><div class=\"grey\"><a href = \"" + WebServer + "\"> visit our website</a> | <a href = \"" + WebServer + "\"> log in to your account</a> | <a href = \"mailto:" + EmailSupport + "\"> get support</a></div>" +
+                  "<div class=\"wrapper\"><header><img src = \"" + ApiServer + "/images/icons/logo.png\" alt=\"Logo\" title=\"Logo\" style=\"display: block\" width=\"200\" height=\"130\" /></header><div class=\"padd\"><p>عزيزي المستخدم<span style=\"font-weight: bold\">" + " " + Name + " " + "</span> <br/>تم ارسال هذه الرسالة لك من نظام تعميم الخاص بمصلحة الاحوال المدنية </p>" +
+                  "<p>  "+ Content + "</p> " +
+                 "<p> تفاصيل الرسالة:  <a href =\"" + LoginPage + "/Inbox\" > Click Here</a></p>" +
+                 "<br><p>فريق عمل مشروع <b>مصلحة الاحوال المدنية</b> </p>" +
+                "</div><footer class=\"Helvetica\"><div class=\"grey\"><a href = \"" + WebServer + "\"> visit our website</a> | <a href = \"" + LoginPage + "\"> log in to your account</a> | <a href = \"mailto:" + EmailSupport + "\"> get support</a></div>" +
                 "<div class=\"grey\"> All rights reserved ,مشروع مصلحة الاحوال المدنية  Copyright © CRA</div></footer></div></body></html>";
         }
 
