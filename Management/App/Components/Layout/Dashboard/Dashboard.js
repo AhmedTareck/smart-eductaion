@@ -1,14 +1,15 @@
-﻿export default {
+﻿import CryptoJS from 'crypto-js';
+export default {
     name: 'appHeader',    
     created() { 
+        this.SECRET_KEY = 'P@SSWORDTAMEME';
         var route = window.location.href.split("/")[3];
         console.log(route);
         this.pathChange(route);
-
-        var loginDetails = sessionStorage.getItem('currentUser');
-        this.loginDetails = JSON.parse(loginDetails);
-        if (loginDetails != null) {
-            this.loginDetails = JSON.parse(loginDetails);
+        //var DataSession = this.decrypt(sessionStorage.getItem('currentUser'));
+        this.loginDetails = this.decrypt(sessionStorage.getItem('currentUser'));
+        if (this.loginDetails != null) {
+            this.loginDetails = JSON.parse(this.loginDetails);
           
         } else {
             window.location.href = '/Security/Login';
@@ -21,11 +22,27 @@
             loginDetails: null,
             active: 1,
             menuFlag: [10],
+            SECRET_KEY:'',
             
         };
     },
   
     methods: {
+        hash: function hash(key) {
+            key = CryptoJS.SHA256(key, SECRET_KEY);
+            return key.toString();
+        },
+        encrypt: function encrypt(data) {
+            var dataSet = CryptoJS.AES.encrypt(data.toString(), this.SECRET_KEY);
+            dataSet = dataSet.toString();
+            return dataSet;
+        },
+        decrypt: function decrypt(data) {
+            var dataSet = CryptoJS.AES.decrypt(data, this.SECRET_KEY);
+            var plaintext = dataSet.toString(CryptoJS.enc.Utf8);
+            dataSet = plaintext.toString(CryptoJS.enc.Utf8);
+            return dataSet;
+        },
         
         pathChange(route) 
         {

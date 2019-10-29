@@ -1,6 +1,7 @@
 ﻿import AppHeader from './AppHeader/AppHeader.vue';
 import AppFooter from './AppFooter/AppFooter.vue';
 import Dashboard from './Dashboard/Dashboard.vue';
+import CryptoJS from 'crypto-js';
 import 'expose-loader?$!expose-loader?jQuery!jquery';
 
 export default {
@@ -16,17 +17,21 @@ export default {
     
     created() 
     {
+        this.SECRET_KEY = 'P@SSWORDTAMEME';
         this.$blockUI.$loading = this.$loading;
-        var loginDetails = sessionStorage.getItem('currentUser');
-        
-        this.loginDetails = JSON.parse(loginDetails);
-        
-        if (loginDetails != null) 
-        {
-            this.loginDetails = JSON.parse(loginDetails);
-        } 
-        else 
-        {
+        try {
+            this.loginDetails = this.decrypt(sessionStorage.getItem('currentUser'));
+        } catch (error) {
+            window.location.href = '/Security/Login';
+        }
+
+        if (this.loginDetails != null) {
+            this.loginDetails = JSON.parse(this.loginDetails);
+            if (this.loginDetails.userType != 1) {
+                window.location.href = '/Security/Login';
+            }
+        }
+        else {
             window.location.href = '/Security/Login';
         }
 
@@ -64,6 +69,7 @@ export default {
    
     data() {
         return {
+            SECRET_KEY: '',
             isAuthenticated: false,
             isActive: false
         };
@@ -71,7 +77,23 @@ export default {
     methods: {
         href(path) {
             this.$router.push(path);
-        }
+        },
+        hash: function hash(key) {
+            key = CryptoJS.SHA256(key, SECRET_KEY);
+
+            return key.toString();
+        },
+        encrypt: function encrypt(data) {
+            var dataSet = CryptoJS.AES.encrypt(data.toString(), this.SECRET_KEY);
+            dataSet = dataSet.toString();
+            return dataSet;
+        },
+        decrypt: function decrypt(data) {
+            var dataSet = CryptoJS.AES.decrypt(data, this.SECRET_KEY);
+            var plaintext = dataSet.toString(CryptoJS.enc.Utf8);
+            dataSet = plaintext.toString(CryptoJS.enc.Utf8);
+            return dataSet;
+        },
 
 
       
