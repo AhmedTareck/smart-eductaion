@@ -211,7 +211,7 @@ namespace Managegment.Controllers
                 };
 
                 db.Conversations.Add(conversations);
-  //Insert Participation
+                //Insert Participation
                 if (newMessageDTO.SentGroup == 1)
                 { 
               
@@ -385,7 +385,7 @@ namespace Managegment.Controllers
                   "footer div { text-align: center; }" +
                   "body{ font-family: Arial; font-size:15.5px; }" +
                   "</style></head><body>" +
-                  "<div class=\"wrapper\"><header><img src = \"" + ApiServer + "/images/icons/logo.png\" alt=\"Logo\" title=\"Logo\" style=\"display: block\" width=\"200\" height=\"130\" /></header><div class=\"padd\"><p>عزيزي المستخدم<span style=\"font-weight: bold\">" + " " + Name + " " + "</span> <br/>تم ارسال هذه الرسالة لك من نظام تعميم الخاص بمصلحة الاحوال المدنية </p>" +
+                  "<div class=\"wrapper\"><header><img src = \"" + ApiServer + "/images/icons/logo.png\" alt=\"Logo\" title=\"Logo\" style=\"display: block\" width=\"159\" height=\"130\" /></header><div class=\"padd\"><p>السيد:<span style=\"font-weight: bold\">" + " " + Name + " " + "</span> <br/>تم ارسال هذه الرسالة لك من نظام تعميم الخاص بمصلحة الاحوال المدنية </p>" +
                   "<p>  "+ Content + "</p> " +
                  "<p> تفاصيل الرسالة:  <a href =\"" + LoginPage + "/Inbox\" > Click Here</a></p>" +
                  "<br><p>فريق عمل مشروع <b>مصلحة الاحوال المدنية</b> </p>" +

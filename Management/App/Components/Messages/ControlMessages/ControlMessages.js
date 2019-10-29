@@ -1,4 +1,4 @@
-﻿//import MassageDetals from './MassageDetals/MassageDetals.vue';
+﻿import MassageDetals from './MassageDetals/MassageDetals.vue';
 import moment from 'moment';
 
 export default {
@@ -9,7 +9,7 @@ export default {
     },
 
     components: {
-       
+        'MassageDetals': MassageDetals,
     },
 
     filters: {

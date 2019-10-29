@@ -79,6 +79,8 @@ export default {
             }
             else if (route == "DeletedMessage") {
                 this.active = 9;
+            } else if (route == "ControlMessages") {
+                this.active = 10;
             }
             else 
             {
@@ -87,7 +89,7 @@ export default {
         },
 
         href(url, id) {
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 11; i++) {
                 if (i == id) {
                     this.$set(this.menuFlag, id, 'nav-item active');
                 } else {

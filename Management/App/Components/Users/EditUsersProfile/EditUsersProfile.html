@@ -120,11 +120,16 @@
 
                         <h4 class="card-title">{{loginDetails.loginName}}</h4>
                     </div><p class="description text-center" v-if="loginDetails.userType==1">الـمستخدم {{loginDetails.loginName}} لديه صلاحيات الادارة بالكامل</p>
-                 
+
                     <p class="description text-center" v-if="loginDetails.userType==2">
                         الـمستخدم {{loginDetails.loginName}} لديه صلاحيات
 
                         "{{loginDetails.brancheName}}"
+                    </p>
+                    <p class="description text-center" v-if="loginDetails.userType==2">
+                        الـمستخدم {{loginDetails.loginName}} لديه صلاحيات
+
+                        "مراقبه الرسائل"
                     </p>
                     <br />
                     <br />

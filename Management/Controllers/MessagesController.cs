@@ -136,11 +136,11 @@ namespace Managegment.Controllers
                                           select new
                                           {
                                               ConversationId = p.ConversationId,
-                                              Sent = p.Participations.Where(x=>x.ConversationId==p.ConversationId).Select(u => new { u.ReceivedByNavigation.FullName, name = u.SentByNavigation.FullName ,u.Status,u.IsDelete}).ToList(),
+                                              Sent = p.Participations.Where(x=>x.ConversationId==p.ConversationId).Select(u => new { u.ReceivedByNavigation.FullName, name = u.SentByNavigation.FullName ,u.Status,u.IsDelete,u.SentBy}).ToList(),
                                         
                                           
                                               CreatedOn = p.CreatedOn,
-                                         
+                                              bodyWithHtml=p.Body,
                                               AdType = p.MessageType.Name,
                                           
                                               Priolti = p.Priolti,
