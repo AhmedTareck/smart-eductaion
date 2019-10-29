@@ -140,6 +140,17 @@ export default {
         FileChanged(file, fileList) {
           
             var fileSize = (file.size / 1024) | 0;
+           
+            if (file.raw.type !== 'image/jpeg' && file.raw.type !== 'image/png' && file.raw.type !== 'application/pdf' && file.raw.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' && file.raw.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                this.$message({
+                    type: 'error',
+                    dangerouslyUseHTMLString: true,
+                    duration: 5000,
+                    message: 'عفوا يجب انت تكون الملف من نوع JPG ,PNG,pdf,docx,xlsx'
+                });
+              
+                return;
+            }
             if (fileSize > 8000) 
             {
                
@@ -176,6 +187,16 @@ export default {
             }
         },
         handlePictureCardPreview(file) {
+            if (file.raw.type !== 'image/jpeg' && file.raw.type !== 'image/png' && file.raw.type !== 'application/pdf' && file.raw.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' && file.raw.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                this.$message({
+                    type: 'error',
+                    dangerouslyUseHTMLString: true,
+                    duration: 5000,
+                    message: 'عفوا يجب انت تكون الملف من نوع JPG ,PNG,pdf,docx,xlsx'
+                });
+
+                return;
+            }
             this.ruleForm.dialogImageUrl = file.url;
             this.ruleForm.dialogVisible = true;
         },
