@@ -1,30 +1,34 @@
 ﻿import addUsers from './AddUsers/AddUsers.vue';
 import editUsers from './EditUsers/EditUsers.vue';
 import moment from 'moment';
+import CryptoJS from 'crypto-js';
 export default 
 {
 
     name: 'Users',
     
         created() 
-    {
-
-        var loginDetails = sessionStorage.getItem('currentUser');
-        
-        if (loginDetails != null) 
         {
-            this.loginDetails = JSON.parse(loginDetails);
-            
-            if (this.loginDetails.userType != 1) 
-            {
+          
+            this.SECRET_KEY = 'P@SSWORDTAMEME';
+            var loginDetails = sessionStorage.getItem('currentUser');
+
+            try {
+               
+                this.loginDetails = this.decrypt(sessionStorage.getItem('currentUser'));
+            } catch (error) {
                 window.location.href = '/Security/Login';
             }
-        } 
-        else 
-        {
-            window.location.href = '/Security/Login';
-        }
-       
+            if (this.loginDetails != null) {
+                this.loginDetails = JSON.parse(this.loginDetails);
+
+                if (this.loginDetails.userType != 1) {
+                    window.location.href = '/Security/Login';
+                }
+            }
+            else {
+                window.location.href = '/Security/Login';
+            }
         this.GetUsers(this.pageNo);
         
         
@@ -83,7 +87,7 @@ export default
             
             BrachId: '',
 
-
+            loginDetails:'',
             permissions: [],
             permissionModale: [],
             branchesPlaceholder:'',
@@ -94,7 +98,21 @@ export default
     },
     methods: 
     {
-
+        hash: function hash(key) {
+            key = CryptoJS.SHA256(key, SECRET_KEY);
+            return key.toString();
+        },
+        encrypt: function encrypt(data) {
+            var dataSet = CryptoJS.AES.encrypt(data.toString(), this.SECRET_KEY);
+            dataSet = dataSet.toString();
+            return dataSet;
+        },
+        decrypt: function decrypt(data) {
+            var dataSet = CryptoJS.AES.decrypt(data, this.SECRET_KEY);
+            var plaintext = dataSet.toString(CryptoJS.enc.Utf8);
+            dataSet = plaintext.toString(CryptoJS.enc.Utf8);
+            return dataSet;
+        },
         GetBranches()
         {
             this.SetBranchesPlaceholder();

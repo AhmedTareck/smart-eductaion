@@ -105,6 +105,7 @@
     <Compile Remove="Controllers\Security.cs" />
     <Compile Remove="Controllers\Validation.cs" />
     <Content Remove="package-lock.json" />
+    <Content Remove="wwwroot\img\logo.png" />
    
   </ItemGroup>
 
@@ -118,6 +119,7 @@
     <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="wwwroot\img\fontawesome-webfont.svg" />
     <None Include="wwwroot\img\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\img\logo.png" />
     <None Include="wwwroot\img\Pe-icon-7-stroke.svg" />
     <None Include="wwwroot\js\login.js" />
     <None Include="wwwroot\js\login.js.map" />

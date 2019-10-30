@@ -6,6 +6,7 @@ import CryptoJS from 'crypto-js';
 export default {
     name: 'MessageType',    
     created() {
+        debugger;
         this.SECRET_KEY = 'P@SSWORDTAMEME';
         var loginDetails = sessionStorage.getItem('currentUser');
 

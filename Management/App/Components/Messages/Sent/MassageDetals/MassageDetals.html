@@ -28,7 +28,7 @@
 
 
                                 <a href="#" @click.prevent="ChangeMassageStatus(MassageDetals,1)" v-if="MassageStatus==0 || MassageStatus==2 || MassageStatus==4 || MassageStatus==7">
-                                    
+
                                     <i class="el-icon-star-off" style="font-size:20px;color:white;margin-right:10px"></i>
                                 </a>
 
@@ -57,23 +57,33 @@
 
                         <div class="card-body">
 
-                            <div class="col-md-12">
-
-                                <h2 style="display:block;position:relative;top:20px;">{{MassageDetals.subject}}</h2>
+                            <div class="col-md-5">
+                                <h4 style="display:block;position:relative;top:20px;">الموضوع:</h4>
+                                <h4 style="display:block;position:relative;top:20px;">{{MassageDetals.subject}}</h4>
 
                             </div>
 
                         </div>
+                    </div>
 
+                    <div class="row">
                         <div class="card-body">
 
-                            <div class="col-md-12">
+                            <!--<div class="col-md-12">
+
+                <h4 style="display:block;position:relative;top:20px;">{{MassageDetals.body}}</h4>
+                <br /><br />
+                <hr />
+            </div>-->
+                            <div class="col-md-10">
+                                <hr />
+                                <h4 style="display:block;position:relative;top:20px;">المحتوي:</h4>
 
                                 <h4 style="display:block;position:relative;top:20px;">{{MassageDetals.body}}</h4>
-                                <br /><br />
-                                <hr />
-                            </div>
+                                <br />
 
+
+                            </div>
                         </div>
 
                     </div>
@@ -82,7 +92,7 @@
 
                         <div class="col-md-10">
 
-                            <div class="form-group" v-if="Replayes==0">
+                            <div class="form-group" v-if="Replayes==0 && MassageDetals.is_Replay==true">
 
                                 <br /><br />
 
@@ -110,7 +120,7 @@
 
                     </div>
 
-                    <div class="card-body" v-if="Replayes!=0">
+                    <div class="card-body" v-if="Replayes!=0&&MassageDetals.is_Replay==true">
                         <div class="table-responsive">
                             <table class="table">
 
@@ -175,7 +185,7 @@
 
                     </div>
 
-                    <div class="row" style="height:auto">
+                    <div class="row" style="height:auto" v-if="MassageDetals.is_Replay==true">
                         <br />
                         <div class="card-body">
 
@@ -205,7 +215,7 @@
 
                             <div class="tile-footer" style="margin-left:10px">
                                 <button class="btn btn-danger" @click.prevent="Back()">رجوع</button>
-                                <button class="btn btn-primary" @click.prevent="AddReplay()">حفظ</button>
+                                <button class="btn btn-primary" @click.prevent="AddReplay()" v-if="MassageDetals.is_Replay==true">ارسـال</button>
                             </div>
                         </el-col>
                     </el-row>
