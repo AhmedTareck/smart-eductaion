@@ -213,7 +213,7 @@ export default {
         MassageDetals(item)
         {
 
-            this.ChangeMassageStatus(item, 4);
+            this.ChangeMassageStatus(item, 3);
             this.SelectedMassages=item;
             this.state=1;
         }

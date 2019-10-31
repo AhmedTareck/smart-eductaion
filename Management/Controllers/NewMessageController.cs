@@ -223,7 +223,7 @@ namespace Managegment.Controllers
                         SentBy = userId,
                         RecivedBy = item,
                         CreatedOn = DateTime.Now,
-                        IsDelete = false,
+                        IsDelete = 0,
                         Status = 7
                     };
                         var users = db.Users.Where(x => x.UserId == item).SingleOrDefault();
@@ -256,7 +256,7 @@ namespace Managegment.Controllers
                                 SentBy = userId,
                                 RecivedBy = RecivedBy,
                                 CreatedOn = DateTime.Now,
-                                IsDelete = false,
+                                IsDelete = 0,
                                 Status = 7
                             };
 

@@ -12,8 +12,8 @@ namespace Management.Models
             MessageTypeCreatedByNavigation = new HashSet<MessageType>();
             MessageTypeModifiedByNavigation = new HashSet<MessageType>();
             Messages = new HashSet<Messages>();
-           
-            ParticipationsReceivedByNavigation = new HashSet<Participations>();
+            ParticipationsDeletedByNavigation = new HashSet<Participations>();
+            ParticipationsRecivedByNavigation = new HashSet<Participations>();
             ParticipationsSentByNavigation = new HashSet<Participations>();
             Transactions = new HashSet<Transactions>();
         }
@@ -44,8 +44,8 @@ namespace Management.Models
         public ICollection<MessageType> MessageTypeCreatedByNavigation { get; set; }
         public ICollection<MessageType> MessageTypeModifiedByNavigation { get; set; }
         public ICollection<Messages> Messages { get; set; }
-
-        public ICollection<Participations> ParticipationsReceivedByNavigation { get; set; }
+        public ICollection<Participations> ParticipationsDeletedByNavigation { get; set; }
+        public ICollection<Participations> ParticipationsRecivedByNavigation { get; set; }
         public ICollection<Participations> ParticipationsSentByNavigation { get; set; }
         public ICollection<Transactions> Transactions { get; set; }
     }

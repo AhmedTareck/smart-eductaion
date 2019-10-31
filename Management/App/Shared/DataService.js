@@ -200,9 +200,9 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(`/api/admin/Messages/ChangeMassageStateSent?conversationId=${conversationId}&status=${status}`);
     },
-    DeleteMassage(conversationId) {
+    DeleteMassage(conversationId,removeFromTrash) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/api/admin/Messages/DeleteMassage?conversationId=${conversationId}`);
+        return axios.post(`/api/admin/Messages/DeleteMassage?conversationId=${conversationId}&removeFromTrash=${removeFromTrash}`);
     },
 
     GetReplayes(pageNo, pageSize,conversationId)

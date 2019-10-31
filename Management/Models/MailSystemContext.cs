@@ -6,13 +6,6 @@ namespace Management.Models
 {
     public partial class MailSystemContext : DbContext
     {
-        public MailSystemContext()
-        {
-        }
-        public MailSystemContext(DbContextOptions<MailSystemContext> options)
-            : base(options)
-        {
-        }
         public virtual DbSet<Attachments> Attachments { get; set; }
         public virtual DbSet<Branches> Branches { get; set; }
         public virtual DbSet<Conversations> Conversations { get; set; }
@@ -22,12 +15,14 @@ namespace Management.Models
         public virtual DbSet<Transactions> Transactions { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
+        public MailSystemContext(DbContextOptions<MailSystemContext> options) : base(options) { }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"server=DESKTOP-4AI87L8\SQLEXPRESS;Database=Mail;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(@"server=DESKTOP-RNT1C11;database=Mail;uid=Ahmed;pwd=35087124567Ahmed;");
             }
         }
 
@@ -36,10 +31,6 @@ namespace Management.Models
             modelBuilder.Entity<Attachments>(entity =>
             {
                 entity.HasKey(e => e.AttachmentId);
-
-                entity.HasIndex(e => e.ConversationId);
-
-                entity.HasIndex(e => e.CreatedBy);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
@@ -67,7 +58,6 @@ namespace Management.Models
                 entity.Property(e => e.Name).HasMaxLength(250);
             });
 
-
             modelBuilder.Entity<Conversations>(entity =>
             {
                 entity.HasKey(e => e.ConversationId);
@@ -76,24 +66,20 @@ namespace Management.Models
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.Conversations)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_Conversations_Users");
+
                 entity.HasOne(d => d.MessageType)
                     .WithMany(p => p.Conversations)
                     .HasForeignKey(d => d.MessageTypeId)
                     .HasConstraintName("FK_Conversations_MessageTypeId");
-
-                entity.HasOne(d => d.CreatorNavigation)
-                    .WithMany(p => p.Conversations)
-                    .HasForeignKey(d => d.CreatedBy)
-                    .HasConstraintName("FK_Conversations_Users");
             });
 
             modelBuilder.Entity<Messages>(entity =>
             {
                 entity.HasKey(e => e.MessageId);
-
-                entity.HasIndex(e => e.AuthorId);
-
-                entity.HasIndex(e => e.ConversationId);
 
                 entity.Property(e => e.MessageId).HasColumnName("MessageID");
 
@@ -112,12 +98,6 @@ namespace Management.Models
 
             modelBuilder.Entity<MessageType>(entity =>
             {
-                entity.HasIndex(e => e.CreatedBy)
-                    .HasName("IX_AdTypes_CreatedBy");
-
-                entity.HasIndex(e => e.ModifiedBy)
-                    .HasName("IX_AdTypes_ModifiedBy");
-
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Description).HasMaxLength(500);
@@ -141,8 +121,6 @@ namespace Management.Models
             {
                 entity.HasKey(e => new { e.ConversationId, e.RecivedBy });
 
-                entity.Property(e => e.RecivedBy).HasColumnName("RecivedBy");
-
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Conversation)
@@ -151,25 +129,26 @@ namespace Management.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Participations_Conversations");
 
-                entity.HasOne(d => d.ReceivedByNavigation)
-                    .WithMany(p => p.ParticipationsReceivedByNavigation)
+                entity.HasOne(d => d.DeletedByNavigation)
+                    .WithMany(p => p.ParticipationsDeletedByNavigation)
+                    .HasForeignKey(d => d.DeletedBy)
+                    .HasConstraintName("FK_Participations_Users1");
+
+                entity.HasOne(d => d.RecivedByNavigation)
+                    .WithMany(p => p.ParticipationsRecivedByNavigation)
                     .HasForeignKey(d => d.RecivedBy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Participations_Users");
-                entity.HasOne(d => d.SentByNavigation)
-                   .WithMany(p => p.ParticipationsSentByNavigation)
-                   .HasForeignKey(d => d.SentBy)
-                   .HasConstraintName("FK_Participations_Users2");
-            });
 
+                entity.HasOne(d => d.SentByNavigation)
+                    .WithMany(p => p.ParticipationsSentByNavigation)
+                    .HasForeignKey(d => d.SentBy)
+                    .HasConstraintName("FK_Participations_Users2");
+            });
 
             modelBuilder.Entity<Transactions>(entity =>
             {
                 entity.HasKey(e => e.TransactionId);
-
-                entity.HasIndex(e => e.MessageId);
-
-                entity.HasIndex(e => e.UserId);
 
                 entity.Property(e => e.TransactionId).HasColumnName("TransactionID");
 
@@ -191,8 +170,6 @@ namespace Management.Models
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.UserId);
-
-                entity.HasIndex(e => e.BranchId);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 

@@ -41,7 +41,7 @@
                                 <tbody>
                                     
 
-                                    <tr class="TableRow" v-for="massages,index in Massages" v-bind:class="{unread:massages.status==2 || massages.status==4 || massages.status==5 || massages.status==6}">
+                                    <tr class="TableRow" v-for="massages,index in Massages" v-bind:class="{unread:massages.status==0 || massages.status==1 || massages.status==3 || massages.status==7}">
 
                                             <td v-if="massages.status==1 || massages.status==3 || massages.status==5 || massages.status==6">
                                                 <a href="#" @click.prevent="ChangeMassageStatus(massages,2)">
@@ -103,7 +103,7 @@
 
                                             <td>
                                                 <a href="#" @click.prevent="DeleteMassage(massages)">
-                                                    <i class="el-icon-delete" style="font-size:20px" title="إزالة"></i>
+                                                    <i class="el-icon-delete" style="font-size:20px" title="حدف بشكل نهائي"></i>
                                                 </a>
                                             </td>
 

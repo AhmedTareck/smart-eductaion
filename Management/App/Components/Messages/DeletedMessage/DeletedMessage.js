@@ -188,7 +188,7 @@ export default {
 
         DeleteMassage(item)
         {
-            this.$http.DeleteMassage(item.conversationId)
+            this.$http.DeleteMassage(item.conversationId,true)
                 .then(response => {    
                     this.$message({
                         type: 'success',
@@ -212,7 +212,7 @@ export default {
 
         MassageDetals(item)
         {
-            this.ChangeMassageStatus(item,4)
+            this.ChangeMassageStatus(item,3)
             this.SelectedMassages=item;
             this.state=1;
         }
