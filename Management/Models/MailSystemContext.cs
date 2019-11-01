@@ -119,8 +119,6 @@ namespace Management.Models
 
             modelBuilder.Entity<Participations>(entity =>
             {
-                entity.HasKey(e => new { e.ConversationId, e.RecivedBy });
-
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Conversation)
@@ -132,7 +130,7 @@ namespace Management.Models
                 entity.HasOne(d => d.DeletedByNavigation)
                     .WithMany(p => p.ParticipationsDeletedByNavigation)
                     .HasForeignKey(d => d.DeletedBy)
-                    .HasConstraintName("FK_Participations_Users1");
+                    .HasConstraintName("FK_Participations_Users2");
 
                 entity.HasOne(d => d.RecivedByNavigation)
                     .WithMany(p => p.ParticipationsRecivedByNavigation)
@@ -143,7 +141,8 @@ namespace Management.Models
                 entity.HasOne(d => d.SentByNavigation)
                     .WithMany(p => p.ParticipationsSentByNavigation)
                     .HasForeignKey(d => d.SentBy)
-                    .HasConstraintName("FK_Participations_Users2");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Participations_Users1");
             });
 
             modelBuilder.Entity<Transactions>(entity =>

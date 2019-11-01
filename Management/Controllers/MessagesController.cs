@@ -36,6 +36,7 @@ namespace Managegment.Controllers
                 var userId = this.help.GetCurrentUser(HttpContext);
 
                 var praticipations = (from p in db.Participations select p);
+                var count = 0;
 
                 if (operateion == 0)
                 {
@@ -59,9 +60,8 @@ namespace Managegment.Controllers
                                       p.Status != 3 &&
                                       p.Status != 4 &&
                                       p.Status != 6
-
                                       select p);
-                   
+
                 }
                 else if (operateion == 2)
                 {
@@ -82,13 +82,13 @@ namespace Managegment.Controllers
 
 
 
-                var praticiapationsCount = (from p in praticipations
-                                            select p).Count();
+                var praticiapationsCount = praticipations.Count();
 
                 var praticipationsList = (from p in praticipations
                                           orderby p.CreatedOn descending
                                           select new
                                           {
+                                              ParticipationsId = p.ParticipationsId,
                                               ConversationId = p.ConversationId,
                                               SentBy = p.SentBy,
                                               SentName = p.SentByNavigation.FullName,
@@ -103,11 +103,11 @@ namespace Managegment.Controllers
                                               MassageCreatedOn = p.Conversation.CreatedOn,
                                               Is_Replay = p.Conversation.IsGroup
 
-                                          }).ToList();
+                                          }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
-                var result = praticipationsList.GroupBy(test => test.ConversationId)
-                         .Select(grp => grp.SingleOrDefault());
-                return Ok(new { praticipations = result.Skip((pageNo - 1) * pageSize).Take(pageSize), count = result.Count() });
+                //var result = praticipationsList.GroupBy(test => test.ConversationId)
+                //         .Select(grp => grp);
+                return Ok(new { praticipations = praticipationsList, count= praticiapationsCount /*result.Skip((pageNo - 1) * pageSize).Take(pageSize), count = result.Count() */});
             }
             catch (Exception e)
             {
@@ -117,7 +117,7 @@ namespace Managegment.Controllers
 
 
         [HttpPost("ChangeMassageState")]
-        public IActionResult ChangeMassageState(long conversationId, short status)
+        public IActionResult ChangeMassageState(long ParticipationsId, short status)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace Managegment.Controllers
                     return StatusCode(401, "Please make sure you are logged-in");
                 }
 
-                var Massage = (from p in db.Participations where p.ConversationId == conversationId  && p.RecivedBy==userId select p).SingleOrDefault();
+                var Massage = (from p in db.Participations where p.ParticipationsId == ParticipationsId select p).SingleOrDefault();
 
                 if (null == Massage)
                 {
@@ -150,7 +150,7 @@ namespace Managegment.Controllers
   
 
         [HttpPost("DeleteMassage")]
-        public IActionResult DeleteMassage(long conversationId,bool removeFromTrash)
+        public IActionResult DeleteMassage(long ParticipationsId, bool removeFromTrash)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace Managegment.Controllers
                     return StatusCode(401, "Please make sure you are logged-in");
                 }
 
-                var Massage = (from p in db.Participations where p.ConversationId == conversationId select p).SingleOrDefault();
+                var Massage = (from p in db.Participations where p.ParticipationsId == ParticipationsId select p).SingleOrDefault();
 
                 if (null == Massage)
                 {
@@ -176,8 +176,10 @@ namespace Managegment.Controllers
                 }
                 else
                 {
+                    
                     Massage.IsDelete = 1;
                 }
+                Massage.DeletedBy = userId;
                 db.SaveChanges();
                 return Ok("تم حذف الرسالة بنجاح");
             }

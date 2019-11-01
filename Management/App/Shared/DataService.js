@@ -191,18 +191,14 @@ export default {
         return axios.get(`/Api/Admin/Messages/GetReceivedMassage?pageNo=${pageNo}&pageSize=${pageSize}&operateion=${operateion}`);
     },
 
-    ChangeMassageState(conversationId,status) {
+    ChangeMassageState(ParticipationsId,status) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/api/admin/Messages/ChangeMassageState?conversationId=${conversationId}&status=${status}`);
+        return axios.post(`/api/admin/Messages/ChangeMassageState?ParticipationsId=${ParticipationsId}&status=${status}`);
     },
 
-    ChangeMassageStateSent(conversationId, status) {
+    DeleteMassage(ParticipationsId,removeFromTrash) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/api/admin/Messages/ChangeMassageStateSent?conversationId=${conversationId}&status=${status}`);
-    },
-    DeleteMassage(conversationId,removeFromTrash) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/api/admin/Messages/DeleteMassage?conversationId=${conversationId}&removeFromTrash=${removeFromTrash}`);
+        return axios.post(`/api/admin/Messages/DeleteMassage?ParticipationsId=${ParticipationsId}&removeFromTrash=${removeFromTrash}`);
     },
 
     GetReplayes(pageNo, pageSize,conversationId)

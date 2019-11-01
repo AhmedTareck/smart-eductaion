@@ -170,7 +170,7 @@ methods:
                 MassageHint="تم إضافة الرسالة إلي الأرشيف";
             }
 
-            this.$http.ChangeMassageState(item.conversationId,status)
+            this.$http.ChangeMassageState(item.participationsId,status)
                     .then(response => {   
                         this.GetMassages(this.pageNo);
                     })
@@ -188,7 +188,7 @@ methods:
 
         DeleteMassage(item)
         {
-            this.$http.DeleteMassage(item.conversationId)
+            this.$http.DeleteMassage(item.participationsId)
                 .then(response => {    
                     this.$message({
                         type: 'success',
