@@ -170,7 +170,7 @@ export default {
                 MassageHint="تم إضافة الرسالة إلي الأرشيف";
             }
 
-            this.$http.ChangeMassageState(item.conversationId,status)
+            this.$http.ChangeMassageState(item.participationsId,status)
                     .then(response => {   
                         this.GetMassages(this.pageNo);
                     })
@@ -188,7 +188,7 @@ export default {
 
         DeleteMassage(item)
         {
-            this.$http.DeleteMassage(item.conversationId)
+            this.$http.DeleteMassage(item.participationsId,true)
                 .then(response => {    
                     this.$message({
                         type: 'success',
@@ -212,7 +212,7 @@ export default {
 
         MassageDetals(item)
         {
-            this.ChangeMassageStatus(item,4)
+            this.ChangeMassageStatus(item,3)
             this.SelectedMassages=item;
             this.state=1;
         }
