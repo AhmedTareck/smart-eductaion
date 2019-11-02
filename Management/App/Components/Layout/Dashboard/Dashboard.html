@@ -33,9 +33,12 @@
                 </a>
             </li>
             <li :class="menuFlag[2]">
+
+
                 <a class="nav-link" href="#" @click.prevent="href('/Inbox',2)">
                     <i class="fa fa-inbox"></i>
-                    <p>صندوق الوارد</p>
+                    <p>صندوق الوارد    <b style="color:red; font-size:medium"> ({{UnReadCount}})</b></p>
+               
                 </a>
             </li>
             <li :class="menuFlag[3]">

@@ -14,12 +14,14 @@ export default {
         } else {
             window.location.href = '/Security/Login';
         }
-
+     
+        setInterval(() => this.GetMessagesUnRead(), 10000);  
         this.menuFlag[0] = 'nav-item active';
     },
     data() {
         return {            
             loginDetails: null,
+            UnReadCount:0,
             active: 1,
             menuFlag: [10],
             SECRET_KEY:'',
@@ -28,6 +30,14 @@ export default {
     },
   
     methods: {
+        GetMessagesUnRead() {
+            this.$http.GetMessages()
+                .then(response => {
+                    this.UnReadCount = response.data.unred;
+                })
+                .catch((err) => {
+                });
+        },
         hash: function hash(key) {
             key = CryptoJS.SHA256(key, SECRET_KEY);
             return key.toString();

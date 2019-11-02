@@ -145,6 +145,10 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(`/Api/Messages/getContentConversation?conversationId=${conversationId}`);
     },
+    GetMessages() {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(`/api/admin/Messages/GetMessages`);
+    },
     GetControlMessages(pageNo, pageSize) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(`/Api/Admin/Messages/GetControlMessages?pageNo=${pageNo}&pageSize=${pageSize}`);

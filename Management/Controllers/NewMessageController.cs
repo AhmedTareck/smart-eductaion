@@ -38,11 +38,21 @@ namespace Managegment.Controllers
         public ActionResult GetAllUsers(int UserType)
         {
             try
-            { 
+            {
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+
+
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
                 IQueryable<Users> UsersQuery;
                 UsersQuery = from p in db.Users
                              
-                               where p.Status != 9 && p.Branch.BranchLevel == UserType
+                               where p.Status != 9 && p.Branch.BranchLevel == UserType && p.UserId !=  userId
                              select p;
 
 
@@ -213,8 +223,8 @@ namespace Managegment.Controllers
                 db.Conversations.Add(conversations);
                 //Insert Participation
                 if (newMessageDTO.SentGroup == 1)
-                { 
-              
+                {
+                    newMessageDTO.Selectedusers.Add(userId);
                 foreach (var item in newMessageDTO.Selectedusers )
                 {
                     Participations Participation = new Participations()
@@ -226,7 +236,8 @@ namespace Managegment.Controllers
                         IsDelete = 0,
                         Status = 7
                     };
-                        var users = db.Users.Where(x => x.UserId == item).SingleOrDefault();
+                        var users = db.Users.Where(x => x.UserId == item  && x.UserId!=userId).SingleOrDefault();
+                        if(users != null) { 
                     MailObject MO = new MailObject()
                     {
                         Subject = newMessageDTO.Subject,
@@ -234,8 +245,9 @@ namespace Managegment.Controllers
                         Email = users.Email,
                         Name = users.FullName
                     };
-
-                    MList.Add(MO);
+                            MList.Add(MO);
+               }
+                  
                     db.Participations.Add(Participation);
                 }
             }
@@ -244,11 +256,14 @@ namespace Managegment.Controllers
                     foreach (var userType in newMessageDTO.PermissionModale)
                     {
                         // get userid array by userType             
-                        long[] UsersIdList = db.Users.Where(x => x.Branch.BranchLevel == userType && x.Status!=9)
+                        List<long> UsersIdList = db.Users.Where(x => x.Branch.BranchLevel == userType && x.Status!=9 && x.UserId!=userId)
                    .Select(r => (long)r.UserId)
-                   .ToArray();
+                   .ToList();
+                        UsersIdList.Add(userId);
                         foreach (long RecivedBy in UsersIdList)
                         {
+
+                            
                             Participations Participation = new Participations()
 
                             {
@@ -257,20 +272,22 @@ namespace Managegment.Controllers
                                 RecivedBy = RecivedBy,
                                 CreatedOn = DateTime.Now,
                                 IsDelete = 0,
-                                Status = 7
+                                Status = 7 
                             };
 
-                            var users = db.Users.Where(x => x.UserId == RecivedBy).SingleOrDefault();
+                            var users = db.Users.Where(x => x.UserId == RecivedBy && x.UserId != userId).SingleOrDefault();
 
-                            MailObject MO = new MailObject()
+                            if (users != null)
                             {
-                                Subject = newMessageDTO.Subject,
-                                Content = newMessageDTO.Content, //.GetPlainTextFromHtml(newMessageDTO.Content),
-                                Email = users.Email,
-                                Name = users.FullName
-                            };
-
-                            MList.Add(MO);
+                                MailObject MO = new MailObject()
+                                {
+                                    Subject = newMessageDTO.Subject,
+                                    Content = newMessageDTO.Content, //.GetPlainTextFromHtml(newMessageDTO.Content),
+                                    Email = users.Email,
+                                    Name = users.FullName
+                                };
+                                MList.Add(MO);
+                            }
 
                             db.Participations.Add(Participation);
                         }

@@ -115,6 +115,47 @@ namespace Managegment.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        [HttpGet("GetMessages")]
+        public IActionResult GetMessages()
+        {
+            // 1 - unread
+            // 2 - Read
+            //3- Read later
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var MessageQuery = from p in db.Participations
+                                   where p.RecivedBy == userId && p.SentBy != userId
+                                   select p;
+
+                var MessageList = (from p in MessageQuery
+                                   orderby p.CreatedOn descending
+                                   select new
+                                   {
+                                       IsRead= p.Status,
+                                 
+                                       p.SentBy,
+                                       p.RecivedBy,
+                                       p.CreatedOn,
+                                 
+                                   }).Take(100).ToList();
+                return Ok(new
+                {
+                 
+                    Unred = MessageList.Where(x => x.IsRead == 7).Count(),
+              
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpGet("GetControlMessages")]
         public IActionResult GetControlMessages(int pageNo, int pageSize)
         {
