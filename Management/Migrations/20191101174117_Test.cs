@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Management.Migrations
 {
-    public partial class MailSys : Migration
+    public partial class Test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -190,16 +190,19 @@ namespace Management.Migrations
                 name: "Participations",
                 columns: table => new
                 {
+                    ParticipationsId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ConversationId = table.Column<long>(nullable: false),
-                    RecivedBy = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    IsDelete = table.Column<bool>(nullable: true),
-                    SentBy = table.Column<long>(nullable: true),
+                    DeletedBy = table.Column<long>(nullable: true),
+                    IsDelete = table.Column<short>(nullable: true),
+                    RecivedBy = table.Column<long>(nullable: false),
+                    SentBy = table.Column<long>(nullable: false),
                     Status = table.Column<short>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Participations", x => new { x.ConversationId, x.RecivedBy });
+                    table.PrimaryKey("PK_Participations", x => x.ParticipationsId);
                     table.ForeignKey(
                         name: "FK_Participations_Conversations",
                         column: x => x.ConversationId,
@@ -207,8 +210,20 @@ namespace Management.Migrations
                         principalColumn: "ConversationID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Participations_Users2",
+                        column: x => x.DeletedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Participations_Users",
                         column: x => x.RecivedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Participations_Users1",
+                        column: x => x.SentBy,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
@@ -273,19 +288,34 @@ namespace Management.Migrations
                 column: "ConversationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AdTypes_CreatedBy",
+                name: "IX_MessageType_CreatedBy",
                 table: "MessageType",
                 column: "CreatedBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AdTypes_ModifiedBy",
+                name: "IX_MessageType_ModifiedBy",
                 table: "MessageType",
                 column: "ModifiedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Participations_ConversationId",
+                table: "Participations",
+                column: "ConversationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Participations_DeletedBy",
+                table: "Participations",
+                column: "DeletedBy");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Participations_RecivedBy",
                 table: "Participations",
                 column: "RecivedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Participations_SentBy",
+                table: "Participations",
+                column: "SentBy");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_MessageId",

@@ -114,6 +114,50 @@ namespace Managegment.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        [HttpGet("GetControlMessages")]
+        public IActionResult GetControlMessages(int pageNo, int pageSize)
+        {
+            try
+            {
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                var Conversations = (from p in db.Conversations
+
+                                     select p);
+
+
+
+                var ConversationsCount = (from p in Conversations
+                                          select p).Count();
+
+                var praticipationsList = (from p in Conversations
+                                          orderby p.CreatedOn descending
+                                          select new
+                                          {
+                                              ConversationId = p.ConversationId,
+                                              Sent = p.Participations.Where(x => x.ConversationId == p.ConversationId).Select(u => new { u.RecivedByNavigation.FullName, name = u.SentByNavigation.FullName, u.Status, u.IsDelete, u.SentBy }).ToList(),
+
+
+                                              CreatedOn = p.CreatedOn,
+                                              bodyWithHtml = p.Body,
+                                              AdType = p.MessageType.Name,
+
+                                              Priolti = p.Priolti,
+                                              Subject = p.Subject,
+                                              MassageCreatedOn = p.CreatedOn,
+                                              Is_Replay = p.IsGroup
+
+                                          }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new { praticipations = praticipationsList, count = ConversationsCount });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
 
 
         [HttpPost("ChangeMassageState")]
