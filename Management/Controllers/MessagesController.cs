@@ -44,6 +44,7 @@ namespace Managegment.Controllers
                                       where
                                       p.IsDelete ==0 &&
                                       p.RecivedBy == userId &&
+                                      p.SentBy!=userId &&
                                       p.Status != 0 &&
                                       p.Status != 3 &&
                                       p.Status != 4 &&
@@ -54,7 +55,7 @@ namespace Managegment.Controllers
                 {
                     praticipations = (from p in db.Participations
                                       where
-                                      p.SentBy == userId
+                                      p.SentBy == userId && p.RecivedBy==userId
                                       && p.IsDelete ==0 &&
                                       p.Status != 0 &&
                                       p.Status != 3 &&

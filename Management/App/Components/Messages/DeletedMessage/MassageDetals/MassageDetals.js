@@ -12,6 +12,7 @@ created() {
     this.MassageDetals=this.$parent.SelectedMassages;
     this.GetReplayes(this.pageNo);
     this.MassageStatus=this.MassageDetals.status;
+    setInterval(() => this.GetReplayes(this.pageNo), 10000);  
     //this.GetMassages(this.pageNo);
 },
 
@@ -68,15 +69,12 @@ methods:
                 this.pageNo = 1;
             }
 
-            this.$blockUI.Start();
             this.$http.GetReplayes(this.pageNo, this.pageSize,this.$parent.SelectedMassages.conversationId)
                 .then(response => {
-                    this.$blockUI.Stop();
                     this.Replayes = response.data.replayesLists;
                     this.pages = response.data.count;
                 })
                 .catch((err) => {
-                    this.$blockUI.Stop();
                     console.error(err);
                     this.pages = 0;
                 });
