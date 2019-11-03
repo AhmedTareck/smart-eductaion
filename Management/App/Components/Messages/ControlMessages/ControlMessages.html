@@ -71,7 +71,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="#" @click.prevent="MassageDetals(massages)" v-for="Received in massages.sent">
+                                            <a href="#" @click.prevent="MassageDetals(massages)" v-for="Received in massages.sent.filter(item => item.sentBy != item.recivedBy)">
                                                 <i>{{Received.fullName}}</i><br />
                                             </a>
                                         </td>

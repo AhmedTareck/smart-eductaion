@@ -1,7 +1,7 @@
-﻿<template src="./NewMessage.html">
+﻿<template src="./Resend.html">
 </template>
 
-<script src="./NewMessage.js"></script>
+<script src="./Resend.js"></script>
 <!--<style>
 
 

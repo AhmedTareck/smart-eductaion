@@ -17,6 +17,7 @@ export default {
 
 
             ruleForm: {
+                ConversationId:0,
                 from: "",
                 SentGroup:'',
                 selectedusers:[],

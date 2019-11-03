@@ -12,10 +12,10 @@ created() {
     this.MassageDetals = this.$parent.SelectedMassages;
 
     this.GetReplayes(this.pageNo);
-    this.MassageStatus = this.MassageDetals.sent;
-    var item = this.MassageDetals.sent.filter(item => item.status === 7);
-    var itemRead = this.MassageDetals.sent.filter(item => item.status === 3);
-    var itemUnRead = this.MassageDetals.sent.filter(item => item.status === 4);
+    this.MassageStatus = this.MassageDetals.sent.filter(item => item.sentBy != item.recivedBy);
+    var item = this.MassageDetals.sent.filter(item => item.status === 7 && item.sentBy != item.recivedBy);
+    var itemRead = this.MassageDetals.sent.filter(item => item.status === 3 && item.sentBy != item.recivedBy);
+    var itemUnRead = this.MassageDetals.sent.filter(item => item.status === 4 && item.sentBy != item.recivedBy);
     this.countSeen = item.length;
     this.countRead = itemRead.length;
     this.countUnRead = itemUnRead.length;

@@ -354,7 +354,172 @@ namespace Managegment.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        [HttpPost("EditMessage")]
+        public ActionResult EditMessage([FromBody] NewMessageDTO newMessageDTO)
+        {
+            try
+            {
+                // Creat list of emails that you want to sent
+                List<MailObject> MList = new List<MailObject>();
 
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (newMessageDTO == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
+                if (newMessageDTO.SentGroup == 1)
+                {
+                    if (newMessageDTO.Selectedusers.Count == 0)
+                    {
+                        return BadRequest("الرجاء اختيار الاشخاص المراد ارسال لهم رساله");
+                    }
+
+                }
+                if (newMessageDTO.SentGroup == 2)
+                {
+                    if (newMessageDTO.PermissionModale.Count() == 0)
+                    {
+                        return BadRequest("الرجاء اختيار المجموعه المراد ارسال لهم رساله");
+                    }
+                }
+
+
+
+
+                var Conversations = (from p in db.Conversations
+                                where p.ConversationId == newMessageDTO.ConversationId
+                             
+                                select p).SingleOrDefault();
+
+                if (Conversations == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+
+                }
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+             
+                //Insert Participation
+                if (newMessageDTO.SentGroup == 1)
+                {
+                    newMessageDTO.Selectedusers.Add(userId);
+                    foreach (var item in newMessageDTO.Selectedusers)
+                    {
+                        Participations Participation = new Participations()
+                        {
+                            ConversationId = newMessageDTO.ConversationId,
+                            SentBy = userId,
+                            RecivedBy = item,
+                            CreatedOn = DateTime.Now,
+                            IsDelete = 0,
+                            Status = 7
+                        };
+                        var users = db.Users.Where(x => x.UserId == item && x.UserId != userId).SingleOrDefault();
+                        if (users != null)
+                        {
+                            MailObject MO = new MailObject()
+                            {
+                                Subject = newMessageDTO.Subject,
+                                Content = newMessageDTO.Content, //.GetPlainTextFromHtml(newMessageDTO.Content),
+                                Email = users.Email,
+                                Name = users.FullName
+                            };
+                            MList.Add(MO);
+                        }
+
+                        db.Participations.Add(Participation);
+                    }
+                }
+                else
+                {
+                    foreach (var userType in newMessageDTO.PermissionModale)
+                    {
+                        // get userid array by userType             
+                        List<long> UsersIdList = db.Users.Where(x => x.Branch.BranchLevel == userType && x.Status != 9 && x.UserId != userId)
+                   .Select(r => (long)r.UserId)
+                   .ToList();
+                        UsersIdList.Add(userId);
+                        foreach (long RecivedBy in UsersIdList)
+                        {
+
+
+                            Participations Participation = new Participations()
+
+                            {
+                                ConversationId = newMessageDTO.ConversationId,
+                                SentBy = userId,
+                                RecivedBy = RecivedBy,
+                                CreatedOn = DateTime.Now,
+                                IsDelete = 0,
+                                Status = 7
+                            };
+
+                            var users = db.Users.Where(x => x.UserId == RecivedBy && x.UserId != userId).SingleOrDefault();
+
+                            if (users != null)
+                            {
+                                MailObject MO = new MailObject()
+                                {
+                                    Subject = newMessageDTO.Subject,
+                                    Content = newMessageDTO.Content, //.GetPlainTextFromHtml(newMessageDTO.Content),
+                                    Email = users.Email,
+                                    Name = users.FullName
+                                };
+                                MList.Add(MO);
+                            }
+
+                            db.Participations.Add(Participation);
+                        }
+                    }
+
+                }
+           
+
+
+                db.SaveChanges();
+
+                if (newMessageDTO.SentType == 1)
+                {
+                    //ALL
+                    Task.Factory.StartNew(() => SendEmailAsync(MList));
+                }
+                else if (newMessageDTO.SentType == 2)
+                {
+                    // Send Email
+                    Task.Factory.StartNew(() => SendEmailAsync(MList));
+                }
+                else
+                {
+                    // Send SMS
+                }
+                //   var AdTypeName = db.AdTypes.SingleOrDefault(s => s.AdTypeId == newMessageDTO.Type).AdTypeName;
+                //switch (newMessageDTO.SelectedOption)
+                //{
+                //    case SelectedOption.All:
+                //        // EmIal and SMS
+                //        await SendSMS(newMessageDTO, AdTypeName);
+                //        await SendEmailToUsers(newMessageDTO,userId, AdTypeName);
+                //        break;
+                //    case SelectedOption.Email:
+                //        //Email
+                //        await SendEmailToUsers(newMessageDTO,userId, AdTypeName);
+                //        break;
+                //    case SelectedOption.SMS:
+                //        //SMS
+                //        await SendSMS(newMessageDTO, AdTypeName);
+                //        break;
+                //}
+                return Ok("تم عملية الارسال التعميم بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
         public void SendEmailAsync(List<MailObject> MList)
         {
             foreach(var x in MList)

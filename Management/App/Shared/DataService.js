@@ -165,6 +165,10 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(`/Api/NewMessage/NewMessage`, NewMessage);
     },
+   EditMessage(NewMessage) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+       return axios.post(`/Api/NewMessage/EditMessage`, NewMessage);
+    },
     ReplayMessages(replayMessages) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(`/Api/Messages/ReplayMessages`, replayMessages);

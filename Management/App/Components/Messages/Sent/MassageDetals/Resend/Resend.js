@@ -17,7 +17,8 @@ export default {
 
 
             ruleForm: {
-                from: "",
+                ConversationId:0,
+             
                 SentGroup:'',
                 selectedusers:[],
                 subject: "",
@@ -70,13 +71,23 @@ export default {
             isIndeterminate: false,
             checkOptions: [],
             selectFiles: [],
-            Permissions:[]
+            Permissions: [],
+            MassageStatus:[],
 
         };
     },
   
     created() {
+       
       
+        this.MassageStatus = this.$parent.EditMessage.sentlist.filter(item => item.sentBy != item.recivedBy);
+        this.ruleForm.subject = this.$parent.EditMessage.subject;
+        this.ruleForm.replay = this.$parent.EditMessage.is_Replay;
+        this.ruleForm.content = this.$parent.EditMessage.body;
+        this.ruleForm.MessageType = this.$parent.EditMessage.adType;
+        this.ruleForm.priorityint =  this.$parent.EditMessage.priolti ;
+
+        this.ruleForm.SentType =  this.$parent.EditMessage.sentType;
         this.GetAllMessageTypes();
         this.Permissions = [
             {
@@ -244,17 +255,21 @@ export default {
                     });
                 });
         },
-   
-           Save(formName) {
+        Back() {
+            this.$parent.state = 0;
+        },  
+        submitForm(formName) {
 
            
-               this.$blockUI.Start();
-               this.ruleForm.priority = this.Prioritytexts[this.priorityint - 1];
+            this.$blockUI.Start();
+            this.ruleForm.ConversationId = this.$parent.EditMessage.conversationId;
+            this.ruleForm.priority = this.$parent.EditMessage.priolti;
+            this.ruleForm.MessageType = 0;
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                 
-                 
-                    this.$http.NewMessage(this.ruleForm)
+                    this.ruleForm.MessageType = 0;
+                    console.log(this.ruleForm);
+                    this.$http.EditMessage(this.ruleForm)
                         .then(response => {
                            
                             this.$message({
@@ -265,7 +280,7 @@ export default {
                             });
 
                             this.form = [];
-                            this.$router.push('/Inbox');
+                            this.$router.push('/Sent');
                             this.$blockUI.Stop();
                         })
                         .catch((err) => {

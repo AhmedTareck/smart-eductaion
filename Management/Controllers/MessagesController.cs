@@ -102,7 +102,11 @@ namespace Managegment.Controllers
                                               Priolti = p.Conversation.Priolti,
                                               Subject = p.Conversation.Subject,
                                               MassageCreatedOn = p.Conversation.CreatedOn,
-                                              Is_Replay = p.Conversation.IsGroup
+                                              Is_Replay = p.Conversation.IsGroup,
+                                              SentType = p.Conversation.SentType,
+                                        
+                                              Sentlist = p.Conversation.Participations.Where(x => x.ConversationId == p.ConversationId ).Select(u => new { u.RecivedByNavigation.FullName, name = u.SentByNavigation.FullName,  u.RecivedBy, u.SentBy }).ToList(),
+
 
                                           }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
@@ -178,7 +182,8 @@ namespace Managegment.Controllers
                                           select new
                                           {
                                               ConversationId = p.ConversationId,
-                                              Sent = p.Participations.Where(x => x.ConversationId == p.ConversationId).Select(u => new { u.RecivedByNavigation.FullName, name = u.SentByNavigation.FullName, u.Status, u.IsDelete, u.SentBy }).ToList(),
+                                              UserId= p.CreatedByNavigation.UserId,
+                                              Sent = p.Participations.Where(x => x.ConversationId == p.ConversationId ).Select(u => new { u.RecivedByNavigation.FullName, name = u.SentByNavigation.FullName, u.Status, u.IsDelete, u.SentBy,u.RecivedBy }).ToList(),
 
 
                                               CreatedOn = p.CreatedOn,

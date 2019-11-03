@@ -19,7 +19,7 @@ namespace Management.Models
         public bool? IsGroup { get; set; }
         public long? MessageTypeId { get; set; }
         public string Priolti { get; set; }
-        public int SentType { get; set; }
+        public short SentType { get; set; }
         public string Subject { get; set; }
 
         public Users CreatedByNavigation { get; set; }

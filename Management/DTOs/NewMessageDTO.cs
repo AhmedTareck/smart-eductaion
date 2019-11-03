@@ -7,9 +7,10 @@ namespace Management.DTOs
 {
     public class NewMessageDTO
     {
+        public long MessageType { get; set; }
         public string Subject { get; set; }
         public bool Replay { get; set; }
-        public long MessageType { get; set; }
+        public long ConversationId { get; set; }
         public string Priority { get; set; }
         public List<long> Selectedusers { get; set; }
         public long[] PermissionModale { get; set; }

@@ -12,8 +12,8 @@
 
             <div class="card">
                 <div class="card-header card-header-primary">
-                    <h4 class="card-title ">ارسال رسالة </h4>
-                    <p class="card-category"> هذه الصفحه خاصه بالعملية ارسال رسالة</p>
+                    <h4 class="card-title ">اعاده ارسال رسالة </h4>
+                    <p class="card-category"> هذه الصفحه خاصه بالعملية اعاده ارسال رسالة</p>
                 </div>
 
 
@@ -54,7 +54,7 @@
                                             <el-option v-for="user in users"
                                                        :key="user.userId"
                                                        :label="user.userName"
-                                                       :value="user.userId"  >
+                                                       :value="user.userId">
                                             </el-option>
                                         </el-select>
                                         </el-form-item>
@@ -81,25 +81,29 @@
 
                                 <!--<el-col class="col-md-4">
 
-                                  
-                                    <el-form-item label="مرسل الي" prop="selectedusers">
-                                        <el-select v-model="ruleForm.selectedusers" multiple filterable remote reserve-keyword
-                                                   placeholder="مرسل الي"
-                                                   :remote-method="remoteMethod"
-                                                  
-                                                   style="width:100%">
-                                            <el-option v-for="user in users"
-                                                       :key="user.userId"
-                                                       :label="user.userName"
-                                                       :value="user.userId">
-                                            </el-option>
-                                        </el-select>
-                                    </el-form-item>
+
+        <el-form-item label="مرسل الي" prop="selectedusers">
+            <el-select v-model="ruleForm.selectedusers" multiple filterable remote reserve-keyword
+                       placeholder="مرسل الي"
+                       :remote-method="remoteMethod"
+
+                       style="width:100%">
+                <el-option v-for="user in users"
+                           :key="user.userId"
+                           :label="user.userName"
+                           :value="user.userId">
+                </el-option>
+            </el-select>
+        </el-form-item>
 
 
-                                </el-col>-->
+    </el-col>-->
+                                <div class="col-md-4">
+                                    <h4 style="display:block;position:relative;top:20px;">الي:</h4>
+                                    <h4 style="display:block;position:relative;top:20px;" v-for="Received in MassageStatus">{{Received.fullName}}</h4>
 
-                                <el-col class="col-md-6">
+                                </div>
+                                <el-col class="col-md-4">
 
 
 
@@ -109,7 +113,7 @@
 
 
                                 </el-col>
-                                <el-col class="col-md-6">
+                                <el-col class="col-md-4">
 
 
 
@@ -120,7 +124,7 @@
                                             <el-option v-for="item in types"
                                                        :key="item.messageTypeId"
                                                        :label="item.name"
-                                                       :value="item.messageTypeId"  >
+                                                       :value="item.messageTypeId">
                                             </el-option>
                                         </el-select>
 
@@ -145,13 +149,9 @@
 
                                 <el-col class="col-md-4">
 
-                                    <el-form-item label=" اهمية " prop="priorityint" >
-                                        <el-rate v-model="priorityint"
-                                                 :texts="[' عادي ', ' متوسط ', ' مهم ']"
-                                                 :colors="['#009688', '#FF0000']"
-                                                 :max=3
-                                                 show-text>
-                                        </el-rate>
+                                    <el-form-item label=" اهمية " prop="priorityint">
+                                        <h4 style="display:block;position:relative;top:20px;">{{ruleForm.priorityint }}</h4>
+                                  
                                     </el-form-item>
 
 
@@ -177,38 +177,7 @@
                             </el-row>
 
 
-                            <el-row class="row">
-
-                                <el-col class="col-md-12">
-
-
-                                    <el-form-item label=" اضافة ملف ">
-
-
-                                        <el-upload action="#"
-                                                   list-type="picture-card"
-                                                   :on-preview="handlePictureCardPreview"
-                                                   :on-remove="handleRemove"
-                                                   :auto-upload="false"
-                                                   accept=".jpg,.png,.pdf,.xlsx,.docx"
-                                                   :on-change="FileChanged"
-                                                   ref="upload"
-                                                   type="file">
-
-                                            <i class="el-icon-plus"></i>
-                                        </el-upload>
-                                        <el-dialog :visible.sync="dialogVisible">
-                                            <img width="100%" :src="ruleForm.dialogImageUrl" alt="">
-                                        </el-dialog>
-                                    </el-form-item>
-
-
-                                </el-col>
-
-
-
-
-                            </el-row>
+                   
                             <el-row class="row">
                                 <el-col class="col-md-12">
 
@@ -216,9 +185,9 @@
                                     <el-form-item prop="content">
                                         <quill-editor v-model="ruleForm.content"
                                                       ref="myQuillEditor"
-                                                      :options="editorOption" style=" height: 150px;
+                                                      :options="editorOption" style=" height: 150px;" />
 
-" />
+
                                     </el-form-item>
                                 </el-col>
 
@@ -234,7 +203,7 @@
 
                                     <div class="tile-footer" style="margin-top: 8%;">
                                         <button class="btn btn-danger" @click.prevent="Back()">رجوع</button>
-                                        <button class="btn btn-primary" @click.prevent="Save('ruleForm')">حفظ</button>
+                                        <button class="btn btn-primary" @click.prevent="submitForm('ruleForm')">حفظ</button>
                                     </div>
                                 </el-col>
                             </el-row>
