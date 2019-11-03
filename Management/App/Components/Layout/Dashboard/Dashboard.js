@@ -14,12 +14,14 @@ export default {
         } else {
             window.location.href = '/Security/Login';
         }
-
+        this.GetMessagesUnRead();
+        setInterval(() => this.GetMessagesUnRead(), 10000);  
         this.menuFlag[0] = 'nav-item active';
     },
     data() {
         return {            
             loginDetails: null,
+            UnReadCount:0,
             active: 1,
             menuFlag: [10],
             SECRET_KEY:'',
@@ -28,6 +30,15 @@ export default {
     },
   
     methods: {
+        GetMessagesUnRead() {
+            this.$http.GetMessages()
+                .then(response => {
+                
+                    this.UnReadCount = response.data.unred;
+                })
+                .catch((err) => {
+                });
+        },
         hash: function hash(key) {
             key = CryptoJS.SHA256(key, SECRET_KEY);
             return key.toString();
@@ -79,6 +90,8 @@ export default {
             }
             else if (route == "DeletedMessage") {
                 this.active = 9;
+            } else if (route == "ControlMessages") {
+                this.active = 10;
             }
             else 
             {
@@ -87,7 +100,7 @@ export default {
         },
 
         href(url, id) {
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 11; i++) {
                 if (i == id) {
                     this.$set(this.menuFlag, id, 'nav-item active');
                 } else {

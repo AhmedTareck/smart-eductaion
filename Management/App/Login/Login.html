@@ -38,7 +38,7 @@
                                                 <i class="material-icons">face</i>
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control" v-model="form.Email" placeholder="First Name...">
+                                        <input type="text" class="form-control" v-on:keyup.enter="login()"  v-model="form.Email" placeholder="First Name...">
 
                                     </div>
                                 </span>
@@ -50,12 +50,12 @@
                                                 <i class="material-icons">lock_outline</i>
                                             </span>
                                         </div>
-                                        <input type="password" class="form-control" placeholder="Password" v-model="form.Password" />
+                                        <input type="password" class="form-control"  v-on:keyup.enter="login()" placeholder="Password" v-model="form.Password" />
                                     </div>
                                 </span>
                             </div>
                             <div class="card-footer justify-content-center">
-                                <a href="#pablo" class="btn btn-rose btn-link btn-lg" @click.prevent="login()">الدخول</a>
+                                <a href="#pablo" class="btn btn-rose btn-link btn-lg" @click.prevent="login()" >الدخول</a>
                             </div>
                         </div>
 

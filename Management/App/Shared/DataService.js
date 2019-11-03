@@ -145,10 +145,14 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(`/Api/Messages/getContentConversation?conversationId=${conversationId}`);
     },
-    //GetSent(pageNo, pageSize) {
-    //    axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-    //    return axios.get(`/Api/Messages/GetAllInboxSender?page=${pageNo}&pagesize=${pageSize}`);
-    //},
+    GetMessages() {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(`/api/admin/Messages/GetMessages`);
+    },
+    GetControlMessages(pageNo, pageSize) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(`/Api/Admin/Messages/GetControlMessages?pageNo=${pageNo}&pageSize=${pageSize}`);
+    },
     GetAllUsers(UserType) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(`/Api/NewMessage/GetAllUsers?UserType=${UserType}`);
@@ -160,6 +164,10 @@ export default {
     NewMessage(NewMessage) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(`/Api/NewMessage/NewMessage`, NewMessage);
+    },
+   EditMessage(NewMessage) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+       return axios.post(`/Api/NewMessage/EditMessage`, NewMessage);
     },
     ReplayMessages(replayMessages) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');

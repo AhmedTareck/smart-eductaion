@@ -3,7 +3,7 @@ import moment from 'moment';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
-
+import Resend from './Resend/Resend.vue';
 import { quillEditor } from 'vue-quill-editor';
 
 export default {
@@ -15,7 +15,9 @@ created() {
     setInterval(() => this.GetReplayes(this.pageNo), 10000);  
     //this.GetMassages(this.pageNo);
 },
-
+    components: {
+        'Resend': Resend,
+    },
 
 filters: {
         moment: function (date) {
@@ -33,10 +35,10 @@ filters: {
             pageNo: 1,
             pageSize: 10,
             pages: 0,
-
+            state:0,
             MassageDetals:[],
             Replayes:[],
-
+            EditMessage:[],
             content: "",
             ReplayBody:"",
             MassageStatus:0,
@@ -194,7 +196,7 @@ methods:
                 MassageHint="تم إضافة الرسالة إلي الأرشيف";
             }
 
-            this.$http.ChangeMassageState(item.conversationId,status)
+            this.$http.ChangeMassageState(item.participationsId,status)
                     .then(response => { 
                         this.MassageStatus=status;
                         this.MassageDetals.status=status;
@@ -214,10 +216,14 @@ methods:
                     });
 
         },
-
+    Resend(MassageDetals) {
+     
+        this.EditMessage = MassageDetals;
+        this.state = 1;
+    },
         DeleteMassage(item)
         {
-            this.$http.DeleteMassage(item.conversationId)
+            this.$http.DeleteMassage(item.participationsId)
                 .then(response => {    
                     this.$message({
                         type: 'success',

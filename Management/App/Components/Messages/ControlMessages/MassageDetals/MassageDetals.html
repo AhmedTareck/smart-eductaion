@@ -12,40 +12,27 @@
 
                             <div class="col-sm-1">
 
-                                <img style="width:60px;height:60px" :src="'http://localhost:4810/Api/Admin/User/' + MassageDetals.sentBy + '/image'" />
+                                <img style="width:60px;height:60px" :src="'http://localhost:4810/Api/Admin/User/' + MassageDetals.sent[0].sentBy + '/image'" />
 
                             </div>
 
                             <div class="col-sm">
 
-                                <h4 style="display:block;position:relative;top:20px;">{{MassageDetals.sentName}}</h4>
+                                <h4 style="display:block;position:relative;top:20px;">من: {{MassageDetals.sent[0].name}} </h4>
 
                             </div>
 
                             <div class="col-md-3" style="display:block;position:relative;top:20px;left:20px">
-                                <i class="" style="font-size:20px;width:50px;color:white;margin-right:10px"></i>
+                                <h4>
+                                    التاريخ: {{MassageDetals.createdOn | moments}} 
+                                    <br />
+                                    التوقيت: {{MassageDetals.createdOn | moment }}
+                                </h4>
+
                                 <i class="" style="font-size:20px;color:white;margin-right:10px"></i>
+                             
 
-
-                                <a href="#" @click.prevent="ChangeMassageStatus(MassageDetals,1)" v-if="MassageStatus==0 || MassageStatus==2 || MassageStatus==4 || MassageStatus==7">
-                                    
-                                    <i class="el-icon-star-off" style="font-size:20px;color:white;margin-right:10px"></i>
-                                </a>
-
-                                <a href="#" @click.prevent="ChangeMassageStatus(MassageDetals,2)" v-if="MassageStatus==1 || MassageStatus==3 || MassageStatus==5 || MassageStatus==6">
-                                    <i class="el-icon-star-on" style="font-size:20px;color:white;margin-right:10px"></i>
-                                </a>
-
-                                <a href="#" @click.prevent="ChangeMassageStatus(MassageDetals,5)">
-                                    <i class="fa fa-archive" style="font-size:20px;color:white;margin-right:10px" title="إضافة للإرشيف"></i>
-                                </a>
-
-                                <a href="#" @click.prevent="DeleteMassage(MassageDetals)">
-                                    <i class="el-icon-delete" style="font-size:20px;color:white;margin-right:10px" title="إزالة"></i>
-                                </a>
-
-                                <i style="font-size:15px;margin-right:10px">{{MassageDetals.createdOn | moment}}</i>
-                            </div>
+</div>
 
                         </div>
 
@@ -57,9 +44,9 @@
 
                         <div class="card-body">
 
-                            <div class="col-md-12">
-
-                                <h2 style="display:block;position:relative;top:20px;">{{MassageDetals.subject}}</h2>
+                            <div class="col-sm-12">
+                                <h4 style="display:block;position:relative;top:20px;">الموضوع:</h4>
+                                <h4 style="display:block;position:relative;top:20px;">{{MassageDetals.subject}}</h4>
 
                             </div>
 
@@ -67,14 +54,110 @@
 
                         <div class="card-body">
 
-                            <div class="col-md-12">
+                            <div class="col-sm-12">
+                                <h4 style="display:block;position:relative;top:20px;">الي:</h4>
+                                <h4 style="display:block;position:relative;top:20px;" v-for="Received in MassageStatus">{{Received.fullName}}</h4>
 
-                                <h4 style="display:block;position:relative;top:20px;">{{MassageDetals.body}}</h4>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="card-body">
+
+                            <div class="col-sm-12">
+                                <h4 style="display:block;position:relative;top:20px;">المحتوي</h4>
+                                <h4 style="display:block;position:relative;top:20px;" v-html="MassageDetals.bodyWithHtml"></h4>
                                 <br /><br />
                                 <hr />
                             </div>
 
                         </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="card-body">
+
+                            <div class="col-sm-12">
+                                <h4 style="display:block;position:relative;top:20px;">عدد الرسائل التي لم يتم الاطلاع عليها:</h4>
+                                <h4 style="display:block;position:relative;top:20px;">{{countSeen}}</h4>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="col-sm-12">
+                                <h4 style="display:block;position:relative;top:20px;">عدد الرسائل التي تم قراءتها :</h4>
+                                <h4 style="display:block;position:relative;top:20px;">{{countRead}}</h4>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="col-sm-12">
+                                <h4 style="display:block;position:relative;top:20px;">عدد الرسائل  غير مقروء:</h4>
+                                <h4 style="display:block;position:relative;top:20px;">{{countUnRead}}</h4>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row" v-if="Attachment!=0">
+                        <br />
+                        <div class="card-body">
+
+                            <div class="col-md-12">
+
+                                <h4 style="display:block;position:relative;top:20px;">المرفقات</h4>
+                                <br />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row" v-if="Attachment!=0" style="margin-right:20px">
+
+
+
+                        <template v-for="(Attachment,index) in Attachment">
+
+
+
+                            <div class="col-sm-3 col-md-3 col-sm-3 col-xs-12">
+                                <div class="hpanel">
+                                    <div class="panel-body file-body incon-ctn-view">
+                                        <a href="#" @click.prevent="downloadFile(Attachment)">
+                                            <i class="fa fa-cloud-download" style="margin-right:5px;
+                                            font-size:33px;color:blueviolet"></i>
+                                        </a>
+                                    </div>
+                                    <div class="panel-footer">
+
+                                        <a href="#" @click.prevent="downloadFile(Attachment)">
+                                            <span style="font-size:15px;margin-right:10px">
+                                                {{Attachment.fileName}}
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </template>
+
+
+
+
 
                     </div>
 
@@ -82,7 +165,7 @@
 
                         <div class="col-md-10">
 
-                            <div class="form-group" v-if="Replayes==0">
+                            <div class="form-group" v-if="Replayes==0 && MassageDetals.is_Replay==true">
 
                                 <br /><br />
 
@@ -102,7 +185,7 @@
 
                             <div class="col-md-12">
 
-                                <h4 style="display:block;position:relative;top:20px;">الردود</h4>
+                                <h4 style="display:block;position:relative;top:20px; color:red">الردود</h4>
 
                             </div>
 
@@ -110,7 +193,7 @@
 
                     </div>
 
-                    <div class="card-body" v-if="Replayes!=0">
+                    <div class="card-body" v-if="Replayes!=0&&MassageDetals.is_Replay==true">
                         <div class="table-responsive">
                             <table class="table">
 
@@ -175,29 +258,6 @@
 
                     </div>
 
-                    <div class="row" style="height:auto">
-                        <br />
-                        <div class="card-body">
-
-                            <div class="TablesReplay">
-                                <div class="col-md-12">
-                                    <h4 style="display:block;position:relative;top:20px;">إظافة رد </h4>
-
-                                    <el-input type="textarea"
-                                              style="display:block;position:relative;top:20px"
-                                              :autosize="{ minRows: 6, maxRows: 10}"
-                                              placeholder="Please input"
-                                              v-model="ReplayBody">
-                                    </el-input>
-
-                                </div>
-                                <br /><br />
-                            </div>
-
-
-                        </div>
-                        <br />
-                    </div>
                     <br />
 
                     <el-row class="row">
@@ -205,7 +265,7 @@
 
                             <div class="tile-footer" style="margin-left:10px">
                                 <button class="btn btn-danger" @click.prevent="Back()">رجوع</button>
-                                <button class="btn btn-primary" @click.prevent="AddReplay()">حفظ</button>
+
                             </div>
                         </el-col>
                     </el-row>

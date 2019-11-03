@@ -102,7 +102,11 @@ namespace Managegment.Controllers
                                               Priolti = p.Conversation.Priolti,
                                               Subject = p.Conversation.Subject,
                                               MassageCreatedOn = p.Conversation.CreatedOn,
-                                              Is_Replay = p.Conversation.IsGroup
+                                              Is_Replay = p.Conversation.IsGroup,
+                                              SentType = p.Conversation.SentType,
+                                        
+                                              Sentlist = p.Conversation.Participations.Where(x => x.ConversationId == p.ConversationId ).Select(u => new { u.RecivedByNavigation.FullName, name = u.SentByNavigation.FullName,  u.RecivedBy, u.SentBy }).ToList(),
+
 
                                           }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
@@ -115,6 +119,92 @@ namespace Managegment.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        [HttpGet("GetMessages")]
+        public IActionResult GetMessages()
+        {
+            // 1 - unread
+            // 2 - Read
+            //3- Read later
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var MessageQuery = from p in db.Participations
+                                   where p.RecivedBy == userId && p.SentBy != userId
+                                   select p;
+
+                var MessageList = (from p in MessageQuery
+                                   orderby p.CreatedOn descending
+                                   select new
+                                   {
+                                       IsRead= p.Status,
+                                 
+                                       p.SentBy,
+                                       p.RecivedBy,
+                                       p.CreatedOn,
+                                 
+                                   }).Take(100).ToList();
+                return Ok(new
+                {
+                 
+                    Unred = MessageList.Where(x => x.IsRead == 7).Count(),
+              
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("GetControlMessages")]
+        public IActionResult GetControlMessages(int pageNo, int pageSize)
+        {
+            try
+            {
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                var Conversations = (from p in db.Conversations
+
+                                     select p);
+
+
+
+                var ConversationsCount = (from p in Conversations
+                                          select p).Count();
+
+                var praticipationsList = (from p in Conversations
+                                          orderby p.CreatedOn descending
+                                          select new
+                                          {
+                                              ConversationId = p.ConversationId,
+                                              UserId= p.CreatedByNavigation.UserId,
+                                              Sent = p.Participations.Where(x => x.ConversationId == p.ConversationId ).Select(u => new { u.RecivedByNavigation.FullName, name = u.SentByNavigation.FullName, u.Status, u.IsDelete, u.SentBy,u.RecivedBy }).ToList(),
+
+
+                                              CreatedOn = p.CreatedOn,
+                                              bodyWithHtml = p.Body,
+                                              AdType = p.MessageType.Name,
+
+                                              Priolti = p.Priolti,
+                                              Subject = p.Subject,
+                                              MassageCreatedOn = p.CreatedOn,
+                                              Is_Replay = p.IsGroup
+
+                                          }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new { praticipations = praticipationsList, count = ConversationsCount });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
 
 
         [HttpPost("ChangeMassageState")]

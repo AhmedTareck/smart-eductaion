@@ -19,23 +19,26 @@
                 </a>
             </li>
 
-            <li :class="menuFlag[1]"  v-if="loginDetails.userType==1">
+            <li :class="menuFlag[1]" v-if="loginDetails.userType==1">
                 <a class="nav-link" href="#" @click.prevent="href('/Branches',1)">
                     <i class="fa fa-cogs"></i>
 
                     <p>‌إدارة المكاتب</p>
                 </a>
             </li>
-            <li :class="menuFlag[7]" >
+            <li :class="menuFlag[7]">
                 <a class="nav-link" href="#" @click.prevent="href('/NewMessage',7)">
                     <i class="fa fa-envelope"></i>
                     <p>ارسال رسالة</p>
                 </a>
             </li>
-            <li :class="menuFlag[2]" >
+            <li :class="menuFlag[2]">
+
+
                 <a class="nav-link" href="#" @click.prevent="href('/Inbox',2)">
                     <i class="fa fa-inbox"></i>
-                    <p>صندوق الوارد</p>
+                    <p>صندوق الوارد    <b style="color:red; font-size:medium"> ({{UnReadCount}})</b></p>
+               
                 </a>
             </li>
             <li :class="menuFlag[3]">
@@ -73,6 +76,14 @@
                 </a>
             </li>
 
+            <li :class="menuFlag[10]" v-if="loginDetails.userType==1||loginDetails.userType==3">
+                <a class="nav-link" href="#" @click.prevent="href('/ControlMessages',10)">
+                    <i class="fa fa-cogs"></i>
+                    <p>
+                        مراقبه الرسائل
+                    </p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
