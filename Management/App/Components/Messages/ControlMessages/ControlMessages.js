@@ -47,6 +47,7 @@ export default {
             this.$http.GetControlMessages(this.pageNo, this.pageSize)
                 .then(response => {
                     this.$blockUI.Stop();
+               
                     this.Massages = response.data.praticipations;
              
                     this.pages = response.data.count;

@@ -67,15 +67,9 @@
                 </div>
                 <hr />
                 <div class="row">
+
                     <div class="card-body">
-
-                        <!--<div class="col-md-12">
-
-                <h4 style="display:block;position:relative;top:20px;">{{MassageDetals.body}}</h4>
-                <br /><br />
-                <hr />
-            </div>-->
-                        <div class="col-md-10">
+                        <div class="col-md-6">
 
                             <h4 style="display:block;position:relative;top:20px;">المحتوي:</h4>
 
@@ -85,151 +79,154 @@
 
 
                         </div>
-                        <div class="col-md-2" style="right:476px">
+                        <div class="col-md-6">
+
+
                             <button class="btn btn-primary" @click.prevent="Resend(MassageDetals)">
 
                                 <i class="fa fa-reply" style="color:white;"></i>
                                 اعاده توجيه
                             </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md-10">
-
-                        <div class="form-group" v-if="Replayes==0 && MassageDetals.is_Replay==true">
-
-                            <br /><br />
-
-                            <el-alert style="font-size: 35px;" title="لا توجد اي ردود"
-                                      type="info">
-                            </el-alert>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="row" v-if="Replayes!=0">
-                    <br />
-                    <div class="card-body">
-
-                        <div class="col-md-12">
-
-                            <h4 style="display:block;position:relative;top:20px;">الردود</h4>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="card-body" v-if="Replayes!=0&&MassageDetals.is_Replay==true">
-                    <div class="table-responsive">
-                        <table class="table">
-
-                            <tbody class="TablesReplay">
-
-
-                                <tr class="TableRow" v-for="Replayes,index in Replayes">
-
-                                    <td style="margin-top:5px">
-                                        <div class="row">
-
-                                            <div class="col-sm-1">
-
-                                                <img style="width:60px;height:60px" :src="'http://localhost:4810/Api/Admin/User/' + Replayes.authorId + '/image'" />
-
-                                            </div>
-
-                                            <div class="col-sm-5">
-
-                                                <h4 style="display:block;position:relative;top:20px;">{{Replayes.sentName}}</h4>
-                                                <h4 style="display:block;position:relative;top:18px;font-size:11px">{{Replayes.dateTime | moment}}</h4>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="row">
-
-                                            <div class="col-sm-1">
-
-                                            </div>
-
-                                            <div class="col-md-10">
-                                                <hr />
-                                                <h4 style="display:block;position:relative;top:20px;">{{Replayes.subject}}</h4>
-                                                <br />
-
-
-                                            </div>
-
-                                        </div>
-
-                                        <br />
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-                        </table>
-                        <div style="text-align: center; margin-top: 10px;" v-if="Replayes!=0">
-
-                            <el-pagination background
-                                           layout="prev, pager, next"
-                                           :current-page="pageNo"
-                                           :page-size="pageSize"
-                                           :total="pages"
-                                           @current-change="GetMassages($event)">
-                            </el-pagination>
 
                         </div>
                     </div>
+                    </div>
 
-                </div>
+                    <div class="row">
 
-                <div class="row" style="height:auto" v-if="MassageDetals.is_Replay==true">
-                    <br />
-                    <div class="card-body">
+                        <div class="col-md-10">
 
-                        <div class="TablesReplay">
-                            <div class="col-md-12">
-                                <h4 style="display:block;position:relative;top:20px;">إضافة رد </h4>
+                            <div class="form-group" v-if="Replayes==0 && MassageDetals.is_Replay==true">
 
-                                <el-input type="textarea"
-                                          style="display:block;position:relative;top:20px"
-                                          :autosize="{ minRows: 6, maxRows: 10}"
-                                          placeholder="Please input"
-                                          v-model="ReplayBody">
-                                </el-input>
+                                <br /><br />
+
+                                <el-alert style="font-size: 35px;" title="لا توجد اي ردود"
+                                          type="info">
+                                </el-alert>
 
                             </div>
-                            <br /><br />
-                        </div>
 
+                        </div>
 
                     </div>
-                    <br />
-                </div>
-                <br />
 
-                <el-row class="row">
-                    <el-col class="col-12">
+                    <div class="row" v-if="Replayes!=0">
+                        <br />
+                        <div class="card-body">
 
-                        <div class="tile-footer" style="margin-left:10px">
-                            <button class="btn btn-danger" @click.prevent="Back()">رجوع</button>
-                            <button class="btn btn-primary" @click.prevent="AddReplay()" v-if="MassageDetals.is_Replay==true">ارسـال</button>
+                            <div class="col-md-12">
+
+                                <h4 style="display:block;position:relative;top:20px;">الردود</h4>
+
+                            </div>
+
                         </div>
-                    </el-col>
-                </el-row>
-                <br />
+
+                    </div>
+
+                    <div class="card-body" v-if="Replayes!=0&&MassageDetals.is_Replay==true">
+                        <div class="table-responsive">
+                            <table class="table">
+
+                                <tbody class="TablesReplay">
 
 
-                <!--<el-row class="row">
+                                    <tr class="TableRow" v-for="Replayes,index in Replayes">
+
+                                        <td style="margin-top:5px">
+                                            <div class="row">
+
+                                                <div class="col-sm-1">
+
+                                                    <img style="width:60px;height:60px" :src="'http://localhost:4810/Api/Admin/User/' + Replayes.authorId + '/image'" />
+
+                                                </div>
+
+                                                <div class="col-sm-5">
+
+                                                    <h4 style="display:block;position:relative;top:20px;">{{Replayes.sentName}}</h4>
+                                                    <h4 style="display:block;position:relative;top:18px;font-size:11px">{{Replayes.dateTime | moment}}</h4>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+
+                                                <div class="col-sm-1">
+
+                                                </div>
+
+                                                <div class="col-md-10">
+                                                    <hr />
+                                                    <h4 style="display:block;position:relative;top:20px;">{{Replayes.subject}}</h4>
+                                                    <br />
+
+
+                                                </div>
+
+                                            </div>
+
+                                            <br />
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div style="text-align: center; margin-top: 10px;" v-if="Replayes!=0">
+
+                                <el-pagination background
+                                               layout="prev, pager, next"
+                                               :current-page="pageNo"
+                                               :page-size="pageSize"
+                                               :total="pages"
+                                               @current-change="GetMassages($event)">
+                                </el-pagination>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" style="height:auto" v-if="MassageDetals.is_Replay==true">
+                        <br />
+                        <div class="card-body">
+
+                            <div class="TablesReplay">
+                                <div class="col-md-12">
+                                    <h4 style="display:block;position:relative;top:20px;">إضافة رد </h4>
+
+                                    <el-input type="textarea"
+                                              style="display:block;position:relative;top:20px"
+                                              :autosize="{ minRows: 6, maxRows: 10}"
+                                              placeholder="Please input"
+                                              v-model="ReplayBody">
+                                    </el-input>
+
+                                </div>
+                                <br /><br />
+                            </div>
+
+
+                        </div>
+                        <br />
+                    </div>
+                    <br />
+
+                    <el-row class="row">
+                        <el-col class="col-12">
+
+                            <div class="tile-footer" style="margin-left:10px">
+                                <button class="btn btn-danger" @click.prevent="Back()">رجوع</button>
+                                <button class="btn btn-primary" @click.prevent="AddReplay()" v-if="MassageDetals.is_Replay==true">ارسـال</button>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <br />
+
+
+                    <!--<el-row class="row">
         <el-col class="col-md-12">
 
 
@@ -267,7 +264,7 @@
 
 
 
-            </div>
+                </div>
 
         </div>
 
