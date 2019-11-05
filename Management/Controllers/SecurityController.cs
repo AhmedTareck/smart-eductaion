@@ -125,7 +125,7 @@ namespace Management.Controllers
 
                 }
 
-                if (cUser.UserType != 1 && cUser.UserType != 2)
+                if (cUser.UserType != 1 && cUser.UserType != 2 && cUser.UserType != 3)
                 {
                     return BadRequest("ليس لديك صلاحيه للدخول علي النظام");
                 }

@@ -19,20 +19,20 @@
                 </a>
             </li>
 
-            <li :class="menuFlag[1]" v-if="loginDetails.userType==1">
+            <li :class="menuFlag[1]" v-if="loginDetails.userType==1" >
                 <a class="nav-link" href="#" @click.prevent="href('/Branches',1)">
                     <i class="fa fa-cogs"></i>
 
                     <p>‌إدارة المكاتب</p>
                 </a>
             </li>
-            <li :class="menuFlag[7]">
+            <li :class="menuFlag[7]" v-if="loginDetails.userType==1||loginDetails.userType==2">
                 <a class="nav-link" href="#" @click.prevent="href('/NewMessage',7)">
                     <i class="fa fa-envelope"></i>
                     <p>ارسال رسالة</p>
                 </a>
             </li>
-            <li :class="menuFlag[2]">
+            <li :class="menuFlag[2]" v-if="loginDetails.userType==1||loginDetails.userType==2">
 
 
                 <a class="nav-link" href="#" @click.prevent="href('/Inbox',2)">
@@ -41,19 +41,19 @@
                
                 </a>
             </li>
-            <li :class="menuFlag[3]">
+            <li :class="menuFlag[3]" v-if="loginDetails.userType==1||loginDetails.userType==2">
                 <a class="nav-link" href="#" @click.prevent="href('/Sent',3)">
                     <i class="material-icons">content_paste</i>
                     <p>صندوق المرسل</p>
                 </a>
             </li>
-            <li :class="menuFlag[8]">
+            <li :class="menuFlag[8]" v-if="loginDetails.userType==1||loginDetails.userType==2">
                 <a class="nav-link" href="#" @click.prevent="href('/Archive',8)">
                     <i class="fa fa-archive"></i>
                     <p>الإرشيف</p>
                 </a>
             </li>
-            <li :class="menuFlag[9]">
+            <li :class="menuFlag[9]" v-if="loginDetails.userType==1||loginDetails.userType==2">
                 <a class="nav-link" href="#" @click.prevent="href('/DeletedMessage',9)">
                     <i class="el-icon-delete"></i>
                     <p>الرسائل المحذوفة</p>

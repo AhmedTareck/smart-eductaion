@@ -280,7 +280,7 @@ export default {
                             });
 
                             this.form = [];
-                            this.$router.push('/Sent');
+                            window.location.href = '/Sent';
                             this.$blockUI.Stop();
                         })
                         .catch((err) => {

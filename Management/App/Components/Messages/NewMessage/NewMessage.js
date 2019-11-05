@@ -266,7 +266,8 @@ export default {
                             });
 
                             this.form = [];
-                            this.$router.push('/Inbox');
+                            window.location.href = '/Inbox';
+                     
                             this.$blockUI.Stop();
                         })
                         .catch((err) => {
