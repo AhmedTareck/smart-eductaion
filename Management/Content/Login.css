@@ -1090,7 +1090,16 @@ a {
 
 @media screen and (max-width:767px) {
     .login-page .container {
-        padding-top: 100px !important;
+        padding-top: 20px !important;
+    }
+    .login-page .card-login .card-title1 {
+        background: #FFF url(/img/clogo.jpg?962baf3…) no-repeat center center;
+        width: 120px;
+        height: 120px;
+        position: relative;
+        top: -75px;
+        left: 34%;
+        border-radius: 50%;
     }
 }
 
