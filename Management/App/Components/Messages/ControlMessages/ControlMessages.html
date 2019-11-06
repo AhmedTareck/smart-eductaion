@@ -66,12 +66,12 @@
 
 
                                         <td>
-                                            <a href="#" @click.prevent="MassageDetals(massages)">
+                                            <a href="#" @click.prevent="MassageDetals(massages)" v-if="massages.sent.length!=0">
                                                 <i>{{massages.sent[0].name}}</i>
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="#" @click.prevent="MassageDetals(massages)" v-for="Received in massages.sent.filter(item => item.sentBy != item.recivedBy)">
+                                            <a href="#" @click.prevent="MassageDetals(massages)" v-if="massages.sent.length!=0" v-for="Received in massages.sent.filter(item => item.sentBy != item.recivedBy)">
                                                 <i>{{Received.fullName}}</i><br />
                                             </a>
                                         </td>
