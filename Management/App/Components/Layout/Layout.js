@@ -27,9 +27,9 @@ export default {
 
         if (this.loginDetails != null) {
             this.loginDetails = JSON.parse(this.loginDetails);
-            if (this.loginDetails.userType != 1) {
-                window.location.href = '/Security/Login';
-            }
+            //if (this.loginDetails.userType != 1) {
+            //    window.location.href = '/Security/Login';
+            //}
         }
         else {
             window.location.href = '/Security/Login';

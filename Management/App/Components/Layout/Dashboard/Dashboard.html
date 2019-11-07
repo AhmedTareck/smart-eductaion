@@ -26,34 +26,34 @@
                     <p>‌إدارة المكاتب</p>
                 </a>
             </li>
-            <li :class="menuFlag[7]">
+            <li :class="menuFlag[7]" v-if="loginDetails.userType==1||loginDetails.userType==2">
                 <a class="nav-link" href="#" @click.prevent="href('/NewMessage',7)">
                     <i class="fa fa-envelope"></i>
                     <p>ارسال رسالة</p>
                 </a>
             </li>
-            <li :class="menuFlag[2]">
+            <li :class="menuFlag[2]" v-if="loginDetails.userType==1||loginDetails.userType==2">
 
 
                 <a class="nav-link" href="#" @click.prevent="href('/Inbox',2)">
                     <i class="fa fa-inbox"></i>
                     <p>صندوق الوارد    <b style="color:red; font-size:medium"> ({{UnReadCount}})</b></p>
-               
+
                 </a>
             </li>
-            <li :class="menuFlag[3]">
+            <li :class="menuFlag[3]" v-if="loginDetails.userType==1||loginDetails.userType==2">
                 <a class="nav-link" href="#" @click.prevent="href('/Sent',3)">
                     <i class="material-icons">content_paste</i>
                     <p>صندوق المرسل</p>
                 </a>
             </li>
-            <li :class="menuFlag[8]">
+            <li :class="menuFlag[8]" v-if="loginDetails.userType==1||loginDetails.userType==2">
                 <a class="nav-link" href="#" @click.prevent="href('/Archive',8)">
                     <i class="fa fa-archive"></i>
                     <p>الإرشيف</p>
                 </a>
             </li>
-            <li :class="menuFlag[9]">
+            <li :class="menuFlag[9]" v-if="loginDetails.userType==1||loginDetails.userType==2">
                 <a class="nav-link" href="#" @click.prevent="href('/DeletedMessage',9)">
                     <i class="el-icon-delete"></i>
                     <p>الرسائل المحذوفة</p>
@@ -83,6 +83,25 @@
                         مراقبه الرسائل
                     </p>
                 </a>
+            </li>
+
+        </ul>
+        <ul class="nav navbar-nav nav-mobile-menu">
+           
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="material-icons">person</i>
+                    <p class="d-lg-none d-md-block">
+                        الحساب
+                    </p>
+                    <div class="ripple-container"></div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                    <a class="dropdown-item" href="/ChangePassword">    <i class="material-icons">person</i>تغير كلمه المرور</a>
+                    <a class="dropdown-item" href="/EditUsersProfile">    <i class="material-icons">person</i>تعديل الملف الشخصي</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/Security/Login"><i class="fa fa-sign-out" dir="ltr" title="تسجيل الخروج"></i>تسجيل الخروج</a>
+                </div>
             </li>
         </ul>
     </div>
