@@ -215,6 +215,12 @@ export default {
         return axios.get(`/Api/Admin/Messages/GetReplayes?pageNo=${pageNo}&pageSize=${pageSize}&conversationId=${conversationId}`);
     },
 
+    GetCountInfo()
+    {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(`/Api/Admin/Messages/GetCountInfo`);
+    },
+
     AddReplay(conversationId,ReplayBody) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(`/api/admin/Messages/AddReplay?conversationId=${conversationId}&ReplayBody=${ReplayBody}`);
