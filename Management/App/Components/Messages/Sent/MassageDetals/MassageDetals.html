@@ -79,6 +79,8 @@
 
 
                         </div>
+
+
                         <div class="col-md-6">
 
 
@@ -90,143 +92,196 @@
 
                         </div>
                     </div>
-                    </div>
 
-                    <div class="row">
 
-                        <div class="col-md-10">
+                </div>
 
-                            <div class="form-group" v-if="Replayes==0 && MassageDetals.is_Replay==true">
+                <div class="row" v-if="Attachment!=0">
+                    <br />
+                    <div class="card-body">
 
-                                <br /><br />
+                        <div class="col-md-12">
 
-                                <el-alert style="font-size: 35px;" title="لا توجد اي ردود"
-                                          type="info">
-                                </el-alert>
-
-                            </div>
-
+                            <h4 style="display:block;position:relative;top:20px;">المرفقات</h4>
+                            <br />
                         </div>
 
                     </div>
 
-                    <div class="row" v-if="Replayes!=0">
-                        <br />
-                        <div class="card-body">
+                </div>
 
-                            <div class="col-md-12">
-
-                                <h4 style="display:block;position:relative;top:20px;">الردود</h4>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="card-body" v-if="Replayes!=0&&MassageDetals.is_Replay==true">
-                        <div class="table-responsive">
-                            <table class="table">
-
-                                <tbody class="TablesReplay">
+                <div class="row" v-if="Attachment!=0" style="margin-right:20px">
 
 
-                                    <tr class="TableRow" v-for="Replayes,index in Replayes">
 
-                                        <td style="margin-top:5px">
-                                            <div class="row">
-
-                                                <div class="col-sm-1">
-
-                                                    <img style="width:60px;height:60px" :src="'http://localhost:4810/Api/Admin/User/' + Replayes.authorId + '/image'" />
-
-                                                </div>
-
-                                                <div class="col-sm-5">
-
-                                                    <h4 style="display:block;position:relative;top:20px;">{{Replayes.sentName}}</h4>
-                                                    <h4 style="display:block;position:relative;top:18px;font-size:11px">{{Replayes.dateTime | moment}}</h4>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div class="row">
-
-                                                <div class="col-sm-1">
-
-                                                </div>
-
-                                                <div class="col-md-10">
-                                                    <hr />
-                                                    <h4 style="display:block;position:relative;top:20px;">{{Replayes.subject}}</h4>
-                                                    <br />
+                    <template v-for="(Attachment,index) in Attachment">
 
 
-                                                </div>
 
-                                            </div>
-
-                                            <br />
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                            <div style="text-align: center; margin-top: 10px;" v-if="Replayes!=0">
-
-                                <el-pagination background
-                                               layout="prev, pager, next"
-                                               :current-page="pageNo"
-                                               :page-size="pageSize"
-                                               :total="pages"
-                                               @current-change="GetMassages($event)">
-                                </el-pagination>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row" style="height:auto" v-if="MassageDetals.is_Replay==true">
-                        <br />
-                        <div class="card-body">
-
-                            <div class="TablesReplay">
-                                <div class="col-md-12">
-                                    <h4 style="display:block;position:relative;top:20px;">إضافة رد </h4>
-
-                                    <el-input type="textarea"
-                                              style="display:block;position:relative;top:20px"
-                                              :autosize="{ minRows: 6, maxRows: 10}"
-                                              placeholder="Please input"
-                                              v-model="ReplayBody">
-                                    </el-input>
-
+                        <div class="col-sm-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="hpanel">
+                                <div class="panel-body file-body incon-ctn-view">
+                                    <a href="#" @click.prevent="downloadFile(Attachment)">
+                                        <i class="fa fa-cloud-download" style="margin-right:5px;
+                                            font-size:33px;color:blueviolet"></i>
+                                    </a>
                                 </div>
-                                <br /><br />
-                            </div>
+                                <div class="panel-footer">
 
+                                    <a href="#" @click.prevent="downloadFile(Attachment)">
+                                        <span style="font-size:15px;margin-right:10px">
+                                            {{Attachment.fileName}}
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </template>
+
+
+
+
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-10">
+
+                        <div class="form-group" v-if="Replayes==0 && MassageDetals.is_Replay==true">
+
+                            <br /><br />
+
+                            <el-alert style="font-size: 35px;" title="لا توجد اي ردود"
+                                      type="info">
+                            </el-alert>
 
                         </div>
-                        <br />
+
+                    </div>
+
+                </div>
+
+                <div class="row" v-if="Replayes!=0">
+                    <br />
+                    <div class="card-body">
+
+                        <div class="col-md-12">
+
+                            <h4 style="display:block;position:relative;top:20px;">الردود</h4>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card-body" v-if="Replayes!=0&&MassageDetals.is_Replay==true">
+                    <div class="table-responsive">
+                        <table class="table">
+
+                            <tbody class="TablesReplay">
+
+
+                                <tr class="TableRow" v-for="Replayes,index in Replayes">
+
+                                    <td style="margin-top:5px">
+                                        <div class="row">
+
+                                            <div class="col-sm-1">
+
+                                                <img style="width:60px;height:60px" :src="'http://localhost:4810/Api/Admin/User/' + Replayes.authorId + '/image'" />
+
+                                            </div>
+
+                                            <div class="col-sm-5">
+
+                                                <h4 style="display:block;position:relative;top:20px;">{{Replayes.sentName}}</h4>
+                                                <h4 style="display:block;position:relative;top:18px;font-size:11px">{{Replayes.dateTime | moment}}</h4>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-sm-1">
+
+                                            </div>
+
+                                            <div class="col-md-10">
+                                                <hr />
+                                                <h4 style="display:block;position:relative;top:20px;">{{Replayes.subject}}</h4>
+                                                <br />
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <br />
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div style="text-align: center; margin-top: 10px;" v-if="Replayes!=0">
+
+                            <el-pagination background
+                                           layout="prev, pager, next"
+                                           :current-page="pageNo"
+                                           :page-size="pageSize"
+                                           :total="pages"
+                                           @current-change="GetMassages($event)">
+                            </el-pagination>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" style="height:auto" v-if="MassageDetals.is_Replay==true">
+                    <br />
+                    <div class="card-body">
+
+                        <div class="TablesReplay">
+                            <div class="col-md-12">
+                                <h4 style="display:block;position:relative;top:20px;">إضافة رد </h4>
+
+                                <el-input type="textarea"
+                                          style="display:block;position:relative;top:20px"
+                                          :autosize="{ minRows: 6, maxRows: 10}"
+                                          placeholder="Please input"
+                                          v-model="ReplayBody">
+                                </el-input>
+
+                            </div>
+                            <br /><br />
+                        </div>
+
+
                     </div>
                     <br />
+                </div>
+                <br />
 
-                    <el-row class="row">
-                        <el-col class="col-12">
+                <el-row class="row">
+                    <el-col class="col-12">
 
-                            <div class="tile-footer" style="margin-left:10px">
-                                <button class="btn btn-danger" @click.prevent="Back()">رجوع</button>
-                                <button class="btn btn-primary" @click.prevent="AddReplay()" v-if="MassageDetals.is_Replay==true">ارسـال</button>
-                            </div>
-                        </el-col>
-                    </el-row>
-                    <br />
+                        <div class="tile-footer" style="margin-left:10px">
+                            <button class="btn btn-danger" @click.prevent="Back()">رجوع</button>
+                            <button class="btn btn-primary" @click.prevent="AddReplay()" v-if="MassageDetals.is_Replay==true">ارسـال</button>
+                        </div>
+                    </el-col>
+                </el-row>
+                <br />
 
 
-                    <!--<el-row class="row">
+                <!--<el-row class="row">
         <el-col class="col-md-12">
 
 
@@ -264,7 +319,7 @@
 
 
 
-                </div>
+            </div>
 
         </div>
 

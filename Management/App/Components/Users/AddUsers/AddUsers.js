@@ -57,11 +57,11 @@
                 ],
                 Password: [
                     { validator: validatePass, trigger: 'blur' },
-                      { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}.*$/, message: 'الرجاء إدخال كلمة المرور  بطريقه صحيحه', trigger: 'blur' }
+                      { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}.*$/, message: ' يجب أن تتكون كلمة المرور من حروف صغيرة وكبيرو وأرقام', trigger: 'blur' }
                 ],
                 ConfimPassword: [
                     { validator: validatePass2, trigger: 'blur' },
-                      { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}.*$/, message: 'الرجاء إدخال كلمة المرور  بطريقه صحيحه', trigger: 'blur' }
+                      { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}.*$/, message: 'يجب أن تتكون كلمة المرور من حروف صغيرة وكبيرو وأرقام', trigger: 'blur' }
                 ],
                 UserType: [
                     { required: true, message: 'الرجاء اختيار  الصلاحيه', trigger: 'blur' }
