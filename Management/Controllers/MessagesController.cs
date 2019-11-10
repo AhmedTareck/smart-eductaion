@@ -355,5 +355,34 @@ namespace Managegment.Controllers
             }
         }
 
+        [HttpGet("GetCountInfo")]
+        public IActionResult GetCountInfo()
+        {
+            try
+            {
+
+                var MassagesCount = (from p in db.Participations where p.SentBy!=p.RecivedBy select p).Count();
+
+                var DeleteMassagesCount = (from p in db.Participations where p.SentBy != p.RecivedBy && p.IsDelete == 1 select p).Count();
+
+                var ArchiveMassagesCount = (from p in db.Participations where p.SentBy != p.RecivedBy &&
+                                      p.Status == 0 ||
+                                      p.Status == 3 ||
+                                      p.Status == 4 ||
+                                      p.Status == 6
+                                      select p).Count();
+
+                var MessageTypeCount = (from p in db.MessageType where p.Status!=9
+                                                         select p).Count();
+
+
+                return Ok(new { Massages = MassagesCount, DeleteMassages= DeleteMassagesCount, ArchiveMassages= ArchiveMassagesCount, MessageTypes= MessageTypeCount });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
     }
 }
