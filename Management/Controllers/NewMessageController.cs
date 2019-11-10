@@ -52,7 +52,7 @@ namespace Managegment.Controllers
                 IQueryable<Users> UsersQuery;
                 UsersQuery = from p in db.Users
                              
-                               where p.Status != 9 && p.Branch.BranchLevel == UserType && p.UserId !=  userId
+                               where p.Status == 1 && p.Branch.BranchLevel == UserType && p.UserId !=  userId
                              select p;
 
 
@@ -236,7 +236,7 @@ namespace Managegment.Controllers
                         IsDelete = 0,
                         Status = 7
                     };
-                        var users = db.Users.Where(x => x.UserId == item  && x.UserId!=userId).SingleOrDefault();
+                        var users = db.Users.Where(x => x.UserId == item  && x.UserId!=userId && x.Status == 1).SingleOrDefault();
                         if(users != null) { 
                     MailObject MO = new MailObject()
                     {
@@ -256,7 +256,7 @@ namespace Managegment.Controllers
                     foreach (var userType in newMessageDTO.PermissionModale)
                     {
                         // get userid array by userType             
-                        List<long> UsersIdList = db.Users.Where(x => x.Branch.BranchLevel == userType && x.Status!=9 && x.UserId!=userId)
+                        List<long> UsersIdList = db.Users.Where(x => x.Branch.BranchLevel == userType && x.Status==1 && x.UserId!=userId)
                    .Select(r => (long)r.UserId)
                    .ToList();
                         UsersIdList.Add(userId);
@@ -275,7 +275,7 @@ namespace Managegment.Controllers
                                 Status = 7 
                             };
 
-                            var users = db.Users.Where(x => x.UserId == RecivedBy && x.UserId != userId).SingleOrDefault();
+                            var users = db.Users.Where(x => x.UserId == RecivedBy && x.UserId != userId && x.Status == 1).SingleOrDefault();
 
                             if (users != null)
                             {
@@ -418,7 +418,7 @@ namespace Managegment.Controllers
                             IsDelete = 0,
                             Status = 7
                         };
-                        var users = db.Users.Where(x => x.UserId == item && x.UserId != userId).SingleOrDefault();
+                        var users = db.Users.Where(x => x.UserId == item && x.UserId != userId && x.Status == 1).SingleOrDefault();
                         if (users != null)
                         {
                             MailObject MO = new MailObject()
@@ -439,7 +439,7 @@ namespace Managegment.Controllers
                     foreach (var userType in newMessageDTO.PermissionModale)
                     {
                         // get userid array by userType             
-                        List<long> UsersIdList = db.Users.Where(x => x.Branch.BranchLevel == userType && x.Status != 9 && x.UserId != userId)
+                        List<long> UsersIdList = db.Users.Where(x => x.Branch.BranchLevel == userType && x.Status ==1 && x.UserId != userId)
                    .Select(r => (long)r.UserId)
                    .ToList();
                         UsersIdList.Add(userId);
@@ -458,7 +458,7 @@ namespace Managegment.Controllers
                                 Status = 7
                             };
 
-                            var users = db.Users.Where(x => x.UserId == RecivedBy && x.UserId != userId).SingleOrDefault();
+                            var users = db.Users.Where(x => x.UserId == RecivedBy && x.UserId != userId && x.Status == 1).SingleOrDefault();
 
                             if (users != null)
                             {
@@ -1609,7 +1609,7 @@ namespace Managegment.Controllers
         private async Task<List<UserSendEmailAndSMS>> GetUsers()
         {
 
-            var userData = await db.Users.Where(w => w.Status != 9).Select(s => new UserSendEmailAndSMS
+            var userData = await db.Users.Where(w => w.Status == 1).Select(s => new UserSendEmailAndSMS
             {
                 UserName = s.FullName,
                 EmailUser = s.Email,

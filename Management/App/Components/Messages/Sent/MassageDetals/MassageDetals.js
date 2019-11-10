@@ -274,6 +274,11 @@ methods:
 
         Back()
         {
+            //debugger;
+            //var allClasses = document.getElementsByClassName('ps-scrollbar-x-rail');
+            //var allClasses1 = document.getElementsByClassName(' ps-scrollbar-y-rail');
+            //allClasses[0].removeAttribute('style');
+            //allClasses1[0].removeAttribute('style');
             this.$parent.state=0;
         }
        
