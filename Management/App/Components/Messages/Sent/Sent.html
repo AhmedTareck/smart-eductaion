@@ -74,12 +74,20 @@
                                         </td>
 
                                         <td>
-                                            <a href="#" @click.prevent="MassageDetals(massages)">
+                                            <a href="#" @click.prevent="MassageDetals(massages)" v-if="Is_Replay==True">
                                                 <i>{{massages.adType}}</i>
                                             </a>
+                                          
                                         </td>
 
-                                        <td></td>
+                                        <td>
+                                            <a href="#" @click.prevent="MassageDetals(massages)"  v-if="massages.is_Replay==false">
+                                            لا يوجد
+                                            </a>
+                                            <a href="#" @click.prevent="MassageDetals(massages)" v-if="massages.is_Replay==true">
+                                                الردود ( {{massages.messagecount}})
+                                            </a>
+                                        </td>
                                         <td></td>
 
 

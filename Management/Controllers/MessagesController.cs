@@ -104,13 +104,12 @@ namespace Managegment.Controllers
                                               MassageCreatedOn = p.Conversation.CreatedOn,
                                               Is_Replay = p.Conversation.IsGroup,
                                               SentType = p.Conversation.SentType,
-                                        
+                                              Messagecount= db.Messages.Where(r => r.ConversationId == p.ConversationId).Count(),
                                               Sentlist = p.Conversation.Participations.Where(x => x.ConversationId == p.ConversationId ).Select(u => new { u.RecivedByNavigation.FullName, name = u.SentByNavigation.FullName,  u.RecivedBy, u.SentBy }).ToList(),
 
 
                                           }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
-
-                //var result = praticipationsList.GroupBy(test => test.ConversationId)
+               //var result = praticipationsList.GroupBy(test => test.ConversationId)
                 //         .Select(grp => grp);
                 return Ok(new { praticipations = praticipationsList, count= praticiapationsCount /*result.Skip((pageNo - 1) * pageSize).Take(pageSize), count = result.Count() */});
             }
