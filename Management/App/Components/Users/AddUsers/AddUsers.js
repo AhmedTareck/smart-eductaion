@@ -139,9 +139,10 @@
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.ruleForm.BranchLevel = this.$parent.permissionModale;
-                  
+                    this.$blockUI.Start();
                     this.$http.AddUser(this.ruleForm)
                         .then(response => {
+                            this.$blockUI.Stop();
                             this.$parent.state = 0;
                             this.$parent.GetUsers(this.pageNo);
                             this.$message({
@@ -152,6 +153,7 @@
                             });
                         })
                         .catch((err) => {
+                            this.$blockUI.Stop();
                             this.$message({
                                 type: 'error',
                                 dangerouslyUseHTMLString: true,

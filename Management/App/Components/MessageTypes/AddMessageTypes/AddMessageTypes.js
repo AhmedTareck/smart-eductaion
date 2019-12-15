@@ -50,6 +50,10 @@
                                 duration: 5000,
                                 message: '<strong>' + err.response.data + '</strong>'
                             });
+
+                            if (err.response.status === 401) {
+                                window.location.href = '/Security/Login';
+                            }
                         });
                 } else {
                     console.log('error submit!!');
