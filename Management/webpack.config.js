@@ -97,6 +97,7 @@ module.exports = (env) => {
 
             //}),
             new CopyWebpackPlugin([{ from: 'Content/Images', to: 'img' }]),
+            new CopyWebpackPlugin([{ from: 'Content/Docs', to: 'docs' }]),
             new CopyWebpackPlugin([{ from: 'Content/assets', to: 'assets' }])
         ].concat(isDevBuild ? [
             // Plugins that apply in development builds only

@@ -28,7 +28,6 @@ export default {
             pageSize: 10,
             pages: 0,  
             state:0,
-            
             Massages:[],
             SelectedMassages:[],
         };

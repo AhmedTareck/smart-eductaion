@@ -40,7 +40,7 @@ filters: {
             content: "",
             ReplayBody:"",
             MassageStatus:0,
-
+            Attachment:[],
             editorOption: {
                 //debug: 'info',
                 //placeholder: " ",
@@ -72,6 +72,7 @@ methods:
             this.$http.GetReplayes(this.pageNo, this.pageSize,this.$parent.SelectedMassages.conversationId)
                 .then(response => {
                     this.Replayes = response.data.replayesLists;
+                    this.Attachment = response.data.attachments;
                     this.pages = response.data.count;
                 })
                 .catch((err) => {
