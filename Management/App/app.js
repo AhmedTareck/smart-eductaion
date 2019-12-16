@@ -18,6 +18,7 @@ import Users from './Components/Users/Users.vue';
 import EditUsersProfile from './Components/Users/EditUsersProfile/EditUsersProfile.vue';
 import ChangePassword from './Components/Users/ChangePassword/ChangePassword.vue';
 import NewMessage from './Components/Messages/NewMessage/NewMessage.vue';
+import Test from './Components/Test/Test.vue';
 import DataService from './Shared/DataService';
 import messages from './i18n';
 
@@ -58,6 +59,7 @@ const router = new VueRouter({
         { path: '/NewMessage', component: NewMessage },
         { path: '/Archive', component: Archive },
         { path: '/DeletedMessage', component: DeletedMessage },
+        { path: '/Test', component: Test },
         { path: '/ControlMessages', component: ControlMessages }
     ]
 });

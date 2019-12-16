@@ -88,6 +88,9 @@ export default {
             else if (route == "Archive") {
                 this.active = 8;
             }
+            else if (route == "Test") {
+                this.active = 11;
+            }
             else if (route == "DeletedMessage") {
                 this.active = 9;
             } else if (route == "ControlMessages") {

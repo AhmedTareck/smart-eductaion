@@ -576,5 +576,36 @@ namespace Management.Controllers
         }
 
 
+
+        [HttpGet("GetU")]
+        public IActionResult GetU()
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var Users = (from p in db.Users select new
+                {
+                    Name = p.FullName,
+                    Email=p.Email,
+                    phone=p.Phone,
+                    Date=p.CreatedOn
+                });
+
+
+                return Ok(new { UserList = Users});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+
     }
 }

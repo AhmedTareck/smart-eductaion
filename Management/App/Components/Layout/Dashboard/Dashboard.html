@@ -85,6 +85,15 @@
                 </a>
             </li>
 
+            <li :class="menuFlag[10]" v-if="loginDetails.userType==1||loginDetails.userType==3">
+                <a class="nav-link" href="#" @click.prevent="href('/Test',11)">
+                    <i class="fa fa-cogs"></i>
+                    <p>
+                       Test
+                    </p>
+                </a>
+            </li>
+
         </ul>
         <ul class="nav navbar-nav nav-mobile-menu">
            
