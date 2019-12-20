@@ -181,7 +181,6 @@ export default {
             responseType: 'blob',
         });
     },
-
     FilterInbox(page, pageSize, messageTypeFilter, filterType, inputMessgeText) {
  
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');

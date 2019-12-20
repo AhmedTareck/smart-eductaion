@@ -306,6 +306,7 @@ namespace Managegment.Controllers
                             ConversationId = conversations.ConversationId,
                             FileName = item.FileName,
                             Extension = item.Type,
+                       
                         ContentFile = Convert.FromBase64String(item.FileBase64.Substring(item.FileBase64.IndexOf(",") + 1)),
                             CreatedBy = userId,
                             CreatedOn = DateTime.Now

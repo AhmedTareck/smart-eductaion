@@ -277,7 +277,32 @@ methods:
                         message: '<strong>' + err.response.data+'</strong>'
                     });  
                 });
-        },
+    },
+    downloadFile(item) {
+        this.$blockUI.Start();
+        this.$http.downloadFile(item.attachmentId).then(response => {
+            this.$blockUI.Stop();
+            this.forceFileDownload(response, item);
+        })
+            .catch((err) => {
+                this.$blockUI.Stop();
+                this.$message({
+                    type: 'error',
+                    message: err.response.data
+                });
+            });
+    },
+
+    forceFileDownload(response, item) {
+
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', item.fileName)
+        document.body.appendChild(link)
+        link.click()
+    },
+
 
         Back()
         {
