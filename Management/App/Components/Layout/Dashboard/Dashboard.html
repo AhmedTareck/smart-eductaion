@@ -1,70 +1,129 @@
-﻿<div class="sidebar" data-color="purple" data-background-color="white" data-image="/img/img/sidebar.jpg">
+﻿
+
+
+<div class="sidebar" data-color="azure" data-background-color="white" data-image="/img/img/sidebar.jpg">
     <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
     -->
-    <div class="logo">
-        <a href="" class="simple-text logo-normal">
-            نـظام التــعميم
+    <div class="logo" style="padding: 15px 20px;">
+        <a href="" class="simple-text logo-normal" dir="ltr">
+             My School | لوحة التحكم
         </a>
     </div>
-    <div class="sidebar-wrapper">
+    <div class="sidebar-wrapper" >
+        <div class="user">
+            <!--<div class="photo">
+                
+                <img src="/assets/img/faces/avatar.jpg">
+            </div>-->
+
+            <div class="user-info">
+                <a data-toggle="collapse" href="#collapseExample" class="username collapsed" aria-expanded="false">
+                    <span style="padding-right: 10px;">
+                        {{loginDetails.fullName.slice(0,20)}}
+                        <b class="caret" style="    float: left;margin-top: 0px;position:relative;margin-left:35px"></b>
+                    </span>
+                </a>
+                <div class="collapse" id="collapseExample" style="">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/EditUsersProfile">
+                                <span class="sidebar-mini"> MP </span>
+                                <span class="sidebar-normal"> الصفحة الشخصية </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/ChangePassword">
+                                <span class="sidebar-mini"> EP </span>
+                                <span class="sidebar-normal"> تغير كلمة المرور </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Security/Login">
+                                <span class="sidebar-mini"> LO </span>
+                                <span class="sidebar-normal"> تسجيل الخروج </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <ul class="nav">
 
             <li :class="menuFlag[0]" v-if="loginDetails.userType==1">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="#" @click.prevent="href('/',0)">
                     <i class="material-icons">dashboard</i>
                     <p> الصفحة الرئيسية</p>
                 </a>
             </li>
 
+
             <li :class="menuFlag[1]" v-if="loginDetails.userType==1">
-                <a class="nav-link" href="#" @click.prevent="href('/Branches',1)">
+                <a class="nav-link" href="#" @click.prevent="href('/Student',1)">
                     <i class="fa fa-cogs"></i>
 
-                    <p>‌إدارة المكاتب</p>
+                    <p>‌إدارة بيانات الطلبة</p>
                 </a>
             </li>
-            <li :class="menuFlag[7]" v-if="loginDetails.userType==1||loginDetails.userType==2">
-                <a class="nav-link" href="#" @click.prevent="href('/NewMessage',7)">
-                    <i class="fa fa-envelope"></i>
-                    <p>ارسال رسالة</p>
+
+            <li :class="menuFlag[2]" v-if="loginDetails.userType==1">
+                <a class="nav-link" href="#" @click.prevent="href('/Branches',2)">
+                    <i class="fa fa-cogs"></i>
+
+                    <p>‌إدارة العملاء</p>
                 </a>
             </li>
-            <li :class="menuFlag[2]" v-if="loginDetails.userType==1||loginDetails.userType==2">
+
+            <li :class="menuFlag[3]" v-if="loginDetails.userType==1">
+                <a class="nav-link" href="#" @click.prevent="href('/Branches',3)">
+                    <i class="fa fa-cogs"></i>
+
+                    <p>‌إدارة المواد الدراسية</p>
+                </a>
+            </li>
 
 
-                <a class="nav-link" href="#" @click.prevent="href('/Inbox',2)">
-                    <i class="fa fa-inbox"></i>
-                    <p>صندوق الوارد    <b style="color:red; font-size:medium"> ({{UnReadCount}})</b></p>
+            <!--<li :class="menuFlag[7]" v-if="loginDetails.userType==1||loginDetails.userType==2">
+        <a class="nav-link" href="#" @click.prevent="href('/NewMessage',7)  ">
+            <i class="fa fa-envelope"></i>
+            <p>ارسال رسالة</p>
+        </a>
+    </li>
+    <li :class="menuFlag[2]" v-if="loginDetails.userType==1||loginDetails.userType==2">
 
-                </a>
-            </li>
-            <li :class="menuFlag[3]" v-if="loginDetails.userType==1||loginDetails.userType==2">
-                <a class="nav-link" href="#" @click.prevent="href('/Sent',3)">
-                    <i class="material-icons">content_paste</i>
-                    <p>صندوق المرسل</p>
-                </a>
-            </li>
-            <li :class="menuFlag[8]" v-if="loginDetails.userType==1||loginDetails.userType==2">
-                <a class="nav-link" href="#" @click.prevent="href('/Archive',8)">
-                    <i class="fa fa-archive"></i>
-                    <p>الإرشيف</p>
-                </a>
-            </li>
-            <li :class="menuFlag[9]" v-if="loginDetails.userType==1||loginDetails.userType==2">
-                <a class="nav-link" href="#" @click.prevent="href('/DeletedMessage',9)">
-                    <i class="el-icon-delete"></i>
-                    <p>الرسائل المحذوفة</p>
-                </a>
-            </li>
-            <li :class="menuFlag[4]" v-if="loginDetails.userType==1">
-                <a class="nav-link" href="#" @click.prevent="href('/MessageTypes',4)">
-                    <i class="material-icons">library_books</i>
-                    <p>نوع الرسالة</p>
-                </a>
-            </li>
+
+        <a class="nav-link" href="#" @click.prevent="href('/Inbox',2)">
+            <i class="fa fa-inbox"></i>
+            <p>صندوق الوارد    <b style="color:red; font-size:medium"> ({{UnReadCount}})</b></p>
+
+        </a>
+    </li>
+    <li :class="menuFlag[3]" v-if="loginDetails.userType==1||loginDetails.userType==2">
+        <a class="nav-link" href="#" @click.prevent="href('/Sent',3)">
+            <i class="material-icons">content_paste</i>
+            <p>صندوق المرسل</p>
+        </a>
+    </li>
+    <li :class="menuFlag[8]" v-if="loginDetails.userType==1||loginDetails.userType==2">
+        <a class="nav-link" href="#" @click.prevent="href('/Archive',8)">
+            <i class="fa fa-archive"></i>
+            <p>الإرشيف</p>
+        </a>
+    </li>
+    <li :class="menuFlag[9]" v-if="loginDetails.userType==1||loginDetails.userType==2">
+        <a class="nav-link" href="#" @click.prevent="href('/DeletedMessage',9)">
+            <i class="el-icon-delete"></i>
+            <p>الرسائل المحذوفة</p>
+        </a>
+    </li>
+    <li :class="menuFlag[4]" v-if="loginDetails.userType==1">
+        <a class="nav-link" href="#" @click.prevent="href('/MessageTypes',4)">
+            <i class="material-icons">library_books</i>
+            <p>نوع الرسالة</p>
+        </a>
+    </li>-->
 
 
             <li :class="menuFlag[5]" v-if="loginDetails.userType==1">
@@ -76,27 +135,27 @@
                 </a>
             </li>
 
-            <li :class="menuFlag[10]" v-if="loginDetails.userType==1||loginDetails.userType==3">
-                <a class="nav-link" href="#" @click.prevent="href('/ControlMessages',10)">
-                    <i class="fa fa-cogs"></i>
-                    <p>
-                        مراقبه الرسائل
-                    </p>
-                </a>
-            </li>
+            <!--<li :class="menuFlag[10]" v-if="loginDetails.userType==1||loginDetails.userType==3">
+        <a class="nav-link" href="#" @click.prevent="href('/ControlMessages',10)">
+            <i class="fa fa-cogs"></i>
+            <p>
+                مراقبه الرسائل
+            </p>
+        </a>
+    </li>
 
-            <li :class="menuFlag[10]" v-if="loginDetails.userType==1||loginDetails.userType==3">
-                <a class="nav-link" href="#" @click.prevent="href('/Test',11)">
-                    <i class="fa fa-cogs"></i>
-                    <p>
-                       Test
-                    </p>
-                </a>
-            </li>
+    <li :class="menuFlag[10]" v-if="loginDetails.userType==1||loginDetails.userType==3">
+        <a class="nav-link" href="#" @click.prevent="href('/Test',11)">
+            <i class="fa fa-cogs"></i>
+            <p>
+                Test
+            </p>
+        </a>
+    </li>-->
 
         </ul>
         <ul class="nav navbar-nav nav-mobile-menu">
-           
+
             <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="material-icons">person</i>

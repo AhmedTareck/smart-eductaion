@@ -35,11 +35,11 @@
                                 </el-col>
                                 <!--personal Search-->
                                 <el-col class="col-md-4" v-if="ruleForm.SentGroup==1">
-                                    <el-form-item label="الصلاحية" >
+                                    <el-form-item label="المكتب او الادارة" >
                                         <el-select class="SelectUser"
                                                    v-model="ruleForm.PermissionModalePersonal"
                                                    @change="SelectUserByType"
-                                                   filterable placeholder="الصلاحية"  style="width:100%">
+                                                   filterable placeholder="المكتب او الادارة"  style="width:100%">
                                             <el-option v-for="item in Permissions"
                                                        :key="item.id"
                                                        :label="item.name"
@@ -61,11 +61,11 @@
                                 </el-col>
                                 <el-col class="col-md-4" v-if="ruleForm.SentGroup==2">
                                  
-                                    <el-form-item label="الصلاحيه" prop="PermissionModale" >
+                                    <el-form-item label="المكتب او الادارة" prop="PermissionModale" >
                                         <el-select class="SelectUser"
                                                    v-model="ruleForm.PermissionModale"
                                                    multiple
-                                                   placeholder="الصلاحية" style="width:100%">
+                                                   placeholder="المكتب او الادارة" style="width:100%">
                                             <el-option v-for="item in Permissions"
                                                        :key="item.id"
                                                        :label="item.name"

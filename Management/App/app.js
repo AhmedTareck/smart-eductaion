@@ -18,7 +18,12 @@ import Users from './Components/Users/Users.vue';
 import EditUsersProfile from './Components/Users/EditUsersProfile/EditUsersProfile.vue';
 import ChangePassword from './Components/Users/ChangePassword/ChangePassword.vue';
 import NewMessage from './Components/Messages/NewMessage/NewMessage.vue';
-import Test from './Components/Test/Test.vue';
+import Subscribes from './Components/Subscribes/Subscribes.vue';
+
+import Student from './Components/Student/Student.vue';
+
+
+
 import DataService from './Shared/DataService';
 import messages from './i18n';
 
@@ -48,6 +53,7 @@ const router = new VueRouter({
     linkActiveClass: 'active',
     routes: [
         { path: '/', component: Home }, 
+        { path: '/Subscribes', component: Subscribes }, 
         { path: '/Branches', component: Branches },
         { path: '/Inbox', component: Inbox },
         { path: '/Sent', component: Sent }, 
@@ -59,8 +65,10 @@ const router = new VueRouter({
         { path: '/NewMessage', component: NewMessage },
         { path: '/Archive', component: Archive },
         { path: '/DeletedMessage', component: DeletedMessage },
-        { path: '/Test', component: Test },
-        { path: '/ControlMessages', component: ControlMessages }
+        { path: '/ControlMessages', component: ControlMessages },
+
+        { path: '/Student', name: 'Student', component: Student },
+
     ]
 });
 

@@ -257,7 +257,7 @@ export default {
                  
                     this.$http.NewMessage(this.ruleForm)
                         .then(response => {
-                           
+                            this.$blockUI.Stop();
                             this.$message({
                                 type: 'success',
                                 dangerouslyUseHTMLString: true,
@@ -268,7 +268,7 @@ export default {
                             this.form = [];
                             window.location.href = '/Inbox';
                      
-                            this.$blockUI.Stop();
+                      
                         })
                         .catch((err) => {
                             this.$blockUI.Stop();
@@ -278,6 +278,10 @@ export default {
                                 duration: 5000,
                                 message: '<strong>' + err.response.data + '</strong>'
                             });
+
+                            if (err.response.status === 401) {
+                                window.location.href = '/Security/Login';
+                            }
                         });
                 } else {
                     this.$blockUI.Stop();

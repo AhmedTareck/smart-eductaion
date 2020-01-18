@@ -7,11 +7,21 @@ export default {
         this.returnurl = location.pathname;
         this.SetRules();
         this.SECRET_KEY = 'P@SSWORDTAMEME';
-
+        this.ClassContenar='card card-login card-hidden';
+        let t=setInterval(function(){
+            this.ClassContenar='card card-login'; 
+        }.bind(this), 1000);
+        
+        setInterval(function(){
+            clearInterval(t)
+        }.bind(this), 5000);
 
     },
     data() {
         return {
+
+            ClassContenar:'',
+
             returnurl: '',
             form: {
                 Password: null,
@@ -20,6 +30,7 @@ export default {
             form2: {
                 Email: null
             },
+
             SECRET_KEY:'',
             success: { confirmButtonText: 'OK', type: 'success', dangerouslyUseHTMLString: true, center: true },
             error: { confirmButtonText: 'OK', type: 'error', dangerouslyUseHTMLString: true, center: true },
@@ -29,9 +40,13 @@ export default {
 
 
 
+
         };
     },
     methods: {
+
+       
+        
         hash: function hash(key) {
             key = CryptoJS.SHA256(key, SECRET_KEY);
 
@@ -118,7 +133,10 @@ export default {
                 });
         },
 
-
+        x()
+        {
+            debugger
+        },
         ResetPassword(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
@@ -150,6 +168,8 @@ export default {
                 }
             });
         },
+        
+
         SetRules() {
 
             this.rules = {

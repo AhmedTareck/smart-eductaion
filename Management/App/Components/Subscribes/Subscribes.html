@@ -1,0 +1,174 @@
+﻿<div class="content">
+    <div class="container-fluid" v-if="state==0">
+        
+        
+
+            <div class="row">
+                <div class="card">
+
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title ">إدارة الإشتراكات</h4>
+                    </div>
+
+                    <br />
+                    <br />
+                    <div class="row" style="margin-right: 0px; margin-left: 0px;">
+
+                        <div class="col-md-4">
+                            <el-select style="width: 100%;"
+                                       filterable placeholder="نوع الإشتراك"
+                                       v-model="TypeSelected"
+                                       @change="GetBranches()">
+
+                                <el-option v-for="item in clintType"
+                                           :key="item.id"
+                                           :label="item.name"
+                                           :value="item.id">
+                                </el-option>
+                            </el-select>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row" v-if="subscribes==0">
+
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <br /><br />
+                                <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات لعرضها"
+                                          type="info">
+                                </el-alert>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <!--Table Info-->
+                    <div class="row" v-if="subscribes!=0">
+                        <div class="col-md-12">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="text-info">
+                                        <th>
+                                            #
+                                        </th>
+                                        <th>
+                                            الإسم
+                                        </th>
+                                        <th>
+                                            نوع العميل
+                                        </th>
+                                        <th>
+                                            إسم الباقة
+                                        </th>
+                                        <th>
+                                            سعر الإشتراك
+                                        </th>
+                                        <th>
+                                            المدفوع
+                                        </th>
+                                        <th>
+                                            تاريخ الصلاحية
+                                        </th>
+                                        <th>
+                                            حالة الباقة
+                                        </th>
+                                        <th style="text-align:left">
+                                            العمليات
+                                        </th>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item,index in subscribes">
+                                                <td>{{index+1}}</td>
+                                                <td>{{item.clint.clintsName}}</td>
+
+                                                <td v-if="item.userType==2">استاذ</td>
+                                                <td v-if="item.userType==3">مركز تخصصي</td>
+                                                <td>{{item.offerName}}</td>
+                                                <td>{{item.price}}</td>
+                                                <td>{{item.price}}</td>
+                                                <td>{{item.to | moment}}</td>
+                                                <td v-if="item.status==1">
+                                                    <span class="tag badge" style="background-color:#00bcd4">Active </span>
+                                                </td>
+                                                <td v-if="item.status==2">
+                                                    <span class="tag badge" style="background-color:#f08f00">Not Active </span>
+                                                </td>
+                                                <td v-if="item.status==3">
+                                                    <span class="tag badge" style="background-color:#f33527">Stopped </span>
+                                                </td>
+
+                                                <td class="td-actions text-left">
+                                                    <button type="button" rel="tooltip" class="btn btn-info btn-link" data-original-title="" title="">
+                                                        <i class="material-icons">person</i>
+                                                        <div class="ripple-container"></div>
+                                                    </button>
+                                                    <button type="button" rel="tooltip" class="btn btn-success btn-link" data-original-title="" title="">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                    <button type="button" rel="tooltip" class="btn btn-danger btn-link" data-original-title="" title="">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </td>
+
+
+                                                <!--<td style="text-align:left">
+        <a title="متابعة الباقة" href="#" @click.prevent="EditExaming(ExamLists)">
+            <i class="fa fa-twitter" style="font-size:13px;color: cornflowerblue;"></i>
+        </a>
+        <a title="إيقاف الخدمة" href="#" @click.prevent="EditExaming(ExamLists)">
+            <i class="fa fa-pause" style="font-size:13px;color: red;"></i>
+        </a>
+        <a title="تفعيل الخدمة" href="#" @click.prevent="EditExaming(ExamLists)">
+            <i class="fa fa-play" style="font-size:13px;color: lawngreen;"></i>
+        </a>
+    </td>-->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-7">
+                                            <div class="pull-right">
+                                                <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate" style="direction: ltr;">
+                                                    <div style="text-align: center;">
+
+                                                        <el-pagination background
+                                                                       layout="prev, pager, next"
+                                                                       :current-page="pageNo"
+                                                                       :page-size="pageSize"
+                                                                       :total="pages"
+                                                                       @current-change="GetBranches($event)">
+                                                        </el-pagination>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-12 col-md-5">
+                                            <div class="pull-left">
+                                                <div class="disabled-sorting text-right" id="datatable_info" role="status" aria-live="polite">Showing {{pageNo}} to {{pageSize}} of {{pages}} entries</div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+

@@ -31,9 +31,9 @@ namespace Management.Controllers
         [TempData]
         public string ErrorMessage { get; set; }
         private Helper help;
-        private readonly MailSystemContext db;
+        private readonly StudentTrackerContext db;
         private IConfiguration Configuration { get; }
-        public SecurityController(MailSystemContext context, IConfiguration configuration)
+        public SecurityController(StudentTrackerContext context, IConfiguration configuration)
         {
             this.db = context;
             help = new Helper();
@@ -115,7 +115,7 @@ namespace Management.Controllers
                     return BadRequest("الرجاء ادخال كلمه المرور");
                 }
 
-                var cUser = (from p in db.Users
+                var cUser = (from p in db.User
                              where (p.Email == loginUser.Email || p.LoginName == loginUser.Email) && p.Status != 9
                              select p).SingleOrDefault();
 
@@ -134,117 +134,36 @@ namespace Management.Controllers
                 {
                     return BadRequest("حسابك غير مفعل");
                 }
-                if (cUser.Status == 2)
-                {
-                    if (cUser.LoginTryAttemptDate != null)
-                    {
-                        DateTime dt = cUser.LoginTryAttemptDate.Value;
-                        double minuts = 30;
-                        dt = dt.AddMinutes(minuts);
-                        if (dt >= DateTime.Now)
-                        {
-                            return BadRequest("لايمكنك الدخول للنظام: تم ايقافك");
-                        }
-                        else
-                        {
-                            cUser.Status = 1;
-
-                            db.SaveChanges();
-                        }
-                    }
-                    else { return BadRequest("لايمكنك الدخول للنظام: تم ايقافك"); }
-                }
-
-                if (!Security.VerifyHash(loginUser.Password, cUser.Password, HashAlgorithms.SHA512))
-                {
-
-                    cUser.LoginTryAttempts++;
-                    if (cUser.LoginTryAttempts >= 5 && cUser.Status == 1)
-                    {
-                        cUser.LoginTryAttemptDate = DateTime.Now;
-                        cUser.Status = 2;
-                    }
-                    db.SaveChanges();
-                    return NotFound("الرجاء التاكد من البريد الالكتروني وكلمة المرور");
-                }
+                
                 //string hospital = "";
                 //if (cUser.UserType == 5 && cUser.HospitalId != null && cUser.HospitalId>0)
                 //{
                 //    hospital = db.Hospital.Where(x => x.HospitalId == cUser.HospitalId).SingleOrDefault().Name;
                 //}
 
-                cUser.LoginTryAttempts = 0;
-                cUser.LastLoginOn = DateTime.Now;
-                db.SaveChanges();
+                db.SaveChanges();   
                 long branchId = -1;
                 // int branchType = -1;
-                string brancheName = "";
 
-                if (cUser.UserType == 1)
-                {
-                    var Branche = (from p in db.Branches
-                                   where (p.BranchId == cUser.BranchId) && p.Status != 9
-                                   select p).SingleOrDefault();
-
-                    if (Branche == null)
-                    {
-                        return NotFound("لايمكنك الدخول للنظام : تم الغاء الفرع الخاص بك");
-                    }
-                    if (Branche.Status == 2)
-                    {
-                        return NotFound("لايمكنك الدخول للنظام : المكتب غير مفعل حاليا الرجاء مراجعة المسؤولين");
-                    }
-                    branchId = (long)cUser.BranchId;
-                    brancheName = cUser.Branch.Name;
-                    // branchType = (int)cUser.Office.OfficeType;
-
-                    //     if (officeType==1)
-                    //     {
-                    //          issusId = db.Offices.AsEnumerable().Where(x => x.OfficeIndexId == officeId)
-                    //.Select(r => (long?)r.OfficeId)
-                    //.ToArray();
-
-                    //          CivilId = db.Offices.AsEnumerable().Where(x => issusId.ToList().Contains(x.OfficeIndexId))
-                    //     .Select(r => (long?)r.OldOfficeId)
-                    //     .ToArray();
-                    //     } else if(officeType == 2)
-                    //     {
-                    //          CivilId = db.Offices.AsEnumerable().Where(x => x.OfficeIndexId == officeId)
-                    //    .Select(r => (long?)r.OldOfficeId).ToArray();
-
-                    //     }
-                    //     else {
-                    //         CivilId = db.Offices.AsEnumerable().Where(x => x.OfficeId == officeId)
-                    // .Select(r => (long?)r.OldOfficeId).ToArray();
-                    //     }
-
-
-                }
                 var userInfo = new
                 {
                     userId = cUser.UserId,
-                    fullName = cUser.FullName,
+                    fullName = cUser.Name,
                     userType = cUser.UserType,
                     branchId = branchId,
-                    // officeType = officeType,
-                    brancheName = brancheName,
                     LoginName = cUser.LoginName,
-                    DateOfBirth = cUser.DateOfBirth,
                     Email = cUser.Email,
-                    //cUser.Office.OfficeName,
                     Gender = cUser.Gender,
                     Status = cUser.Status,
                     Phone = cUser.Phone,
                     Photo=cUser.Photo
-
-                    //OfficeStatus=cUser.Office.Status        
                 };
 
                 const string Issuer = "http://www.nid.ly";
                 var claims = new List<Claim>();
                 claims.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/id", cUser.UserId.ToString(), ClaimValueTypes.Integer64, Issuer));
-                claims.Add(new Claim(ClaimTypes.Name, cUser.FullName, ClaimValueTypes.String, Issuer));
-                claims.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/OfficeId", cUser.BranchId.ToString(), ClaimValueTypes.Integer64, Issuer));
+                claims.Add(new Claim(ClaimTypes.Name, cUser.Name, ClaimValueTypes.String, Issuer));
+                claims.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/OfficeId", ClaimValueTypes.Integer64, Issuer));
                 claims.Add(new Claim("userType", cUser.UserType.ToString(), ClaimValueTypes.Integer32, Issuer));
                 var userIdentity = new ClaimsIdentity("thisisasecreteforauth");
                 userIdentity.AddClaims(claims);
@@ -293,7 +212,7 @@ namespace Management.Controllers
                 var userId = this.help.GetCurrentUser(HttpContext);
                 if (loginUser.Password != null)
                 {
-                    var User = (from p in db.Users
+                    var User = (from p in db.User
                                 where p.UserId == userId && p.Status != 9
                                 select p).SingleOrDefault();
 
@@ -301,8 +220,6 @@ namespace Management.Controllers
                     {
 
                         User.Password = Security.ComputeHash(loginUser.NewPassword, HashAlgorithms.SHA512, null);
-                        User.ModifiedBy = userId;
-                        User.ModifiedOn = DateTime.Now;
                         db.SaveChanges();
 
 
@@ -315,7 +232,7 @@ namespace Management.Controllers
 
                 else
                 {
-                    var User = (from p in db.Users
+                    var User = (from p in db.User
                                 where p.UserId == loginUser.UserId && p.Status != 9
                                 select p).SingleOrDefault();
                     if (User == null)
@@ -323,8 +240,6 @@ namespace Management.Controllers
                         return BadRequest("خطأ بيانات المستخدم غير موجودة");
                     }
                     User.Password = Security.ComputeHash(loginUser.NewPassword, HashAlgorithms.SHA512, null);
-                    User.ModifiedBy = userId;
-                    User.ModifiedOn = DateTime.Now;
                     db.SaveChanges();
 
                 }
@@ -340,7 +255,7 @@ namespace Management.Controllers
 
         public IActionResult GetUserImage(long userId)
         {
-            var userimage = (from p in db.Users
+            var userimage = (from p in db.User
                              where p.UserId == userId
                              select p.Photo).SingleOrDefault();
 
@@ -385,7 +300,7 @@ namespace Management.Controllers
                     return BadRequest("الرجاء ادخال البريد الالكتروني بطريقة الصحيحه");
                 }
 
-                var user = (from p in db.Users
+                var user = (from p in db.User
                             where p.Email == email && p.Status != 9
                             select p).SingleOrDefault();
 
@@ -410,7 +325,7 @@ namespace Management.Controllers
 
                 mail.Subject = "مصلحة الاحوال المدنية - إعادة تعيين كلمة المرور";
 
-                mail.Body = GetResetPasswordHTML(user.FullName, "/security/AccountActivate?confirm=" + user.UserId.ToString() + "&account=" + Security.EncryptBase64(confirm));
+                mail.Body = GetResetPasswordHTML(user.Name, "/security/AccountActivate?confirm=" + user.UserId.ToString() + "&account=" + Security.EncryptBase64(confirm));
 
                 mail.IsBodyHtml = true;
 
@@ -451,7 +366,7 @@ namespace Management.Controllers
                     return BadRequest("الرابط غير مفعل");
                 }
 
-                var user = (from u in db.Users
+                var user = (from u in db.User
                             where u.UserId == userActivate.confirm
                             select u).SingleOrDefault();
 

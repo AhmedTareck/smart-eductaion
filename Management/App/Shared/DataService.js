@@ -79,153 +79,44 @@ export default {
         return axios.post(`/Security/ChangePassword`, userPassword);
     },
 
-
-    //*******************************************  Add Message Type Service *********************************
-    GetMessageTypes(pageNo, pageSize) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Admin/MessageTypes/Get?pageno=${pageNo}&pagesize=${pageSize}`);
-    },
-    AddMessageType(MessageTypes) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/Api/Admin/MessageTypes/Add`, MessageTypes);
-    },
-    EditMessageType(MessageTypes) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/Api/Admin/MessageTypes/Edit`, MessageTypes);
-    },
-    
-    DeleteMessageType(MessageTypeId) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/Api/Admin/MessageTypes/${MessageTypeId}/delete`);
-    },
-
-    //*******************************************  Branches Service *********************************
-    GetBranches(pageNo, pageSize, permissionModale) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Admin/Branches/Get?pageno=${pageNo}&pagesize=${pageSize}&BranchLevel=${permissionModale}`);
-    },
-    GetBranchsV1() {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Admin/Branches/GetBranchs`);
-    },
-  
-    DeleteBranch(BracnhId) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/Api/Admin/Branches/${BracnhId}/delete`);
-    },
-    AddBranches(Branch) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/Api/Admin/Branches/Add`, Branch);
-    },
     
 
-    EditBranches(Branch) {
+    GetStudent(pageNo, pageSize,EventSelectd) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/Api/Admin/Branches/Edit`, Branch);
+        return axios.get(baseUrl + `/admin/Students/Get?pageno=${pageNo}&pagesize=${pageSize}&EventId=${EventSelectd}`);
     },
 
-
-    IsFavorate(isFavorate, conversationId) {
+    GetYears() {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Messages/EnabelDisplayFavorate?isFavorate=${isFavorate}&conversationId=${conversationId}`);
-    },
-    SetArchaveInbox(setArchive, conversationId) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Messages/Archive?isArchive=${setArchive}&conversationId=${conversationId}`);
-    },
-    DeleteInbox(isDelete, conversationId) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Messages/DeleteConversation?isDelete=${isDelete}&conversationId=${conversationId}`);
-    },
-    ReadUnReadInbox(isReadUnRead, conversationId) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Messages/ReadUnReadInbox?isReadUnRead=${isReadUnRead}&conversationId=${conversationId}`);
-    },
-    GetContentInbox(conversationId) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Messages/getContentConversation?conversationId=${conversationId}`);
-    },
-    GetMessages() {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/api/admin/Messages/GetMessages`);
-    },
-    GetControlMessages(pageNo, pageSize) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Admin/Messages/GetControlMessages?pageNo=${pageNo}&pageSize=${pageSize}`);
-    },
-    GetAllUsers(UserType) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/NewMessage/GetAllUsers?UserType=${UserType}`);
-    },
-    GetAllMessageTypes() {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/NewMessage/GetAllMessageTypes`);
-    },
-    NewMessage(NewMessage) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/Api/NewMessage/NewMessage`, NewMessage);
-    },
-   EditMessage(NewMessage) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-       return axios.post(`/Api/NewMessage/EditMessage`, NewMessage);
-    },
-    ReplayMessages(replayMessages) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/Api/Messages/ReplayMessages`, replayMessages);
-    },
-    downloadFile(fileId) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios({
-            url: `/Api/NewMessage/DownLoadFile?attachmentId=${fileId}`,
-            method: 'GET',
-            responseType: 'blob',
-        });
+        return axios.get(baseUrl + `/admin/Courses/Get`);
     },
 
-    FilterInbox(page, pageSize, messageTypeFilter, filterType, inputMessgeText) {
- 
+    GetEvents(yearId) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Messages/getMessageFilter?page=${page}&pagesize=${pageSize}&messageTypeFilter=${messageTypeFilter}&filterType=${filterType}&inputMessgeText=${inputMessgeText}`);
+        return axios.get(baseUrl + `/admin/Courses/GetEvents?yearId=${yearId}`);
     },
 
-    GetBranchesByLevel(BranchLevel) {
+    AddStudent(student) {
+        debugger
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Admin/Branches/GetBranchesByLevel?branchLevel=${BranchLevel}`);
+        return axios.post(baseUrl + `/admin/Students/Add`, student);
     },
 
-    GetReceivedMassage(pageNo, pageSize,operateion)
+    delteStudent(id)
     {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Admin/Messages/GetReceivedMassage?pageNo=${pageNo}&pageSize=${pageSize}&operateion=${operateion}`);
+        return axios.post(baseUrl + `/admin/Students/${id}/delteStudent`);
     },
 
-    ChangeMassageState(ParticipationsId,status) {
+    GetStudentByEvent(EventId) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/api/admin/Messages/ChangeMassageState?ParticipationsId=${ParticipationsId}&status=${status}`);
+        return axios.get(baseUrl + `/admin/Students/GetStudentByEvent?EventId=${EventId}`);
     },
 
-    DeleteMassage(ParticipationsId,removeFromTrash) {
+    getStudentById(studentId) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/api/admin/Messages/DeleteMassage?ParticipationsId=${ParticipationsId}&removeFromTrash=${removeFromTrash}`);
+        return axios.get(baseUrl + `/admin/Students/getStudentById?id=${studentId}`);
     },
-
-    GetReplayes(pageNo, pageSize,conversationId)
-    {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Admin/Messages/GetReplayes?pageNo=${pageNo}&pageSize=${pageSize}&conversationId=${conversationId}`);
-    },
-
-    GetCountInfo()
-    {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/Admin/Messages/GetCountInfo`);
-    },
-
-    AddReplay(conversationId,ReplayBody) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(`/api/admin/Messages/AddReplay?conversationId=${conversationId}&ReplayBody=${ReplayBody}`);
-    },
-
 
     
 }

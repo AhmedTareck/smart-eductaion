@@ -1,0 +1,274 @@
+﻿
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">تعديل بيانات طالب</h4>
+                </div>
+                {{PersnalInfoForm}}
+                {{selectedStudent}}
+                <div class="row">
+                    <div class="col-md-12" style="padding: 46px;">
+                        <el-form :model="PersnalInfoForm" ref="PersnalInfoForm" label-width="100px" class="demo-ruleForm" dir="rtl">
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+
+                                        <label>الإسم الأول</label>
+
+
+                                        <el-form-item prop="firstName"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: 'First Name Is Requird'} ]">
+
+                                            <el-input type="firstName"
+                                                      placeholder="First Name"
+                                                      v-model="PersnalInfoForm.firstName"
+                                                      autocomplete="off" />
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+
+                                        <label>إسم الأب</label>
+
+                                        <el-form-item prop="fatherName"
+                                                      label-width="0px"
+                                                      :rules="[{ required: true, message: 'Father Name Is Requird'} ]">
+
+                                            <el-input type="fatherName"
+                                                      placeholder="Father Name"
+                                                      v-model="PersnalInfoForm.fatherName"
+                                                      autocomplete="off">
+                                            </el-input>
+
+                                        </el-form-item>
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+
+                                        <label>إسم الجد</label>
+
+                                        <el-form-item prop="fatherName"
+                                                      label-width="0px"
+                                                      :rules="[{ required: true, message: 'Grandfathers Name Is Requird'} ]">
+
+                                            <el-input type="grandFatherName"
+                                                      placeholder="Grandfathers Name"
+                                                      v-model="PersnalInfoForm.grandFatherName"
+                                                      autocomplete="off">
+                                            </el-input>
+
+                                        </el-form-item>
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+
+                                        <label>اللقب</label>
+
+                                        <el-form-item prop="surName"
+                                                      label-width="0px"
+                                                      :rules="[{ required: true, message: 'Surname  Is Requird'} ]">
+
+                                            <el-input type="surName"
+                                                      placeholder="Surname"
+                                                      v-model="PersnalInfoForm.surName"
+                                                      autocomplete="off">
+                                            </el-input>
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>إسم الأم</label>
+
+                                        <el-form-item prop="matherName"
+                                                      label-width="0px"
+                                                      :rules="[{ required: true, message: 'Mather Name  Is Requird'} ]">
+
+                                            <el-input type="motherFirstName"
+                                                      placeholder="Mather Name"
+                                                      v-model="PersnalInfoForm.matherName"
+                                                      autocomplete="off">
+                                            </el-input>
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>العنوان</label>
+
+
+                                        <el-form-item prop="address"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: 'Address Is Requird'} ]">
+
+                                            <el-input type="firstName"
+                                                      placeholder="Address"
+                                                      v-model="PersnalInfoForm.address"
+                                                      autocomplete="off" />
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+
+                                    <div class="form-group">
+
+                                        <label>الجنس</label>
+
+                                        <el-form-item prop="selectedSex"
+                                                      label-width="0px"
+                                                      :rules="[{ required: true, message: 'Sex  Is Requird'} ]">
+
+                                            <el-select style="width: 100%;" filterable placeholder="الجنس" v-model="PersnalInfoForm.selectedSex">
+
+                                                <el-option v-for="item in sex"
+                                                           :key="item.id"
+                                                           :label="item.name"
+                                                           :value="item.id">
+                                                </el-option>
+
+                                            </el-select>
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <div class="form-group">
+
+                                        <label>رقم الهاتف</label>
+
+                                        <el-form-item prop="motherFirstName"
+                                                      label-width="0px"
+                                                      :rules="[{ required: true, message: 'Phone  Is Requird'} ]">
+
+                                            <el-input type="phone"
+                                                      placeholder="Phone"
+                                                      v-model="PersnalInfoForm.phone"
+                                                      autocomplete="off">
+                                            </el-input>
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <div class="form-group">
+
+                                        <label>رقم هاتف ولي الأمر</label>
+
+                                        <el-form-item prop="motherFirstName"
+                                                      label-width="0px"
+                                                      :rules="[{ required: true, message: 'Parens Phone  Is Requird'} ]">
+
+                                            <el-input type="parnsPhone"
+                                                      placeholder="Parns Phone"
+                                                      v-model="PersnalInfoForm.parnsPhone"
+                                                      autocomplete="off">
+                                            </el-input>
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-1">
+
+
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-left">
+
+                                        <br>
+                                        <el-button class="btn btn-danger btn-fill pull-right" type="primary" @click="back()">رجوع</el-button>
+
+                                        <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="submitForm('PersnalInfoForm')">إظافة</el-button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </el-form>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+

@@ -43,8 +43,10 @@
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.form.BranchLevel = this.$parent.permissionModale;
+                    this.$blockUI.Start();
                     this.$http.EditBranches(this.ruleForm)
                         .then(response => {
+                            this.$blockUI.Stop();
                             this.$parent.state = 0;
                             this.$parent.GetBranches(this.pageNo);
                             this.$message({
@@ -55,13 +57,21 @@
                             });
                         })
                         .catch((err) => {
+                            this.$blockUI.Stop();
                             this.$message({
                                 type: 'error',
                                 dangerouslyUseHTMLString: true,
                                 duration: 5000,
                                 message: '<strong>' + err.response.data + '</strong>'
                             });
-                        });    
+                            if (err.response.status === 401) {
+                                window.location.href = '/Security/Login';
+                            }
+
+                        }
+
+
+                    );    
                 } else {
                     console.log('error submit!!');
                     return false;

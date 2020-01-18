@@ -6,9 +6,9 @@ export default {
       
     },
     created() {  
-        this.GetMessageTypes(this.pageNo);
-        this.GetCountInfo();
-        setInterval(() => this.GetCountInfo(), 10000); 
+        //this.GetMessageTypes(this.pageNo);
+        //this.GetCountInfo();
+        //setInterval(() => this.GetCountInfo(), 10000); 
     },
     data() {
         return {

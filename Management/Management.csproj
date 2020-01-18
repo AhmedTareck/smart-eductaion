@@ -34,6 +34,7 @@
     <None Remove="App\Components\Packages\SuperPackages.html~RF22273dc6.TMP" />
     <None Remove="Content\csselement.css" />
     <None Remove="Content\cssvuetify.css" />
+    <None Remove="Content\Docs\MailTour.docx" />
     <None Remove="Content\font-awesome.less" />
     <None Remove="Content\font-face-last.css" />
     <None Remove="Content\font-face.css" />
@@ -99,7 +100,6 @@
     <None Remove="ModelsV2\**" />
     <None Remove="Uploads\**" />
     <None Remove="Views\Game\**" />
-    <Compile Remove="Controllers\CoursesController.cs" />
     <Compile Remove="Controllers\CustometsController.cs" />
     <Compile Remove="Controllers\DateController.cs" />
     <Compile Remove="Controllers\Security.cs" />
@@ -107,6 +107,14 @@
     <Content Remove="package-lock.json" />
     <Content Remove="wwwroot\img\logo.png" />
    
+  </ItemGroup>
+  
+
+  <ItemGroup>
+    <Content Include="Content\Docs\MailTour.docx">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

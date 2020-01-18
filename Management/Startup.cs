@@ -20,6 +20,7 @@ using System.IO;
 //using Managegment.Models;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Management
 {
@@ -35,7 +36,7 @@ namespace Management
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddDbContext<Models.MailSystemContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Mail")));
+            services.AddDbContext<Models.StudentTrackerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("StudentTracker")));
 
             //services.AddDbContext<Models.AppointmentsContext>(options => options.UseMySQL(Configuration.GetConnectionString("Appointment")));
 
@@ -49,8 +50,17 @@ namespace Management
                     .AllowCredentials());
             });
 
-            services.AddMvc();
-            
+            //services.AddMvc();
+
+            var policy = new AuthorizationPolicyBuilder()
+                       .RequireAuthenticatedUser()
+                       .Build();
+
+            services.AddMvc(opt =>
+            {
+                opt.Filters.Add(new AuthorizeFilter(policy));
+            });
+
 
             services.AddAuthentication(o =>
             {
@@ -62,6 +72,7 @@ namespace Management
             {
                 options.AccessDeniedPath = new PathString("/Security/Login/");
                 options.LoginPath = new PathString("/Security/Login/");
+                //options.Validate();
             })
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
             {

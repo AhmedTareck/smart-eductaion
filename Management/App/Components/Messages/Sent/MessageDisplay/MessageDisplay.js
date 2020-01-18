@@ -35,6 +35,7 @@ export default {
         },
         downloadFile(item) {
             this.$blockUI.Start();
+            debugger;
             this.$http.downloadFile(item.attachmentId).then(response => {
                 this.$blockUI.Stop();
                 this.forceFileDownload(response, item);

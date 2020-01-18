@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
         <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">تــعميم</a>
+            <a class="navbar-brand" href="#pablo">لوحة التحكم الخاصة بالنظام</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -14,27 +14,40 @@
         <div class="collapse navbar-collapse justify-content-end">
 
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#pablo" >
+                <!--<li class="nav-item">
+                    <a class="nav-link" href="/docs/MailTour.docx">
                         <i class="material-icons" title="دليل المستخدم">book</i>
                     </a>
+                </li>-->
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons" title="دليل المستخدم">book</i>
+
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+
+                        <a class="dropdown-item" href="/docs/UserManualAdmin.pdf">دليل المدير</a>
+                        <a class="dropdown-item" href="/docs/UserManualUser.pdf">دليل المستخدم</a>
+
+                    </div>
                 </li>
-              
+
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">person</i>
-                        
+
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right"   >
-            
+                    <div class="dropdown-menu dropdown-menu-right">
+
                         <a class="dropdown-item" href="/ChangePassword">تغير كلمه المرور</a>
                         <a class="dropdown-item" href="/EditUsersProfile">تعديل الملف الشخصي</a>
-                 
+
                     </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" @click.prevent="Logout()">
-                        <i class="fa fa-sign-out" dir="ltr"  title="تسجيل الخروج"></i>
+                        <i class="fa fa-sign-out" dir="ltr" title="تسجيل الخروج"></i>
                     </a>
                 </li>
             </ul>

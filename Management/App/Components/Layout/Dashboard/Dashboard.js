@@ -14,8 +14,8 @@ export default {
         } else {
             window.location.href = '/Security/Login';
         }
-        this.GetMessagesUnRead();
-        setInterval(() => this.GetMessagesUnRead(), 10000);  
+        //this.GetMessagesUnRead();
+        //setInterval(() => this.GetMessagesUnRead(), 10000);  
         this.menuFlag[0] = 'nav-item active';
     },
     data() {
