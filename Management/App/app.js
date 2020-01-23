@@ -21,6 +21,9 @@ import NewMessage from './Components/Messages/NewMessage/NewMessage.vue';
 import Subscribes from './Components/Subscribes/Subscribes.vue';
 
 import Student from './Components/Student/Student.vue';
+import AddStudent from './Components/Student/AddStudent/AddStudent.vue';
+import Presness from './Components/Presness/Presness.vue';
+import AddPresness from './Components/Presness/AddPresness/AddPresness.vue';
 
 
 
@@ -68,6 +71,9 @@ const router = new VueRouter({
         { path: '/ControlMessages', component: ControlMessages },
 
         { path: '/Student', name: 'Student', component: Student },
+        { path: '/AddStudent', name: 'Student', component: AddStudent },
+        { path: '/Presness', name: 'Presness', component: Presness },
+        { path: '/AddPresness', name: 'AddPresness', component: AddPresness },
 
     ]
 });

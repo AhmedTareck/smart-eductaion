@@ -53,7 +53,6 @@ export default {
             return key.toString();
         },
         encrypt: function encrypt(data) {
-            debugger;
             var dataSet = CryptoJS.AES.encrypt(JSON.stringify(data), this.SECRET_KEY);
             dataSet = dataSet.toString();
             return dataSet;

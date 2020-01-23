@@ -13,9 +13,7 @@ export default {
     Logout() {
         return axios.post(baseUrl + '/security/logout');
     },    
-    //CheckLoginStatus() {
-    //    return axios.post('/security/checkloginstatus');
-    //},  
+    
 
     GetLoginInfo() {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
@@ -97,7 +95,6 @@ export default {
     },
 
     AddStudent(student) {
-        debugger
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + `/admin/Students/Add`, student);
     },
@@ -118,5 +115,34 @@ export default {
         return axios.get(baseUrl + `/admin/Students/getStudentById?id=${studentId}`);
     },
 
+    EditStudent(student) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Students/Edit`, student);
+    },
+
+    GetPresness(pageNo, pageSize, EventSelectd) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Presness/GetPresness?pageno=${pageNo}&pagesize=${pageSize}&EventId=${EventSelectd}`);
+    },
+
+    addPresness(presness) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Presness/Add`, presness);
+    },
+
+    deltePresness(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Presness/${id}/deltePresness`);
+    },
+
+    GetPresnessInfo(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Presness/GetPresnessInfo?id=${id}`);
+    },
+
+    editPresness(presness) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Presness/editPresness`, presness);
+    },
     
 }

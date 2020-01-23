@@ -8,7 +8,6 @@ namespace Management.Models
         public StudentEvents()
         {
             Grids = new HashSet<Grids>();
-            Presness = new HashSet<Presness>();
         }
 
         public long StudentEventId { get; set; }
@@ -21,6 +20,5 @@ namespace Management.Models
         public Events Event { get; set; }
         public Students Student { get; set; }
         public ICollection<Grids> Grids { get; set; }
-        public ICollection<Presness> Presness { get; set; }
     }
 }

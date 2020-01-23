@@ -63,7 +63,8 @@ td {
 }
 
 .el-pagination.is-background .el-pager li.active {
-    
+    color: #fff;
+    background: linear-gradient(60deg, #26c6da, #00acc1);
 }
 
  .addButton {

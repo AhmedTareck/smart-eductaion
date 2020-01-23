@@ -7,6 +7,7 @@ namespace Management.Models
     {
         public Students()
         {
+            PresnessInfo = new HashSet<PresnessInfo>();
             StudentEvents = new HashSet<StudentEvents>();
         }
 
@@ -25,6 +26,7 @@ namespace Management.Models
         public long? ParentId { get; set; }
 
         public User Parent { get; set; }
+        public ICollection<PresnessInfo> PresnessInfo { get; set; }
         public ICollection<StudentEvents> StudentEvents { get; set; }
     }
 }

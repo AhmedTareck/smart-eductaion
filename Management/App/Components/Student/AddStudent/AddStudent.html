@@ -8,9 +8,49 @@
                     <h4 class="card-title ">إضافة بيانات طالب</h4>
                 </div>
 
+                
+
                 <div class="row">
-                    <div class="col-md-12"  style="padding: 46px;">
+                    <div class="col-md-12" style="padding: 46px;">
                         <el-form :model="PersnalInfoForm" ref="PersnalInfoForm" label-width="100px" class="demo-ruleForm" dir="rtl">
+
+                            <div class="row" >
+
+                                <div class="col-md-3">
+                                    <label>السنة الدراسية</label>
+                                    <el-select v-model="YearSelected"
+                                               @change="getEvents()"
+                                               filterable placeholder="السنة الدراسية ">
+
+                                        <el-option v-for="item in Years"
+                                                   :key="item.acadimecYearId"
+                                                   :label="item.name"
+                                                   :value="item.acadimecYearId">
+                                        </el-option>
+
+                                    </el-select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>الفصل</label>
+                                    <el-select v-model="EventSelectd"
+                                               filterable
+                                               placeholder="الفصل "
+                                             >
+
+                                        <el-option v-for="item in Events"
+                                                   :key="item.eventId"
+                                                   :label="item.eventGroup"
+                                                   :value="item.eventId">
+                                        </el-option>
+
+                                    </el-select>
+                                </div>
+
+                            </div>
+
+                            <br />
+                            <br />
 
                             <div class="row">
 
@@ -243,9 +283,8 @@
                                     <div class="pull-left">
 
                                         <br>
-                                        <el-button class="btn btn-danger btn-fill pull-right" type="primary" @click="back()">رجوع</el-button>
 
-                                        <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="submitForm('PersnalInfoForm')">إظافة</el-button>
+                                        <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="submitForm('PersnalInfoForm')">إضافة بيانات الطالب</el-button>
                                     </div>
 
                                 </div>

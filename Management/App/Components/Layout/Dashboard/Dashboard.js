@@ -4,7 +4,7 @@ export default {
     created() { 
         this.SECRET_KEY = 'P@SSWORDTAMEME';
         var route = window.location.href.split("/")[3];
-        console.log(route);
+        //console.log(route);
         this.pathChange(route);
         //var DataSession = this.decrypt(sessionStorage.getItem('currentUser'));
         this.loginDetails = this.decrypt(sessionStorage.getItem('currentUser'));

@@ -73,41 +73,41 @@ namespace Management.Controllers
             }
         }
 
-        [HttpGet("GetStudentPresence")]
-        public IActionResult GetStudentPresence(long StudentEventId)
-        {
-            try
-            {
-                var Presence = (from p in db.Presness
-                                where p.StudentEventId == StudentEventId
-                                where p.Status != 9
-                                select p).ToList();
+        //[HttpGet("GetStudentPresence")]
+        //public IActionResult GetStudentPresence(long StudentEventId)
+        //{
+        //    try
+        //    {
+        //        var Presence = (from p in db.Presness
+        //                        where p.StudentEventId == StudentEventId
+        //                        where p.Status != 9
+        //                        select p).ToList();
 
-                return Ok(new { Presence = Presence });
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
-        }
+        //        return Ok(new { Presence = Presence });
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return StatusCode(500, e.Message);
+        //    }
+        //}
 
-        [HttpGet("GetStudetnSkedjule")]
-        public IActionResult GetStudetnSkedjule(long StudentEventId)
-        {
-            try
-            {
-                var Presence = (from p in db.Presness
-                                where p.StudentEventId == StudentEventId
-                                where p.Status != 9
-                                select p).ToList();
+        //[HttpGet("GetStudetnSkedjule")]
+        //public IActionResult GetStudetnSkedjule(long StudentEventId)
+        //{
+        //    try
+        //    {
+        //        var Presence = (from p in db.Presness
+        //                        where p.StudentEventId == StudentEventId
+        //                        where p.Status != 9
+        //                        select p).ToList();
 
-                return Ok(new { Presence = Presence });
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
-        }
+        //        return Ok(new { Presence = Presence });
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return StatusCode(500, e.Message);
+        //    }
+        //}
 
 
     }

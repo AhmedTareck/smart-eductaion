@@ -1,15 +1,16 @@
-﻿
+﻿import PresnessInfo from './PresnessInfo/PresnessInfo.vue';
+import EditPresness from './EditPresness/EditPresness.vue';
 ﻿import moment from 'moment';
-import StudentProfile from './StudentProfile/StudentProfile.vue';
 export default {
-    name: 'Student',
+    name: 'Presness',
     
     created() { 
-        this.GetStudent();
+        this.GetPresness();
         this.GetYears();
     },
     components: {
-        'StudentProfile': StudentProfile,
+        'PresnessInfo': PresnessInfo,
+        'EditPresness': EditPresness,
     },
     data() {
         return {
@@ -26,9 +27,9 @@ export default {
             Events:[],
             EventSelectd:'',
 
-            Students:[],
+            Presness:[],
 
-            selectedStudent:[],
+            selectedPresness:[],
         };
     },
 
@@ -44,7 +45,11 @@ export default {
 
 
     methods: {
-       
+        AddStudent()
+        {
+            this.state = 1;
+        },
+
         GetYears(){
             this.$blockUI.Start();
             this.$http.GetYears()
@@ -61,8 +66,9 @@ export default {
 
         getEvents() 
         {
-            this.EventSelectd='';
-            this.GetStudent();
+            
+            this.EventSelectd = '';
+            this.GetPresness(this.pageNo);
             this.$blockUI.Start();
             this.$http.GetEvents(this.YearSelected)
 
@@ -77,17 +83,18 @@ export default {
                 });
         },
 
-        GetStudent(pageNo) {
+        GetPresness(pageNo) {
+            this.presness=[],
             this.pageNo = pageNo;
             if (this.pageNo === undefined) {
                 this.pageNo = 1;
             }
             this.$blockUI.Start();
-            this.$http.GetStudent(this.pageNo, this.pageSize,this.EventSelectd)
+            this.$http.GetPresness(this.pageNo, this.pageSize,this.EventSelectd)
                 .then(response => {
 
                     this.$blockUI.Stop();
-                    this.Students = response.data.students;
+                    this.Presness = response.data.presness;
                     this.pages = response.data.count;
                 })
                 .catch((err) => {
@@ -99,29 +106,34 @@ export default {
 
         viewStudent(item)
         {
-            this.state=2;
-            this.selectedStudent=item;
+            this.state=1;
+            this.selectedPresness=item;
+        },
+
+        editePresness(item) {
+            this.state = 2;
+            this.selectedPresness = item;
         },
 
 
-        delteStudent(id) {
+        deltePresness(id) {
 
 
-            this.$confirm('سيؤدي ذلك إلى حدف الطالب  . استمر؟', 'تـحذير', {
+            this.$confirm('سيؤدي ذلك إلى حدف السجل  . استمر؟', 'تـحذير', {
                 confirmButtonText: 'نـعم',
                 cancelButtonText: 'لا',
                 type: 'warning'
             }).then(() => {
 
 
-                this.$http.delteStudent(id)
+                this.$http.deltePresness(id)
                     .then(response => {
                         this.$message({
                             type: 'info',
                             message: response.data
                         });
                         this.$blockUI.Stop();
-                        this.GetStudent();
+                        this.getEvents();
                     })
                     .catch((err) => {
                         this.$blockUI.Stop();

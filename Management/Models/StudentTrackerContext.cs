@@ -8,9 +8,9 @@ namespace Management.Models
     {
         public virtual DbSet<AcadimacYears> AcadimacYears { get; set; }
         public virtual DbSet<Events> Events { get; set; }
-        public virtual DbSet<Examing> Examing { get; set; }
         public virtual DbSet<Grids> Grids { get; set; }
         public virtual DbSet<Presness> Presness { get; set; }
+        public virtual DbSet<PresnessInfo> PresnessInfo { get; set; }
         public virtual DbSet<Schools> Schools { get; set; }
         public virtual DbSet<StudentEvents> StudentEvents { get; set; }
         public virtual DbSet<Students> Students { get; set; }
@@ -20,7 +20,6 @@ namespace Management.Models
 
         public StudentTrackerContext(DbContextOptions<StudentTrackerContext> options) : base(options) { }
 
-        // Unable to generate entity type for table 'dbo.StudentNotes'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.Packeges'. Please see the warning messages.
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -28,7 +27,7 @@ namespace Management.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"server=DESKTOP-RNT1C11;database=StudentTracker;uid=Ahmed;pwd=35087124567Ahmed;");
+                optionsBuilder.UseSqlServer(@"server=LAPTOP-DVJT5BST;database=StudentTracker;uid=Ahmed;pwd=35087124567Ahmed;");
             }
         }
 
@@ -66,25 +65,6 @@ namespace Management.Models
                     .HasConstraintName("FK_Events_Years");
             });
 
-            modelBuilder.Entity<Examing>(entity =>
-            {
-                entity.Property(e => e.CreatedBy).HasMaxLength(128);
-
-                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
-
-                entity.Property(e => e.Name).HasMaxLength(50);
-
-                entity.HasOne(d => d.Event)
-                    .WithMany(p => p.Examing)
-                    .HasForeignKey(d => d.EventId)
-                    .HasConstraintName("FK_Examing_Events");
-
-                entity.HasOne(d => d.Subject)
-                    .WithMany(p => p.Examing)
-                    .HasForeignKey(d => d.SubjectId)
-                    .HasConstraintName("FK_Examing_Subjects");
-            });
-
             modelBuilder.Entity<Grids>(entity =>
             {
                 entity.HasKey(e => e.Grid);
@@ -106,14 +86,27 @@ namespace Management.Models
 
             modelBuilder.Entity<Presness>(entity =>
             {
-                entity.Property(e => e.CreatedBy).HasMaxLength(128);
-
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-                entity.HasOne(d => d.StudentEvent)
+                entity.Property(e => e.LectureDate).HasColumnType("date");
+
+                entity.HasOne(d => d.Event)
                     .WithMany(p => p.Presness)
-                    .HasForeignKey(d => d.StudentEventId)
-                    .HasConstraintName("FK_Presness_StudentEvents1");
+                    .HasForeignKey(d => d.EventId)
+                    .HasConstraintName("FK_Presness_Events");
+            });
+
+            modelBuilder.Entity<PresnessInfo>(entity =>
+            {
+                entity.HasOne(d => d.Presness)
+                    .WithMany(p => p.PresnessInfo)
+                    .HasForeignKey(d => d.PresnessId)
+                    .HasConstraintName("FK_PresnessInfo_Presness1");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.PresnessInfo)
+                    .HasForeignKey(d => d.StudentId)
+                    .HasConstraintName("FK_PresnessInfo_Students");
             });
 
             modelBuilder.Entity<Schools>(entity =>

@@ -1,2 +1,5 @@
 ﻿@import "../Content/assets/css/material-dashboard.css?v=2.1.0";
 @import "../Content/assets/demo/demo.css";
+
+@import "fonts/font-awesome.min.css";
+@import "css/CDN_CSS/cssv1.css?family=Cairo&amp;subset=arabic";

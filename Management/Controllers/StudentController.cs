@@ -195,7 +195,8 @@ namespace Managegment.Controllers
                                    selectedSex = p.Sex,
                                    address = p.Adrress,
                                    phone = p.PhoneNumber,
-                                   parnsPhone = p.Parent.Phone
+                                   parnsPhone = p.Parent.Phone,
+                                   studentId=p.StudentId
                                }).ToList();
                 
 
@@ -207,6 +208,51 @@ namespace Managegment.Controllers
             }
         }
 
+        [HttpPost("Edit")]
+        public IActionResult EditStudent([FromBody] StudentObject student)
+        {
+            try
+            {
+
+                if (student == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+
+                var Student = (from p in db.Students where p.StudentId == student.StudentId && p.Status!=9 select p).SingleOrDefault();
+
+                if(Student==null)
+                {
+                    return BadRequest("لم يتم العتور علي الطالب الرجاء التأكد من البيانات ");
+                }
+                //var Student = new Students();
+
+                Student.FirstName = student.FirstName;
+                Student.FatherName = student.FatherName;
+                Student.GrandFatherName = student.GrandFatherName;
+                Student.SurName = student.SurName;
+                Student.MatherName = student.MatherName;
+                Student.Adrress = student.Adrress;
+                Student.PhoneNumber = student.Phone;
+                Student.Sex = student.SelectedSex;
+
+                db.SaveChanges();
+
+                return Ok("تمت عملية التعديل بنــجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
 
 
 

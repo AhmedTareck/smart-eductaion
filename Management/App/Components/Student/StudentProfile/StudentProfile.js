@@ -4,7 +4,6 @@ export default {
     
     created() { 
         this.getStudentById();
-        this.PersnalInfoForm.firstName=this.selectedStudent.firstName;
         this.sex = [
             {
                 id: 1,
@@ -28,11 +27,11 @@ export default {
                 grandFatherName: '',
                 matherName: '',
                 surName: '',
-
+                StudentId:'',
 
                 selectedSex: [],
 
-                address: '',
+                Adrress: '',
                 phone: '',
                 parnsPhone: '',
             },
@@ -58,11 +57,49 @@ export default {
 
                     this.$blockUI.Stop();
                     this.selectedStudent = response.data.student;
+                    this.PersnalInfoForm.firstName = this.selectedStudent[0].firstName;
+                    this.PersnalInfoForm.StudentId = this.selectedStudent[0].studentId;
+                    this.PersnalInfoForm.fatherName = this.selectedStudent[0].fatherName;
+                    this.PersnalInfoForm.grandFatherName = this.selectedStudent[0].grandFatherName;
+                    this.PersnalInfoForm.surName = this.selectedStudent[0].surName;
+                    this.PersnalInfoForm.matherName = this.selectedStudent[0].matherName;
+                    this.PersnalInfoForm.Adrress = this.selectedStudent[0].address;
+                    this.PersnalInfoForm.selectedSex = this.selectedStudent[0].selectedSex;
+                    this.PersnalInfoForm.phone = this.selectedStudent[0].phone;
+                    this.PersnalInfoForm.parnsPhone = this.selectedStudent[0].parnsPhone;
+                    
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();
                     console.error(err);
                 });
-        }
+        },
+
+        back() {
+            this.$parent.state = 0;
+        },
+
+
+        submitForm() {
+
+            this.$http.EditStudent(this.PersnalInfoForm)
+                .then(response => {
+                    //this.$parent.state = 0;
+                    this.$message({
+                        type: 'info',
+                        message: response.data
+                    });
+                    this.$parent.GetStudent();
+                    this.$blockUI.Stop();
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    this.$message({
+                        type: 'error',
+                        message: err.response.data
+                    });
+                });
+
+        },
     }    
 }

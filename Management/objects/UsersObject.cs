@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Management.LibyanObjects
+namespace Management.objects
 {
     public partial class UsersObj
     {

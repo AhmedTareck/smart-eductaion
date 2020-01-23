@@ -9,6 +9,8 @@ name: 'addStudent',
     },
     created() {
 
+        this.GetYears();
+
         this.sex=[
                 {
                     id: 1,
@@ -30,14 +32,20 @@ name: 'addStudent',
             
             //Persnal Info Data
 
+            Years: [],
+            YearSelected: '',
+
+            Events: [],
+            EventSelectd: '',
+
             sex:[],
             PersnalInfoForm: {
-                eventId:this.$parent.EventSelectd,
+                eventId:'',
                 firstName:'',
                 fatherName:'',
                 grandFatherName:'',
                 matherName:'',
-                surName:'',
+                surName:'', 
                 
                 
                 selectedSex:[],
@@ -60,9 +68,42 @@ filters: {
         }
 },
 
-methods: {
+    methods: {
 
-    submitForm(formName) {
+        GetYears() {
+            this.$blockUI.Start();
+            this.$http.GetYears()
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.Years = response.data.years;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
+
+        getEvents() {
+            this.EventSelectd = '';
+            this.$blockUI.Start();
+            this.$http.GetEvents(this.YearSelected)
+
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.Events = response.data.events;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
+
+        submitForm(formName) {
+
+            this.PersnalInfoForm.eventId = this.EventSelectd;
+
 
         this.$http.AddStudent(this.PersnalInfoForm)
                 .then(response => {
@@ -71,7 +112,9 @@ methods: {
                         type: 'info',
                         message: response.data
                     });
-                    this.$parent.GetStudent();
+                    this.PersnalInfoForm.phone= '',
+                    this.PersnalInfoForm.parnsPhone= '',
+                    this.resetForm(formName);
                     this.$blockUI.Stop();
                 })
                 .catch((err) => {
@@ -81,36 +124,12 @@ methods: {
                         message: err.response.data
                     });
                 });
-
-/*
-
-        this.$refs[formName].validate((valid) => {
-            if (valid) {
-                debugger
-                
-                //this.resetForm(formName);
-                //this.PersnalInfoForm.grandFatherName='';
-
-            } else {
-                console.log('error submit!!');
-                return false;
-            }
-        });*/
-
             
     },
 
     resetForm(formName) {
         this.$refs[formName].resetFields();
     },
-
-    back()
-    {
-        this.resetForm('PersnalInfoForm');
-        this.$parent.state=0;
-    }
-
-      
 
 
     }

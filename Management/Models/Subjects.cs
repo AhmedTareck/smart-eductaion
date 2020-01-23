@@ -7,7 +7,6 @@ namespace Management.Models
     {
         public Subjects()
         {
-            Examing = new HashSet<Examing>();
             Grids = new HashSet<Grids>();
         }
 
@@ -19,7 +18,6 @@ namespace Management.Models
         public short? Status { get; set; }
 
         public AcadimacYears AcadimecYear { get; set; }
-        public ICollection<Examing> Examing { get; set; }
         public ICollection<Grids> Grids { get; set; }
     }
 }

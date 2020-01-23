@@ -7,8 +7,6 @@
                 <div class="card-header card-header-info">
                     <h4 class="card-title ">تعديل بيانات طالب</h4>
                 </div>
-                {{PersnalInfoForm}}
-                {{selectedStudent}}
                 <div class="row">
                     <div class="col-md-12" style="padding: 46px;">
                         <el-form :model="PersnalInfoForm" ref="PersnalInfoForm" label-width="100px" class="demo-ruleForm" dir="rtl">
@@ -138,13 +136,13 @@
                                         <label>العنوان</label>
 
 
-                                        <el-form-item prop="address"
+                                        <el-form-item prop="Adrress"
                                                       label-width="0px"
                                                       :rules="[{required: true, message: 'Address Is Requird'} ]">
 
-                                            <el-input type="firstName"
+                                            <el-input type="Adrress"
                                                       placeholder="Address"
-                                                      v-model="PersnalInfoForm.address"
+                                                      v-model="PersnalInfoForm.Adrress"
                                                       autocomplete="off" />
 
                                         </el-form-item>
@@ -246,7 +244,7 @@
                                         <br>
                                         <el-button class="btn btn-danger btn-fill pull-right" type="primary" @click="back()">رجوع</el-button>
 
-                                        <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="submitForm('PersnalInfoForm')">إظافة</el-button>
+                                        <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="submitForm()">تعديل البيانات</el-button>
                                     </div>
 
                                 </div>

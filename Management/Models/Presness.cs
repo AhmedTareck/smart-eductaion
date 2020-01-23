@@ -5,12 +5,20 @@ namespace Management.Models
 {
     public partial class Presness
     {
-        public long PresnessId { get; set; }
-        public long? StudentEventId { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public string CreatedBy { get; set; }
-        public short? Status { get; set; }
+        public Presness()
+        {
+            PresnessInfo = new HashSet<PresnessInfo>();
+        }
 
-        public StudentEvents StudentEvent { get; set; }
+        public long Id { get; set; }
+        public DateTime? LectureDate { get; set; }
+        public string Note { get; set; }
+        public long? CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public short? Status { get; set; }
+        public long? EventId { get; set; }
+
+        public Events Event { get; set; }
+        public ICollection<PresnessInfo> PresnessInfo { get; set; }
     }
 }

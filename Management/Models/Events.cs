@@ -7,7 +7,7 @@ namespace Management.Models
     {
         public Events()
         {
-            Examing = new HashSet<Examing>();
+            Presness = new HashSet<Presness>();
             StudentEvents = new HashSet<StudentEvents>();
         }
 
@@ -21,7 +21,7 @@ namespace Management.Models
 
         public AcadimacYears AcadimecYear { get; set; }
         public Years Year { get; set; }
-        public ICollection<Examing> Examing { get; set; }
+        public ICollection<Presness> Presness { get; set; }
         public ICollection<StudentEvents> StudentEvents { get; set; }
     }
 }
