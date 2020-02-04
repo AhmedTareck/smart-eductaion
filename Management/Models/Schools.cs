@@ -8,7 +8,7 @@ namespace Management.Models
         public long SchoolId { get; set; }
         public string Name { get; set; }
         public long? UserId { get; set; }
-        public string CreatedBy { get; set; }
+        public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
 
         public User User { get; set; }

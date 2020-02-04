@@ -14,37 +14,45 @@
                     <div class="col-md-12" style="padding: 46px;">
                         <el-form :model="PersnalInfoForm" ref="PersnalInfoForm" label-width="100px" class="demo-ruleForm" dir="rtl">
 
-                            <div class="row" >
+                            <div class="row">
 
-                                <div class="col-md-3">
+                               
+
+                                <div class="col-md-6">
                                     <label>السنة الدراسية</label>
-                                    <el-select v-model="YearSelected"
-                                               @change="getEvents()"
-                                               filterable placeholder="السنة الدراسية ">
+                                        <el-select v-model="YearSelected"
+                                                   @change="getEvents()"
+                                                   style="    width: 100%;"
+                                                   filterable placeholder="السنة الدراسية ">
 
-                                        <el-option v-for="item in Years"
-                                                   :key="item.acadimecYearId"
-                                                   :label="item.name"
-                                                   :value="item.acadimecYearId">
-                                        </el-option>
+                                            <el-option v-for="item in Years"
+                                                       :key="item.acadimecYearId"
+                                                       :label="item.name"
+                                                       :value="item.acadimecYearId">
+                                            </el-option>
 
-                                    </el-select>
+                                        </el-select>
+
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <label>الفصل</label>
-                                    <el-select v-model="EventSelectd"
-                                               filterable
-                                               placeholder="الفصل "
-                                             >
+                                    <el-form-item prop="EventId"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: 'Class Is Requird'} ]">
+                                        <el-select v-model="PersnalInfoForm.EventId"
+                                                   filterable
+                                                   placeholder="الفصل "
+                                                   style="    width: 100%;">
 
-                                        <el-option v-for="item in Events"
-                                                   :key="item.eventId"
-                                                   :label="item.eventGroup"
-                                                   :value="item.eventId">
-                                        </el-option>
+                                            <el-option v-for="item in Events"
+                                                       :key="item.eventId"
+                                                       :label="item.eventGroup"
+                                                       :value="item.eventId">
+                                            </el-option>
 
-                                    </el-select>
+                                        </el-select>
+                                    </el-form-item>
                                 </div>
 
                             </div>
@@ -105,7 +113,7 @@
 
                                         <label>إسم الجد</label>
 
-                                        <el-form-item prop="fatherName"
+                                        <el-form-item prop="grandFatherName"
                                                       label-width="0px"
                                                       :rules="[{ required: true, message: 'Grandfathers Name Is Requird'} ]">
 
@@ -177,13 +185,13 @@
                                         <label>العنوان</label>
 
 
-                                        <el-form-item prop="address"
+                                        <el-form-item prop="Adrress"
                                                       label-width="0px"
                                                       :rules="[{required: true, message: 'Address Is Requird'} ]">
 
-                                            <el-input type="firstName"
+                                            <el-input type="Adrress"
                                                       placeholder="Address"
-                                                      v-model="PersnalInfoForm.address"
+                                                      v-model="PersnalInfoForm.Adrress"
                                                       autocomplete="off" />
 
                                         </el-form-item>
@@ -231,7 +239,7 @@
 
                                         <label>رقم الهاتف</label>
 
-                                        <el-form-item prop="motherFirstName"
+                                        <el-form-item prop="phone"
                                                       label-width="0px"
                                                       :rules="[{ required: true, message: 'Phone  Is Requird'} ]">
 
@@ -253,7 +261,7 @@
 
                                         <label>رقم هاتف ولي الأمر</label>
 
-                                        <el-form-item prop="motherFirstName"
+                                        <el-form-item prop="parnsPhone"
                                                       label-width="0px"
                                                       :rules="[{ required: true, message: 'Parens Phone  Is Requird'} ]">
 

@@ -12,7 +12,7 @@ namespace Management.Models
 
         public long YearId { get; set; }
         public string Name { get; set; }
-        public string CreatedBy { get; set; }
+        public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
 
         public ICollection<Events> Events { get; set; }

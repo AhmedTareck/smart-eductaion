@@ -43,8 +43,8 @@ namespace Managegment.Controllers
                 var Count = (from p in GetPresness select p).Count();
 
                 var PresnessList = (from p in GetPresness
-                                   orderby p.CreatedOn
-                                   select new
+                                   orderby p.CreatedOn descending
+                                    select new
                                    {
                                        id=p.Id,
                                        year=p.Event.Year.Name,
@@ -176,7 +176,7 @@ namespace Managegment.Controllers
                 //1 active 
                 // 0 not
                 var PresnessList = (from p in GetPresnessInfo
-                                    orderby p.Status
+                                    orderby p.Status descending
                                     select new
                                     {
                                         id = p.PresnessInfoId,

@@ -131,14 +131,14 @@
                 <div class="collapse" id="homeWorck">
                     <ul class="nav">
                         <li :class="menuFlag[5]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Presness',5)">
+                            <a class="nav-link" href="#" @click.prevent="href('/HomeWorcks',5)">
                                 <i class="fa fa-cogs"></i>
 
                                 <p>عرض الواجبات الدراسية </p>
                             </a>
                         </li>
                         <li :class="menuFlag[6]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddPresness',6)">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddHomeWorck',6)">
                                 <i class="fa fa-cogs"></i>
 
                                 <p>إضافة واجب دراسي</p>
@@ -160,21 +160,21 @@
                 <div class="collapse" id="exam">
                     <ul class="nav">
                         <li :class="menuFlag[7]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Presness',7)">
+                            <a class="nav-link" href="#" @click.prevent="href('/Exam',7)">
                                 <i class="fa fa-cogs"></i>
 
                                 <p>عرض الإختبارات </p>
                             </a>
                         </li>
                         <li :class="menuFlag[8]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddPresness',8)">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddExam',8)">
                                 <i class="fa fa-cogs"></i>
 
                                 <p>إضافة إختبار</p>
                             </a>
                         </li>
                         <li :class="menuFlag[9]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddPresness',9)">
+                            <a class="nav-link" href="#" @click.prevent="href('/Grids',9)">
                                 <i class="fa fa-cogs"></i>
 
                                 <p>رصد الدرجات</p>
@@ -185,40 +185,68 @@
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#notifcation">
+                <a class="nav-link" data-toggle="collapse" href="#Skedjule">
                     <!--<i class="material-icons">place</i>-->
                     <i class="fa fa-cogs"></i>
                     <p>
-                        الإشعارات
+                        الجدول الدراسي
                         <b class="caret" style="    float: left;position:relative;"></b>
                     </p>
                 </a>
-                <div class="collapse" id="notifcation">
+                <div class="collapse" id="Skedjule">
                     <ul class="nav">
                         <li :class="menuFlag[10]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Presness',10)">
+                            <a class="nav-link" href="#" @click.prevent="href('/Skedjule',10)">
                                 <i class="fa fa-cogs"></i>
 
-                                <p>عرض الإشعارات </p>
+                                <p>عرض الجدول الدراسي </p>
                             </a>
                         </li>
-                        <li :class="menuFlag[12]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddPresness',12)">
+                        <li :class="menuFlag[11]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddSkedjule',11)">
                                 <i class="fa fa-cogs"></i>
 
-                                <p>إشعار جديد</p>
-                            </a>
-                        </li>
-                        <li :class="menuFlag[12]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddPresness',12)">
-                                <i class="fa fa-cogs"></i>
-
-                                <p>متابعة الإشعارات</p>
+                                <p>إضافة جدول دراسي </p>
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
+
+            <!--<li class="nav-item ">
+        <a class="nav-link" data-toggle="collapse" href="#notifcation">
+            <i class="fa fa-cogs"></i>
+            <p>
+                الإشعارات
+                <b class="caret" style="    float: left;position:relative;"></b>
+            </p>
+        </a>
+        <div class="collapse" id="notifcation">
+            <ul class="nav">
+                <li :class="menuFlag[10]">
+                    <a class="nav-link" href="#" @click.prevent="href('/Presness',10)">
+                        <i class="fa fa-cogs"></i>
+
+                        <p>عرض الإشعارات </p>
+                    </a>
+                </li>
+                <li :class="menuFlag[12]">
+                    <a class="nav-link" href="#" @click.prevent="href('/AddPresness',12)">
+                        <i class="fa fa-cogs"></i>
+
+                        <p>إشعار جديد</p>
+                    </a>
+                </li>
+                <li :class="menuFlag[12]">
+                    <a class="nav-link" href="#" @click.prevent="href('/AddPresness',12)">
+                        <i class="fa fa-cogs"></i>
+
+                        <p>متابعة الإشعارات</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>-->
 
 
             <li :class="menuFlag[30]">

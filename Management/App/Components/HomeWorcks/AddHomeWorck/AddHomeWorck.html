@@ -1,0 +1,191 @@
+﻿
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">إضافة بيانات واجب دراسي</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="padding: 46px;">
+                        <el-form :model="selectedHomeWorck" ref="selectedHomeWorck" label-width="100px" class="demo-ruleForm" dir="rtl">
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>السنة الدراسية  </label>
+
+
+                                        <el-form-item prop="yearId"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: ' Year Is Requird'} ]">
+
+                                            <el-select v-model="selectedHomeWorck.yearId"
+                                                       @change="getEvents()"
+                                                       style="    width: 100%;"
+                                                       filterable placeholder="السنة الدراسية ">
+
+                                                <el-option v-for="item in Years"
+                                                           :key="item.acadimecYearId"
+                                                           :label="item.name"
+                                                           :value="item.acadimecYearId">
+                                                </el-option>
+
+                                            </el-select>
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>الفصل  </label>
+
+
+                                        <el-form-item prop="eventId"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: ' Class Is Requird'} ]">
+
+                                            <el-select v-model="selectedHomeWorck.eventId"
+                                                       
+                                                       style="    width: 100%;"
+                                                       filterable placeholder="الفصل ">
+
+                                                <el-option v-for="item in Events"
+                                                           :key="item.eventId"
+                                                           :label="item.eventGroup"
+                                                           :value="item.eventId">
+                                                </el-option>
+
+                                            </el-select>
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+
+                                        <label>وصف توضيحي</label>
+
+                                        <el-form-item prop="disctiption"
+                                                      label-width="0px"
+                                                      :rules="[{ required: true, message: 'Disctiption Is Requird'} ]">
+
+                                            <el-input type="disctiption"
+                                                      placeholder="وصف توضيحي"
+                                                      v-model="selectedHomeWorck.disctiption"
+                                                      :rows="6"
+                                                      autocomplete="off">
+                                            </el-input>
+
+                                        </el-form-item>
+
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>إسم الواجب الدراسي  </label>
+
+
+                                        <el-form-item prop="name"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: ' Name Is Requird'} ]">
+
+                                            <el-input type="name"
+                                                      placeholder="Name"
+                                                      v-model="selectedHomeWorck.name"
+                                                      autocomplete="off" />
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>اخر موعد للتسليم </label>
+
+
+                                        <el-form-item prop="lastDayDilavary"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: ' Date Is Requird'} ]">
+
+                                            <el-date-picker v-model="selectedHomeWorck.lastDayDilavary"
+                                                            type="date"
+                                                            placeholder="اخر موعد للتسليم">
+                                            </el-date-picker>
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-left">
+
+                                        <br>
+
+                                        <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="submitForm('selectedHomeWorck')">إضافة البيانات</el-button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </el-form>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+

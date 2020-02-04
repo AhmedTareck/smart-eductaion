@@ -8,10 +8,13 @@ namespace Management.Models
     {
         public virtual DbSet<AcadimacYears> AcadimacYears { get; set; }
         public virtual DbSet<Events> Events { get; set; }
+        public virtual DbSet<Exams> Exams { get; set; }
         public virtual DbSet<Grids> Grids { get; set; }
+        public virtual DbSet<HomeWorcks> HomeWorcks { get; set; }
         public virtual DbSet<Presness> Presness { get; set; }
         public virtual DbSet<PresnessInfo> PresnessInfo { get; set; }
         public virtual DbSet<Schools> Schools { get; set; }
+        public virtual DbSet<Skedjule> Skedjule { get; set; }
         public virtual DbSet<StudentEvents> StudentEvents { get; set; }
         public virtual DbSet<Students> Students { get; set; }
         public virtual DbSet<Subjects> Subjects { get; set; }
@@ -37,8 +40,6 @@ namespace Management.Models
             {
                 entity.HasKey(e => e.AcadimecYearId);
 
-                entity.Property(e => e.CreatedBy).HasMaxLength(128);
-
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -47,8 +48,6 @@ namespace Management.Models
             modelBuilder.Entity<Events>(entity =>
             {
                 entity.HasKey(e => e.EventId);
-
-                entity.Property(e => e.CreatedBy).HasMaxLength(128);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
@@ -65,23 +64,59 @@ namespace Management.Models
                     .HasConstraintName("FK_Events_Years");
             });
 
-            modelBuilder.Entity<Grids>(entity =>
+            modelBuilder.Entity<Exams>(entity =>
             {
-                entity.HasKey(e => e.Grid);
-
-                entity.Property(e => e.CreatedBy).HasMaxLength(128);
+                entity.HasKey(e => e.ExamId);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-                entity.HasOne(d => d.StudentEvent)
-                    .WithMany(p => p.Grids)
-                    .HasForeignKey(d => d.StudentEventId)
-                    .HasConstraintName("FK_Grids_StudentEvents");
+                entity.Property(e => e.ExamDate).HasColumnType("date");
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.Exams)
+                    .HasForeignKey(d => d.EventId)
+                    .HasConstraintName("FK_Exams_Events");
 
                 entity.HasOne(d => d.Subject)
-                    .WithMany(p => p.Grids)
+                    .WithMany(p => p.Exams)
                     .HasForeignKey(d => d.SubjectId)
-                    .HasConstraintName("FK_Grids_Subjects");
+                    .HasConstraintName("FK_Exams_Subjects1");
+            });
+
+            modelBuilder.Entity<Grids>(entity =>
+            {
+                entity.HasKey(e => e.GridId);
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Exam)
+                    .WithMany(p => p.Grids)
+                    .HasForeignKey(d => d.ExamId)
+                    .HasConstraintName("FK_Grids_Exams");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.Grids)
+                    .HasForeignKey(d => d.StudentId)
+                    .HasConstraintName("FK_Grids_Students");
+            });
+
+            modelBuilder.Entity<HomeWorcks>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.LastDayDilavary).HasColumnType("date");
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.HomeWorcks)
+                    .HasForeignKey(d => d.EventId)
+                    .HasConstraintName("FK_HomeWorcks_Events");
+
+                entity.HasOne(d => d.Subject)
+                    .WithMany(p => p.HomeWorcks)
+                    .HasForeignKey(d => d.SubjectId)
+                    .HasConstraintName("FK_HomeWorcks_Subjects");
             });
 
             modelBuilder.Entity<Presness>(entity =>
@@ -113,8 +148,6 @@ namespace Management.Models
             {
                 entity.HasKey(e => e.SchoolId);
 
-                entity.Property(e => e.CreatedBy).HasMaxLength(128);
-
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -125,11 +158,24 @@ namespace Management.Models
                     .HasConstraintName("FK_Schools_User");
             });
 
+            modelBuilder.Entity<Skedjule>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.Skedjule)
+                    .HasForeignKey(d => d.EventId)
+                    .HasConstraintName("FK_Skedjule_Events");
+
+                entity.HasOne(d => d.Subject)
+                    .WithMany(p => p.Skedjule)
+                    .HasForeignKey(d => d.SubjectId)
+                    .HasConstraintName("FK_Skedjule_Subjects");
+            });
+
             modelBuilder.Entity<StudentEvents>(entity =>
             {
                 entity.HasKey(e => e.StudentEventId);
-
-                entity.Property(e => e.CreatedBy).HasMaxLength(128);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
@@ -149,8 +195,6 @@ namespace Management.Models
                 entity.HasKey(e => e.StudentId);
 
                 entity.Property(e => e.Adrress).HasMaxLength(50);
-
-                entity.Property(e => e.CreatedBy).HasMaxLength(128);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
@@ -175,8 +219,6 @@ namespace Management.Models
             modelBuilder.Entity<Subjects>(entity =>
             {
                 entity.HasKey(e => e.SubjectId);
-
-                entity.Property(e => e.CreatedBy).HasMaxLength(128);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
@@ -206,8 +248,6 @@ namespace Management.Models
             modelBuilder.Entity<Years>(entity =>
             {
                 entity.HasKey(e => e.YearId);
-
-                entity.Property(e => e.CreatedBy).HasMaxLength(128);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 

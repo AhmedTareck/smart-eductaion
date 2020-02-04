@@ -62,7 +62,7 @@ namespace Management.Controllers
                                 select new
                                 {
                                     Class=p.Event.EventGroup,
-                                    year=p.Event.Year.Name,
+                                    year=p.Event.AcadimecYear.Name,
                                 }).ToList();
 
                 return Ok(new { Events = Events });
@@ -72,6 +72,56 @@ namespace Management.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpGet("GetGridInfo")]
+        public IActionResult GetGridInfo(long StudentId)
+        {
+            try
+            {
+                var Events = (from p in db.Grids
+                              where p.StudentId == StudentId /*&& p.Event.Year.YearId==1*/
+                              where p.Status != 9
+                              select new
+                              {
+                                  ExamName=p.Exam.Name,
+                                  FullMarck=p.Exam.FullMarck,
+                                  Grid=p.Grid,
+                                  ExamDate = p.Exam.ExamDate,
+                              }).ToList();
+
+                return Ok(new { Events = Events });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetStudentExam")]
+        public IActionResult GetStudentExam(long StudentId)
+        {
+            try
+            {
+                var Events = (from p in db.Grids
+                              where p.StudentId == StudentId /*&& p.Event.Year.YearId==1*/
+                              where p.Status != 9
+                              select new
+                              {
+                                  ExamName = p.Exam.Name,
+                                  FullMarck = p.Exam.FullMarck,
+                                  Grid = p.Grid,
+                                  ExamDate = p.Exam.ExamDate,
+                              }).ToList();
+
+                return Ok(new { Events = Events });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+
 
         //[HttpGet("GetStudentPresence")]
         //public IActionResult GetStudentPresence(long StudentEventId)

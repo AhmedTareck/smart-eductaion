@@ -1,0 +1,78 @@
+﻿<div class="content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">رصد الدرجات</h4>
+                </div>
+                <br />
+                <br />
+                <br />
+
+                <div class="row" v-if="Students==0">
+
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <br /><br />
+                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للدرجات"
+                                      type="info">
+                            </el-alert>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <!--Table Info-->
+                <div class="row " v-if="Students!=0">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="text-info">
+                                    <th style="text-align:center">
+                                        #
+                                    </th>
+                                    <th style="text-align:center">
+                                        الإسم
+                                    </th>
+                                    <th style="text-align:center">
+                                        الدرجة
+                                    </th>
+                                    <th style="text-align:center">
+                                        تاريخ الإدراج
+                                    </th>
+                                    </thead>
+                                    <tbody style="text-align:center">
+                                        <tr v-for="item,index in Students">
+                                            <td>{{index+1}} </td>
+                                            <td>{{item.studentName }} </td>
+                                            <td>{{item.marck }} </td>
+                                            <td>{{item.createdOn | moment }} </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="d-flex justify-content-center">
+                    <div class="col-md-2">
+                        <el-button class="btn btn-danger btn-fill pull-right"
+                                   type="primary"
+                                   @click="back()"
+                                  >
+                            رجوع
+
+                        </el-button>
+                    </div>
+                </div>
+                <br />
+                <br />
+            </div>
+        </div>
+    </div>
+</div>

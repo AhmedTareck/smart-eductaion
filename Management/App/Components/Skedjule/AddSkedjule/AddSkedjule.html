@@ -1,0 +1,644 @@
+﻿<div class="content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">إضافة جدول دراسي</h4>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div class="row" style="margin-right: 0px; margin-left: 0px;">
+
+
+                    <div class="col-md-6">
+                        <span class="demonstration">السنة الدراسية</span>
+                        <el-select v-model="YearSelected"
+                                   @change="getEvents()"
+                                   style="width:100%"
+                                   filterable placeholder="السنة الدراسية ">
+
+                            <el-option v-for="item in Years"
+                                       :key="item.acadimecYearId"
+                                       :label="item.name"
+                                       :value="item.acadimecYearId">
+                            </el-option>
+
+                        </el-select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <span class="demonstration">الفصل الدراسي</span>
+                        <el-select v-model="skedjule.EventSelectd"
+                                   filterable
+                                   placeholder="الفصل "
+                                   style="width:100%"
+                                   @change="GetStudent()">
+
+                            <el-option v-for="item in Events"
+                                       :key="item.eventId"
+                                       :label="item.eventGroup"
+                                       :value="item.eventId">
+                            </el-option>
+
+                        </el-select>
+                    </div>
+
+                </div>
+
+                <br />
+                <br />
+                <!--Table Info-->
+                <div class="row ">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="text-info">
+                                    <th style="text-align:center">
+                                        اليوم
+                                    </th>
+                                    <th style="text-align:center">
+                                        الحصة الأولي
+                                    </th>
+                                    <th style="text-align:center">
+                                        الحصة التانية
+                                    </th>
+                                    <th style="text-align:center">
+                                        الحصة التالتة
+                                    </th>
+                                    <th style="text-align:center">
+                                        الحصة الرابعة
+                                    </th>
+                                    <th style="text-align:center">
+                                        الحصة الخمسة
+                                    </th>
+                                    <th style="text-align:center">
+                                        الحصة السادسة
+                                    </th>
+                                    <th style="text-align:center">
+                                        الحصة السابعة
+                                    </th>
+                                    </thead>
+                                    <tr>
+                                        <td>السبت </td>
+                                        <td>
+                                            <el-select v-model="skedjule.satrdayOne"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.satrdaytwo"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.satrdayTree"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.satrdayFour"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.satrdayFive"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.satrdaySex"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.satrdaySeven"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>الأحد </td>
+                                        <td>
+                                            <el-select v-model="skedjule.sunOne"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.suntwo"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.sunTree"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.sunFour"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.sunFive"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.sunSex"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.sunSeven"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>الإتنين </td>
+                                        <td>
+                                            <el-select v-model="skedjule.mOne"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.mtwo"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.mTree"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.mFour"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.mFive"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.mSex"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.mSeven"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>التلاتاء </td>
+                                        <td>
+                                            <el-select v-model="skedjule.TuOne"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.Tutwo"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.TuTree"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.TuFour"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.TuFive"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.TuSex"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.TuSeven"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>الإرباء </td>
+                                        <td>
+                                            <el-select v-model="skedjule.ThOne"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.Thtwo"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.ThTree"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.ThFour"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.ThFive"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.ThSex"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.ThSeven"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>الخميس </td>
+                                        <td>
+                                            <el-select v-model="skedjule.wOne"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.wtwo"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.wTree"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.wFour"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.wFive"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.wSex"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+                                        <td>
+                                            <el-select v-model="skedjule.wSeven"
+                                                       filterable
+                                                       placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+                                            </el-select>
+                                        </td>
+
+
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="d-flex justify-content-center">
+                    <div class="col-md-2">
+                        <el-button class="btn btn-info btn-fill pull-right"
+                                   type="primary"
+                                   @click="AddSkedjule()">
+                            إضافة الجدول الدراسي
+
+                        </el-button>
+                    </div>
+                </div>
+                <br />
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

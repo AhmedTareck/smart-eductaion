@@ -94,6 +94,16 @@ export default {
         return axios.get(baseUrl + `/admin/Courses/GetEvents?yearId=${yearId}`);
     },
 
+    getSubject(yearId) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/getSubject?yearId=${yearId}`);
+    },
+
+    getSubjectExama(SubjectSelected) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/getSubjectExama?id=${SubjectSelected}`);
+    },
+
     AddStudent(student) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + `/admin/Students/Add`, student);
@@ -143,6 +153,61 @@ export default {
     editPresness(presness) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + `/admin/Presness/editPresness`, presness);
+    },
+
+    GetHomeWorck(pageNo, pageSize, YearSelected,EventSelectd) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/HomeWorck/GetHomeWorck?pageno=${pageNo}&pagesize=${pageSize}&YearId=${YearSelected}&eventId=${EventSelectd}`);
+    },
+
+    AddHomeWorck(selectedHomeWorck) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/HomeWorck/Add`, selectedHomeWorck);
+    },
+
+    editHomeWorck(selectedHomeWorck) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/HomeWorck/Edit`, selectedHomeWorck);
+    },
+
+    delteHomeWorck(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/HomeWorck/${id}/delteHomeWorck`);
+    },
+
+    GetExams(pageNo, pageSize, YearSelected, EventSelectd) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Exam/GetExams?pageno=${pageNo}&pagesize=${pageSize}&YearId=${YearSelected}&eventId=${EventSelectd}`);
+    },
+
+    AddExam(selectedExams) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Exam/Add`, selectedExams);
+    },
+
+    editExam (selectedExam) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Exam/Edit`, selectedExam);
+    },
+
+    delteExams(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Exam/${id}/delteExams`);
+    },
+
+    addGrids(presness) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Exam/addGrids`, presness);
+    },
+
+    getGridsInfo(pageNo, pageSize,id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Exam/getGridsInfo?pageno=${pageNo}&pagesize=${pageSize}&id=${id}`);
+    },
+
+    AddSkedjule(skedjule) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/AddSkedjule`, skedjule);
     },
     
 }

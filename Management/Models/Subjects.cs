@@ -7,17 +7,21 @@ namespace Management.Models
     {
         public Subjects()
         {
-            Grids = new HashSet<Grids>();
+            Exams = new HashSet<Exams>();
+            HomeWorcks = new HashSet<HomeWorcks>();
+            Skedjule = new HashSet<Skedjule>();
         }
 
         public long SubjectId { get; set; }
         public int? AcadimecYearId { get; set; }
         public string Name { get; set; }
-        public string CreatedBy { get; set; }
+        public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
         public short? Status { get; set; }
 
         public AcadimacYears AcadimecYear { get; set; }
-        public ICollection<Grids> Grids { get; set; }
+        public ICollection<Exams> Exams { get; set; }
+        public ICollection<HomeWorcks> HomeWorcks { get; set; }
+        public ICollection<Skedjule> Skedjule { get; set; }
     }
 }

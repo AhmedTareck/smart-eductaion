@@ -41,7 +41,7 @@ namespace Managegment.Controllers
                 var Count = (from p in GetStudent select p).Count();
 
                 var StudentList = (from p in GetStudent
-                                   orderby p.FirstName
+                                   orderby p.FirstName descending
                                    select new
                                    {
                                        StudentId=p.StudentId,
@@ -101,13 +101,13 @@ namespace Managegment.Controllers
                 Student.Adrress = student.Adrress;
                 Student.PhoneNumber = student.Phone;
                 Student.Sex = student.SelectedSex;
-                Student.CreatedBy = userId.ToString();//dont forger this 
+                Student.CreatedBy = userId;
                 Student.CreatedOn = DateTime.Now;
                 Student.Status = 1;
 
                 studentEvent.EventId = student.EventId;
                 //studentEvent.StudentId = student.StudentId;
-                studentEvent.CreatedBy = userId.ToString();//dont forger this 
+                studentEvent.CreatedBy = userId;
                 studentEvent.CreatedOn = DateTime.Now;
                 studentEvent.Status = 1;
                 studentEvent.Student = Student;
@@ -162,7 +162,7 @@ namespace Managegment.Controllers
                 var GetStudent = from p in db.StudentEvents where p.EventId == EventId && p.Student.Status != 9  select p.Student;
 
                 var StudentList = (from p in GetStudent
-                                   orderby p.FirstName
+                                   orderby p.FirstName descending
                                    select new
                                    {
                                        StudentId = p.StudentId,

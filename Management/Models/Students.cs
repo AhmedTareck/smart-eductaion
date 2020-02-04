@@ -7,6 +7,7 @@ namespace Management.Models
     {
         public Students()
         {
+            Grids = new HashSet<Grids>();
             PresnessInfo = new HashSet<PresnessInfo>();
             StudentEvents = new HashSet<StudentEvents>();
         }
@@ -19,13 +20,14 @@ namespace Management.Models
         public string Adrress { get; set; }
         public string PhoneNumber { get; set; }
         public bool? Sex { get; set; }
-        public string CreatedBy { get; set; }
+        public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
         public short? Status { get; set; }
         public string MatherName { get; set; }
         public long? ParentId { get; set; }
 
         public User Parent { get; set; }
+        public ICollection<Grids> Grids { get; set; }
         public ICollection<PresnessInfo> PresnessInfo { get; set; }
         public ICollection<StudentEvents> StudentEvents { get; set; }
     }

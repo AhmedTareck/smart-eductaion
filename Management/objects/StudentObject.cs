@@ -16,7 +16,10 @@ namespace Managegment.objects
         public string SurName { get; set; }
         public string Adrress { get; set; }
         public string Phone { get; set; }
+        public string parnsPhone { get; set; }
         public bool SelectedSex { get; set; }
+
+
 
 
 

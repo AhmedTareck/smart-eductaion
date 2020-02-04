@@ -13,7 +13,7 @@ namespace Management.Models
 
         public int AcadimecYearId { get; set; }
         public string Name { get; set; }
-        public string CreatedBy { get; set; }
+        public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
         public short? Status { get; set; }
 

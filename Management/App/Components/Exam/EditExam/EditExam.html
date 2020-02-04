@@ -1,0 +1,153 @@
+﻿
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">تعديل بيانات الواجب الدراسي</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="padding: 46px;">
+                        <el-form :model="selectedExam" ref="selectedExam" label-width="100px" class="demo-ruleForm" dir="rtl">
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>إسم الإختبار </label>
+
+
+                                        <el-form-item prop="name"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: ' Name Is Requird'} ]">
+
+                                            <el-input type="name"
+                                                      placeholder="إسم الإختبار"
+                                                      v-model="selectedExam.name"
+                                                      autocomplete="off" />
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>وصف توضيحي</label>
+
+                                        <el-form-item prop="disctiption"
+                                                      label-width="0px"
+                                                      :rules="[{ required: true, message: 'Disctiption Is Requird'} ]">
+
+                                            <el-input type="disctiption"
+                                                      placeholder="وصف توضيحي"
+                                                      v-model="selectedExam.disctiption"
+                                                      :rows="6"
+                                                      autocomplete="off">
+                                            </el-input>
+
+                                        </el-form-item>
+
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>الدرجة النهائية  </label>
+
+
+                                        <el-form-item prop="fullMarck"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: ' FullMarck Is Requird'} ]">
+
+                                            <el-input type="name"
+                                                      placeholder="الدرجة النهائية"
+                                                      v-model="selectedExam.fullMarck"
+                                                      autocomplete="off" />
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>تاريخ الإختبار </label>
+
+
+                                        <el-form-item prop="examDate"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: ' Date Is Requird'} ]">
+
+                                            <el-date-picker v-model="selectedExam.examDate"
+                                                            type="date"
+                                                            placeholder="تاريخ الإختبار">
+                                            </el-date-picker>
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-left">
+
+                                        <br>
+                                        <el-button class="btn btn-danger btn-fill pull-right" type="primary" @click="back()">رجوع</el-button>
+
+                                        <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="submitForm('selectedExam')">تعديل البيانات</el-button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </el-form>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+

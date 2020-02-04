@@ -1,5 +1,4 @@
-﻿
-﻿import moment from 'moment';
+﻿﻿import moment from 'moment';
 import StudentProfile from './StudentProfile/StudentProfile.vue';
 export default {
     name: 'Student',

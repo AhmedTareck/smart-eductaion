@@ -20,8 +20,6 @@ name: 'addStudent',
                     id: 2,
                     name: 'انتي'
                 }
-
-
         ];
         
     },
@@ -40,7 +38,7 @@ name: 'addStudent',
 
             sex:[],
             PersnalInfoForm: {
-                eventId:'',
+                EventId:'',
                 firstName:'',
                 fatherName:'',
                 grandFatherName:'',
@@ -50,7 +48,7 @@ name: 'addStudent',
                 
                 selectedSex:[],
                 
-                address:'',
+                Adrress:'',
                 phone:'',
                 parnsPhone:'',
             },
@@ -101,35 +99,43 @@ filters: {
         },
 
         submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.addStudent(formName);
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
 
-            this.PersnalInfoForm.eventId = this.EventSelectd;
 
+        },
 
-        this.$http.AddStudent(this.PersnalInfoForm)
-                .then(response => {
-                    this.$parent.state = 0;
-                    this.$message({
-                        type: 'info',
-                        message: response.data
+        addStudent(formName) {
+            debugger
+            this.$http.AddStudent(this.PersnalInfoForm)
+                    .then(response => {
+                        this.$message({
+                            type: 'info',
+                            message: response.data
+                        });
+                        this.resetForm(formName);
+                        this.YearSelected = '';
+                        this.$blockUI.Stop();
+                    })
+                    .catch((err) => {
+                        this.$blockUI.Stop();
+                        this.$message({
+                            type: 'error',
+                            message: err.response.data
+                        });
                     });
-                    this.PersnalInfoForm.phone= '',
-                    this.PersnalInfoForm.parnsPhone= '',
-                    this.resetForm(formName);
-                    this.$blockUI.Stop();
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-                    this.$message({
-                        type: 'error',
-                        message: err.response.data
-                    });
-                });
             
-    },
+        },
 
-    resetForm(formName) {
-        this.$refs[formName].resetFields();
-    },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
 
 
     }

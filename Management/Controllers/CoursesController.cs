@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Managegment.Controllers;
 using Management.Models;
+using Management.objects;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -60,37 +61,16 @@ namespace CMS.Controllers
             }
         }
 
-        /*
-
-        [HttpGet("GetCoursesBySuperPackageId")]
-        public IActionResult GetCoursesBySuperPackageId(int pageNo, int pageSize, int SuperPackageId)
+        [HttpGet("getSubject")]
+        public IActionResult getSubject(int yearId)
         {
             try
             {
-                IQueryable<Courses> CoursesQuery;
-                CoursesQuery = from p in db.Courses
-                                where p.Status == 1 && p.SuperPackageId == SuperPackageId
-                               select p;
+                var subject = from p in db.Subjects
+                                where p.Status != 9 && p.AcadimecYearId == yearId
+                                select p;
 
-                var CoursesCount = (from p in CoursesQuery
-                                     select p).Count();
-
-                var CoursesList = (from p in CoursesQuery
-                                    orderby p.CreatedOn descending
-                                    select new
-                                    {
-                                        Name = p.Name,
-                                        Description = p.Description,
-                                        CourseId = p.CourseId,
-                                        Color = p.Color,
-                                        Discount = p.Discount,
-                                        PriceCompany = p.PriceCompany,
-                                        PricePersonal = p.PricePersonal,
-                                        Status = p.Status,
-                                        SuperPackageId = p.SuperPackageId,
-                                    }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
-
-                return Ok(new { Courses = CoursesList, count = CoursesCount });
+                return Ok(new { Subject = subject });
             }
             catch (Exception e)
             {
@@ -98,37 +78,16 @@ namespace CMS.Controllers
             }
         }
 
-
-        [HttpGet("GetCoursesByPackageId")]
-        public IActionResult GetCoursesByPackageId(int pageNo, int pageSize, int PackageId)
+        [HttpGet("getSubjectExama")]
+        public IActionResult getSubjectExama(int id)
         {
             try
             {
-                IQueryable<Courses> CoursesQuery;
-                CoursesQuery = from p in db.Courses
-                               where p.Status == 1 && p.PackageId == PackageId
-                               select p;
+                var exams = from p in db.Exams
+                              where p.Status != 9 && p.SubjectId == id
+                              select p;
 
-                var CoursesCount = (from p in CoursesQuery
-                                    select p).Count();
-
-                var CoursesList = (from p in CoursesQuery
-                                   orderby p.CreatedOn descending
-                                   select new
-                                   {
-                                       Name = p.Name,
-                                       Description = p.Description,
-                                       CourseId = p.CourseId,
-                                       Color = p.Color,
-                                       Discount = p.Discount,
-                                       PriceCompany = p.PriceCompany,
-                                       PricePersonal = p.PricePersonal,
-                                       Status = p.Status,
-                                       SuperPackageId = p.SuperPackageId,
-                                       PackageId=p.PackageId,
-                                   }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
-
-                return Ok(new { Courses = CoursesList, count = CoursesCount });
+                return Ok(new { Exams = exams });
             }
             catch (Exception e)
             {
@@ -136,96 +95,13 @@ namespace CMS.Controllers
             }
         }
 
-
-        //[HttpGet("GetCoursesBySuperPackageIdOrPackageId")]
-        //public IActionResult GetCoursesBySuperPackageIdOrPackageId(int pageNo, int pageSize, int SuperPackageId,int PackageId)
-        //{
-        //    try
-        //    {
-        //        IQueryable<Courses> CoursesQuery;
-        //        if (SuperPackageId==0 && PackageId == 0)
-        //        {                  
-        //            CoursesQuery = from p in db.Courses
-        //                           where p.Status == 1 && p.Package.Status==0 
-        //                           select p;
-        //        }
-        //        else
-        //        {
-        //            CoursesQuery = from p in db.Courses
-        //                           where p.Status == 1 && p.SuperPackageId == SuperPackageId
-        //                           select p;
-
-        //        }
-
-
-        //        var CoursesCount = (from p in CoursesQuery
-        //                            select p).Count();
-
-        //        var CoursesList = (from p in CoursesQuery
-        //                           orderby p.CreatedOn descending
-        //                           select new
-        //                           {
-        //                               Name = p.Name,
-        //                               Description = p.Description,
-        //                               CourseId = p.CourseId,
-        //                               Color = p.Color,
-        //                               Discount = p.Discount,
-        //                               PriceCompany = p.PriceCompany,
-        //                               PricePersonal = p.PricePersonal,
-        //                               Status = p.Status,
-        //                               SuperPackageId = p.SuperPackageId,
-        //                           }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
-
-        //        return Ok(new { Courses = CoursesList, count = CoursesCount });
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, "خطــأ في عملية الإتصـال بالخادم الرجاء المحاولة لاحقا");
-        //    }
-        //}
-
-
-
-        [HttpPost("{CourseId}/delete")]
-        public IActionResult DeleteCourse(long CourseId)
+        [HttpPost("AddSkedjule")]
+        public IActionResult AddSkedjule([FromBody] SkedjuleObj skedjule)
         {
             try
             {
-                var userId = this.help.GetCurrentUser(HttpContext);
 
-                if (userId <= 0)
-                {
-                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-                }
-
-                var Course = (from p in db.Courses
-                               where p.CourseId == CourseId
-                               && (p.Status == 1)
-                               select p).SingleOrDefault();
-
-                if (Course == null)
-                {
-                    return NotFound("خــطأ : المستخدم غير موجود");
-                }
-
-                Course.Status = 9;
-                Course.UpdatedBy = userId;
-                Course.UpdatedOn = DateTime.Now;
-                db.SaveChanges();
-                return Ok("Course Deleted");
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
-        }
-
-        [HttpPost("Add")]
-        public IActionResult AddCourse([FromBody] Courses Course)
-        {
-            try
-            {
-                if (Course == null)
+                if (skedjule == null)
                 {
                     return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
                 }
@@ -237,63 +113,575 @@ namespace CMS.Controllers
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
                 }
 
-                Course.CreatedBy = userId;
-                Course.CreatedOn = DateTime.Now;
-                Course.Status = 1;
-                db.Courses.Add(Course);
-                db.SaveChanges();
+                for (int i = 1; i <= 6; i++)
+                {
+                    switch (i)
+                    {
+                        case 1:
+                            {
+                                for (int j = 1; j <= 7; j++)
+                                {
+                                    
+                                    switch (j)
+                                    {
+                                        case 1:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.SubjectId = skedjule.satrdayOne;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedBy = userId;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 2:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.satrdaytwo;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 3:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.satrdayTree;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 4:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.satrdayFour;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 5:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.satrdayFive;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 6:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.satrdaySex;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 7:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.satrdaySeven;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        default:
+                                            break;
+                                    }
+                                    
+                                }
+                                
+                                break;
+                            };
+                        case 2:
+                            {
+                                for (int j = 1; j <= 7; j++)
+                                {
+                                    switch (j)
+                                    {
+                                        case 1:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.sunOne;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 2:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.suntwo;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 3:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.sunTree;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 4:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.sunFour;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 5:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.sunFive;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 6:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.sunSex;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 7:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.sunSeven;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        default:
+                                            break;
+                                    }
 
-                return Ok("لقد قمت بتسـجيل بيانات الــدورة بنــجاح");
+                                }
+
+                                break;
+                            };
+                        case 3:
+                            {
+                                for (int j = 1; j <= 7; j++)
+                                {
+                                    switch (j)
+                                    {
+                                        case 1:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.mOne;
+                                                db.Skedjule.Add(Skedjule);
+
+                                                break;
+                                            }
+                                        case 2:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.mtwo;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 3:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.mTree;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 4:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.mFour;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 5:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.mFive;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 6:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.mSex;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 7:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.mSeven;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        default:
+                                            break;
+                                    }
+
+                                }
+
+                                break;
+                            };
+                        case 4:
+                            {
+                                for (int j = 1; j <= 7; j++)
+                                {
+                                    switch (j)
+                                    {
+                                        case 1:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.TuOne;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 2:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.Tutwo;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 3:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.TuTree;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 4:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.TuFour;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 5:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.TuFive;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 6:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.TuSex;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 7:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.TuSeven;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        default:
+                                            break;
+                                    }
+
+                                }
+
+                                break;
+                            };
+                        case 5:
+                            {
+                                for (int j = 1; j <= 7; j++)
+                                {
+                                    switch (j)
+                                    {
+                                        case 1:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.ThOne;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 2:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.Thtwo;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 3:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.ThTree;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 4:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.ThFour;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 5:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.ThFive;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 6:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.ThSex;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 7:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.ThSeven;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        default:
+                                            break;
+                                    }
+
+                                }
+
+                                break;
+                            };
+                        case 6:
+                            {
+                                for (int j = 1; j <= 7; j++)
+                                {
+                                    switch (j)
+                                    {
+                                        case 1:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.wOne;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 2:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.wtwo;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 3:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.wTree;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 4:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.wFour;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 5:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.wFive;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 6:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.wSex;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        case 7:
+                                            {
+                                                var Skedjule = new Skedjule();
+                                                Skedjule.Day = short.Parse(i.ToString());
+                                                Skedjule.EventId = skedjule.EventSelectd;
+                                                Skedjule.LectureNumber = short.Parse(j.ToString());
+                                                Skedjule.CreatedOn = DateTime.Now;
+                                                Skedjule.SubjectId = skedjule.wSeven;
+                                                db.Skedjule.Add(Skedjule);
+                                                break;
+                                            }
+                                        default:
+                                            break;
+                                    }
+
+                                }
+
+                                break;
+                            };
+
+                        default:
+                            break;
+                    }
+
+                    db.SaveChanges();
+                    
+                }
+
+
+                return Ok("لقد قمت بتسـجيل بيانات الإختبار  بنــجاح");
             }
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
             }
         }
-
-
-        [HttpPost("Edit")]
-        public IActionResult EditCourse([FromBody] Courses Course)
-        {
-            try
-            {
-                var userId = this.help.GetCurrentUser(HttpContext);
-
-                if (userId <= 0)
-                {
-                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-                }
-
-                var Courses = (from p in db.Courses
-                                     where p.CourseId == Course.CourseId
-                                     && (p.Status == 1)
-                                     select p).SingleOrDefault();
-
-                if (Courses == null)
-                {
-                    return BadRequest("خطأ بيانات الدورة غير موجودة");
-                }
-
-                Courses.Color = Course.Color;
-                Courses.Description = Course.Description;
-                Courses.Discount = Course.Discount;
-                Courses.PricePersonal = Course.PricePersonal;
-                Courses.PriceCompany = Course.PriceCompany;
-                Courses.Name = Course.Name;
-                Courses.Status = 1;
-                Courses.UpdatedBy = userId;
-                Courses.UpdatedOn = DateTime.Now;
-                db.SaveChanges();
-                return Ok("تم تعديل بينات الدورة بنجاح");
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
-        }
-
-    */
-
 
     }
 }

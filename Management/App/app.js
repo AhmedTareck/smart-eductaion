@@ -7,23 +7,24 @@ import locale from 'element-ui/lib/locale/lang/en';
 import BlockUIService from './Shared/BlockUIService.js';
 import Layout from './Components/Layout/Layout.vue';
 import Home from './Components/Home/Home.vue';
-import Branches from './Components/Branches/Branches.vue';
-import MessageTypes from './Components/MessageTypes/MessageTypes.vue';
-import Inbox from './Components/Messages/Inbox/Inbox.vue';
-import ControlMessages from './Components/Messages/ControlMessages/ControlMessages.vue';
-import Sent from './Components/Messages/Sent/Sent.vue';
-import Archive from './Components/Messages/Archive/Archive.vue';
-import DeletedMessage from './Components/Messages/DeletedMessage/DeletedMessage.vue';
 import Users from './Components/Users/Users.vue';
 import EditUsersProfile from './Components/Users/EditUsersProfile/EditUsersProfile.vue';
 import ChangePassword from './Components/Users/ChangePassword/ChangePassword.vue';
-import NewMessage from './Components/Messages/NewMessage/NewMessage.vue';
 import Subscribes from './Components/Subscribes/Subscribes.vue';
 
 import Student from './Components/Student/Student.vue';
 import AddStudent from './Components/Student/AddStudent/AddStudent.vue';
 import Presness from './Components/Presness/Presness.vue';
 import AddPresness from './Components/Presness/AddPresness/AddPresness.vue';
+import HomeWorcks from './Components/HomeWorcks/HomeWorcks.vue';
+import AddHomeWorck from './Components/HomeWorcks/AddHomeWorck/AddHomeWorck.vue';
+import Exam from './Components/Exam/Exam.vue';
+import AddExam from './Components/Exam/AddExam/AddExam.vue';
+import Grids from './Components/Exam/Grids/Grids.vue';
+import Skedjule from './Components/Skedjule/Skedjule.vue';
+import AddSkedjule from './Components/Skedjule/AddSkedjule/AddSkedjule.vue';
+
+
 
 
 
@@ -57,23 +58,21 @@ const router = new VueRouter({
     routes: [
         { path: '/', component: Home }, 
         { path: '/Subscribes', component: Subscribes }, 
-        { path: '/Branches', component: Branches },
-        { path: '/Inbox', component: Inbox },
-        { path: '/Sent', component: Sent }, 
-        { path: '/Branches', component: Branches }, 
-        { path: '/MessageTypes', component: MessageTypes }, 
         { path: '/Users', component: Users },
         { path: '/EditUsersProfile', component: EditUsersProfile },
         { path: '/ChangePassword', component: ChangePassword },  
-        { path: '/NewMessage', component: NewMessage },
-        { path: '/Archive', component: Archive },
-        { path: '/DeletedMessage', component: DeletedMessage },
-        { path: '/ControlMessages', component: ControlMessages },
 
         { path: '/Student', name: 'Student', component: Student },
         { path: '/AddStudent', name: 'Student', component: AddStudent },
         { path: '/Presness', name: 'Presness', component: Presness },
         { path: '/AddPresness', name: 'AddPresness', component: AddPresness },
+        { path: '/HomeWorcks', name: 'HomeWorcks', component: HomeWorcks },
+        { path: '/AddHomeWorck', name: 'AddHomeWorck', component: AddHomeWorck },
+        { path: '/Exam', name: 'Exam', component: Exam },
+        { path: '/AddExam', name: 'AddExam', component: AddExam },
+        { path: '/Grids', name: 'Grids', component: Grids },
+        { path: '/Skedjule', name: 'Skedjule', component: Skedjule },
+        { path: '/AddSkedjule', name: 'AddSkedjule', component: AddSkedjule },
 
     ]
 });
