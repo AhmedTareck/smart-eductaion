@@ -5,7 +5,7 @@ export default {
     name: 'Skedjule',
     
     created() { 
-        this.GetPresness();
+        this.GetSkedjules();
         this.GetYears();
     },
     components: {
@@ -27,8 +27,9 @@ export default {
             Events:[],
             EventSelectd:'',
 
-            Presness:[],
+            Skedjules:[],
 
+            selectedSkedjules:[],
             selectedPresness:[],
         };
     },
@@ -68,7 +69,7 @@ export default {
         {
             
             this.EventSelectd = '';
-            this.GetPresness(this.pageNo);
+            this.GetSkedjules(this.pageNo);
             this.$blockUI.Start();
             this.$http.GetEvents(this.YearSelected)
 
@@ -83,18 +84,18 @@ export default {
                 });
         },
 
-        GetPresness(pageNo) {
+        GetSkedjules(pageNo) {
             this.presness=[],
             this.pageNo = pageNo;
             if (this.pageNo === undefined) {
                 this.pageNo = 1;
             }
             this.$blockUI.Start();
-            this.$http.GetPresness(this.pageNo, this.pageSize,this.EventSelectd)
+            this.$http.GetSkedjules(this.pageNo, this.pageSize,this.EventSelectd)
                 .then(response => {
 
                     this.$blockUI.Stop();
-                    this.Presness = response.data.presness;
+                    this.Skedjules = response.data.skedjules;
                     this.pages = response.data.count;
                 })
                 .catch((err) => {
@@ -106,8 +107,8 @@ export default {
 
         viewStudent(item)
         {
+            this.selectedPresness = item;
             this.state=1;
-            this.selectedPresness=item;
         },
 
         editePresness(item) {

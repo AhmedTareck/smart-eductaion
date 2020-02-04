@@ -3,6 +3,8 @@
 @import "https://fonts.googleapis.com/css?family=Cairo&amp;subset=arabic";*/
 
 /*@import "css/CDN_CSS/font-awesome.min.css";*/
+
+
 @import "fonts/font-awesome.min.css";
 @import "css/CDN_CSS/cssv1.css?family=Cairo&amp;subset=arabic";
 @import "css/CDN_CSS/css.css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
@@ -12,7 +14,7 @@
 @import "assets/css/material-dashboard-rtl.css?v=1.1s";
 
 
-@import "assets/demo/demo.css";
+/*@import "assets/demo/demo.css";*/
 
 .el-alert{
     height: 70px!important;

@@ -6,7 +6,7 @@ export default {
     created() {
         
         this.selectedPresness = this.$parent.selectedPresness;
-        this.GetPresnessInfo();
+        this.GetSkedjuleInfo();
     },
     data() {
         return {
@@ -82,13 +82,13 @@ export default {
 
 
     methods: {
-        GetPresnessInfo() {
+        GetSkedjuleInfo() {
             this.$blockUI.Start();
-            this.$http.GetPresnessInfo(this.selectedPresness.id)
+            this.$http.GetSkedjuleInfo(this.selectedPresness.id)
                 .then(response => {
 
                     this.$blockUI.Stop();
-                    this.student = response.data.student;
+                    this.SkedjuleInfo = response.data.skedjuleInfo;
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();

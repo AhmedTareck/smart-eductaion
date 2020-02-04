@@ -113,6 +113,13 @@ namespace CMS.Controllers
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
                 }
 
+                var SkedjuleExist = (from p in db.Skedjule where p.EventId == skedjule.EventSelectd select p).ToList();
+
+                if (SkedjuleExist ==null)
+                {
+                    return StatusCode(401, "تم إضفة الجدول الدراسي لهدا الفصل");
+                }
+
                 for (int i = 1; i <= 6; i++)
                 {
                     switch (i)
@@ -676,6 +683,71 @@ namespace CMS.Controllers
 
 
                 return Ok("لقد قمت بتسـجيل بيانات الإختبار  بنــجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetSkedjules")]
+        public IActionResult GetSkedjules(int pageNo, int pageSize, int EventId)
+        {
+            try
+            {
+                //var GetSkedjule = from p in db.Skedjule
+                //                  where p.Status != 9
+                //                  select p;
+                var GetSkedjule = from p in db.Skedjule group p by p.EventId into g select new { code = g.Key, count = g.Count() };
+
+                if (EventId != 0)
+                {
+                    GetSkedjule = from p in db.Skedjule where p.EventId==EventId group p by p.EventId into g select new { code = g.Key, count = g.Count() };
+                }
+
+
+                //1 active 
+                // 2 not
+                var Count = (from p in GetSkedjule select p).Count();
+
+                var SkedjuleList = (from p in GetSkedjule
+                                    
+                                    select new
+                                    {
+                                        id = p.code,
+                                        Group=(from q in db.Events where p.code==q.EventId select q.EventGroup).SingleOrDefault(),
+                                        year =(from q in db.Events where p.code == q.EventId select q.AcadimecYear.Name).SingleOrDefault(),
+
+                                    }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new { Skedjules = SkedjuleList, count = Count });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetSkedjuleInfo")]
+        public IActionResult GetSkedjuleInfo(int pageNo, int pageSize, int EventId)
+        {
+            try
+            {
+                
+                var GetSkedjule = (from p in db.Skedjule where p.EventId == EventId select p).ToList();
+
+
+                var SkedjuleList = (from p in GetSkedjule
+
+                                    select new
+                                    {
+                                        Subject=p.Subject.Name,
+                                        Day= p.Day,
+                                        LectureNumber = p.LectureNumber,
+
+                                    }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new { Skedjules = SkedjuleList});
             }
             catch (Exception e)
             {
