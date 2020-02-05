@@ -215,9 +215,10 @@ export default {
         return axios.get(baseUrl + `/admin/Courses/GetSkedjules?pageno=${pageNo}&pagesize=${pageSize}&EventId=${EventSelectd}`);
     },
 
-    GetSkedjuleInfo(pageNo, pageSize, EventSelectd) {
+    GetSkedjuleInfo(id) {
+        debugger
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(baseUrl + `/admin/Courses/GetSkedjuleInfo?pageno=${pageNo}&pagesize=${pageSize}&EventId=${EventSelectd}`);
+        return axios.get(baseUrl + `/admin/Courses/GetSkedjuleInfo?EventId=${id}`);
     },
     
 }

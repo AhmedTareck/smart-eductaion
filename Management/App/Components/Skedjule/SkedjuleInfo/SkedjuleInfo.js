@@ -5,15 +5,17 @@ export default {
 
     created() {
         
-        this.selectedPresness = this.$parent.selectedPresness;
+        this.selectedSkedjule = this.$parent.selectedPresness;
         this.GetSkedjuleInfo();
     },
     data() {
         return {
 
             state: 0,
-            selectedPresness: [],
+            selectedSkedjule: [],
             student: [],
+            Subject: [],
+            SkedjuleInfo:[],
 
             skedjule: {
                 EventSelectd: '',
@@ -82,13 +84,15 @@ export default {
 
 
     methods: {
+        
         GetSkedjuleInfo() {
+            var id = this.selectedSkedjule.id;
             this.$blockUI.Start();
-            this.$http.GetSkedjuleInfo(this.selectedPresness.id)
+            this.$http.GetSkedjuleInfo(id)
                 .then(response => {
 
                     this.$blockUI.Stop();
-                    this.SkedjuleInfo = response.data.skedjuleInfo;
+                    this.SkedjuleInfo = response.data.skedjules;
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();

@@ -729,7 +729,7 @@ namespace CMS.Controllers
         }
 
         [HttpGet("GetSkedjuleInfo")]
-        public IActionResult GetSkedjuleInfo(int pageNo, int pageSize, int EventId)
+        public IActionResult GetSkedjuleInfo(long EventId)
         {
             try
             {
@@ -741,11 +741,11 @@ namespace CMS.Controllers
 
                                     select new
                                     {
-                                        Subject=p.Subject.Name,
+                                        Subject=p.Subject==null ? null : p.Subject.Name,
                                         Day= p.Day,
                                         LectureNumber = p.LectureNumber,
 
-                                    }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+                                    }).ToList();
 
                 return Ok(new { Skedjules = SkedjuleList});
             }
