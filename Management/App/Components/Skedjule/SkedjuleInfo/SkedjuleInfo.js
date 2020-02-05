@@ -5,69 +5,17 @@ export default {
 
     created() {
         
-        this.selectedSkedjule = this.$parent.selectedPresness;
+        this.selectedPresness = this.$parent.selectedPresness;
         this.GetSkedjuleInfo();
     },
     data() {
         return {
 
-            state: 0,
-            selectedSkedjule: [],
-            student: [],
-            Subject: [],
-            SkedjuleInfo:[],
-
-            skedjule: {
-                EventSelectd: '',
-
-                satrdayOne: '',
-                satrdaytwo: '',
-                satrdayTree: '',
-                satrdayFour: '',
-                satrdayFive: '',
-                satrdaySex: '',
-                satrdaySeven: '',
-
-                sunOne: '',
-                suntwo: '',
-                sunTree: '',
-                sunFour: '',
-                sunFive: '',
-                sunSex: '',
-                sunSeven: '',
-
-                mOne: '',
-                mtwo: '',
-                mTree: '',
-                mFour: '',
-                mFive: '',
-                mSex: '',
-                mSeven: '',
-
-                TuOne: '',
-                Tutwo: '',
-                TuTree: '',
-                TuFour: '',
-                TuFive: '',
-                TuSex: '',
-                TuSeven: '',
-
-                ThOne: '',
-                Thtwo: '',
-                ThTree: '',
-                ThFour: '',
-                ThFive: '',
-                ThuSex: '',
-                ThSeven: '',
-
-                wOne: '',
-                wtwo: '',
-                wTree: '',
-                wFour: '',
-                wFive: '',
-                wuSex: '',
-                wSeven: ''
-            }
+            selectedPresness: [],
+           
+            
+            SkedjuleInfo: [],
+            
 
         };
     },
@@ -84,11 +32,9 @@ export default {
 
 
     methods: {
-        
         GetSkedjuleInfo() {
-            var id = this.selectedSkedjule.id;
             this.$blockUI.Start();
-            this.$http.GetSkedjuleInfo(id)
+            this.$http.GetSkedjuleInfo(this.selectedPresness.id)
                 .then(response => {
 
                     this.$blockUI.Stop();

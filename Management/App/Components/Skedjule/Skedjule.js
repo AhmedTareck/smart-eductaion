@@ -117,17 +117,17 @@ export default {
         },
 
 
-        deltePresness(id) {
+        delteSkedjule(id) {
 
 
-            this.$confirm('سيؤدي ذلك إلى حدف السجل  . استمر؟', 'تـحذير', {
+            this.$confirm('سيؤدي ذلك إلى حدف الجدول  . استمر؟', 'تـحذير', {
                 confirmButtonText: 'نـعم',
                 cancelButtonText: 'لا',
                 type: 'warning'
             }).then(() => {
 
 
-                this.$http.deltePresness(id)
+                this.$http.delteSkedjule(id)
                     .then(response => {
                         this.$message({
                             type: 'info',

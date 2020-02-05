@@ -115,9 +115,9 @@ namespace CMS.Controllers
 
                 var SkedjuleExist = (from p in db.Skedjule where p.EventId == skedjule.EventSelectd select p).ToList();
 
-                if (SkedjuleExist ==null)
+                if (SkedjuleExist.Count!=0)
                 {
-                    return StatusCode(401, "تم إضفة الجدول الدراسي لهدا الفصل");
+                    return StatusCode(401, "تم إضافة الجدول الدراسي لهدا الفصل");
                 }
 
                 for (int i = 1; i <= 6; i++)
@@ -682,13 +682,14 @@ namespace CMS.Controllers
                 }
 
 
-                return Ok("لقد قمت بتسـجيل بيانات الإختبار  بنــجاح");
+                return Ok("لقد قمت بتسـجيل بيانات الجدول  بنــجاح");
             }
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
             }
         }
+
 
         [HttpGet("GetSkedjules")]
         public IActionResult GetSkedjules(int pageNo, int pageSize, int EventId)
@@ -741,13 +742,103 @@ namespace CMS.Controllers
 
                                     select new
                                     {
-                                        Subject=p.Subject==null ? null : p.Subject.Name,
+                                        Subject=(from q in db.Subjects where q.SubjectId==p.SubjectId select q.Name).SingleOrDefault(),
                                         Day= p.Day,
                                         LectureNumber = p.LectureNumber,
 
                                     }).ToList();
 
+
                 return Ok(new { Skedjules = SkedjuleList});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost("{id}/delteSkedjule")]
+        public IActionResult delteSkedjule(long id)
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var Skedjule = (from p in db.Skedjule where p.EventId == id select p).ToList();
+
+                if (Skedjule == null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي الجدول ربما تم مسحه مسبقا");
+                }
+
+                db.Skedjule.RemoveRange(Skedjule);
+
+                db.SaveChanges();
+
+                return Ok("تم حدف الجدول بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetYearsInfo")]
+        public IActionResult GetYearsInfo(int pageNo, int pageSize)
+        {
+            try
+            {
+                var YearInof = from p in db.Years where p.Status!=9 select p;
+
+                var Count = (from p in YearInof select p).Count();
+
+                var YearInfo = (from p in YearInof
+
+                                    select new
+                                    {
+                                        id=p.YearId,
+                                        name=p.Name,
+                                        createdOn=p.CreatedBy,
+                                        createdBy=p.CreatedOn
+                                    }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new { years = YearInfo, count = Count });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost("{id}/deleteYears")]
+        public IActionResult delteHomeWorck(long id)
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var Year = (from p in db.Years where p.YearId == id select p).SingleOrDefault();
+
+                if (Year == null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي السجل ربما تم مسحه مسبقا");
+                }
+
+                Year.Status = 9;
+
+                db.SaveChanges();
+
+                return Ok("تم حدف السنة الدراسية بنجاح");
             }
             catch (Exception e)
             {

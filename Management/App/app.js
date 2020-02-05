@@ -23,6 +23,8 @@ import AddExam from './Components/Exam/AddExam/AddExam.vue';
 import Grids from './Components/Exam/Grids/Grids.vue';
 import Skedjule from './Components/Skedjule/Skedjule.vue';
 import AddSkedjule from './Components/Skedjule/AddSkedjule/AddSkedjule.vue';
+import Years from './Components/Years/Years.vue';
+import AddYears from './Components/Years/AddYears/AddYears.vue';
 
 
 
@@ -73,6 +75,8 @@ const router = new VueRouter({
         { path: '/Grids', name: 'Grids', component: Grids },
         { path: '/Skedjule', name: 'Skedjule', component: Skedjule },
         { path: '/AddSkedjule', name: 'AddSkedjule', component: AddSkedjule },
+        { path: '/Years', name: 'Years', component: Years },
+        { path: '/AddYears', name: 'AddYears', component: AddYears },
 
     ]
 });

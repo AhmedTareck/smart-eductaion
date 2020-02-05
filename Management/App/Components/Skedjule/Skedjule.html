@@ -88,14 +88,11 @@
                                             <td>{{item.group}}</td>
 
                                             <td class="td-actions text-left">
-                                                <button type="button" rel="tooltip" @click.prevent="viewStudent(item)" class="btn btn-info btn-link" data-original-title="عرض بيانات الطلبة" title="عرض بيانات الطلبة">
+                                                <button type="button" rel="tooltip" @click.prevent="viewStudent(item)" class="btn btn-info btn-link" data-original-title="عرض بيانات الجدول" title="عرض بيانات الطلبة">
                                                     <i class="material-icons">dvr</i>
                                                     <div class="ripple-container"></div>
                                                 </button>
-                                                <button type="button" rel="tooltip" @click.prevent="editePresness(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" @click.prevent="deltePresness(item.id)" class="btn btn-danger btn-link" data-original-title="" title="">
+                                                <button type="button" rel="tooltip" @click.prevent="delteSkedjule(item.id)" class="btn btn-danger btn-link" data-original-title="" title="">
                                                     <i class="material-icons" title="حدف">close</i>
                                                 </button>
                                             </td>

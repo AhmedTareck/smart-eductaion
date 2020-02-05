@@ -122,3 +122,11 @@ td {
 .el-date-editor.el-input, .el-date-editor.el-input__inner {
     width: 100%!important;
 }
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: #16181b;
+    text-decoration: none;
+    background: linear-gradient(60deg, #26c6da, #00acc1) !important;
+}
+

@@ -216,9 +216,23 @@ export default {
     },
 
     GetSkedjuleInfo(id) {
-        debugger
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(baseUrl + `/admin/Courses/GetSkedjuleInfo?EventId=${id}`);
+    },
+
+    delteSkedjule(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/${id}/delteSkedjule`);
+    },
+
+    GetYearsInfo(pageNo, pageSize) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/GetYearsInfo?pageno=${pageNo}&pagesize=${pageSize}`);
+    },
+
+    deleteYears(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/${id}/deleteYears`);
     },
     
 }

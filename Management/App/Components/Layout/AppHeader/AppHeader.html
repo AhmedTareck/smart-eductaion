@@ -2,7 +2,8 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
         <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">لوحة التحكم الخاصة بالنظام</a>
+            <!--<a class="navbar-brand" href="#pablo">لوحة التحكم الخاصة بالنظام</a>-->
+            <a class="navbar-brand" href="#pablo">السنة الدراسية : خريف 2019</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -35,13 +36,13 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="material-icons">person</i>
+                        <i class="material-icons">settings</i>
 
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
 
-                        <a class="dropdown-item" href="/ChangePassword">تغير كلمه المرور</a>
-                        <a class="dropdown-item" href="/EditUsersProfile">تعديل الملف الشخصي</a>
+                        <a class="dropdown-item" href="#" @click.prevent="href('/Years')">السنوات الدراسية</a>
+                        <a class="dropdown-item" href="/EditUsersProfile">المواد الدراسية</a>
 
                     </div>
                 </li>

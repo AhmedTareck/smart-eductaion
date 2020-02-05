@@ -1,0 +1,184 @@
+﻿<div class="content">
+    <EditYears v-if="state==2"></EditYears>
+    <div class="container-fluid" v-if="state==0">
+        <div class="row">
+            <div class="card">
+
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">إدارة بيانات السنوات الدراسية </h4>
+                </div>
+
+                <br />
+                <br />
+                <div class="row" style="margin-right: 0px; margin-left: 0px;">
+
+
+
+
+                </div>
+
+                <div class="row" v-if="Years==0">
+
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <br /><br />
+                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للسنوات الدراسية"
+                                      type="info">
+                            </el-alert>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <!--Table Info-->
+                <div class="row" v-if="Years!=0">
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="text-info">
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        الإسم
+                                    </th>
+                                    <th>
+                                        رقم الهاتف
+                                    </th>
+                                    <th style="text-align:left">
+                                        العمليات
+                                    </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="item,index in Years">
+                                            <td>{{index+1}} </td>
+                                            <td>{{item.name }} </td>
+                                            <td>{{item.createdOn | moment}}</td>
+
+                                            <td class="td-actions text-left">
+                                                <button type="button" rel="tooltip" @click.prevent="viewStudent(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" @click.prevent="deleteYears(item.id)" class="btn btn-danger btn-link" data-original-title="" title="">
+                                                    <i class="material-icons" title="حدف">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="pull-right">
+                                            <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate" style="direction: ltr;">
+                                                <div style="text-align: center;">
+
+                                                    <el-pagination background
+                                                                   layout="prev, pager, next"
+                                                                   :current-page="pageNo"
+                                                                   :page-size="pageSize"
+                                                                   :total="pages"
+                                                                   @current-change="GetYears($event)">
+                                                    </el-pagination>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="pull-left">
+                                            <div class="disabled-sorting text-right" id="datatable_info" role="status" aria-live="polite">Showing {{pageNo}} to {{pageSize}} of {{pages}} entries</div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="text-info">
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        الإسم
+                                    </th>
+                                    <th>
+                                        رقم الهاتف
+                                    </th>
+                                    <th style="text-align:left">
+                                        العمليات
+                                    </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="item,index in Years">
+                                            <td>{{index+1}} </td>
+                                            <td>{{item.name }} </td>
+                                            <td>{{item.createdOn | moment}}</td>
+
+                                            <td class="td-actions text-left">
+                                                <button type="button" rel="tooltip" @click.prevent="viewStudent(item)" class="btn btn-info btn-link" data-original-title="" title="">
+                                                    <i class="material-icons" title="عرض بيانات الطالب ">person</i>
+                                                    <div class="ripple-container"></div>
+                                                </button>
+                                                <button type="button" rel="tooltip" @click.prevent="viewStudent(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" @click.prevent="delteStudent(item.studentId)" class="btn btn-danger btn-link" data-original-title="" title="">
+                                                    <i class="material-icons" title="حدف">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="pull-right">
+                                            <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate" style="direction: ltr;">
+                                                <div style="text-align: center;">
+
+                                                    <el-pagination background
+                                                                   layout="prev, pager, next"
+                                                                   :current-page="pageNo"
+                                                                   :page-size="pageSize"
+                                                                   :total="pages"
+                                                                   @current-change="GetYears($event)">
+                                                    </el-pagination>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="pull-left">
+                                            <div class="disabled-sorting text-right" id="datatable_info" role="status" aria-live="polite">Showing {{pageNo}} to {{pageSize}} of {{pages}} entries</div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

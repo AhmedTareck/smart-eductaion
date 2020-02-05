@@ -23,7 +23,7 @@ export default {
             loginDetails: null,
             UnReadCount:0,
             active: 1,
-            menuFlag: [10],
+            menuFlag: [20],
             SECRET_KEY:'',
             
         };
@@ -103,7 +103,7 @@ export default {
         },
 
         href(url, id) {
-            for (var i = 0; i < 11; i++) {
+            for (var i = 0; i < 20; i++) {
                 if (i == id) {
                     this.$set(this.menuFlag, id, 'nav-item active');
                 } else {

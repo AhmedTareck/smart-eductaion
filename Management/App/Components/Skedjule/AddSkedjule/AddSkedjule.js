@@ -175,6 +175,9 @@
         },
 
         resetForm() {
+            this.skedjule.EventSelectd = '';
+            this.SubjectSelected = '';
+
             this.skedjule.satrdayOne = '';
             this.skedjule.satrdaytwo = '';
             this.skedjule.satrdayTree = '';
