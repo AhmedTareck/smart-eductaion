@@ -1,9 +1,9 @@
 ﻿import moment from 'moment';
 export default {
-    name: 'EditYears',
-    
+    name: 'AddSubjects',
+
     created() {
-        this.form = this.$parent.selectedStudent;
+        this.form.id = this.$parent.yearSelected;
     },
     components: {
     },
@@ -32,15 +32,15 @@ export default {
         },
 
 
-        edityearName() {
-            this.$http.edityearName(this.form)
+        addSubject() {
+            this.$http.addSubject(this.form)
                 .then(response => {
                     //this.$parent.state = 0;
                     this.$message({
                         type: 'info',
                         message: response.data
                     });
-                    this.$parent.GetYearsInfo();
+                    this.$parent.GetSubjectInfo();
                     this.$parent.state = 0;
                     this.$blockUI.Stop();
                 })
@@ -52,5 +52,5 @@ export default {
                     });
                 });
         }
-    }    
+    }
 }

@@ -798,8 +798,8 @@ namespace CMS.Controllers
                 var Count = (from p in YearInof select p).Count();
 
                 var YearInfo = (from p in YearInof
-
-                                    select new
+                                orderby p.CreatedOn descending
+                                select new
                                     {
                                         id=p.YearId,
                                         name=p.Name,
@@ -839,6 +839,246 @@ namespace CMS.Controllers
                 db.SaveChanges();
 
                 return Ok("تم حدف السنة الدراسية بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+        [HttpPost("edityearName")]
+        public IActionResult edityearName([FromBody] YearsObject form)
+        {
+            try
+            {
+
+                if (form == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var Years = (from p in db.Years where p.YearId == form.id select p).SingleOrDefault();
+
+                if (Years == null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي السجل الرجاء التأكد من البيانات");
+                }
+
+                Years.Name = form.name;
+                db.SaveChanges();
+
+                return Ok("لقد قمت بتعديل بيانات السنة الدراسية  بنــجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost("addyearName")]
+        public IActionResult addyearName([FromBody] YearsObject form)
+        {
+            try
+            {
+
+                if (form == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var Years = (from p in db.Years where p.Name == form.name select p).SingleOrDefault();
+
+                if (Years != null)
+                {
+                    return StatusCode(401, "الاسم موجود مسبقا");
+                }
+
+                Years year = new Years();
+                year.Name = form.name;
+                year.Status = 1;
+                year.CreatedBy = userId;
+                year.CreatedOn = DateTime.Now;
+                db.Years.Add(year);
+                db.SaveChanges();
+
+                return Ok("تمت عملية الاضافة بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("getyearName")]
+        public IActionResult getyearName()
+        {
+            try
+            {
+                var YearInof = from p in db.AcadimacYears where p.Status != 9 select p;
+
+                var YearInfo = (from p in YearInof
+                                orderby p.CreatedOn descending
+                                select new
+                                {
+                                    id = p.AcadimecYearId,
+                                    name = p.Name,
+                                }).ToList();
+
+                return Ok(new { years = YearInfo });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetSubjectInfo")]
+        public IActionResult GetSubjectInfo(int pageNo, int pageSize,int id)
+        {
+            try
+            {
+                var subjects = from p in db.Subjects where p.Status != 9 select p;
+
+                if(id!=0)
+                {
+                    subjects = from p in subjects where  p.AcadimecYearId==id select p;
+                }
+
+                var Count = (from p in subjects select p).Count();
+
+                var subjectInfo = (from p in subjects
+                                   orderby p.CreatedOn descending
+                                   select new
+                                {
+                                    id = p.SubjectId,
+                                    name = p.Name,
+                                    yearName = p.AcadimecYear.Name,
+                                    createdOn=p.CreatedOn
+                                }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new { Subjects = subjectInfo, count = Count });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost("editsubjectname")]
+        public IActionResult editsubjectname([FromBody] YearsObject form)
+        {
+            try
+            {
+
+                if (form == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var subject = (from p in db.Subjects where p.SubjectId == form.id select p).SingleOrDefault();
+
+                if (subject == null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي السجل الرجاء التأكد من البيانات");
+                }
+
+                subject.Name = form.name;
+                db.SaveChanges();
+
+                return Ok("لقد قمت بتعديل بيانات المادة الدراسية  بنــجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost("{id}/deleteSubject")]
+        public IActionResult deleteSubject(long id)
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var subject = (from p in db.Subjects where p.SubjectId == id select p).SingleOrDefault();
+
+                if (subject == null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي السجل ربما تم مسحه مسبقا");
+                }
+
+                subject.Status = 9;
+
+                db.SaveChanges();
+
+                return Ok("تم حدف السنة الدراسية بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost("addSubject")]
+        public IActionResult addSubject([FromBody] YearsObject form)
+        {
+            try
+            {
+
+                if (form == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var subjectCheck = (from p in db.Years where p.Name == form.name select p).SingleOrDefault();
+
+                if (subjectCheck != null)
+                {
+                    return StatusCode(401, "الاسم موجود مسبقا");
+                }
+
+                Subjects subject = new Subjects();
+                subject.Name = form.name;
+                subject.AcadimecYearId = int.Parse(form.id.ToString());
+                subject.Status = 1;
+                subject.CreatedBy = userId;
+                subject.CreatedOn = DateTime.Now;
+                db.Subjects.Add(subject);
+                db.SaveChanges();
+
+                return Ok("تمت عملية الاضافة بنجاح");
             }
             catch (Exception e)
             {

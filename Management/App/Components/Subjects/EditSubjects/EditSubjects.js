@@ -1,6 +1,6 @@
 ﻿import moment from 'moment';
 export default {
-    name: 'EditYears',
+    name: 'EditSubjects',
     
     created() {
         this.form = this.$parent.selectedStudent;
@@ -32,15 +32,15 @@ export default {
         },
 
 
-        edityearName() {
-            this.$http.edityearName(this.form)
+        editsubjectname() {
+            this.$http.editsubjectname(this.form)
                 .then(response => {
                     //this.$parent.state = 0;
                     this.$message({
                         type: 'info',
                         message: response.data
                     });
-                    this.$parent.GetYearsInfo();
+                    this.$parent.GetSubjectInfo();
                     this.$parent.state = 0;
                     this.$blockUI.Stop();
                 })

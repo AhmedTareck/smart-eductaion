@@ -134,9 +134,22 @@ namespace Management.Controllers
                 {
                     return BadRequest("حسابك غير مفعل");
                 }
-                
+
+                if (!Security.VerifyHash(loginUser.Password, cUser.Password, HashAlgorithms.SHA512))
+                {
+
+                    //cUser.LoginTryAttempts++;
+                    //if (cUser.LoginTryAttempts >= 5 && cUser.State == 1)
+                    //{
+                    //    cUser.LoginTryAttemptDate = DateTime.Now;
+                    //    cUser.State = 2;
+                    //}
+                    //db.SaveChanges();
+                    return NotFound("الرجاء التاكد من البريد الالكتروني وكلمة المرور");
+                }
+
                 //string hospital = "";
-                //if (cUser.UserType == 5 && cUser.HospitalId != null && cUser.HospitalId>0)
+                //if (cUser.UserType == 5 && cUser.HospitalId != null && cUser.HospitalId > 0)
                 //{
                 //    hospital = db.Hospital.Where(x => x.HospitalId == cUser.HospitalId).SingleOrDefault().Name;
                 //}

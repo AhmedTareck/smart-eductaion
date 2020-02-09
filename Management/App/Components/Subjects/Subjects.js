@@ -1,15 +1,16 @@
 ﻿﻿import moment from 'moment';
-import EditYears from './EditYears/EditYears.vue';
-import addYears from './addYears/addYears.vue';
+import EditSubjects from './EditSubjects/EditSubjects.vue';
+import AddSubjects from './AddSubjects/AddSubjects.vue';
 export default {
-    name: 'Years',
+    name: 'Subject',
     
     created() { 
-        this.GetYearsInfo();
+        this.getyearName();
+        this.GetSubjectInfo();
     },
     components: {
-        'EditYears': EditYears,
-        'addYears': addYears,
+        'EditSubjects': EditSubjects,
+        'AddSubjects': AddSubjects,
     },
     data() {
         return {
@@ -20,7 +21,10 @@ export default {
             pageSize: 5,
             pages: 0,
 
-            Years:[],
+            Subject: [],
+
+            year: [],
+            yearSelected:'',
         };
     },
 
@@ -37,17 +41,32 @@ export default {
 
     methods: {
 
-        GetYearsInfo(pageNo) {
+        getyearName() {
+            
+            this.$blockUI.Start();
+            this.$http.getyearName()
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.year = response.data.years;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
+
+        GetSubjectInfo(pageNo) {
             this.pageNo = pageNo;
             if (this.pageNo === undefined) {
                 this.pageNo = 1;
             }
             this.$blockUI.Start();
-            this.$http.GetYearsInfo(this.pageNo, this.pageSize)
+            this.$http.GetSubjectInfo(this.pageNo, this.pageSize, this.yearSelected)
                 .then(response => {
 
                     this.$blockUI.Stop();
-                    this.Years = response.data.years;
+                    this.Subject = response.data.subjects;
                     this.pages = response.data.count;
                 })
                 .catch((err) => {
@@ -68,24 +87,24 @@ export default {
         },
 
 
-        deleteYears(id) {
+        deleteSubject(id) {
 
 
-            this.$confirm('سيؤدي ذلك إلى حدف السنة الدراسية  . استمر؟', 'تـحذير', {
+            this.$confirm('سيؤدي ذلك إلى حدف المادة الدراسية  . استمر؟', 'تـحذير', {
                 confirmButtonText: 'نـعم',
                 cancelButtonText: 'لا',
                 type: 'warning'
             }).then(() => {
 
 
-                this.$http.deleteYears(id)
+                this.$http.deleteSubject(id)
                     .then(response => {
                         this.$message({
                             type: 'info',
                             message: response.data
                         });
                         this.$blockUI.Stop();
-                        this.GetYearsInfo();
+                        this.GetSubjectInfo();
                     })
                     .catch((err) => {
                         this.$blockUI.Stop();

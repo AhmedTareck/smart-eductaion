@@ -234,5 +234,40 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + `/admin/Courses/${id}/deleteYears`);
     },
+
+    edityearName(form) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/edityearName`, form);
+    },
+
+    addyearName(form) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/addyearName`, form);
+    },
+
+    getyearName() {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/getyearName`);
+    },
+
+    GetSubjectInfo(pageNo, pageSize,id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/GetSubjectInfo?pageno=${pageNo}&pagesize=${pageSize}&id=${id}`);
+    },
+
+    editsubjectname(form) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/editsubjectname`, form);
+    },
+
+    deleteSubject(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/${id}/deleteSubject`);
+    },
+
+    addSubject(form) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/addSubject`, form);
+    },
     
 }
