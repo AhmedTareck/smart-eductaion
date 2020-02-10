@@ -9,6 +9,7 @@ export default
     
         created() 
         {
+            this.GetUsers(this.pageNo);
           
             this.SECRET_KEY = 'P@SSWORDTAMEME';
             var loginDetails = sessionStorage.getItem('currentUser');
@@ -29,7 +30,7 @@ export default
             else {
                 window.location.href = '/Security/Login';
             }
-        this.GetUsers(this.pageNo);
+        
         
         
         this.permissions = [

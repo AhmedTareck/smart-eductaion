@@ -14,6 +14,7 @@
 
                     <div class="col-md-3">
                         <el-select v-model="YearSelected"
+                                   style="width:100%"
                                    @change="getEvents()"
                                    filterable placeholder="السنة الدراسية ">
 
@@ -30,6 +31,7 @@
                         <el-select v-model="EventSelectd"
                                    filterable
                                    placeholder="الفصل "
+                                   style="width:100%"
                                    v-if="YearSelected!=0"
                                    @change="GetHomeWorck()">
 

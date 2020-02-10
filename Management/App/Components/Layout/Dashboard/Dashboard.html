@@ -248,7 +248,48 @@
         </div>
     </li>-->
 
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#user">
+                    <!--<i class="material-icons">place</i>-->
+                    <i class="fa fa-cogs"></i>
+                    <p>
+                        إدارة المستخدمين
+                        <b class="caret" style="    float: left;position:relative;"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="user">
+                    <ul class="nav">
+                        <li :class="menuFlag[12]">
+                            <a class="nav-link" href="#" @click.prevent="href('/Users',12)">
+                                <i class="fa fa-cogs"></i>
 
+                                <p>عرض بيانات المستخدمين </p>
+                            </a>
+                        </li>
+                        <li :class="menuFlag[13]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddSkedjule',13)">
+                                <i class="fa fa-cogs"></i>
+
+                                <p>إضافة مستخدم </p>
+                            </a>
+                        </li>
+                        <li :class="menuFlag[14]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddSkedjule',14)">
+                                <i class="fa fa-cogs"></i>
+
+                                <p>إضافة موظف  </p>
+                            </a>
+                        </li>
+                        <li :class="menuFlag[15]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddSkedjule',15)">
+                                <i class="fa fa-cogs"></i>
+
+                                <p>إضافة ولي أمر  </p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
 
             <li :class="menuFlag[30]">
                 <a class="nav-link" href="#" @click.prevent="href('/Users',30)">
