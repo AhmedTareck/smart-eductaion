@@ -37,6 +37,7 @@
     <None Remove="Content\icon.css" />
     <None Remove="Content\vendor.less" />
     <None Remove="Content\veustyles.less" />
+    <None Remove="webpack.config.vendor-css.js" />
     <None Remove="yarn.lock" />
     <None Remove="package-lock.json" />
     <Compile Remove="App\Components\Library\CourseChaptersKill\**" />
@@ -156,8 +157,6 @@
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod --config webpack.config.vendor-css.js" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
