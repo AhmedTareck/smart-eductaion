@@ -18,7 +18,7 @@ namespace Management.Models
         public virtual DbSet<StudentEvents> StudentEvents { get; set; }
         public virtual DbSet<Students> Students { get; set; }
         public virtual DbSet<Subjects> Subjects { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Years> Years { get; set; }
 
         public StudentTrackerContext(DbContextOptions<StudentTrackerContext> options) : base(options) { }
@@ -230,19 +230,27 @@ namespace Management.Models
                     .HasConstraintName("FK_Subjects_AcadimacYears");
             });
 
-            modelBuilder.Entity<User>(entity =>
+            modelBuilder.Entity<Users>(entity =>
             {
+                entity.HasKey(e => e.UserId);
+
+                entity.Property(e => e.BirthDate).HasColumnType("datetime");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Email).HasMaxLength(50);
 
+                entity.Property(e => e.LastLoginOn).HasColumnType("datetime");
+
                 entity.Property(e => e.LoginName).HasMaxLength(50);
+
+                entity.Property(e => e.LoginTryAttemptDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
 
-                entity.Property(e => e.Password).HasMaxLength(200);
+                entity.Property(e => e.Password).HasMaxLength(250);
 
-                entity.Property(e => e.Phone).HasMaxLength(50);
+                entity.Property(e => e.Phone).HasMaxLength(25);
             });
 
             modelBuilder.Entity<Years>(entity =>

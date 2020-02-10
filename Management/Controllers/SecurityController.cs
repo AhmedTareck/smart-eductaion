@@ -115,8 +115,8 @@ namespace Management.Controllers
                     return BadRequest("الرجاء ادخال كلمه المرور");
                 }
 
-                var cUser = (from p in db.User
-                             where (p.Email == loginUser.Email || p.LoginName == loginUser.Email) && p.Status != 9
+                var cUser = (from p in db.Users
+                             where (p.Email == loginUser.Email || p.LoginName == loginUser.Email) && p.State != 9
                              select p).SingleOrDefault();
 
                 if (cUser == null)
@@ -130,7 +130,7 @@ namespace Management.Controllers
                     return BadRequest("ليس لديك صلاحيه للدخول علي النظام");
                 }
 
-                if (cUser.Status == 0)
+                if (cUser.State == 0)
                 {
                     return BadRequest("حسابك غير مفعل");
                 }
@@ -167,7 +167,7 @@ namespace Management.Controllers
                     LoginName = cUser.LoginName,
                     Email = cUser.Email,
                     Gender = cUser.Gender,
-                    Status = cUser.Status,
+                    Status = cUser.State,
                     Phone = cUser.Phone,
                     Photo=cUser.Photo
                 };
@@ -225,8 +225,8 @@ namespace Management.Controllers
                 var userId = this.help.GetCurrentUser(HttpContext);
                 if (loginUser.Password != null)
                 {
-                    var User = (from p in db.User
-                                where p.UserId == userId && p.Status != 9
+                    var User = (from p in db.Users
+                                where p.UserId == userId && p.State != 9
                                 select p).SingleOrDefault();
 
                     if (Security.VerifyHash(loginUser.Password, User.Password, HashAlgorithms.SHA512))
@@ -245,8 +245,8 @@ namespace Management.Controllers
 
                 else
                 {
-                    var User = (from p in db.User
-                                where p.UserId == loginUser.UserId && p.Status != 9
+                    var User = (from p in db.Users
+                                where p.UserId == loginUser.UserId && p.State != 9
                                 select p).SingleOrDefault();
                     if (User == null)
                     {
@@ -268,7 +268,7 @@ namespace Management.Controllers
 
         public IActionResult GetUserImage(long userId)
         {
-            var userimage = (from p in db.User
+            var userimage = (from p in db.Users
                              where p.UserId == userId
                              select p.Photo).SingleOrDefault();
 
@@ -313,8 +313,8 @@ namespace Management.Controllers
                     return BadRequest("الرجاء ادخال البريد الالكتروني بطريقة الصحيحه");
                 }
 
-                var user = (from p in db.User
-                            where p.Email == email && p.Status != 9
+                var user = (from p in db.Users
+                            where p.Email == email && p.State != 9
                             select p).SingleOrDefault();
 
                 if (user == null)
@@ -322,7 +322,7 @@ namespace Management.Controllers
                     return NotFound("البريد الإلكتروني غير مسجل بالنظـام !");
                 }
 
-                if (user.Status == 0)
+                if (user.State == 0)
                 {
                     return BadRequest("تم إيقاف هذا المستخدم من النظام !");
                 }
@@ -379,7 +379,7 @@ namespace Management.Controllers
                     return BadRequest("الرابط غير مفعل");
                 }
 
-                var user = (from u in db.User
+                var user = (from u in db.Users
                             where u.UserId == userActivate.confirm
                             select u).SingleOrDefault();
 
@@ -411,9 +411,9 @@ namespace Management.Controllers
                 {
                     try
                     {
-                        if (user.Status == 0)
+                        if (user.State == 0)
                         {
-                            user.Status = 1;
+                            user.State = 1;
                         }
                         user.Password = Security.ComputeHash(userActivate.password, HashAlgorithms.SHA512, null);
                         db.SaveChanges();

@@ -40,7 +40,7 @@ export default {
 
     DeleteUser(UserId) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.post(baseUrl + `/admin/User/${UserId}/delete`);
+        return axios.post(baseUrl + `/admin/User/${UserId}/delteUser`);
     },
 
     EditUser(User) {
@@ -63,9 +63,14 @@ export default {
         return axios.get(baseUrl + `/admin/User/GetUsersByBranch?pageno=${pageNo}&pagesize=${pageSize}&BrancId=${BrancheModel}`);
     },
 
-    GetUsers(pageNo, pageSize, UserType) {
+    GetUsers(pageNo, pageSize, UserType, id) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(baseUrl + `/admin/User/GetUsers?pageno=${pageNo}&pagesize=${pageSize}&UserType=${UserType}`);
+        return axios.get(baseUrl + `/admin/User/getUser?pageno=${pageNo}&pagesize=${pageSize}&UserType=${UserType}&id=${id}`);
+    },
+
+    getUserName(UserType) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/User/getUserName?UserType=${UserType}`);
     },
 
     UploadImage(obj) {

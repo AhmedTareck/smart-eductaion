@@ -10,6 +10,7 @@ export default
         created() 
         {
             this.GetUsers(this.pageNo);
+            this.getUserName();
           
             this.SECRET_KEY = 'P@SSWORDTAMEME';
             var loginDetails = sessionStorage.getItem('currentUser');
@@ -32,26 +33,6 @@ export default
             }
         
         
-        
-        this.permissions = [
-                {
-                    id: 1,
-                    name: "الإدارات"
-                },
-                {
-                    id: 2,
-                    name: 'إدارة الفروع'
-                },
-                {
-                    id: 3,
-                    name: 'مكاتب اللإصدار'
-                },
-                {
-                    id: 4,
-                    name: 'المكاتب الخدمية'
-                }
-
-        ];
     
     
     
@@ -79,24 +60,22 @@ export default
             pageSize: 10,
             pages: 0,
             Users: [],
-            UserType: '',
             
             state: 0,
             
             EditUsersObj: [],
-            AllData: [],
             
-            BrachId: '',
+            loginDetails: '',
 
-            loginDetails:'',
-            permissions: [],
-            permissionModale: [],
-            branchesPlaceholder:'',
-            Branches: [],
-            BrancheModel: [],
+            UserName: [],
+            selectedName: '',
+            UserType:1,
+            
 
         };
-    },
+        },
+
+
     methods: 
     {
         hash: function hash(key) {
@@ -114,49 +93,12 @@ export default
             dataSet = plaintext.toString(CryptoJS.enc.Utf8);
             return dataSet;
         },
-        GetBranches()
-        {
-            this.SetBranchesPlaceholder();
-            this.GetUsersByLevel(this.pageNo);
 
-            this.$blockUI.Start();
-            this.$http.GetBranchesByLevel(this.permissionModale)
-
-                .then(response => {
-                    this.$blockUI.Stop();
-                    this.BrancheModel='';
-                    this.Branches = response.data.branches;
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-                    console.error(err);
-                    this.pages = 0;
-                });
+        EditUser(User) {
+            this.state = 2;
+            this.EditUsersObj = User;
         },
-
-        SetBranchesPlaceholder()
-        {
-            if(this.permissionModale==1)
-            {
-                this.branchesPlaceholder='الإدارة';
-            }
-            else if(this.permissionModale==2)
-            {
-                this.branchesPlaceholder='الفرع';
-            }
-            else if(this.permissionModale==3 || this.permissionModale==4)
-            {
-                this.branchesPlaceholder='المكتب';
-            }
-        },
-
-
-
-
-        AddUser() {
-            this.state = 1;
-        },
-
+        
         ActivateUser(UserId) {
             this.$confirm('سيؤدي ذلك إلى تفعيل المستخدم  . استمر؟', 'تـحذير', {
                 confirmButtonText: 'نـعم',
@@ -222,75 +164,6 @@ export default
             });
         },
 
-
-
-
-        GetUsers(pageNo) {
-            this.pageNo = pageNo;
-            if (this.pageNo === undefined) {
-                this.pageNo = 1;
-            }
-            this.$blockUI.Start();
-
-            this.$http.GetUsers(this.pageNo, this.pageSize, this.UserType)
-                .then(response => {
-                    this.$blockUI.Stop();
-                    this.Users = response.data.user;
-                    this.pages = response.data.count;
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-
-                    this.pages = 0;
-                });
-        },
-
-        GetUsersByLevel(pageNo) {
-            this.pageNo = pageNo;
-            if (this.pageNo === undefined) {
-                this.pageNo = 1;
-            }
-            this.$blockUI.Start();
-
-            this.$http.GetUsersByLevel(this.pageNo, this.pageSize, this.permissionModale)
-                .then(response => {
-                    this.$blockUI.Stop();
-                    this.Users = response.data.user;
-                    this.pages = response.data.count;
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-
-                    this.pages = 0;
-                });
-        },
-
-        GetUserByBranch(pageNo) {
-            this.pageNo = pageNo;
-            if (this.pageNo === undefined) {
-                this.pageNo = 1;
-            }
-            this.$blockUI.Start();
-
-            this.$http.GetUserByBranch(this.pageNo, this.pageSize, this.BrancheModel)
-                .then(response => {
-                    this.$blockUI.Stop();
-                    this.Users = response.data.user;
-                    this.pages = response.data.count;
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-
-                    this.pages = 0;
-                });
-        },
-
-
-        EditUser(User) {
-            this.state = 2;
-            this.EditUsersObj = User;
-        },
-
         DeleteUser(UserId) {
             this.$confirm('سيؤدي ذلك إلى حدف المستخدم  . استمر؟', 'تـحذير', {
                 confirmButtonText: 'نـعم',
@@ -321,5 +194,43 @@ export default
             });
 
         },
+
+        GetUsers(pageNo) {
+            this.pageNo = pageNo;
+            if (this.pageNo === undefined) {
+                this.pageNo = 1;
+            }
+            this.$blockUI.Start();
+
+            this.$http.GetUsers(this.pageNo, this.pageSize, 1, this.selectedName)
+                .then(response => {
+                    this.$blockUI.Stop();
+                    this.Users = response.data.users;
+                    this.pages = response.data.count;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+
+                    this.pages = 0;
+                });
+        },
+
+        getUserName() {
+            this.$blockUI.Start();
+
+            this.$http.getUserName(1)
+                .then(response => {
+                    this.$blockUI.Stop();
+                    this.UserName = response.data.names;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                });
+        }
+
+
+        
+
+        
     }
 };

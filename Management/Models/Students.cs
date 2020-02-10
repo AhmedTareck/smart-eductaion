@@ -26,7 +26,7 @@ namespace Management.Models
         public string MatherName { get; set; }
         public long? ParentId { get; set; }
 
-        public User Parent { get; set; }
+        public Users Parent { get; set; }
         public ICollection<Grids> Grids { get; set; }
         public ICollection<PresnessInfo> PresnessInfo { get; set; }
         public ICollection<StudentEvents> StudentEvents { get; set; }

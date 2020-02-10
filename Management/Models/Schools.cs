@@ -11,6 +11,6 @@ namespace Management.Models
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
 
-        public User User { get; set; }
+        public Users User { get; set; }
     }
 }
