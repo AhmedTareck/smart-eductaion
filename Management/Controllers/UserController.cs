@@ -53,6 +53,7 @@ namespace Management.Controllers
                                     BirthDate = p.BirthDate,
                                     CreatedBy = p.CreatedBy,
                                     Image = p.Image,
+                                    Gender = p.Gender,
                                     UserType = p.UserType
                                 }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
@@ -92,6 +93,11 @@ namespace Management.Controllers
         {
             try
             {
+                if (user == null)
+                {
+                    return BadRequest("خطأ في إرسال البيانات");
+                }
+
                 var userId = this.help.GetCurrentUser(HttpContext);
 
                 if (string.IsNullOrWhiteSpace(user.LoginName))
@@ -258,13 +264,12 @@ namespace Management.Controllers
                         }
                     }
                 }
-                // Users.LoginName = user.LoginName;
-                // Users.FullName = user.FullName;
+                Users.LoginName = user.LoginName;
+                Users.Name = user.FullName;
                 Users.Phone = user.Phone;
                 Users.Email = user.Email;
                 Users.BirthDate = user.DateOfBirth;
-                //Users.Gender = user.Gender;
-                //User
+                Users.Gender = user.Gender;
 
 
                 db.SaveChanges();

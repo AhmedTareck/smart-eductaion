@@ -1,6 +1,7 @@
 ﻿<div class="content">
     <!--<EditExam v-if="state==1"></EditExam>
     <GridsInfo v-if="state==2"></GridsInfo>-->
+    <edit-Users v-if="state==2"></edit-Users>
     <div class="container-fluid" v-if="state==0">
         <div class="row">
             <div class="card">
@@ -101,9 +102,9 @@
 
                                 </td>-->
                                             <td class="td-actions text-left">
-                                                <button type="button" rel="tooltip" @click.prevent="GridsInfo(item)" class="btn btn-success btn-link" data-original-title="" title="عرض الدرجات">
+                                                <!--<button type="button" rel="tooltip" @click.prevent="GridsInfo(item)" class="btn btn-success btn-link" data-original-title="" title="عرض الدرجات">
                                                     <i class="material-icons">menu</i>
-                                                </button>
+                                                </button>-->
                                                 <button type="button" rel="tooltip" @click.prevent="EditUser(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
                                                     <i class="material-icons">edit</i>
                                                 </button>
@@ -132,7 +133,7 @@
                                                                    :current-page="pageNo"
                                                                    :page-size="pageSize"
                                                                    :total="pages"
-                                                                   @current-change="GetStudent($event)">
+                                                                   @current-change="GetUsers($event)">
                                                     </el-pagination>
 
                                                 </div>

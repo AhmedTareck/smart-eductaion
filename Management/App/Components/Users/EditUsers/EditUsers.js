@@ -1,12 +1,13 @@
 ﻿export default {
     name: 'EditUser',
     created() {
-        this.ruleForm.FullName = this.$parent.EditUsersObj.fullName;
+        this.x = this.$parent.EditUsersObj;
+        this.ruleForm.FullName = this.$parent.EditUsersObj.name;
         this.ruleForm.LoginName = this.$parent.EditUsersObj.loginName;
         this.ruleForm.Phone = this.$parent.EditUsersObj.phone;
         this.ruleForm.Email = this.$parent.EditUsersObj.email;
         this.ruleForm.Gender = this.$parent.EditUsersObj.gender;
-        this.ruleForm.DateOfBirth = this.$parent.EditUsersObj.dateOfBirth;
+        this.ruleForm.DateOfBirth = this.$parent.EditUsersObj.birthDate;
         this.ruleForm.UserId = this.$parent.EditUsersObj.userId;
      
         this.ruleForm.UserType = "" + this.$parent.EditUsersObj.userType;
@@ -24,6 +25,8 @@
             Users: [],
             Permissions: [],
             state: 0,
+
+            x:[],
 
             PermissionModale: [],
             ruleForm: {
@@ -106,10 +109,8 @@
         },
 
         Edit(formName) {
-            this.ruleForm.BranchId = this.$parent.EditUsersObj.branchId;
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.ruleForm.BranchLevel = this.$parent.permissionModale; 
                     this.$http.EditUser(this.ruleForm)
                         .then(response => {
                             this.$parent.state = 0;

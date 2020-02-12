@@ -7,7 +7,7 @@ import locale from 'element-ui/lib/locale/lang/en';
 import BlockUIService from './Shared/BlockUIService.js';
 import Layout from './Components/Layout/Layout.vue';
 import Home from './Components/Home/Home.vue';
-import Users from './Components/Users/Users.vue';
+
 import EditUsersProfile from './Components/Users/EditUsersProfile/EditUsersProfile.vue';
 import ChangePassword from './Components/Users/ChangePassword/ChangePassword.vue';
 import Subscribes from './Components/Subscribes/Subscribes.vue';
@@ -25,6 +25,8 @@ import Skedjule from './Components/Skedjule/Skedjule.vue';
 import AddSkedjule from './Components/Skedjule/AddSkedjule/AddSkedjule.vue';
 import Years from './Components/Years/Years.vue';
 import Subjects from './Components/Subjects/Subjects.vue';
+import Users from './Components/Users/Users.vue';
+import AddUsers from './Components/Users/AddUsers/AddUsers.vue';
 
 
 
@@ -77,6 +79,7 @@ const router = new VueRouter({
         { path: '/AddSkedjule', name: 'AddSkedjule', component: AddSkedjule },
         { path: '/Years', name: 'Years', component: Years },
         { path: '/Subjects', name: 'Subjects', component: Subjects },
+        { path: '/AddUsers', name: 'AddUsers', component: AddUsers },
 
     ]
 });

@@ -7,12 +7,11 @@
     <div class="col-md-12">
 
         <div class="card">
-            <div class="card-header card-header-primary">
+            <div class="card-header card-header-info">
                 <h4 class="card-title ">تعديل بيانات المستخدمين </h4>
                 <p class="card-category"> هذه الصفحه خاصه بالعمليات علي ادارة المستخدمين من عرض واضافه وتعديل</p>
             </div>
 
-          
             <div class="card-body">
                 <div class="table-responsive">
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-position="top" label-width="120px" class="demo-ruleForm">
@@ -114,11 +113,11 @@
 
 
 
-                                <el-form-item label="صلاحيات الإستخدام" prop="UserType">
+                                <!--<el-form-item label="صلاحيات الإستخدام" prop="UserType">
                                     <el-radio v-model="ruleForm.UserType" label=1 border><label style="padding-right:10px">مسئول</label></el-radio>
                                     <el-radio v-model="ruleForm.UserType" label=2 border><label style="padding-right:10px">مستخدم</label></el-radio>
                                     <el-radio v-model="ruleForm.UserType" label=3 border><label style="padding-right:10px">مراقبه الرسائل</label></el-radio>
-                                </el-form-item>
+                                </el-form-item>-->
 
 
                             </div>
@@ -126,7 +125,7 @@
                         <!--Add User-->
                         <div class="tile-footer">
                             <button class="btn btn-danger" @click.prevent="Back()">رجوع</button>
-                            <button class="btn btn-primary" @click.prevent="Edit('ruleForm')">تـعديل</button>
+                            <button class="btn btn-info" @click.prevent="Edit('ruleForm')">تـعديل</button>
                         </div>
 
 

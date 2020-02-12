@@ -2,7 +2,7 @@
     name: 'AddUser',    
     created() 
     {
-        this.BranchId = this.$parent.BrancheModel;
+        //this.BranchId = this.$parent.BrancheModel;
      
     },
     
@@ -37,7 +37,7 @@
                 LoginName: '',
                 Password: '',
                 FullName: '',
-                UserType: '',
+                UserType: 1,
                 Email: '',
                 Gender: '',
                 Phone:'',
@@ -97,13 +97,7 @@
     },
     methods: {
         
-        Back() {
-            this.$parent.UserType = 0;
-            this.$parent.GetUsers();
-            //this.$parent.NID = '';
-            //this.$parent.PermissionModale = '';
-            this.$parent.state = 0;       
-        },
+       
    
 
         validEmail: function (email) {
@@ -134,23 +128,22 @@
 
         Save(formName) {   
               
-            this.ruleForm.BranchId = this.$parent.BrancheModel;
-       
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.ruleForm.BranchLevel = this.$parent.permissionModale;
+                    //this.ruleForm.BranchLevel = this.$parent.permissionModale;
                     this.$blockUI.Start();
                     this.$http.AddUser(this.ruleForm)
                         .then(response => {
                             this.$blockUI.Stop();
-                            this.$parent.state = 0;
-                            this.$parent.GetUsers(this.pageNo);
+                            //this.$parent.state = 0;
+                            //this.$parent.GetUsers(this.pageNo);
                             this.$message({
                                 type: 'success',
                                 dangerouslyUseHTMLString: true,
                                 duration: 5000,
                                 message: '<strong>' + response.data + '</strong>'
                             });
+                            this.resetForm(formName);
                         })
                         .catch((err) => {
                             this.$blockUI.Stop();
@@ -168,7 +161,11 @@
             });
 
 
-        }
+        },
+
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
 
 
 

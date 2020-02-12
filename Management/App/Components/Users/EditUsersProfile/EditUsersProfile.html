@@ -2,12 +2,51 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
+
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="#pablo">
+
+                            <img class="img" :src="'/Api/Admin/User/' + loginDetails.userId + '/image'" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="title"> {{loginDetails.fullName}}</h5>
+
+                        <h4 class="card-title">{{loginDetails.loginName}}</h4>
+                    </div><p class="description text-center" v-if="loginDetails.userType==1">الـمستخدم {{loginDetails.loginName}} لديه صلاحيات الادارة بالكامل</p>
+
+                    <p class="description text-center" v-if="loginDetails.userType==2">
+                        الـمستخدم {{loginDetails.loginName}} لديه صلاحيات
+
+                        "{{loginDetails.brancheName}}"
+                    </p>
+                    <p class="description text-center" v-if="loginDetails.userType==2">
+                        الـمستخدم {{loginDetails.loginName}} لديه صلاحيات
+
+                        "مراقبه الرسائل"
+                    </p>
+                    <br />
+                    <br />
+                    <br />
+
+
+                    <div class="form-group UploadButton">
+                        <label for="file-upload" class="custom-file-upload">
+                            <i class="fa fa-cloud-upload"></i> تـغير الصورة
+                        </label>
+                        <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
+                    </div>
+
+                </div>
+            </div>
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header card-header-primary">
+                    <div class="card-header card-header-info">
                         <h4 class="card-title">تعديل الملف الشخصي</h4>
                         <p class="card-category">
-                            هذه الصفحه خاصه بالعملية تعديل الملف الشخصي
+                           
                         </p>
                     </div>
                     <div class="card-body">
@@ -39,6 +78,8 @@
                                     </el-col>
 
                                 </el-row>
+
+
 
                                 <el-row class="row">
                                     <el-col class="col-md-4">
@@ -85,21 +126,15 @@
                                         </el-form-item>
                                     </el-col>
                                     <el-col class="col-md-6">
-                                        <el-form-item label="الصلاحيه" prop="UserType">
-                                            <el-input disabled placeholder="الصلاحيه" v-model="ruleForm.UserType"></el-input>
-                                        </el-form-item>
+                                        <button class="btn btn-info pull-left" style="margin-top:39px" @click.prevent="Save('ruleForm')">حفظ</button>
 
 
                                     </el-col>
                                 </el-row>
 
-                                <br />
-                                <br />
-
-                            
                                 <div class="tile-footer">
-                             
-                                    <button class="btn btn-primary pull-right" @click.prevent="Save('ruleForm')">حفظ</button>
+
+                                    
                                 </div>
                                 <div class="clearfix"></div>
                             </el-form>
@@ -107,45 +142,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card card-profile">
-                    <div class="card-avatar">
-                        <a href="#pablo">
 
-                            <img class="img" :src="'/Api/Admin/User/' + loginDetails.userId + '/image'" />
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="title"> {{loginDetails.fullName}}</h5>
-
-                        <h4 class="card-title">{{loginDetails.loginName}}</h4>
-                    </div><p class="description text-center" v-if="loginDetails.userType==1">الـمستخدم {{loginDetails.loginName}} لديه صلاحيات الادارة بالكامل</p>
-
-                    <p class="description text-center" v-if="loginDetails.userType==2">
-                        الـمستخدم {{loginDetails.loginName}} لديه صلاحيات
-
-                        "{{loginDetails.brancheName}}"
-                    </p>
-                    <p class="description text-center" v-if="loginDetails.userType==2">
-                        الـمستخدم {{loginDetails.loginName}} لديه صلاحيات
-
-                        "مراقبه الرسائل"
-                    </p>
-                    <br />
-                    <br />
-                    <br />
-
-
-                    <div class="form-group UploadButton">
-                        <label for="file-upload" class="custom-file-upload">
-                            <i class="fa fa-cloud-upload"></i> تـغير الصورة
-                        </label>
-                        <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
-                    </div>
-
-                </div>
-                </div>
-            </div>
+        </div>
         </div>
     </div>
 </div>
