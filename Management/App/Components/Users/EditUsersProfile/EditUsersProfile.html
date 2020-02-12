@@ -3,6 +3,7 @@
     <div class="container-fluid">
         <div class="row">
 
+
             <div class="col-md-4">
                 <div class="card card-profile">
                     <div class="card-avatar">
@@ -15,26 +16,17 @@
                         <h5 class="title"> {{loginDetails.fullName}}</h5>
 
                         <h4 class="card-title">{{loginDetails.loginName}}</h4>
-                    </div><p class="description text-center" v-if="loginDetails.userType==1">الـمستخدم {{loginDetails.loginName}} لديه صلاحيات الادارة بالكامل</p>
-
-                    <p class="description text-center" v-if="loginDetails.userType==2">
-                        الـمستخدم {{loginDetails.loginName}} لديه صلاحيات
-
-                        "{{loginDetails.brancheName}}"
+                    </div>
+                    <p class="description" style="padding: 7px;">
+                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you 
+                        like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
                     </p>
-                    <p class="description text-center" v-if="loginDetails.userType==2">
-                        الـمستخدم {{loginDetails.loginName}} لديه صلاحيات
-
-                        "مراقبه الرسائل"
-                    </p>
-                    <br />
-                    <br />
-                    <br />
 
 
                     <div class="form-group UploadButton">
-                        <label for="file-upload" class="custom-file-upload">
-                            <i class="fa fa-cloud-upload"></i> تـغير الصورة
+
+                        <label for="file-upload" class="btn btn-info btn-round">
+                            <i class="fa fa-cloud-upload" style="color:white"></i> تـغير الصورة
                         </label>
                         <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
                     </div>
@@ -46,7 +38,7 @@
                     <div class="card-header card-header-info">
                         <h4 class="card-title">تعديل الملف الشخصي</h4>
                         <p class="card-category">
-                           
+
                         </p>
                     </div>
                     <div class="card-body">
@@ -126,7 +118,7 @@
                                         </el-form-item>
                                     </el-col>
                                     <el-col class="col-md-6">
-                                        <button class="btn btn-info pull-left" style="margin-top:39px" @click.prevent="Save('ruleForm')">حفظ</button>
+                                        <button class="btn btn-info pull-left" style="margin-top:39px" @click.prevent="Save('ruleForm')">حفظ التعديلات </button>
 
 
                                     </el-col>
@@ -134,7 +126,7 @@
 
                                 <div class="tile-footer">
 
-                                    
+
                                 </div>
                                 <div class="clearfix"></div>
                             </el-form>
