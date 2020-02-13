@@ -26,6 +26,7 @@ import AddSkedjule from './Components/Skedjule/AddSkedjule/AddSkedjule.vue';
 import Years from './Components/Years/Years.vue';
 import Subjects from './Components/Subjects/Subjects.vue';
 import Users from './Components/Users/Users.vue';
+import Parents from './Components/Parents/Parents.vue';
 import AddUsers from './Components/Users/AddUsers/AddUsers.vue';
 
 
@@ -80,6 +81,7 @@ const router = new VueRouter({
         { path: '/Years', name: 'Years', component: Years },
         { path: '/Subjects', name: 'Subjects', component: Subjects },
         { path: '/AddUsers', name: 'AddUsers', component: AddUsers },
+        { path: '/Parents', name: 'Parents', component: Parents },
 
     ]
 });

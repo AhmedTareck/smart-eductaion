@@ -30,7 +30,7 @@
 
             PermissionModale: [],
             ruleForm: {
-                UserId: 0,
+                UserId: '',
                 LoginName: '',
                
                 FullName: '',

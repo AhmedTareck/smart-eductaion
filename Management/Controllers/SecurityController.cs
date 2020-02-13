@@ -155,7 +155,7 @@ namespace Management.Controllers
                 //}
 
                 db.SaveChanges();   
-                long branchId = -1;
+                //long branchId = -1;
                 // int branchType = -1;
 
                 var userInfo = new
@@ -163,13 +163,14 @@ namespace Management.Controllers
                     userId = cUser.UserId,
                     fullName = cUser.Name,
                     userType = cUser.UserType,
-                    branchId = branchId,
+                    //branchId = branchId,
                     LoginName = cUser.LoginName,
                     Email = cUser.Email,
                     Gender = cUser.Gender,
                     Status = cUser.State,
                     Phone = cUser.Phone,
-                    Photo=cUser.Photo
+                    Photo=cUser.Photo,
+                    BirthDate=cUser.BirthDate
                 };
 
                 const string Issuer = "http://www.nid.ly";

@@ -52,6 +52,11 @@ export default {
 
         return axios.post(baseUrl + '/Admin/User/EditUsersProfile', User);
     },
+    EditParentProfile(User) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+
+        return axios.post(baseUrl + '/Admin/User/EditParentProfile', User);
+    },
     GetUsersByLevel(pageNo, pageSize, permissionModale) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(baseUrl + `/admin/User/GetUsersByLevel?pageno=${pageNo}&pagesize=${pageSize}&BranchLevel=${permissionModale}`);

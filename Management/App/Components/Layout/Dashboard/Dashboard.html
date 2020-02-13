@@ -273,18 +273,33 @@
                                 <p>إضافة مستخدم </p>
                             </a>
                         </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#parents">
+                    <!--<i class="material-icons">place</i>-->
+                    <i class="fa fa-cogs"></i>
+                    <p>
+                        إدارة اولياء الامور 
+                        <b class="caret" style="    float: left;position:relative;"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="parents">
+                    <ul class="nav">
                         <li :class="menuFlag[14]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddSkedjule',14)">
+                            <a class="nav-link" href="#" @click.prevent="href('/Parents',14)">
                                 <i class="fa fa-cogs"></i>
 
-                                <p>إضافة موظف  </p>
+                                <p>عرض بيانات اولياء الامور </p>
                             </a>
                         </li>
                         <li :class="menuFlag[15]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddSkedjule',15)">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddUsers',15)">
                                 <i class="fa fa-cogs"></i>
 
-                                <p>إضافة ولي أمر  </p>
+                                <p>إضافة ولي امر </p>
                             </a>
                         </li>
                     </ul>

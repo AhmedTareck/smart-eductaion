@@ -1,0 +1,199 @@
+﻿
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="#pablo">
+
+                            <img class="img" :src="'/Api/Admin/User/' + ruleForm.UserId + '/image'" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="title"> {{ruleForm.FullName}}</h5>
+
+                        <h4 class="card-title">{{ruleForm.LoginName}}</h4>
+                    </div>
+                    <p class="description" style="padding: 7px;">
+                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you
+                        like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                    </p>
+
+
+                    <div class="form-group UploadButton">
+
+                        <label for="file-upload" class="btn btn-info btn-round">
+                            <i class="fa fa-cloud-upload" style="color:white"></i> تـغير الصورة
+                        </label>
+                        <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">تعديل الملف الشخصي</h4>
+                        <p class="card-category">
+
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-position="top" label-width="120px" class="demo-ruleForm">
+
+                                <el-row class="row">
+                                    <el-col class="col-md-6">
+
+
+
+                                        <el-form-item label="الاسم التلاثي" prop="FullName">
+                                            <el-input placeholder="الاسم التلاثي" v-model="ruleForm.FullName"></el-input>
+                                        </el-form-item>
+
+
+                                    </el-col>
+
+                                    <el-col class="col-md-6">
+
+
+
+
+                                        <el-form-item label="اسم الدخول" prop="LoginName">
+                                            <el-input placeholder="اسم الدخول" v-model="ruleForm.LoginName"></el-input>
+                                        </el-form-item>
+
+
+                                    </el-col>
+
+                                </el-row>
+
+
+
+                                <el-row class="row">
+                                    <el-col class="col-md-4">
+
+
+                                        <el-form-item label="البريد الإلكتروني" prop="Email">
+                                            <el-input placeholder="البريد الإلكتروني" v-model="ruleForm.Email"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col class="col-md-4">
+
+                                        <el-form-item label="تاريخ الميلاد" prop="DateOfBirth">
+                                            <el-date-picker v-model="ruleForm.DateOfBirth"
+                                                            type="date"
+                                                            placeholder="تاريخ الميلاد">
+                                            </el-date-picker>
+
+                                        </el-form-item>
+
+
+                                    </el-col>
+                                    <el-col class="col-md-4">
+
+
+                                        <el-form-item label="رقم الهاتف" prop="Phone">
+                                            <el-input placeholder="رقم الهاتف" v-model="ruleForm.Phone"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+
+                                <el-row class="row">
+                                    <el-col class="col-md-6">
+                                        <el-form-item label="الجنس" prop="Gender">
+                                            <el-select style="width: 100%;" v-model="ruleForm.Gender" filterable placeholder="الجنس">
+
+                                                <el-option v-for="item in [{id:1,Gender:'ذكـر'},{id:2,Gender:'انـثي'}]"
+                                                           :key="item.id"
+                                                           :label="item.Gender"
+                                                           :value="item.id">
+                                                </el-option>
+
+                                            </el-select>
+
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col class="col-md-6">
+                                        <button class="btn btn-info pull-left" style="margin-top:39px" @click.prevent="Save('ruleForm')">حفظ التعديلات </button>
+
+
+                                    </el-col>
+                                </el-row>
+
+                                <div class="tile-footer">
+
+
+                                </div>
+                                <div class="clearfix"></div>
+                            </el-form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Collapsible Accordion</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+                                        <h4 class="panel-title">
+                                            Collapsible Group Item #1
+                                            <i class="material-icons">keyboard_arrow_down</i>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <h4 class="panel-title">
+                                            Collapsible Group Item #2
+                                            <i class="material-icons">keyboard_arrow_down</i>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <h4 class="panel-title">
+                                            Collapsible Group Item #3
+                                            <i class="material-icons">keyboard_arrow_down</i>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

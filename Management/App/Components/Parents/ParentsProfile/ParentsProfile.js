@@ -1,28 +1,18 @@
 ﻿import CryptoJS from 'crypto-js';
 export default {
-    name: 'EditUsersProfile',    
+    name: 'ParentsProfile',    
     created() {
 
-        this.SECRET_KEY = 'P@SSWORDTAMEME';
+        this.x = this.$parent.EditUsersObj;
+        this.ruleForm.FullName = this.$parent.EditUsersObj.name;
+        this.ruleForm.LoginName = this.$parent.EditUsersObj.loginName;
+        this.ruleForm.Phone = this.$parent.EditUsersObj.phone;
+        this.ruleForm.Email = this.$parent.EditUsersObj.email;
+        this.ruleForm.Gender = this.$parent.EditUsersObj.gender;
+        this.ruleForm.DateOfBirth = this.$parent.EditUsersObj.birthDate;
+        this.ruleForm.UserId = this.$parent.EditUsersObj.userId;
 
-        try {
-            this.loginDetails = this.decrypt(sessionStorage.getItem('currentUser'));
-        } catch (error) {
-            window.location.href = '/Security/Login';
-        }
-        if (this.loginDetails != null) {
-            this.loginDetails = JSON.parse(this.loginDetails);
-            this.ruleForm.FullName = this.loginDetails.fullName;
-            this.ruleForm.Phone = this.loginDetails.phone;
-            this.ruleForm.LoginName = this.loginDetails.loginName;
-            this.ruleForm.Email = this.loginDetails.email;
-            this.ruleForm.Gender = this.loginDetails.gender;
-            this.ruleForm.DateOfBirth = this.loginDetails.birthDate;
-            this.ruleForm.UserType = this.loginDetails.userType;
-         
-        } else {
-            window.location.href = '/Security/Login';
-        }
+        this.ruleForm.UserType = "" + this.$parent.EditUsersObj.userType;
       
      
     },
@@ -41,9 +31,9 @@ export default {
             ruleForm: {
              
                 LoginName: '',
-               
+                UserId: '',
                 FullName: '',
-                UserType: 1,
+                UserType: '',
                 Email: '',
                 Gender: '',
                 Phone: '',
@@ -140,12 +130,11 @@ export default {
         },
 
         UploadImage() {
-            console.log(this.photo);
-            console.log(this.loginDetails.userId);
+          
             this.$blockUI.Start();
             var obj = {
                 Photo: this.photo,
-                UserId: this.loginDetails.userId
+                UserId: this.ruleForm.UserId
             };
             this.$http.UploadImage(obj)
                 .then(response => {
@@ -157,7 +146,7 @@ export default {
                         message: '<strong>' + response.data + '</strong>'
                     });
                     setTimeout(() =>
-                        window.location.href = '/EditUsersProfile'
+                        window.location.href = '/Parents'
                         , 500);
 
                 })
@@ -180,22 +169,9 @@ export default {
         Save(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.$http.EditUsersProfile(this.ruleForm)
+                    this.$http.EditParentProfile(this.ruleForm)
                         .then(response => {
 
-                            this.loginDetails.email = this.ruleForm.Email;
-                            this.loginDetails.phone = this.ruleForm.Phone;
-
-                            this.loginDetails.fullName=this.ruleForm.FullName;
-                            this.loginDetails.phone=this.ruleForm.Phone;
-                            this.loginDetails.loginName=this.ruleForm.LoginName;
-                      
-                           this.loginDetails.gender =this.ruleForm.Gender;
-                            this.loginDetails.dateOfBirth = this.ruleForm.DateOfBirth;
-                            sessionStorage.setItem('currentUser', JSON.stringify(this.loginDetails));
-                
-
-          
                             this.$message({
                                 type: 'success',
                                 dangerouslyUseHTMLString: true,

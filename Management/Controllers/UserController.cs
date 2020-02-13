@@ -500,6 +500,84 @@ namespace Management.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpPost("EditParentProfile")]
+        public IActionResult EditParentProfile([FromBody] UsersObject user)
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var Users = (from p in db.Users
+                             where p.UserId == user.UserId
+                             && (p.State != 9)
+                             select p).SingleOrDefault();
+
+                if (Users == null)
+                {
+                    return BadRequest("خطأ بيانات المستخدم غير موجودة");
+                }
+
+
+                if (Users.Phone != user.Phone)
+                {
+                    var cPhone = (from u in db.Users
+                                  where u.Phone == user.Phone
+                                  select u).SingleOrDefault();
+                    if (cPhone != null)
+                    {
+                        return BadRequest(" رقم الهاتف موجود مسبقا");
+
+
+
+
+                    }
+
+                }
+                if (Users.Email != user.Email)
+                {
+                    var cUser = (from u in db.Users
+                                 where u.Email == user.Email && u.State != 9
+                                 select u).SingleOrDefault();
+
+                    if (cUser != null)
+                    {
+                        if (cUser.State == 0)
+                        {
+                            return BadRequest("هدا المستخدم موجود من قبل يحتاج الي تقعيل الحساب فقط");
+                        }
+                        if (cUser.State == 1 || cUser.State == 2)
+                        {
+                            return BadRequest("هدا المستخدم موجود من قبل يحتاج الي دخول فقط");
+                        }
+                    }
+                }
+
+                Users.Email = user.Email;
+
+                Users.Phone = user.Phone;
+                Users.LoginName = user.LoginName;
+                Users.Name = user.FullName;
+                Users.BirthDate = user.DateOfBirth;
+                Users.Gender = user.Gender;
+
+                //Users.ModifiedBy = userId;
+                //Users.ModifiedOn = DateTime.Now;
+
+
+                db.SaveChanges();
+                return Ok("تم تعديل بيانات المستخدم بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 
 }
