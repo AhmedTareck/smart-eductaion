@@ -125,6 +125,67 @@ namespace Managegment.Controllers
             }
         }
 
+        [HttpPost("AddStudentToFathter")]
+        public IActionResult AddStudentToFathter([FromBody] StudentObject student)
+        {
+            try
+            {
+
+                if (student == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var parent = (from p in db.Users where p.UserId == student.ParentsId select p).SingleOrDefault();
+
+                if(parent==null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي ولي الأمر الرجاء إعادة المحاولة");
+                }
+
+                var Student = new Students();
+                var studentEvent = new StudentEvents();
+
+                Student.FirstName = student.FirstName;
+                Student.FatherName = student.FatherName;
+                Student.GrandFatherName = student.GrandFatherName;
+                Student.SurName = student.SurName;
+                Student.MatherName = student.MatherName;
+                Student.Adrress = student.Adrress;
+                Student.PhoneNumber = student.Phone;
+                Student.Sex = student.SelectedSex;
+                Student.ParentId = student.ParentsId;
+                Student.CreatedBy = userId;
+                Student.CreatedOn = DateTime.Now;
+                Student.Status = 1;
+
+                studentEvent.EventId = student.EventId;
+                //studentEvent.StudentId = student.StudentId;
+                studentEvent.CreatedBy = userId;
+                studentEvent.CreatedOn = DateTime.Now;
+                studentEvent.Status = 1;
+                studentEvent.Student = Student;
+
+                db.StudentEvents.Add(studentEvent);
+                //db.Students.Add(Student);
+
+                db.SaveChanges();
+
+                return Ok("لقد قمت بتسـجيل بيانات المتدرب بنــجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
         [HttpPost("{id}/delteStudent")]
         public IActionResult Deactivate(long id)
         {

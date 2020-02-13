@@ -118,6 +118,11 @@ export default {
         return axios.post(baseUrl + `/admin/Students/Add`, student);
     },
 
+    AddStudentToFathter(student) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Students/AddStudentToFathter`, student);
+    },
+
     delteStudent(id)
     {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');

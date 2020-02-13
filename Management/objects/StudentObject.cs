@@ -18,7 +18,7 @@ namespace Managegment.objects
         public string Phone { get; set; }
         public string parnsPhone { get; set; }
         public bool SelectedSex { get; set; }
-
+        public long? ParentsId { get; set; }
 
 
 
