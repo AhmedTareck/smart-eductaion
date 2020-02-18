@@ -15,6 +15,7 @@ export default {
 
         this.ruleForm.UserType = "" + this.$parent.EditUsersObj.userType;
         this.GetYears();
+        this.GetStudentbyParent();
 
         this.sex = [
             {
@@ -56,6 +57,12 @@ export default {
 
             Years: [],
             YearSelected: '',
+
+            pageNo: 1,
+            pageSize: 10,
+            pages: 0,
+
+            Students: [],
 
             Events: [],
             EventSelectd: '',
@@ -203,6 +210,8 @@ export default {
             return login.test(LoginName);
         },
 
+        
+
 
         Save(formName) {
             this.$refs[formName].validate((valid) => {
@@ -303,6 +312,55 @@ export default {
         resetForm(formName) {
             this.$refs[formName].resetFields();
         },
+
+        GetStudentbyParent(pageNo) {
+            this.pageNo = pageNo;
+            if (this.pageNo === undefined) {
+                this.pageNo = 1;
+            }
+            this.$blockUI.Start();
+            this.$http.GetStudentbyParent(this.pageNo, this.pageSize, this.ruleForm.UserId)
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.Students = response.data.students;
+                    this.pages = response.data.count;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                    this.pages = 0;
+                });
+        },
+
+        delteStudent(id) {
+
+
+            this.$confirm('سيؤدي ذلك إلى حدف الطالب  . استمر؟', 'تـحذير', {
+                confirmButtonText: 'نـعم',
+                cancelButtonText: 'لا',
+                type: 'warning'
+            }).then(() => {
+
+
+                this.$http.delteStudent(id)
+                    .then(response => {
+                        this.$message({
+                            type: 'info',
+                            message: response.data
+                        });
+                        this.$blockUI.Stop();
+                        this.GetStudentbyParent();
+                    })
+                    .catch((err) => {
+                        this.$blockUI.Stop();
+                        this.$message({
+                            type: 'error',
+                            message: err.response.data
+                        });
+                    });
+            });
+        },  
 
     }
 }

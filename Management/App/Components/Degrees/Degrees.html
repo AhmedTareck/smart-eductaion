@@ -1,12 +1,11 @@
 ﻿<div class="content">
-    <add-Student v-if="state==1"></add-Student>
-    <StudentProfile v-if="state==2"></StudentProfile>
+    <AddDegrees v-if="state==1"></AddDegrees>
     <div class="container-fluid" v-if="state==0">
         <div class="row">
             <div class="card">
 
                 <div class="card-header card-header-info">
-                    <h4 class="card-title ">عرض بيانات الطلبة</h4>
+                    <h4 class="card-title ">إدارة بيانات الواجبات الدراسية </h4>
                 </div>
 
                 <br />
@@ -15,8 +14,8 @@
 
                     <div class="col-md-3">
                         <el-select v-model="YearSelected"
-                                   @change="getEvents()"
                                    style="width:100%"
+                                   @change="getEvents()"
                                    filterable placeholder="السنة الدراسية ">
 
                             <el-option v-for="item in Years"
@@ -34,7 +33,7 @@
                                    placeholder="الفصل "
                                    style="width:100%"
                                    v-if="YearSelected!=0"
-                                   @change="GetStudent()">
+                                   @change="GetHomeWorck()">
 
                             <el-option v-for="item in Events"
                                        :key="item.eventId"
@@ -49,12 +48,12 @@
 
                 </div>
 
-                <div class="row" v-if="Students==0">
+                <div class="row" v-if="homeWorck==0">
 
                     <div class="col-md-10">
                         <div class="form-group">
                             <br /><br />
-                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للطلبة"
+                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للواجبات الدراسية"
                                       type="info">
                             </el-alert>
                         </div>
@@ -63,7 +62,7 @@
                 <br />
                 <br />
                 <!--Table Info-->
-                <div class="row" v-if="Students!=0">
+                <div class="row" v-if="homeWorck!=0">
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -76,37 +75,37 @@
                                         الإسم
                                     </th>
                                     <th>
-                                        رقم الهاتف
+                                        المادة الدراسية
                                     </th>
                                     <th>
-                                        عدد الحضور
+                                        وصف توضيحي
                                     </th>
                                     <th>
-                                        عدد الغياب
+                                        اخر يوم للتسليم
+                                    </th>
+                                    <th>
+                                        تاريخ الإدراج
                                     </th>
                                     <th style="text-align:left">
                                         العمليات
                                     </th>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="item,index in Students">
+                                        <tr v-for="item,index in homeWorck">
                                             <td>{{index+1}} </td>
-                                            <td>{{item.studentName }} </td>
-                                            <td>{{item.phone}}</td>
-                                            <td>{{item.marcks}}</td>
-                                            <td>{{item.studentCount}}</td>
+                                            <td>{{item.name }} </td>
+                                            <td>{{item.subjects }} </td>
+                                            <td>{{item.disctiption}}</td>
+                                            <td>{{item.lastDayDilavary | moment}}</td>
+                                            <td>{{item.createdOn | moment}}</td>
 
 
                                             <td class="td-actions text-left">
-                                                <!--<button type="button" rel="tooltip" @click.prevent="viewStudent(item)" class="btn btn-info btn-link" data-original-title="" title="">
-                                                    <i class="material-icons" title="عرض بيانات الطالب ">person</i>
-                                                    <div class="ripple-container"></div>
-                                                </button>-->
-                                                <button type="button" rel="tooltip"  @click.prevent="viewStudent(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
+                                                <button type="button" rel="tooltip" @click.prevent="editHomeWorck(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
                                                     <i class="material-icons">edit</i>
                                                 </button>
-                                                <button type="button" rel="tooltip" @click.prevent="delteStudent(item.studentId)" class="btn btn-danger btn-link" data-original-title="" title="">
-                                                    <i class="material-icons" title="حدف">close</i>
+                                                <button type="button" rel="tooltip" @click.prevent="delteHomeWorck(item.id)" class="btn btn-danger btn-link" data-original-title="" title="حدف">
+                                                    <i class="material-icons">close</i>
                                                 </button>
                                             </td>
                                         </tr>

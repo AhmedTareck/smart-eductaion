@@ -55,7 +55,6 @@
                                                       :rules="[{required: true, message: ' Class Is Requird'} ]">
 
                                             <el-select v-model="selectedExams.eventId"
-                                                       
                                                        style="    width: 100%;"
                                                        filterable placeholder="الفصل ">
 
@@ -82,6 +81,35 @@
 
                                     <div class="form-group">
 
+                                        <label>المادة الدراسية  </label>
+
+
+                                        <el-form-item prop="SubjectSelected"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: ' subject Is Requird'} ]">
+
+                                            <el-select v-model="selectedExams.SubjectSelected"
+                                                       style="    width: 100%;"
+                                                       filterable placeholder="المادة الدراسية ">
+
+                                                <el-option v-for="item in Subject"
+                                                           :key="item.subjectId"
+                                                           :label="item.name"
+                                                           :value="item.subjectId">
+                                                </el-option>
+
+                                            </el-select>
+
+                                        </el-form-item>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
                                         <label>إسم الإختبار</label>
 
                                         <el-form-item prop="name"
@@ -102,7 +130,14 @@
 
                                 </div>
 
-                                <div class="col-md-6">
+
+
+
+                            </div>
+                            <div class="row">
+
+
+                                <div class="col-md-12">
 
                                     <div class="form-group">
 

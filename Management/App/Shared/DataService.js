@@ -283,5 +283,15 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + `/admin/Courses/addSubject`, form);
     },
+
+    GetStudentbyParent(pageNo, pageSize, id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Students/GetStudentbyParent?pageno=${pageNo}&pagesize=${pageSize}&id=${id}`);
+    },
+
+    getDetals() {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Students/getDetals`);
+    },
     
 }

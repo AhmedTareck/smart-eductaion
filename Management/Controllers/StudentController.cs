@@ -315,7 +315,67 @@ namespace Managegment.Controllers
             }
         }
 
+        [HttpGet("GetStudentbyParent")]
+        public IActionResult GetStudentbyParent(int pageNo, int pageSize, long id)
+        {
+            try
+            {
+                var GetStudent = (from p in db.Students
+                                 where p.Status != 9 && p.ParentId==id
+                                 select p).ToList();
 
+
+                var Count = (from p in GetStudent select p).Count();
+
+                var StudentList = (from p in GetStudent
+                                   orderby p.FirstName descending
+                                   select new
+                                   {
+                                       StudentId = p.StudentId,
+                                       StudentName = p.FirstName + " " + p.FatherName + " " + p.GrandFatherName + " " + p.SurName,
+                                       Phone = p.PhoneNumber,
+                                       Sex = p.Sex,
+                                       Address = p.Adrress
+                                   }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new { Students = StudentList, count = Count });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("getDetals")]
+        public IActionResult getDetals()
+        {
+            try
+            {
+
+                var StudentCount = (from p in db.Students where p.Status!=9 select p).Count();
+                var ExamCount = (from p in db.Exams where p.Status!=9 select p).Count();
+                var homeWorckCount = (from p in db.HomeWorcks where p.Status!=9 select p).Count();
+                var parentsCount = (from p in db.Users where p.State!=9 && p.UserType==2 select p).Count();
+                var LastSudent = (from p in db.Students select p).OrderByDescending(p => p.StudentId).Select(x => new { code = x.FirstName+' '+x.FatherName + ' ' + x.GrandFatherName + ' ' + x.SurName, x.PhoneNumber, x.Status, x.StudentId }).Take(5).ToList();
+                //var LastSubScribtions = (from p in db.ShoortNumber select p).OrderByDescending(p => p.Id).Select(x => new { x.Code, x.Service, x.Amount, x.Smscount, x.UsageSms }).Take(5).ToList();
+
+                var Detalss = new
+                {
+                    StudentCount = StudentCount,
+                    ExamCount = ExamCount,
+                    homeWorckCount = homeWorckCount,
+                    parentsCount = parentsCount,
+                    LastSudent = LastSudent
+                };
+
+
+                return Ok(new { Detals = Detalss });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
 
 
     }

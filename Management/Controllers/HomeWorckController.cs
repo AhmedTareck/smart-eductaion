@@ -53,6 +53,7 @@ namespace Managegment.Controllers
                                         Disctiption = p.Disctiption,
                                         LastDayDilavary=p.LastDayDilavary,
                                         CreatedOn=p.CreatedBy,
+                                        Subjects=p.Subject.Name,
                                     }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
                 return Ok(new { presness = HomeWorcksList, count = Count });
@@ -87,6 +88,7 @@ namespace Managegment.Controllers
                 HomeWorck.Name = selectedHomeWorck.name;
                 HomeWorck.Disctiption = selectedHomeWorck.disctiption;
                 HomeWorck.LastDayDilavary = selectedHomeWorck.lastDayDilavary;
+                HomeWorck.SubjectId = selectedHomeWorck.SubjectSelected;
                 HomeWorck.CreatedBy = userId;
                 HomeWorck.CreatedOn = DateTime.Now;
                 HomeWorck.Status = 1;

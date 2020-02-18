@@ -54,6 +54,7 @@ namespace Managegment.Controllers
                                         Disctiption = p.Discreptons,
                                         ExamDate = p.ExamDate,
                                         CreatedOn=p.CreatedOn,
+                                        subject=p.Subject.Name,
                                     }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
                 return Ok(new { Exam = ExamList, count = Count });
@@ -89,6 +90,7 @@ namespace Managegment.Controllers
                 Exam.Discreptons = selectedExams.disctiption;
                 Exam.ExamDate = selectedExams.examDate;
                 Exam.FullMarck = selectedExams.fullMarck;
+                Exam.SubjectId = selectedExams.SubjectSelected;
                 Exam.CreatedBy = userId;
                 Exam.CreatedOn = DateTime.Now;
                 Exam.Status = 1;

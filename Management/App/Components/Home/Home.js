@@ -6,6 +6,7 @@ export default {
       
     },
     created() {  
+        this.getDetals();
         //this.GetMessageTypes(this.pageNo);
         //this.GetCountInfo();
         //setInterval(() => this.GetCountInfo(), 10000); 
@@ -19,7 +20,9 @@ export default {
             Massages:0,
             DeleteMassages:0,
             ArchiveMassages:0,
-            MessageTypes:0,
+            MessageTypes: 0,
+
+            Detals: [],
         };
     },
     filters: {
@@ -60,6 +63,21 @@ export default {
                     this.MessageTypes = response.data.messageTypes;
                 })
                 .catch((err) => {
+                });
+        },
+
+        getDetals() {
+           
+            this.$blockUI.Start();
+            this.$http.getDetals()
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.Detals = response.data.detals;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
                 });
         },
     }    

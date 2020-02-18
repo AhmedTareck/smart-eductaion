@@ -438,54 +438,96 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="messages">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" checked="">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
+                                <div class="row" v-if="Students==0">
+
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <br /><br />
+                                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للطلبة"
+                                                      type="info">
+                                            </el-alert>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <!--Table Info-->
+                                <div class="row" v-if="Students!=0">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead class="text-info">
+                                                    <th>
+                                                        #
+                                                    </th>
+                                                    <th>
+                                                        الإسم
+                                                    </th>
+                                                    <th>
+                                                        رقم الهاتف
+                                                    </th>
+                                                    <th>
+                                                        عدد الحضور
+                                                    </th>
+                                                    <th>
+                                                        عدد الغياب
+                                                    </th>
+                                                    <th style="text-align:left">
+                                                        العمليات
+                                                    </th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="item,index in Students">
+                                                            <td>{{index+1}} </td>
+                                                            <td>{{item.studentName }} </td>
+                                                            <td>{{item.phone}}</td>
+                                                            <td>{{10}}</td>
+                                                            <td>{{20}}</td>
+
+
+                                                            <td class="td-actions pull-left">
+                                                                <button type="button" rel="tooltip" @click.prevent="delteStudent(item.studentId)" class="btn btn-danger btn-link" data-original-title="" title="">
+                                                                    <i class="material-icons" title="حدف">close</i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-7">
+                                                        <div class="pull-right">
+                                                            <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate" style="direction: ltr;">
+                                                                <div style="text-align: center;">
+
+                                                                    <el-pagination background
+                                                                                   layout="prev, pager, next"
+                                                                                   :current-page="pageNo"
+                                                                                   :page-size="pageSize"
+                                                                                   :total="pages"
+                                                                                   @current-change="GetStudent($event)">
+                                                                    </el-pagination>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-5">
+                                                        <div class="pull-left">
+                                                            <div class="disabled-sorting text-right" id="datatable_info" role="status" aria-live="polite">Showing {{pageNo}} to {{pageSize}} of {{pages}} entries</div>
+                                                        </div>
+
+                                                    </div>
+
                                                 </div>
-                                            </td>
-                                            <td>
-                                                Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                            </td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane active show" id="settings">
                                 <table class="table">

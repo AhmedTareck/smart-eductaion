@@ -75,6 +75,9 @@
                                         الإسم
                                     </th>
                                     <th>
+                                        المادة الدراسية
+                                    </th>
+                                    <th>
                                         وصف توضيحي
                                     </th>
                                     <th>
@@ -91,6 +94,7 @@
                                         <tr v-for="item,index in homeWorck">
                                             <td>{{index+1}} </td>
                                             <td>{{item.name }} </td>
+                                            <td>{{item.subjects }} </td>
                                             <td>{{item.disctiption}}</td>
                                             <td>{{item.lastDayDilavary | moment}}</td>
                                             <td>{{item.createdOn | moment}}</td>

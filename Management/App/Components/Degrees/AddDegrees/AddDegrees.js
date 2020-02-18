@@ -1,7 +1,7 @@
 ﻿
 import moment from 'moment';
 export default {
-    name: 'AddHomeWorck',
+    name: 'AddDegrees',
 
     created() {
         this.GetYears();

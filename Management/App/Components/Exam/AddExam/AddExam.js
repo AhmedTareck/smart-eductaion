@@ -15,6 +15,8 @@ export default {
 
             Events: [],
 
+            Subject: [],
+
 
             selectedExams: {
                 eventId: '',
@@ -22,7 +24,8 @@ export default {
                 name: '',
                 disctiption: '',
                 fullMarck: '',
-                examDate:'',
+                examDate: '',
+                SubjectSelected: '',
 
             },
         };
@@ -70,6 +73,7 @@ export default {
 
         getEvents() {
             this.EventSelectd = '';
+            this.getSubject();
             this.$blockUI.Start();
             this.$http.GetEvents(this.selectedExams.yearId)
 
@@ -107,6 +111,22 @@ export default {
 
         resetForm(formName) {
             this.$refs[formName].resetFields();
+        },
+
+        getSubject() {
+            this.Subject = [];
+            this.$blockUI.Start();
+            this.$http.getSubject(this.selectedExams.yearId)
+
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.Subject = response.data.subject;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
         },
 
 

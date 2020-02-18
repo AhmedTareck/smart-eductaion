@@ -10,6 +10,7 @@ namespace Management.objects
         public long id { get; set; }
         public long eventId { get; set; }
         public long yearId { get; set; }
+        public long SubjectSelected { get; set; }
         public string name { get; set; }
         public DateTime lastDayDilavary { get; set; }
         public string disctiption { get; set; }
