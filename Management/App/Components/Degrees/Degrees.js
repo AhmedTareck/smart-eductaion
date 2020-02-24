@@ -4,8 +4,7 @@ export default {
     name: 'Degrees',
     
     created() { 
-        this.GetYears();
-        this.GetHomeWorck();
+        this.Getdegrees();
     },
     components: {
         'AddDegrees': AddDegrees,
@@ -13,11 +12,6 @@ export default {
     data() {
         return {
 
-            state:0,
-
-            pageNo: 1,
-            pageSize: 5,
-            pages: 0,
 
             Years:[],
             YearSelected:'',
@@ -26,8 +20,16 @@ export default {
             EventSelectd:'',
 
 
-            homeWorck: [],
-            selectedHomeWorck:[],
+            student: [],
+            selectedHomeWorck: [],
+
+            searchItem: '',
+
+            pageNo: 1,
+            pageSize: 5,
+            pages: 0,
+
+            degrees: [],
         };
     },
 
@@ -44,13 +46,15 @@ export default {
 
     methods: {
        
-        GetYears(){
+
+        serachStudent() {
+            
             this.$blockUI.Start();
-            this.$http.GetYears()
+            this.$http.serachStudent(this.searchItem)
                 .then(response => {
 
                     this.$blockUI.Stop();
-                    this.Years = response.data.years;
+                    this.student = response.data.students;
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();
@@ -58,35 +62,17 @@ export default {
                 });
         },
 
-        getEvents() 
-        {
-            this.EventSelectd='';
-            this.GetHomeWorck();
-            this.$blockUI.Start();
-            this.$http.GetEvents(this.YearSelected)
-
-                .then(response => {
-
-                    this.$blockUI.Stop();
-                    this.Events = response.data.events;
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-                    console.error(err);
-                });
-        },
-
-        GetHomeWorck(pageNo) {
+        Getdegrees(pageNo) {
             this.pageNo = pageNo;
             if (this.pageNo === undefined) {
                 this.pageNo = 1;
             }
             this.$blockUI.Start();
-            this.$http.GetHomeWorck(this.pageNo, this.pageSize, this.YearSelected,this.EventSelectd)
+            this.$http.Getdegrees(this.pageNo, this.pageSize)
                 .then(response => {
 
                     this.$blockUI.Stop();
-                    this.homeWorck = response.data.presness;
+                    this.degrees = response.data.degreess;
                     this.pages = response.data.count;
                 })
                 .catch((err) => {
@@ -96,29 +82,24 @@ export default {
                 });
         },
 
-        editHomeWorck(item) {
-            this.selectedHomeWorck = item;
-            this.state = 1;
-        },
-
-        delteHomeWorck(id) {
+        deltedegrees(id) {
 
 
-            this.$confirm('سيؤدي ذلك إلى حدف الواجب الدراسي  . استمر؟', 'تـحذير', {
+            this.$confirm('سيؤدي ذلك إلى حدف السجل  . استمر؟', 'تـحذير', {
                 confirmButtonText: 'نـعم',
                 cancelButtonText: 'لا',
                 type: 'warning'
             }).then(() => {
 
 
-                this.$http.delteHomeWorck(id)
+                this.$http.deltedegrees(id)
                     .then(response => {
                         this.$message({
                             type: 'info',
                             message: response.data
                         });
                         this.$blockUI.Stop();
-                        this.GetHomeWorck();
+                        this.Getdegrees();
                     })
                     .catch((err) => {
                         this.$blockUI.Stop();
@@ -129,5 +110,7 @@ export default {
                     });
             });
         },
+
+        
     }    
 }

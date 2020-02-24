@@ -1,6 +1,8 @@
 ﻿using Managegment.objects;
 using Management.Models;
+using Management.objects;
 using Microsoft.AspNetCore.Mvc;
+using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -377,6 +379,161 @@ namespace Managegment.Controllers
             }
         }
 
+        [HttpGet("serachStudent")]
+        public IActionResult serachStudent(string item)
+        {
+            try
+            {
+                var GetStudent = from c in db.Students
+                                 where (c.FirstName==item || c.FatherName == item || c.GrandFatherName == item || c.SurName == item || c.PhoneNumber == item )
+                                  && c.Status!=9
+                                 select c;
 
+                var StudentList = (from p in GetStudent
+                                   orderby p.FirstName descending
+                                   select new
+                                   {
+                                       StudentId = p.StudentId,
+                                       StudentName = p.FirstName + " " + p.FatherName + " " + p.GrandFatherName + " " + p.SurName,
+                                       Phone = p.PhoneNumber,
+                                       Sex = p.Sex,
+                                       Address = p.Adrress
+                                   }).ToList();
+
+                return Ok(new { Students = StudentList});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("Getdegrees")]
+        public IActionResult Getdegrees(int pageNo, int pageSize)
+        {
+            try
+            {
+                var Getdegrees = (from p in db.Degrees
+                                  where p.Status != 9 
+                                  select new
+                                  {
+                                      student=p.Student,
+                                      CreatecdOn=p.CreatecdOn,
+                                      Id=p.Id,
+                                      Image=p.Image,
+                                      StudentName = p.Student.FirstName + " " + p.Student.FatherName + " " + p.Student.GrandFatherName + " " + p.Student.SurName,
+                                      Phone = p.Student.PhoneNumber,
+                                  }).ToList();
+
+
+                var Count = (from p in Getdegrees select p).Count();
+
+                var GetdegreesList = (from p in Getdegrees
+                                   orderby p.CreatecdOn descending
+                                   select new
+                                   {
+                                       id = p.Id,
+                                       StudentName = p.StudentName,
+                                       Phone = p.Phone,
+                                       image=p.Image,
+                                       createdOn=p.CreatecdOn
+                                   }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new { degreess = GetdegreesList, count = Count });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("{id}/image")]
+        public IActionResult GetdegreageImage(long id)
+        {
+            try
+            {
+                var degrage = (from p in db.Degrees
+                                 where p.Id == id
+                                 select p.Image).SingleOrDefault();
+
+                if (degrage == null)
+                {
+                    return NotFound("الصحيفة غير موجــود");
+                }
+
+                return File(degrage, "image/jpeg");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+      
+
+        [HttpPost("UploadDegregesImage")]
+        public IActionResult UploadDegregesImage([FromBody] DegregeObject degrege)
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                if (degrege == null)
+                {
+                    return StatusCode(401, "حدتت مشكلة في ارسال البيانات");
+                }
+
+                Degrees degrees = new Degrees();
+                degrees.Image = Convert.FromBase64String(degrege.Photo.Substring(degrege.Photo.IndexOf(",") + 1));
+                degrees.StudentId = degrege.StudentId;
+                degrees.CreatecdOn = DateTime.Now;
+                degrees.CreatedBy = userId;
+                degrees.Status = 1;
+                db.Degrees.Add(degrees);
+
+                db.SaveChanges();
+                return Ok("تم إضافة الصحيفة بنـجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+        }
+
+        
+        [HttpPost("{id}/deltedegrees")]
+        public IActionResult deltedegrees(long id)
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var degres = (from p in db.Degrees where p.Id == id select p).SingleOrDefault();
+
+                if (degres == null)
+                {
+                    return NotFound("خــطأ : السجل غير موجود");
+                }
+
+                degres.Status = 9;
+                db.SaveChanges();
+                return Ok("تم حدف السجل بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

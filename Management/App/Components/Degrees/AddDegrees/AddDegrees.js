@@ -15,7 +15,9 @@ export default {
 
             Events: [],
 
-            Subject: [],
+            Students:[],
+
+            photo: [],
 
 
             selectedHomeWorck: {
@@ -25,6 +27,7 @@ export default {
                 lastDayDilavary: '',
                 disctiption: '',
                 SubjectSelected: '',
+                studentId:'',
 
             },
         };
@@ -114,6 +117,9 @@ export default {
 
         getSubject() {
             this.Subject = [];
+            this.selectedHomeWorck.eventId = '';
+            this.Students = [];
+            this.selectedHomeWorck.SubjectSelected = '';
             this.$blockUI.Start();
             this.$http.getSubject(this.selectedHomeWorck.yearId)
 
@@ -125,6 +131,79 @@ export default {
                 .catch((err) => {
                     this.$blockUI.Stop();
                     console.error(err);
+                });
+        },
+
+        GetStudent() {
+            this.Students = [];
+            this.selectedHomeWorck.SubjectSelected = '';
+            this.$blockUI.Start();
+            this.$http.GetStudentByEvent(this.selectedHomeWorck.eventId)
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.Students = response.data.students;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
+
+        FileChanged(e) {
+            var files = e.target.files;
+
+            if (files.length <= 0) {
+                return;
+            }
+
+            if (files[0].type !== 'image/jpeg' && files[0].type !== 'image/png') {
+                this.$message({
+                    type: 'error',
+                    message: 'عفوا يجب انت تكون الصورة من نوع JPG ,PNG'
+                });
+                this.photo = null;
+                return;
+            }
+
+            var $this = this;
+
+            var reader = new FileReader();
+            reader.onload = function () {
+                $this.photo = reader.result;
+                $this.UploadImage();
+            };
+            reader.onerror = function (error) {
+                $this.photo = null;
+            };
+            reader.readAsDataURL(files[0]);
+        },
+
+        UploadImage() {
+            console.log(this.selectedHomeWorck.studentId);
+            this.$blockUI.Start();
+            var obj = {
+                Photo: this.photo,
+                StudentId: this.selectedHomeWorck.studentId
+            };
+            this.$http.UploadDegregesImage(obj)
+                .then(response => {
+                    this.$blockUI.Stop();
+                    this.$message({
+                        type: 'success',
+                        dangerouslyUseHTMLString: true,
+                        duration: 5000,
+                        message: '<strong>' + response.data + '</strong>'
+                    });
+                    //setTimeout(() =>
+                    //    window.location.href = '/AddDegrees'
+                    //    , 500);
+
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                    this.pages = 0;
                 });
         },
 

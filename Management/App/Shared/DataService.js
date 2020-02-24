@@ -293,5 +293,26 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(baseUrl + `/admin/Students/getDetals`);
     },
+
+    serachStudent(item) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Students/serachStudent?item=${item}`);
+    },
+
+    Getdegrees(pageNo, pageSize) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Students/Getdegrees?pageno=${pageNo}&pagesize=${pageSize}`);
+    },
+
+    UploadDegregesImage(obj) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + '/Admin/Students/UploadDegregesImage', obj);
+    },
+
+    deltedegrees(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Students/${id}/deltedegrees`);
+    },
+
     
 }

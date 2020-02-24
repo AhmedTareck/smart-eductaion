@@ -56,7 +56,8 @@
 
                                             <el-select v-model="selectedHomeWorck.eventId"
                                                        style="width: 100%;"
-                                                       filterable placeholder="الفصل ">
+                                                       filterable placeholder="الفصل "
+                                                       @change="GetStudent()">
 
                                                 <el-option v-for="item in Events"
                                                            :key="item.eventId"
@@ -84,18 +85,18 @@
                                         <label>المادة الدراسية  </label>
 
 
-                                        <el-form-item prop="SubjectSelected"
+                                        <el-form-item prop="studentId"
                                                       label-width="0px"
-                                                      :rules="[{required: true, message: ' subject Is Requird'} ]">
+                                                      :rules="[{required: true, message: ' Student Is Requird'} ]">
 
-                                            <el-select v-model="selectedHomeWorck.SubjectSelected"
+                                            <el-select v-model="selectedHomeWorck.studentId"
                                                        style="    width: 100%;"
-                                                       filterable placeholder="المادة الدراسية ">
+                                                       filterable placeholder="الطالب ">
 
-                                                <el-option v-for="item in Subject"
-                                                           :key="item.subjectId"
-                                                           :label="item.name"
-                                                           :value="item.subjectId">
+                                                <el-option v-for="item in Students"
+                                                           :key="item.studentId"
+                                                           :label="item.studentName"
+                                                           :value="item.studentId">
                                                 </el-option>
 
                                             </el-select>
@@ -106,25 +107,19 @@
 
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-6" v-if="selectedHomeWorck.studentId!=0">
 
-                                    <div class="form-group">
+                                    <div class="form-group pull-left">
 
-                                        <label>وصف توضيحي</label>
+                                        <br />
 
-                                        <el-form-item prop="disctiption"
-                                                      label-width="0px"
-                                                      :rules="[{ required: true, message: 'Disctiption Is Requird'} ]">
+                                        <div class="form-group UploadButton">
 
-                                            <el-input type="disctiption"
-                                                      placeholder="وصف توضيحي"
-                                                      v-model="selectedHomeWorck.disctiption"
-                                                      :rows="6"
-                                                      autocomplete="off">
-                                            </el-input>
-
-                                        </el-form-item>
-
+                                            <label for="file-upload" class="btn btn-info btn-round">
+                                                <i class="fa fa-cloud-upload" style="color:white"></i> إضافة الصحيفة
+                                            </label>
+                                            <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
+                                        </div>
 
                                     </div>
 
@@ -132,70 +127,6 @@
 
 
 
-                            </div>
-
-
-                            <div class="row">
-
-                                <div class="col-md-6">
-
-                                    <div class="form-group">
-
-                                        <label>إسم الواجب الدراسي  </label>
-
-
-                                        <el-form-item prop="name"
-                                                      label-width="0px"
-                                                      :rules="[{required: true, message: ' Name Is Requird'} ]">
-
-                                            <el-input type="name"
-                                                      placeholder="Name"
-                                                      v-model="selectedHomeWorck.name"
-                                                      autocomplete="off" />
-
-                                        </el-form-item>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-6">
-
-                                    <div class="form-group">
-
-                                        <label>اخر موعد للتسليم </label>
-
-
-                                        <el-form-item prop="lastDayDilavary"
-                                                      label-width="0px"
-                                                      :rules="[{required: true, message: ' Date Is Requird'} ]">
-
-                                            <el-date-picker v-model="selectedHomeWorck.lastDayDilavary"
-                                                            type="date"
-                                                            placeholder="اخر موعد للتسليم">
-                                            </el-date-picker>
-
-                                        </el-form-item>
-
-                                    </div>
-
-                                </div>
-
-
-
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="pull-left">
-
-                                        <br>
-
-                                        <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="submitForm('selectedHomeWorck')">إضافة البيانات</el-button>
-                                    </div>
-
-                                </div>
                             </div>
 
                         </el-form>

@@ -11,6 +11,8 @@ public StudentTrackerContext(DbContextOptions<StudentTrackerContext> options) : 
 
 Abdala PC : 
 Scaffold-DbContext "server=DESKTOP-4AI87L8\SQLEXPRESS;Database=Mail;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+Scaffold-DbContext "server=41.208.71.78;database=StudentTracker;uid=AhmedTareck;pwd=35087124567Ahmed;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
 -----------------------------------------
 
 Code-First Approach

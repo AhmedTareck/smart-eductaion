@@ -7,10 +7,12 @@ namespace Management.Models
     public partial class StudentTrackerContext : DbContext
     {
         public virtual DbSet<AcadimacYears> AcadimacYears { get; set; }
+        public virtual DbSet<Degrees> Degrees { get; set; }
         public virtual DbSet<Events> Events { get; set; }
         public virtual DbSet<Exams> Exams { get; set; }
         public virtual DbSet<Grids> Grids { get; set; }
         public virtual DbSet<HomeWorcks> HomeWorcks { get; set; }
+        public virtual DbSet<Packeges> Packeges { get; set; }
         public virtual DbSet<Presness> Presness { get; set; }
         public virtual DbSet<PresnessInfo> PresnessInfo { get; set; }
         public virtual DbSet<Schools> Schools { get; set; }
@@ -23,31 +25,47 @@ namespace Management.Models
 
         public StudentTrackerContext(DbContextOptions<StudentTrackerContext> options) : base(options) { }
 
-        // Unable to generate entity type for table 'dbo.Packeges'. Please see the warning messages.
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"server=LAPTOP-DVJT5BST;database=StudentTracker;uid=Ahmed;pwd=35087124567Ahmed;");
+                optionsBuilder.UseSqlServer(@"server=41.208.71.78;database=StudentTracker;uid=AhmedTareck;pwd=35087124567Ahmed;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("Relational:DefaultSchema", "AhmedTareck");
+
             modelBuilder.Entity<AcadimacYears>(entity =>
             {
                 entity.HasKey(e => e.AcadimecYearId);
+
+                entity.ToTable("AcadimacYears", "dbo");
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Degrees>(entity =>
+            {
+                entity.ToTable("Degrees", "dbo");
+
+                entity.Property(e => e.CreatecdOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.Degrees)
+                    .HasForeignKey(d => d.StudentId)
+                    .HasConstraintName("FK_Degrees_Users");
+            });
+
             modelBuilder.Entity<Events>(entity =>
             {
                 entity.HasKey(e => e.EventId);
+
+                entity.ToTable("Events", "dbo");
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
@@ -67,6 +85,8 @@ namespace Management.Models
             modelBuilder.Entity<Exams>(entity =>
             {
                 entity.HasKey(e => e.ExamId);
+
+                entity.ToTable("Exams", "dbo");
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
@@ -89,6 +109,8 @@ namespace Management.Models
             {
                 entity.HasKey(e => e.GridId);
 
+                entity.ToTable("Grids", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Exam)
@@ -104,6 +126,8 @@ namespace Management.Models
 
             modelBuilder.Entity<HomeWorcks>(entity =>
             {
+                entity.ToTable("HomeWorcks", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.LastDayDilavary).HasColumnType("date");
@@ -119,8 +143,26 @@ namespace Management.Models
                     .HasConstraintName("FK_HomeWorcks_Subjects");
             });
 
+            modelBuilder.Entity<Packeges>(entity =>
+            {
+                entity.ToTable("Packeges", "dbo");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.EndDate).HasColumnType("date");
+
+                entity.Property(e => e.StatrtDate).HasColumnType("date");
+
+                entity.HasOne(d => d.School)
+                    .WithMany(p => p.Packeges)
+                    .HasForeignKey(d => d.SchoolId)
+                    .HasConstraintName("FK_Packeges_Schools");
+            });
+
             modelBuilder.Entity<Presness>(entity =>
             {
+                entity.ToTable("Presness", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.LectureDate).HasColumnType("date");
@@ -133,6 +175,8 @@ namespace Management.Models
 
             modelBuilder.Entity<PresnessInfo>(entity =>
             {
+                entity.ToTable("PresnessInfo", "dbo");
+
                 entity.HasOne(d => d.Presness)
                     .WithMany(p => p.PresnessInfo)
                     .HasForeignKey(d => d.PresnessId)
@@ -148,6 +192,8 @@ namespace Management.Models
             {
                 entity.HasKey(e => e.SchoolId);
 
+                entity.ToTable("Schools", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -160,6 +206,8 @@ namespace Management.Models
 
             modelBuilder.Entity<Skedjule>(entity =>
             {
+                entity.ToTable("Skedjule", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Event)
@@ -177,6 +225,8 @@ namespace Management.Models
             {
                 entity.HasKey(e => e.StudentEventId);
 
+                entity.ToTable("StudentEvents", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Event)
@@ -193,6 +243,8 @@ namespace Management.Models
             modelBuilder.Entity<Students>(entity =>
             {
                 entity.HasKey(e => e.StudentId);
+
+                entity.ToTable("Students", "dbo");
 
                 entity.Property(e => e.Adrress).HasMaxLength(50);
 
@@ -220,6 +272,8 @@ namespace Management.Models
             {
                 entity.HasKey(e => e.SubjectId);
 
+                entity.ToTable("Subjects", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -233,6 +287,8 @@ namespace Management.Models
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.UserId);
+
+                entity.ToTable("Users", "dbo");
 
                 entity.Property(e => e.BirthDate).HasColumnType("datetime");
 
@@ -248,14 +304,16 @@ namespace Management.Models
 
                 entity.Property(e => e.Name).HasMaxLength(50);
 
-                entity.Property(e => e.Password).HasMaxLength(250);
+                entity.Property(e => e.Password).HasMaxLength(200);
 
-                entity.Property(e => e.Phone).HasMaxLength(25);
+                entity.Property(e => e.Phone).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Years>(entity =>
             {
                 entity.HasKey(e => e.YearId);
+
+                entity.ToTable("Years", "dbo");
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
