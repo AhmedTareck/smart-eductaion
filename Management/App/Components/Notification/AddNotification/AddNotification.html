@@ -1,0 +1,108 @@
+﻿
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title ">إرسال إشعار لجميع المستخدمين </h4>
+                            <p class="card-category"> يتم إرسال الإشعر الي جميع المستخدمين واولياء الامور علي شكل تنبيه </p>
+                        </div>
+
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <el-form :model="ruleForm"  ref="ruleForm" label-position="top" label-width="120px" class="demo-ruleForm">
+                                    <br />
+                                    <br />
+                                    <!--Email / Gender / DateOfBirth-->
+                                    <el-row class="row">
+
+
+                                        <el-col class="col-md-4">
+
+
+                                            <el-form-item prop="type" label="نوع الرسالة" 
+                                                          label-width="0px"
+                                                          :rules="[{required: true, message: ' Type Is Requird'} ]">
+
+                                                <el-select v-model="ruleForm.type"
+                                                           style="    width: 100%;"
+                                                           filterable placeholder="النوع ">
+
+                                                    <el-option v-for="item in type"
+                                                               :key="item.id"
+                                                               :label="item.name"
+                                                               :value="item.id">
+                                                    </el-option>
+
+                                                </el-select>
+
+                                            </el-form-item>
+
+
+                                        </el-col>
+
+                                    </el-row>
+                                    <br />
+
+                                    <!--Pass / ConfirmPass / PhoneNumber-->
+                                    <el-row class="row">
+
+                                        <el-col class="col-md-12">
+
+                                            <el-form-item prop="notifecation" label=" الرســالة" 
+                                                          label-width="0px"
+                                                          :rules="[{required: true, message: ' Notifecation Is Requird'} ]">
+                                               
+                                                <el-input type="textarea"
+                                                          :rows="5"
+                                                          placeholder=" نص الرسالة او التعميم "
+                                                          v-model="ruleForm.notifecation">
+                                                </el-input>
+
+                                            </el-form-item>
+                                        </el-col>
+
+
+                                    </el-row>
+
+                                    <div class="d-flex justify-content-center">
+                                        <div class="col-md-2">
+                                            <el-button class="btn btn-info btn-fill pull-right"
+                                                       type="primary"
+                                                       @click.prevent="submitForm('ruleForm')">
+                                                ارسال التعميم
+
+                                            </el-button>
+                                        </div>
+                                    </div>
+
+                                    <!--<el-row class="row">
+
+        <el-col class="col-md-12">
+
+
+            <button class="btn btn-info pull-center" @click.prevent="Save('ruleForm')">حفظ</button>
+        </el-col>
+
+
+    </el-row>-->
+
+
+
+                                </el-form>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
