@@ -2,6 +2,7 @@
 using Management.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,17 +31,22 @@ namespace Management.Controllers
         {
             try
             {
-                var students = (from p in db.Students where p.ParentId == UserId where p.Status != 9 select new
+                var students = (from p in db.StudentEvents
+                                where p.Student.ParentId == UserId where p.Student.Status != 9 select new
                 {
                     studentId=p.StudentId,
-                    firstName=p.FirstName,
-                    fatherName=p.FirstName,
-                    grandFatherName=p.GrandFatherName,
-                    surName=p.SurName,
-                    adrress=p.Adrress,
-                    phoneNumber=p.PhoneNumber,
-                    sex=p.Sex,
-                    matherName=p.MatherName,
+                    firstName=p.Student.FirstName,
+                    fatherName=p.Student.FirstName,
+                    grandFatherName=p.Student.GrandFatherName,
+                    surName=p.Student.SurName,
+                    adrress=p.Student.Adrress,
+                    phoneNumber=p.Student.PhoneNumber,
+                    sex=p.Student.Sex,
+                    matherName=p.Student.MatherName,
+                    Class=p.Event.EventGroup,
+                    year = p.Event.AcadimecYear.Name,
+                    eventId=p.EventId
+
                 }).ToList();
                 
                 return Ok(new { students = students });
@@ -50,22 +56,73 @@ namespace Management.Controllers
                 return StatusCode(500, e.Message);
             }
         }
-
-        [HttpGet("GetEventStudent")]
-        public IActionResult GetEventStudent(long StudentId)
+        [HttpGet("GetStudentExam")]
+        public IActionResult GetStudentExam(long StudentId,long eventId)
         {
             try
             {
-                var Events = (from p in db.StudentEvents
-                                where p.StudentId == StudentId /*&& p.Event.Year.YearId==1*/
+                var Exams = (from p in db.Exams
+                              where p.EventId == eventId /*&& p.Event.Year.YearId==1*/
+                              where p.Status != 9
+                              select new
+                              {
+                                  ExamName = p.Name,
+                                  FullMarck = p.FullMarck,
+                                  ExamDate = p.ExamDate,
+                                  SubjectName=p.Subject.Name,
+                                  Discreptons=p.Discreptons,
+                                  Grid= p.Grids.Any(a=>a.StudentId==StudentId)? p.Grids.SingleOrDefault(s => s.StudentId == StudentId).Grid:-1
+                              }).ToList();
+
+                return Ok(new { Exams = Exams });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetPresness")]
+        public IActionResult GetPresness(long StudentId)
+        {
+            try
+            {
+                var Presness = (from p in db.PresnessInfo
+                              where p.StudentId == StudentId /*&& p.Event.Year.YearId==1*/
+                              where p.Presness.Status != 9
+                              select new
+                              {
+                                  Stute=p.Status,
+                                  LectureDate = p.Presness.LectureDate,
+                              }).ToList();
+
+                return Ok(new { Presness = Presness });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetHomeWorcks")]
+        public IActionResult GetHomeWorcks(long eventId)
+        {
+            try
+            {
+                var HomeWorcks = (from p in db.HomeWorcks
+                                where p.EventId == eventId /*&& p.Event.Year.YearId==1*/
                                 where p.Status != 9
                                 select new
                                 {
-                                    Class=p.Event.EventGroup,
-                                    year=p.Event.AcadimecYear.Name,
+                                    Name = p.Name,
+                                    Disctiption = p.Disctiption,
+                                    LastDayDilavary = p.LastDayDilavary,
+                                    CreatedOn = p.CreatedOn,
+                                    SubjectName = p.Subject.Name,
+
                                 }).ToList();
 
-                return Ok(new { Events = Events });
+                return Ok(new { HomeWorcks = HomeWorcks });
             }
             catch (Exception e)
             {
@@ -73,54 +130,66 @@ namespace Management.Controllers
             }
         }
 
-        [HttpGet("GetGridInfo")]
-        public IActionResult GetGridInfo(long StudentId)
+        [HttpGet("GetSkedjule")]
+        public IActionResult GetSkedjule(long eventId)
         {
             try
             {
-                var Events = (from p in db.Grids
-                              where p.StudentId == StudentId /*&& p.Event.Year.YearId==1*/
-                              where p.Status != 9
-                              select new
-                              {
-                                  ExamName=p.Exam.Name,
-                                  FullMarck=p.Exam.FullMarck,
-                                  Grid=p.Grid,
-                                  ExamDate = p.Exam.ExamDate,
-                              }).ToList();
 
-                return Ok(new { Events = Events });
+                var Skedjule = db.Skedjule.Where(w => w.EventId == eventId).Include(i=>i.Subject).ToList();
+
+                var Sa = Skedjule.Where(sa => sa.Day == 1).Select(s => new
+                {
+                    SubjectName=s.Subject.Name,
+                    LectureNumber=s.LectureNumber
+                }).ToList();
+
+                var Su = Skedjule.Where(sa => sa.Day == 2).Select(s => new
+                {
+                    SubjectName = s.Subject.Name,
+                    LectureNumber = s.LectureNumber
+                }).ToList();
+
+                var mo = Skedjule.Where(sa => sa.Day == 3).Select(s => new
+                {
+                    SubjectName = s.Subject.Name,
+                    LectureNumber = s.LectureNumber
+                }).ToList();
+
+                var tu = Skedjule.Where(sa => sa.Day == 4).Select(s => new
+                {
+                    SubjectName = s.Subject.Name,
+                    LectureNumber = s.LectureNumber
+                }).ToList();
+
+                var we = Skedjule.Where(sa => sa.Day == 5).Select(s => new
+                {
+                    SubjectName = s.Subject.Name,
+                    LectureNumber = s.LectureNumber
+                }).ToList();
+
+                var th = Skedjule.Where(sa => sa.Day == 6).Select(s => new
+                {
+                    SubjectName = s.Subject.Name,
+                    LectureNumber = s.LectureNumber
+                }).ToList();
+
+                var result = new
+                {
+                    sa = Sa,
+                    su = Su,
+                    mo = mo,
+                    tu = tu,
+                    we = we,
+                    th = th,
+                };
+                return Ok(new { result = result });
             }
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
             }
         }
-
-        [HttpGet("GetStudentExam")]
-        public IActionResult GetStudentExam(long StudentId)
-        {
-            try
-            {
-                var Events = (from p in db.Grids
-                              where p.StudentId == StudentId /*&& p.Event.Year.YearId==1*/
-                              where p.Status != 9
-                              select new
-                              {
-                                  ExamName = p.Exam.Name,
-                                  FullMarck = p.Exam.FullMarck,
-                                  Grid = p.Grid,
-                                  ExamDate = p.Exam.ExamDate,
-                              }).ToList();
-
-                return Ok(new { Events = Events });
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
-        }
-
 
 
         //[HttpGet("GetStudentPresence")]
