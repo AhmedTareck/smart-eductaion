@@ -31,6 +31,9 @@ import Degrees from './Components/Degrees/Degrees.vue';
 import AddParents from './Components/Parents/AddParents/AddParents.vue';
 import AddUsers from './Components/Users/AddUsers/AddUsers.vue';
 import AddDegrees from './Components/Degrees/AddDegrees/AddDegrees.vue';
+import Notification from './Components/Notification/Notification.vue';
+import AddNotification from './Components/Notification/AddNotification/AddNotification.vue';
+import AddNotificationParent from './Components/Notification/AddNotificationParent/AddNotificationParent.vue';
 
 
 
@@ -88,6 +91,9 @@ const router = new VueRouter({
         { path: '/Parents', name: 'Parents', component: Parents },
         { path: '/AddParents', name: 'AddParents', component: AddParents },
         { path: '/AddDegrees', name: 'AddDegrees', component: AddDegrees },
+        { path: '/AddNotification', name: 'AddNotification', component: AddNotification },
+        { path: '/Notification', name: 'Notification', component: Notification },
+        { path: '/AddNotificationParent', name: 'AddNotificationParent', component: AddNotificationParent }
 
     ]
 });

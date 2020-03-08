@@ -314,5 +314,10 @@ export default {
         return axios.post(baseUrl + `/admin/Students/${id}/deltedegrees`);
     },
 
+    AddNotifi(notifi) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/Admin/Notifi/AddNotifi`, notifi);
+    }
+
     
 }

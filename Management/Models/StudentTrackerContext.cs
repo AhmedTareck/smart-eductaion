@@ -12,6 +12,8 @@ namespace Management.Models
         public virtual DbSet<Exams> Exams { get; set; }
         public virtual DbSet<Grids> Grids { get; set; }
         public virtual DbSet<HomeWorcks> HomeWorcks { get; set; }
+        public virtual DbSet<NotificationDelivary> NotificationDelivary { get; set; }
+        public virtual DbSet<Notifications> Notifications { get; set; }
         public virtual DbSet<Packeges> Packeges { get; set; }
         public virtual DbSet<Presness> Presness { get; set; }
         public virtual DbSet<PresnessInfo> PresnessInfo { get; set; }
@@ -141,6 +143,23 @@ namespace Management.Models
                     .WithMany(p => p.HomeWorcks)
                     .HasForeignKey(d => d.SubjectId)
                     .HasConstraintName("FK_HomeWorcks_Subjects");
+            });
+
+            modelBuilder.Entity<NotificationDelivary>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Notification)
+                    .WithMany(p => p.NotificationDelivary)
+                    .HasForeignKey(d => d.NotificationId)
+                    .HasConstraintName("FK_NotificationDelivary_Notifications");
+            });
+
+            modelBuilder.Entity<Notifications>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Packeges>(entity =>
