@@ -690,7 +690,6 @@ namespace CMS.Controllers
             }
         }
 
-
         [HttpGet("GetSkedjules")]
         public IActionResult GetSkedjules(int pageNo, int pageSize, int EventId)
         {
@@ -816,6 +815,7 @@ namespace CMS.Controllers
         }
 
         [HttpPost("{id}/deleteYears")]
+
         public IActionResult delteHomeWorck(long id)
         {
             try

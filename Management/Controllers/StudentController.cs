@@ -469,8 +469,6 @@ namespace Managegment.Controllers
             }
         }
 
-      
-
         [HttpPost("UploadDegregesImage")]
         public IActionResult UploadDegregesImage([FromBody] DegregeObject degrege)
         {
@@ -505,7 +503,6 @@ namespace Managegment.Controllers
             }
 
         }
-
         
         [HttpPost("{id}/deltedegrees")]
         public IActionResult deltedegrees(long id)
