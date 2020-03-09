@@ -317,7 +317,17 @@ export default {
     AddNotifi(notifi) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + `/Admin/Notifi/AddNotifi`, notifi);
-    }
+    },
+
+    GetNotifi(pageNo, pageSize) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Notifi/GetNotifi?pageno=${pageNo}&pagesize=${pageSize}`);
+    },
+
+    AddUserNotifi(notifi) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/Admin/Notifi/AddUserNotifi`, notifi);
+    },
 
     
 }

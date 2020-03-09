@@ -28,6 +28,7 @@ namespace CMS.Controllers
         {
             public short type { get; set; }
             public string notifecation { get; set; }
+            public long? userId { get; set; }
         }
 
         [HttpPost("AddNotifi")]
@@ -82,43 +83,85 @@ namespace CMS.Controllers
         }
 
 
-        [HttpGet("GetSkedjules")]
-        public IActionResult GetSkedjules(int pageNo, int pageSize, int EventId)
+        [HttpGet("GetNotifi")]
+        public IActionResult GetSkedjules(int pageNo, int pageSize)
         {
             try
             {
-                //var GetSkedjule = from p in db.Skedjule
-                //                  where p.Status != 9
-                //                  select p;
-                var GetSkedjule = from p in db.Skedjule group p by p.EventId into g select new { code = g.Key, count = g.Count() };
-
-                if (EventId != 0)
-                {
-                    GetSkedjule = from p in db.Skedjule where p.EventId==EventId group p by p.EventId into g select new { code = g.Key, count = g.Count() };
-                }
+                var GetNotifi = (from p in db.Notifications where p.Status != 9 select p).ToList();
 
 
-                //1 active 
-                // 2 not
-                var Count = (from p in GetSkedjule select p).Count();
+                var Count = (from p in GetNotifi select p).Count();
 
-                var SkedjuleList = (from p in GetSkedjule
-                                    
+                var Notificatios = (from p in GetNotifi
+                                    orderby p.CreatedOn descending
                                     select new
                                     {
-                                        id = p.code,
-                                        Group=(from q in db.Events where p.code==q.EventId select q.EventGroup).SingleOrDefault(),
-                                        year =(from q in db.Events where p.code == q.EventId select q.AcadimecYear.Name).SingleOrDefault(),
+                                        Id = p.Id,
+                                        Notification=p.Notification,
+                                        TypeNotification = (
+                                            p.Status == 1 ? "واجب دراسي" :
+                                            p.Status == 2 ? "إختبار" :
+                                            p.Status == 3 ? "رسالة " :
+                                            p.Status == 4 ? "تنبيه " : "تعميم"),
+                                        CreatedOn=p.CreatedOn,
+                                        CreatedBy=(from q in db.Users where q.UserId==p.CreatedBy select q.Name)
+
 
                                     }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
-                return Ok(new { Skedjules = SkedjuleList, count = Count });
+                return Ok(new { notif = Notificatios, count = Count });
             }
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpPost("AddUserNotifi")]
+        public IActionResult AddUserNotifi([FromBody] Notifi notifi)
+        {
+            try
+            {
+
+                if (notifi == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                Notifications notifications = new Notifications();
+                notifications.Status = notifi.type;
+                notifications.Notification = notifi.notifecation;
+                notifications.CreatedBy = userId;
+                notifications.CreatedOn = DateTime.Now;
+                db.Notifications.Add(notifications);
+
+                NotificationDelivary notificationDelivary = new NotificationDelivary();
+                notificationDelivary.Status = 1;
+                notificationDelivary.UserId = notifi.userId;
+                db.NotificationDelivary.Add(notificationDelivary);
+
+                db.SaveChanges();
+
+
+                return Ok("لقد قمت بإرسال الإشعار  بنــجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+
+
+
 
         [HttpGet("GetSkedjuleInfo")]
         public IActionResult GetSkedjuleInfo(long EventId)
