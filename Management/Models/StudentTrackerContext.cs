@@ -6,6 +6,8 @@ namespace Management.Models
 {
     public partial class StudentTrackerContext : DbContext
     {
+        public StudentTrackerContext(DbContextOptions<StudentTrackerContext> options) : base(options) { }
+
         public virtual DbSet<AcadimacYears> AcadimacYears { get; set; }
         public virtual DbSet<Degrees> Degrees { get; set; }
         public virtual DbSet<Events> Events { get; set; }
@@ -24,8 +26,6 @@ namespace Management.Models
         public virtual DbSet<Subjects> Subjects { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Years> Years { get; set; }
-
-        public StudentTrackerContext(DbContextOptions<StudentTrackerContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -147,7 +147,7 @@ namespace Management.Models
 
             modelBuilder.Entity<NotificationDelivary>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.ToTable("NotificationDelivary", "dbo");
 
                 entity.HasOne(d => d.Notification)
                     .WithMany(p => p.NotificationDelivary)
@@ -157,7 +157,7 @@ namespace Management.Models
 
             modelBuilder.Entity<Notifications>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.ToTable("Notifications", "dbo");
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
             });

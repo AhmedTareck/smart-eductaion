@@ -55,13 +55,22 @@ namespace CMS.Controllers
                 notifications.CreatedOn = DateTime.Now;
                 db.Notifications.Add(notifications);
 
+                var  notificationDelivarys = new List<NotificationDelivary>();
+
                 var userList = (from p in db.Users where p.State != 9 select p).ToList();
                 foreach (Users item in userList)
                 {
-                    NotificationDelivary notificationDelivary = new NotificationDelivary();
-                    notificationDelivary.NotificationId = notifications.Id;
-                    notificationDelivary.Status = 1;
+                    notificationDelivarys.Add(new NotificationDelivary
+                    {
+                        Status=1,
+                        UserId=item.UserId
+
+                    });
+                    
                 }
+                notifications.NotificationDelivary = notificationDelivarys;
+
+                db.SaveChanges();
 
 
                 return Ok("لقد قمت بإرسال الإشعار  بنــجاح");

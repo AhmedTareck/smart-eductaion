@@ -192,6 +192,59 @@ namespace Management.Controllers
         }
 
 
+        [HttpGet("getNotifications")]
+        public IActionResult getNotifications()
+        {
+            try
+            {
+                var userId = help.GetCurrentUser(HttpContext);
+
+                var notifications = db.NotificationDelivary.Where(w => w.Notification.Status != 9 && w.UserId == userId).Select(select => new
+                {
+                    IdNotification = select.Id,
+                    Notification = select.Notification.Notification,
+                    CreatedOn = select.Notification.CreatedOn,
+                    Read=select.Status,
+                    TypeNotification=(
+                    select.Notification.Status==1? "واجب دراسي":
+                    select.Notification.Status == 2 ? "إختبار" :
+                    select.Notification.Status == 3 ? "رسالة ":
+                    select.Notification.Status == 4 ? "تنبيه " : "تعميم")
+
+                }).OrderByDescending(o=>o.CreatedOn).ToList();
+
+                var notificationCount = notifications.Where(w => w.Read == 1).Count();
+
+                return Ok(new { notifications = notifications, notificationCount= notificationCount });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+
+        [HttpPut("ReadNotification")]
+        public IActionResult ReadNotification(long notificationId)
+        {
+            try
+            {
+
+                var notification = db.NotificationDelivary.SingleOrDefault(s => s.Id == notificationId);
+
+                notification.Status = 2;
+
+                db.SaveChanges();
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+
         //[HttpGet("GetStudentPresence")]
         //public IActionResult GetStudentPresence(long StudentEventId)
         //{
