@@ -25,7 +25,7 @@ namespace Managegment.Controllers
 
                 if (claims.Count == 0)
                 {
-                   return 0;
+                    return 0;
                     // return 1;
                 }
                 string userIdClaim = "";

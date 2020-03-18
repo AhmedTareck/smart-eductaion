@@ -6,11 +6,11 @@ Scaffold-DbContext "server=DESKTOP-RNT1C11;database=StudentTracker;uid=Ahmed;pwd
 
 Scaffold-DbContext "server=LAPTOP-DVJT5BST;database=StudentTracker;uid=Ahmed;pwd=35087124567Ahmed;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
 
-public StudentTrackerContext(DbContextOptions<StudentTrackerContext> options) : base(options) { }
+public Tranim_LearningContext(DbContextOptions<Tranim_LearningContext> options) : base(options) { }
 
 
 Abdala PC : 
-Scaffold-DbContext "server=DESKTOP-4AI87L8\SQLEXPRESS;Database=Mail;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+Scaffold-DbContext "server=LAPTOP-DVJT5BST;database=Tranim_Learning;uid=Ahmed;pwd=35087124567Ahmed;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models 
 
-Scaffold-DbContext "server=41.208.71.78;database=StudentTracker;uid=AhmedTareck;pwd=35087124567Ahmed;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
+Scaffold-DbContext "server=LAPTOP-DVJT5BST;database=Tranim_Learning;uid=Ahmed;pwd=35087124567Ahmed;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
 -----------------------------------------

@@ -23,7 +23,7 @@ import AddExam from './Components/Exam/AddExam/AddExam.vue';
 import Grids from './Components/Exam/Grids/Grids.vue';
 import Skedjule from './Components/Skedjule/Skedjule.vue';
 import AddSkedjule from './Components/Skedjule/AddSkedjule/AddSkedjule.vue';
-import Years from './Components/Years/Years.vue';
+
 import Subjects from './Components/Subjects/Subjects.vue';
 import Users from './Components/Users/Users.vue';
 import Parents from './Components/Parents/Parents.vue';
@@ -34,6 +34,10 @@ import AddDegrees from './Components/Degrees/AddDegrees/AddDegrees.vue';
 import Notification from './Components/Notification/Notification.vue';
 import AddNotification from './Components/Notification/AddNotification/AddNotification.vue';
 import AddNotificationParent from './Components/Notification/AddNotificationParent/AddNotificationParent.vue';
+
+import Years from './Components/Years/Years.vue';
+import AddYears from './Components/Years/AddYears/AddYears.vue';
+import Shapters from './Components/Shapters/Shapters.vue';
 
 
 
@@ -85,7 +89,7 @@ const router = new VueRouter({
         { path: '/Skedjule', name: 'Skedjule', component: Skedjule },
         { path: '/AddSkedjule', name: 'AddSkedjule', component: AddSkedjule },
         { path: '/Years', name: 'Years', component: Years },
-        { path: '/Subjects', name: 'Subjects', component: Subjects },
+        
         { path: '/Degrees', name: 'Degrees', component: Degrees },
         { path: '/AddUsers', name: 'AddUsers', component: AddUsers },
         { path: '/Parents', name: 'Parents', component: Parents },
@@ -93,7 +97,13 @@ const router = new VueRouter({
         { path: '/AddDegrees', name: 'AddDegrees', component: AddDegrees },
         { path: '/AddNotification', name: 'AddNotification', component: AddNotification },
         { path: '/Notification', name: 'Notification', component: Notification },
-        { path: '/AddNotificationParent', name: 'AddNotificationParent', component: AddNotificationParent }
+        { path: '/AddNotificationParent', name: 'AddNotificationParent', component: AddNotificationParent },
+
+        { path: '/Years', name: 'Years', component: Years },
+        { path: '/AddYears', name: 'AddYears', component: AddYears },
+        { path: '/Subjects', name: 'Subjects', component: Subjects },
+        { path: '/Shapters', name: 'Shapters', component: Shapters },
+
 
     ]
 });

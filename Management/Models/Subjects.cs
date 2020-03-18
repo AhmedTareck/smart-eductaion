@@ -7,12 +7,11 @@ namespace Management.Models
     {
         public Subjects()
         {
-            Exams = new HashSet<Exams>();
-            HomeWorcks = new HashSet<HomeWorcks>();
-            Skedjule = new HashSet<Skedjule>();
+            Events = new HashSet<Events>();
+            Shapters = new HashSet<Shapters>();
         }
 
-        public long SubjectId { get; set; }
+        public long Id { get; set; }
         public int? AcadimecYearId { get; set; }
         public string Name { get; set; }
         public long? CreatedBy { get; set; }
@@ -20,8 +19,7 @@ namespace Management.Models
         public short? Status { get; set; }
 
         public AcadimacYears AcadimecYear { get; set; }
-        public ICollection<Exams> Exams { get; set; }
-        public ICollection<HomeWorcks> HomeWorcks { get; set; }
-        public ICollection<Skedjule> Skedjule { get; set; }
+        public ICollection<Events> Events { get; set; }
+        public ICollection<Shapters> Shapters { get; set; }
     }
 }

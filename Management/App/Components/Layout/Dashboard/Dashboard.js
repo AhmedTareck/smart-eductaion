@@ -23,7 +23,7 @@ export default {
             loginDetails: null,
             UnReadCount:0,
             active: 1,
-            menuFlag: [20],
+            menuFlag: [40],
             SECRET_KEY:'',
             
         };

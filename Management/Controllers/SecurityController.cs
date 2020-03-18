@@ -31,9 +31,9 @@ namespace Management.Controllers
         [TempData]
         public string ErrorMessage { get; set; }
         private Helper help;
-        private readonly StudentTrackerContext db;
+        private readonly Tranim_LearningContext db;
         private IConfiguration Configuration { get; }
-        public SecurityController(StudentTrackerContext context, IConfiguration configuration)
+        public SecurityController(Tranim_LearningContext context, IConfiguration configuration)
         {
             this.db = context;
             help = new Helper();
@@ -116,7 +116,7 @@ namespace Management.Controllers
                 }
 
                 var cUser = (from p in db.Users
-                             where (p.Email == loginUser.Email || p.LoginName == loginUser.Email) && p.State != 9
+                             where (p.Email == loginUser.Email || p.LoginName == loginUser.Email) && p.Status != 9
                              select p).SingleOrDefault();
 
                 if (cUser == null)
@@ -130,7 +130,7 @@ namespace Management.Controllers
                     return BadRequest("ليس لديك صلاحيه للدخول علي النظام");
                 }
 
-                if (cUser.State == 0)
+                if (cUser.Status == 0)
                 {
                     return BadRequest("حسابك غير مفعل");
                 }
@@ -139,10 +139,10 @@ namespace Management.Controllers
                 {
 
                     //cUser.LoginTryAttempts++;
-                    //if (cUser.LoginTryAttempts >= 5 && cUser.State == 1)
+                    //if (cUser.LoginTryAttempts >= 5 && cUser.Status == 1)
                     //{
                     //    cUser.LoginTryAttemptDate = DateTime.Now;
-                    //    cUser.State = 2;
+                    //    cUser.Status = 2;
                     //}
                     //db.SaveChanges();
                     return NotFound("الرجاء التاكد من البريد الالكتروني وكلمة المرور");
@@ -154,7 +154,7 @@ namespace Management.Controllers
                 //    hospital = db.Hospital.Where(x => x.HospitalId == cUser.HospitalId).SingleOrDefault().Name;
                 //}
 
-                db.SaveChanges();   
+                db.SaveChanges();
                 //long branchId = -1;
                 // int branchType = -1;
 
@@ -167,10 +167,10 @@ namespace Management.Controllers
                     LoginName = cUser.LoginName,
                     Email = cUser.Email,
                     Gender = cUser.Gender,
-                    Status = cUser.State,
+                    Status = cUser.Status,
                     Phone = cUser.Phone,
-                    Photo=cUser.Photo,
-                    BirthDate=cUser.BirthDate
+                    Photo = cUser.Image,
+                    BirthDate = cUser.BirthDate
                 };
 
                 const string Issuer = "http://www.nid.ly";
@@ -227,7 +227,7 @@ namespace Management.Controllers
                 if (loginUser.Password != null)
                 {
                     var User = (from p in db.Users
-                                where p.UserId == userId && p.State != 9
+                                where p.UserId == userId && p.Status != 9
                                 select p).SingleOrDefault();
 
                     if (Security.VerifyHash(loginUser.Password, User.Password, HashAlgorithms.SHA512))
@@ -247,7 +247,7 @@ namespace Management.Controllers
                 else
                 {
                     var User = (from p in db.Users
-                                where p.UserId == loginUser.UserId && p.State != 9
+                                where p.UserId == loginUser.UserId && p.Status != 9
                                 select p).SingleOrDefault();
                     if (User == null)
                     {
@@ -271,7 +271,7 @@ namespace Management.Controllers
         {
             var userimage = (from p in db.Users
                              where p.UserId == userId
-                             select p.Photo).SingleOrDefault();
+                             select p.Image).SingleOrDefault();
 
             return File(userimage, "image/jpg");
         }
@@ -315,7 +315,7 @@ namespace Management.Controllers
                 }
 
                 var user = (from p in db.Users
-                            where p.Email == email && p.State != 9
+                            where p.Email == email && p.Status != 9
                             select p).SingleOrDefault();
 
                 if (user == null)
@@ -323,7 +323,7 @@ namespace Management.Controllers
                     return NotFound("البريد الإلكتروني غير مسجل بالنظـام !");
                 }
 
-                if (user.State == 0)
+                if (user.Status == 0)
                 {
                     return BadRequest("تم إيقاف هذا المستخدم من النظام !");
                 }
@@ -412,9 +412,9 @@ namespace Management.Controllers
                 {
                     try
                     {
-                        if (user.State == 0)
+                        if (user.Status == 0)
                         {
-                            user.State = 1;
+                            user.Status = 1;
                         }
                         user.Password = Security.ComputeHash(userActivate.password, HashAlgorithms.SHA512, null);
                         db.SaveChanges();

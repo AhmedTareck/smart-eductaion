@@ -1,7 +1,7 @@
 ﻿
 
 
-<div class="sidebar" data-color="azure" data-background-color="white" data-image="/img/img/sidebar.jpg">
+<div class="sidebar" data-color="danger" data-background-color="black" data-image="/img/img/sidebar.jpg">
     <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -19,6 +19,7 @@
                 <img src="/assets/img/faces/avatar.jpg">
             </div>-->
 
+            <!--User Info-->
             <div class="user-info">
                 <a data-toggle="collapse" href="#collapseExample" class="username collapsed" aria-expanded="false">
                     <span style="padding-right: 10px;">
@@ -59,216 +60,61 @@
                 </a>
             </li>
 
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#StudentInfo">
-                    <!--<i class="material-icons">place</i>-->
-                    <i class="fa fa-users"></i>
+            <!--<li class="nav-item ">
+        <a class="nav-link" data-toggle="collapse" href="#parents">
+            <i class="material-icons">people_alt</i>
+            <p>
+                إدارة اولياء الامور
+                <b class="caret" style="    float: left;position:relative;"></b>
+            </p>
+        </a>
+        <div class="collapse" id="parents">
+            <ul class="nav">
+                <li :class="menuFlag[14]">
+                    <a class="nav-link" href="#" @click.prevent="href('/Parents',14)">
+                        <i class="material-icons">people_alt</i>
+
+                        <p>عرض بيانات اولياء الامور </p>
+                    </a>
+                </li>
+                <li :class="menuFlag[15]">
+                    <a class="nav-link" href="#" @click.prevent="href('/AddParents',15)">
+                        <i class="material-icons">people_alt</i>
+
+                        <p>إضافة ولي امر </p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>-->
+
+
+
+            <li :class="menuFlag[14]">
+                <a class="nav-link" href="#" @click.prevent="href('/Years',14)">
+                    <i class="fa fa-cogs"></i>
                     <p>
-                        إدارة بيانات الطلبة
-                        <b class="caret" style="    float: left;position:relative;"></b>
+                        السنوات الدراسية
                     </p>
                 </a>
-                <div class="collapse" id="StudentInfo">
-                    <ul class="nav">
-                        <li :class="menuFlag[1]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Student',1)">
-                                <i class="fa fa-users"></i>
-
-                                <p>عرض بيانات الطلبة </p>
-                            </a>
-                        </li>
-                        <li :class="menuFlag[2]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddStudent',2)">
-                                <i class="fa fa-users"></i>
-
-                                <p>إضافة بيانات طالب</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
 
-            <!--Presness Info-->
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#mapsExamples">
-                    <!--<i class="material-icons">place</i>-->
-                    <i class="material-icons">event_available</i>
+            <li :class="menuFlag[15]">
+                <a class="nav-link" href="#" @click.prevent="href('/Subjects',15)">
+                    <i class="fa fa-cogs"></i>
                     <p>
-                        الحضور والإنصراف
-                        <b class="caret" style="    float: left;position:relative;"></b>
+                        المواد الدراسية
                     </p>
                 </a>
-                <div class="collapse" id="mapsExamples">
-                    <ul class="nav">
-                        <li :class="menuFlag[3]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Presness',3)">
-                                <i class="material-icons">event_available</i>
-
-                                <p>عرض الحضور والإنصراف </p>
-                            </a>
-                        </li>
-                        <li :class="menuFlag[4]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddPresness',4)">
-                                <i class="material-icons">event_available</i>
-
-                                <p>تسجيل الحضور</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
 
-            <!--Presness Info-->
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#homeWorck">
-                    <!--<i class="material-icons">place</i>-->
-                    <i class="material-icons">book</i>
+            <li :class="menuFlag[16]">
+                <a class="nav-link" href="#" @click.prevent="href('/Shapters',16)">
+                    <i class="fa fa-cogs"></i>
                     <p>
-                        الواجبات الدراسية
-                        <b class="caret" style="    float: left;position:relative;"></b>
+                        بيانات الشباتر
                     </p>
                 </a>
-                <div class="collapse" id="homeWorck">
-                    <ul class="nav">
-                        <li :class="menuFlag[5]">
-                            <a class="nav-link" href="#" @click.prevent="href('/HomeWorcks',5)">
-                                <i class="material-icons">book</i>
-
-                                <p>عرض الواجبات الدراسية </p>
-                            </a>
-                        </li>
-                        <li :class="menuFlag[6]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddHomeWorck',6)">
-                                <i class="material-icons">book</i>
-
-                                <p>إضافة واجب دراسي</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#exam">
-                    <!--<i class="material-icons">place</i>-->
-                    <i class="material-icons">file_copy</i>
-                    <p>
-                        الإختبارات
-                        <b class="caret" style="    float: left;position:relative;"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="exam">
-                    <ul class="nav">
-                        <li :class="menuFlag[7]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Exam',7)">
-                                <i class="material-icons">file_copy</i>
-
-                                <p>عرض الإختبارات </p>
-                            </a>
-                        </li>
-                        <li :class="menuFlag[8]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddExam',8)">
-                                <i class="material-icons">file_copy</i>
-
-                                <p>إضافة إختبار</p>
-                            </a>
-                        </li>
-                        <li :class="menuFlag[9]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Grids',9)">
-                                <i class="material-icons">file_copy</i>
-
-                                <p>رصد الدرجات</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#Skedjule">
-                    <!--<i class="material-icons">place</i>-->
-                    <i class="material-icons">date_range</i>
-                    <p>
-                        الجدول الدراسي
-                        <b class="caret" style="    float: left;position:relative;"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="Skedjule">
-                    <ul class="nav">
-                        <li :class="menuFlag[10]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Skedjule',10)">
-                                <i class="material-icons">date_range</i>
-
-                                <p>عرض الجدول الدراسي </p>
-                            </a>
-                        </li>
-                        <li :class="menuFlag[11]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddSkedjule',11)">
-                                <i class="material-icons">date_range</i>
-
-                                <p>إضافة جدول دراسي </p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#Degrees">
-                    <!--<i class="material-icons">place</i>-->
-                    <i class="material-icons">poll</i>
-                    <p>
-                        الصحائف الشهرية
-                        <b class="caret" style="    float: left;position:relative;"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="Degrees">
-                    <ul class="nav">
-                        <li :class="menuFlag[16]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Degrees',16)">
-                                <i class="material-icons">poll</i>
-
-                                <p>عرض الصحائف الشهرية </p>
-                            </a>
-                        </li>
-                        <li :class="menuFlag[17]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddDegrees',17)">
-                                <i class="material-icons">poll</i>
-
-                                <p>إضافة صحيفة شهرية </p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#parents">
-                    <i class="material-icons">people_alt</i>
-                    <p>
-                        إدارة اولياء الامور
-                        <b class="caret" style="    float: left;position:relative;"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="parents">
-                    <ul class="nav">
-                        <li :class="menuFlag[14]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Parents',14)">
-                                <i class="material-icons">people_alt</i>
-
-                                <p>عرض بيانات اولياء الامور </p>
-                            </a>
-                        </li>
-                        <li :class="menuFlag[15]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddParents',15)">
-                                <i class="material-icons">people_alt</i>
-
-                                <p>إضافة ولي امر </p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
 
             <li class="nav-item ">
@@ -300,14 +146,179 @@
                 </div>
             </li>
 
-            <li :class="menuFlag[30]">
-                <a class="nav-link" href="#" @click.prevent="href('/Years',30)">
-                    <i class="fa fa-cogs"></i>
-                    <p>
-                        السنوات الدراسية 
-                    </p>
-                </a>
-            </li>
+
+            <!--<li class="nav-item ">
+        <a class="nav-link" data-toggle="collapse" href="#StudentInfo">
+            <i class="fa fa-users"></i>
+            <p>
+                إدارة السنوات الدراسية
+                <b class="caret" style="    float: left;position:relative;"></b>
+            </p>
+        </a>
+        <div class="collapse" id="StudentInfo">
+            <ul class="nav">
+                <li :class="menuFlag[1]">
+                    <a class="nav-link" href="#" @click.prevent="href('/Years',1)">
+                        <i class="fa fa-users"></i>
+
+                        <p>عرض السنوات الدراسية </p>
+                    </a>
+                </li>
+                <li :class="menuFlag[2]">
+                    <a class="nav-link" href="#" @click.prevent="href('/AddYears',2)">
+                        <i class="fa fa-users"></i>
+
+                        <p>إضافة سنة دراسية</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>-->
+            <!--<li class="nav-item ">
+        <a class="nav-link" data-toggle="collapse" href="#mapsExamples">
+            <i class="material-icons">event_available</i>
+            <p>
+                الحضور والإنصراف
+                <b class="caret" style="    float: left;position:relative;"></b>
+            </p>
+        </a>
+        <div class="collapse" id="mapsExamples">
+            <ul class="nav">
+                <li :class="menuFlag[3]">
+                    <a class="nav-link" href="#" @click.prevent="href('/Presness',3)">
+                        <i class="material-icons">event_available</i>
+
+                        <p>عرض الحضور والإنصراف </p>
+                    </a>
+                </li>
+                <li :class="menuFlag[4]">
+                    <a class="nav-link" href="#" @click.prevent="href('/AddPresness',4)">
+                        <i class="material-icons">event_available</i>
+
+                        <p>تسجيل الحضور</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>-->
+            <!--<li class="nav-item ">
+        <a class="nav-link" data-toggle="collapse" href="#homeWorck">
+            <i class="material-icons">book</i>
+            <p>
+                الواجبات الدراسية
+                <b class="caret" style="    float: left;position:relative;"></b>
+            </p>
+        </a>
+        <div class="collapse" id="homeWorck">
+            <ul class="nav">
+                <li :class="menuFlag[5]">
+                    <a class="nav-link" href="#" @click.prevent="href('/HomeWorcks',5)">
+                        <i class="material-icons">book</i>
+
+                        <p>عرض الواجبات الدراسية </p>
+                    </a>
+                </li>
+                <li :class="menuFlag[6]">
+                    <a class="nav-link" href="#" @click.prevent="href('/AddHomeWorck',6)">
+                        <i class="material-icons">book</i>
+
+                        <p>إضافة واجب دراسي</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>-->
+            <!--<li class="nav-item ">
+        <a class="nav-link" data-toggle="collapse" href="#exam">
+            <i class="material-icons">file_copy</i>
+            <p>
+                الإختبارات
+                <b class="caret" style="    float: left;position:relative;"></b>
+            </p>
+        </a>
+        <div class="collapse" id="exam">
+            <ul class="nav">
+                <li :class="menuFlag[7]">
+                    <a class="nav-link" href="#" @click.prevent="href('/Exam',7)">
+                        <i class="material-icons">file_copy</i>
+
+                        <p>عرض الإختبارات </p>
+                    </a>
+                </li>
+                <li :class="menuFlag[8]">
+                    <a class="nav-link" href="#" @click.prevent="href('/AddExam',8)">
+                        <i class="material-icons">file_copy</i>
+
+                        <p>إضافة إختبار</p>
+                    </a>
+                </li>
+                <li :class="menuFlag[9]">
+                    <a class="nav-link" href="#" @click.prevent="href('/Grids',9)">
+                        <i class="material-icons">file_copy</i>
+
+                        <p>رصد الدرجات</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>-->
+            <!--<li class="nav-item ">
+        <a class="nav-link" data-toggle="collapse" href="#Skedjule">
+            <i class="material-icons">date_range</i>
+            <p>
+                الجدول الدراسي
+                <b class="caret" style="    float: left;position:relative;"></b>
+            </p>
+        </a>
+        <div class="collapse" id="Skedjule">
+            <ul class="nav">
+                <li :class="menuFlag[10]">
+                    <a class="nav-link" href="#" @click.prevent="href('/Skedjule',10)">
+                        <i class="material-icons">date_range</i>
+
+                        <p>عرض الجدول الدراسي </p>
+                    </a>
+                </li>
+                <li :class="menuFlag[11]">
+                    <a class="nav-link" href="#" @click.prevent="href('/AddSkedjule',11)">
+                        <i class="material-icons">date_range</i>
+
+                        <p>إضافة جدول دراسي </p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>-->
+            <!--<li class="nav-item ">
+        <a class="nav-link" data-toggle="collapse" href="#Degrees">
+            <i class="material-icons">poll</i>
+            <p>
+                الصحائف الشهرية
+                <b class="caret" style="    float: left;position:relative;"></b>
+            </p>
+        </a>
+        <div class="collapse" id="Degrees">
+            <ul class="nav">
+                <li :class="menuFlag[16]">
+                    <a class="nav-link" href="#" @click.prevent="href('/Degrees',16)">
+                        <i class="material-icons">poll</i>
+
+                        <p>عرض الصحائف الشهرية </p>
+                    </a>
+                </li>
+                <li :class="menuFlag[17]">
+                    <a class="nav-link" href="#" @click.prevent="href('/AddDegrees',17)">
+                        <i class="material-icons">poll</i>
+
+                        <p>إضافة صحيفة شهرية </p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>-->
+
+
+
 
         </ul>
     </div>

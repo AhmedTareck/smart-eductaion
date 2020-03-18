@@ -36,7 +36,7 @@ namespace Management
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddDbContext<Models.StudentTrackerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("StudentTracker")));
+            services.AddDbContext<Models.Tranim_LearningContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Tranim_Learning")));
 
             //services.AddDbContext<Models.AppointmentsContext>(options => options.UseMySQL(Configuration.GetConnectionString("Appointment")));
 

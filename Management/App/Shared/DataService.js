@@ -269,6 +269,11 @@ export default {
         return axios.get(baseUrl + `/admin/Courses/GetSubjectInfo?pageno=${pageNo}&pagesize=${pageSize}&id=${id}`);
     },
 
+    editShpter(form) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/editShpter`, form);
+    },
+
     editsubjectname(form) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + `/admin/Courses/editsubjectname`, form);
@@ -282,6 +287,11 @@ export default {
     addSubject(form) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + `/admin/Courses/addSubject`, form);
+    },
+
+    addShapter(form) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/addShapter`, form);
     },
 
     GetStudentbyParent(pageNo, pageSize, id) {
@@ -327,6 +337,16 @@ export default {
     AddUserNotifi(notifi) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + `/Admin/Notifi/AddUserNotifi`, notifi);
+    },
+
+    getShpater(pageNo, pageSize, SubjectSelected) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/getShpater?pageno=${pageNo}&pagesize=${pageSize}&subjectId=${SubjectSelected}`);
+    },
+
+    delteShpter(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/${id}/delteShpter`);
     },
 
     
