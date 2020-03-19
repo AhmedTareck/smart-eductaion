@@ -9,7 +9,7 @@
     -->
     <div class="logo" style="padding: 15px 20px;">
         <a href="" class="simple-text logo-normal" dir="ltr">
-             My School | لوحة التحكم
+             Traneem | لوحة التحكم
         </a>
     </div>
     <div class="sidebar-wrapper" >
@@ -60,62 +60,139 @@
                 </a>
             </li>
 
-            <!--<li class="nav-item ">
-        <a class="nav-link" data-toggle="collapse" href="#parents">
-            <i class="material-icons">people_alt</i>
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#parents">
+                    <i class="material-icons">poll</i>
+                    <p>
+                        إدارة الإعلانات
+                        <b class="caret" style="    float: left;position:relative;"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="parents">
+                    <ul class="nav">
+                        <li :class="menuFlag[9]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AdsInfo',9)">
+                                <i class="material-icons">poll</i>
+
+                                <p>عرض بيانات الإعلانات </p>
+                            </a>
+                        </li>
+                        <li :class="menuFlag[10]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddAdsInfo',10)">
+                                <i class="material-icons">poll</i>
+
+                                <p>إضافة إعلان </p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#homeWorck">
+                    <i class="material-icons">book</i>
+                    <p>
+                        إدارة المحاضرات
+                        <b class="caret" style="    float: left;position:relative;"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="homeWorck">
+                    <ul class="nav">
+                        <li :class="menuFlag[5]">
+                            <a class="nav-link" href="#" @click.prevent="href('/Lectures',5)">
+                                <i class="material-icons">book</i>
+
+                                <p>عرض المحاضرات </p>
+                            </a>
+                        </li>
+                        <li :class="menuFlag[6]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddLectures',6)">
+                                <i class="material-icons">book</i>
+
+                                <p>إضافة محاضرة </p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#subject">
+                    <i class="fa fa-book"></i>
+                    <p>
+                        إدارة المواد الدراسية
+                        <b class="caret" style="    float: left;position:relative;"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="subject">
+                    <ul class="nav">
+                        <li :class="menuFlag[15]">
+                            <a class="nav-link" href="#" @click.prevent="href('/Subjects',15)">
+                                <i class="fa fa-book"></i>
+
+                                <p>عرض المواد الدراسية </p>
+                            </a>
+                        </li>
+                        <li :class="menuFlag[16]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddSubjects',16)">
+                                <i class="fa fa-book"></i>
+
+                                <p>إضافة مادة دراسية </p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#shpter">
+                    <i class="fa fa-shekel"></i>
+                    <p>
+                        إدارة بيانات الشباتر
+                        <b class="caret" style="    float: left;position:relative;"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="shpter">
+                    <ul class="nav"> 
+                        <li :class="menuFlag[17]">
+                            <a class="nav-link" href="#" @click.prevent="href('/Shapters',17)">
+                                <i class="fa fa-shekel"></i>
+
+                                <p>عرض بيانات الشباتر </p>
+                            </a>
+                        </li>
+                        <li :class="menuFlag[18]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddShapters',18)">
+                                <i class="fa fa-shekel"></i>
+
+                                <p>إضافة شابتر </p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
+
+
+
+            <!--<li :class="menuFlag[15]">
+        <a class="nav-link" href="#" @click.prevent="href('/Subjects',15)">
+            <i class="fa fa-book"></i>
             <p>
-                إدارة اولياء الامور
-                <b class="caret" style="    float: left;position:relative;"></b>
+                المواد الدراسية
             </p>
         </a>
-        <div class="collapse" id="parents">
-            <ul class="nav">
-                <li :class="menuFlag[14]">
-                    <a class="nav-link" href="#" @click.prevent="href('/Parents',14)">
-                        <i class="material-icons">people_alt</i>
-
-                        <p>عرض بيانات اولياء الامور </p>
-                    </a>
-                </li>
-                <li :class="menuFlag[15]">
-                    <a class="nav-link" href="#" @click.prevent="href('/AddParents',15)">
-                        <i class="material-icons">people_alt</i>
-
-                        <p>إضافة ولي امر </p>
-                    </a>
-                </li>
-            </ul>
-        </div>
     </li>-->
 
-
-
-            <li :class="menuFlag[14]">
-                <a class="nav-link" href="#" @click.prevent="href('/Years',14)">
-                    <i class="fa fa-cogs"></i>
-                    <p>
-                        السنوات الدراسية
-                    </p>
-                </a>
-            </li>
-
-            <li :class="menuFlag[15]">
-                <a class="nav-link" href="#" @click.prevent="href('/Subjects',15)">
-                    <i class="fa fa-cogs"></i>
-                    <p>
-                        المواد الدراسية
-                    </p>
-                </a>
-            </li>
-
-            <li :class="menuFlag[16]">
-                <a class="nav-link" href="#" @click.prevent="href('/Shapters',16)">
-                    <i class="fa fa-cogs"></i>
+            <!--<li :class="menuFlag[18]">
+                <a class="nav-link" href="#" @click.prevent="href('/Shapters',18)">
+                    <i class="fa fa-shekel"></i>
                     <p>
                         بيانات الشباتر
                     </p>
                 </a>
-            </li>
+            </li>-->
 
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#user">
@@ -144,6 +221,15 @@
                         </li>
                     </ul>
                 </div>
+            </li>
+
+            <li :class="menuFlag[14]">
+                <a class="nav-link" href="#" @click.prevent="href('/Years',14)">
+                    <i class="fa fa-files-o"></i>
+                    <p>
+                        السنوات الدراسية
+                    </p>
+                </a>
             </li>
 
 

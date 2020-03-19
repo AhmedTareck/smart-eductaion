@@ -26,10 +26,10 @@
                         <div class="card-icon">
                             <i class="material-icons">archive</i>
                         </div>
-                        <p class="card-category">الواجبات الدراسية</p>
+                        <p class="card-category">المحاضرات</p>
                         <br />
 
-                        <h3 class="card-title">{{Detals.homeWorckCount}} <span class="small"> واجب دراسي </span></h3>
+                        <h3 class="card-title">{{Detals.lectureCount}} <span class="small"> محاضرة </span></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -59,9 +59,9 @@
                         <div class="card-icon">
                             <i class="material-icons">perm_identity</i>
                         </div>
-                        <p class="card-category">أولياء الأمور</p>
+                        <p class="card-category">الإعلانات</p>
                         <br />
-                        <h3 class="card-title">{{Detals.parentsCount}} <span class="small"> ولي امر </span></h3>
+                        <h3 class="card-title">{{Detals.adsCount}} <span class="small">إعلان </span></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -89,26 +89,31 @@
                                                 #
                                             </th>
                                             <th>
+                                                إسم المستخدم
+                                            </th>
+                                            <th>
                                                 الإسم
                                             </th>
                                             <th>
                                                 رقم الهاتف
                                             </th>
                                             <th>
-                                                عدد الحضور
+                                                الجنس
                                             </th>
                                             <th>
-                                                عدد الغياب
+                                                البريد الإلكتروني
                                             </th>
 
                                             </thead>
                                             <tbody>
                                                 <tr v-for="item,index in Detals.lastSudent">
                                                     <td>{{index+1}} </td>
-                                                    <td>{{item.code }} </td>
-                                                    <td>{{item.phoneNumber}}</td>
-                                                    <td>{{item.phoneNumber}}</td>
-                                                    <td>{{item.phoneNumber}}</td>
+                                                    <td>{{item.loginName }} </td>
+                                                    <td>{{item.name}}</td>
+                                                    <td>{{item.phone}}</td>
+                                                    <td v-if="item.gender==1">ذكر</td>
+                                                    <td v-if="item.gender==2">انتي</td>
+                                                    <td>{{item.email}}</td>
 
                                                 </tr>
                                             </tbody>

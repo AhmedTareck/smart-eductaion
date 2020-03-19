@@ -3,12 +3,15 @@ export default {
     name: 'AddSubjects',
 
     created() {
-        this.form.id = this.$parent.yearSelected;
+        //this.form.id = this.$parent.yearSelected;
+        this.getyearName();
     },
     components: {
     },
     data() {
         return {
+            year: [],
+
             form: {
                 id: '',
                 name: '',
@@ -31,8 +34,40 @@ export default {
             this.$parent.state = 0;
         },
 
+        getyearName() {
 
-        addSubject() {
+            this.$blockUI.Start();
+            this.$http.getyearName()
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.year = response.data.years;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
+
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
+
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.addSubject(formName);
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+
+
+        },
+
+
+        addSubject(formName) {
             this.$http.addSubject(this.form)
                 .then(response => {
                     //this.$parent.state = 0;
@@ -40,8 +75,9 @@ export default {
                         type: 'info',
                         message: response.data
                     });
-                    this.$parent.GetSubjectInfo();
-                    this.$parent.state = 0;
+                    //this.$parent.GetSubjectInfo();
+                    //this.$parent.state = 0;
+                    this.resetForm(formName);
                     this.$blockUI.Stop();
                 })
                 .catch((err) => {

@@ -301,7 +301,7 @@ export default {
 
     getDetals() {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(baseUrl + `/admin/Students/getDetals`);
+        return axios.get(baseUrl + `/admin/Courses/getDetals`);
     },
 
     serachStudent(item) {
@@ -347,6 +347,21 @@ export default {
     delteShpter(id) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + `/admin/Courses/${id}/delteShpter`);
+    },
+
+    addPost(obj) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + '/Admin/Courses/addPost', obj);
+    },
+
+    GetAds(pageNo, pageSize) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/GetAds?pageno=${pageNo}&pagesize=${pageSize}`);
+    },
+
+    deleteAds(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/${id}/deleteAds`);
     },
 
     

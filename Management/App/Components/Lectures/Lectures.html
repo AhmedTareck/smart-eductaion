@@ -1,12 +1,12 @@
 ﻿<div class="content">
-    <EditShapters v-if="state==2"></EditShapters>
-    <AddShapters v-if="state==1"></AddShapters>
+    <EditLectures v-if="state==2"></EditLectures>
+    <AddLectures v-if="state==1"></AddLectures>
     <div class="container-fluid" v-if="state==0">
         <div class="row">
             <div class="card">
 
                 <div class="card-header card-header-danger">
-                    <h4 class="card-title ">إدارة بيانات الشباتر </h4>
+                    <h4 class="card-title ">إدارة بيانات المحاضرات </h4>
                 </div>
 
                 <br />
@@ -43,7 +43,7 @@
 
                     
 
-                    <!--<div class="col-md-6" v-if="SubjectSelected!=0" style=";margin-top:-10px">
+                    <div class="col-md-6" v-if="SubjectSelected!=0" style=";margin-top:-10px">
                         <div class="pull-left">
 
                             <br>
@@ -51,7 +51,7 @@
                             <el-button class="btn btn-danger btn-fill pull-right" style="margin-top:-20px" type="primary" @click="addYers()">إضافة شباتر</el-button>
                         </div>
 
-                    </div>-->
+                    </div>
 
 
                 </div>

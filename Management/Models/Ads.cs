@@ -9,7 +9,7 @@ namespace Management.Models
         public long? EventId { get; set; }
         public string Subject { get; set; }
         public string Post { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
         public DateTime? CreatedOn { get; set; }
         public long? CreatedBy { get; set; }
         public short? Status { get; set; }

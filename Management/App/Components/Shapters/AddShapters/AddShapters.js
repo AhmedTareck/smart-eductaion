@@ -3,8 +3,11 @@ export default {
     name: 'AddShapters',
 
     created() {
-        this.form.id = this.$parent.yearSelected;
-        this.form.SubjectId = this.$parent.SubjectSelected;
+        //this.form.id = this.$parent.yearSelected;
+        //this.form.SubjectId = this.$parent.SubjectSelected;
+
+        this.getyearName();
+        this.GetSubjectInfo();
     },
     components: {
     },
@@ -16,6 +19,10 @@ export default {
                 SubjectId: '',
                 ShapterNumber: '',
             },
+
+            year: [],
+
+            SubjectName: [],
         };
     },
 
@@ -30,21 +37,36 @@ export default {
 
 
     methods: {
-        back() {
-            this.$parent.state = 0;
+        //back() {
+        //    this.$parent.state = 0;
+        //},
+
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.addSubject(formName);
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+
+
+        },
+
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
         },
 
 
-        addSubject() {
+        addSubject(formName) {
             this.$http.addShapter(this.form)
                 .then(response => {
-                    //this.$parent.state = 0;
                     this.$message({
                         type: 'info',
                         message: response.data
                     });
-                    this.$parent.getShpater();
-                    this.$parent.state = 0;
+                    this.resetForm(formName);
                     this.$blockUI.Stop();
                 })
                 .catch((err) => {
@@ -54,6 +76,39 @@ export default {
                         message: err.response.data
                     });
                 });
-        }
+        },
+
+        getyearName() {
+
+            this.$blockUI.Start();
+            this.$http.getyearName()
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.year = response.data.years;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
+
+        getSubject() {
+            this.SubjectName = [];
+            this.form.SubjectId= '';
+            //this.getShpater();
+            this.$blockUI.Start();
+            this.$http.getSubject(this.form.id)
+
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.SubjectName = response.data.subject;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
     }
 }

@@ -10,34 +10,23 @@ import Home from './Components/Home/Home.vue';
 
 import EditUsersProfile from './Components/Users/EditUsersProfile/EditUsersProfile.vue';
 import ChangePassword from './Components/Users/ChangePassword/ChangePassword.vue';
-import Subscribes from './Components/Subscribes/Subscribes.vue';
 
 import Student from './Components/Student/Student.vue';
 import AddStudent from './Components/Student/AddStudent/AddStudent.vue';
-import Presness from './Components/Presness/Presness.vue';
-import AddPresness from './Components/Presness/AddPresness/AddPresness.vue';
-import HomeWorcks from './Components/HomeWorcks/HomeWorcks.vue';
-import AddHomeWorck from './Components/HomeWorcks/AddHomeWorck/AddHomeWorck.vue';
-import Exam from './Components/Exam/Exam.vue';
-import AddExam from './Components/Exam/AddExam/AddExam.vue';
-import Grids from './Components/Exam/Grids/Grids.vue';
-import Skedjule from './Components/Skedjule/Skedjule.vue';
-import AddSkedjule from './Components/Skedjule/AddSkedjule/AddSkedjule.vue';
 
 import Subjects from './Components/Subjects/Subjects.vue';
+import AddSubjects from './Components/Subjects/AddSubjects/AddSubjects.vue';
 import Users from './Components/Users/Users.vue';
-import Parents from './Components/Parents/Parents.vue';
-import Degrees from './Components/Degrees/Degrees.vue';
-import AddParents from './Components/Parents/AddParents/AddParents.vue';
 import AddUsers from './Components/Users/AddUsers/AddUsers.vue';
-import AddDegrees from './Components/Degrees/AddDegrees/AddDegrees.vue';
-import Notification from './Components/Notification/Notification.vue';
-import AddNotification from './Components/Notification/AddNotification/AddNotification.vue';
-import AddNotificationParent from './Components/Notification/AddNotificationParent/AddNotificationParent.vue';
 
 import Years from './Components/Years/Years.vue';
 import AddYears from './Components/Years/AddYears/AddYears.vue';
 import Shapters from './Components/Shapters/Shapters.vue';
+import AddShapters from './Components/Shapters/AddShapters/AddShapters.vue';
+import AdsInfo from './Components/AdsInfo/AdsInfo.vue';
+import AddAdsInfo from './Components/AdsInfo/AddAdsInfo/AddAdsInfo.vue';
+import Lectures from './Components/Lectures/Lectures.vue';
+import AddLectures from './Components/Lectures/AddLectures/AddLectures.vue';
 
 
 
@@ -72,37 +61,24 @@ const router = new VueRouter({
     linkActiveClass: 'active',
     routes: [
         { path: '/', component: Home }, 
-        { path: '/Subscribes', component: Subscribes }, 
         { path: '/Users', component: Users },
         { path: '/EditUsersProfile', component: EditUsersProfile },
         { path: '/ChangePassword', component: ChangePassword },  
-
         { path: '/Student', name: 'Student', component: Student },
         { path: '/AddStudent', name: 'Student', component: AddStudent },
-        { path: '/Presness', name: 'Presness', component: Presness },
-        { path: '/AddPresness', name: 'AddPresness', component: AddPresness },
-        { path: '/HomeWorcks', name: 'HomeWorcks', component: HomeWorcks },
-        { path: '/AddHomeWorck', name: 'AddHomeWorck', component: AddHomeWorck },
-        { path: '/Exam', name: 'Exam', component: Exam },
-        { path: '/AddExam', name: 'AddExam', component: AddExam },
-        { path: '/Grids', name: 'Grids', component: Grids },
-        { path: '/Skedjule', name: 'Skedjule', component: Skedjule },
-        { path: '/AddSkedjule', name: 'AddSkedjule', component: AddSkedjule },
         { path: '/Years', name: 'Years', component: Years },
-        
-        { path: '/Degrees', name: 'Degrees', component: Degrees },
         { path: '/AddUsers', name: 'AddUsers', component: AddUsers },
-        { path: '/Parents', name: 'Parents', component: Parents },
-        { path: '/AddParents', name: 'AddParents', component: AddParents },
-        { path: '/AddDegrees', name: 'AddDegrees', component: AddDegrees },
-        { path: '/AddNotification', name: 'AddNotification', component: AddNotification },
-        { path: '/Notification', name: 'Notification', component: Notification },
-        { path: '/AddNotificationParent', name: 'AddNotificationParent', component: AddNotificationParent },
-
-        { path: '/Years', name: 'Years', component: Years },
         { path: '/AddYears', name: 'AddYears', component: AddYears },
         { path: '/Subjects', name: 'Subjects', component: Subjects },
+        { path: '/AddSubjects', name: 'Subjects', component: AddSubjects },
         { path: '/Shapters', name: 'Shapters', component: Shapters },
+        { path: '/AddShapters', name: 'AddShapters', component: AddShapters },
+        { path: '/AdsInfo', name: 'AdsInfo', component: AdsInfo },
+        { path: '/AddAdsInfo', name: 'AddAdsInfo', component: AddAdsInfo },
+        { path: '/Lectures', name: 'Lectures', component: Lectures },
+        { path: '/AddLectures', name: 'AddLectures', component: AddLectures },
+
+
 
 
     ]

@@ -1,0 +1,106 @@
+﻿<div class="content">
+    <div class="container-fluid" v-if="state==0">
+        <div class="row">
+            <div class="card">
+
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title ">الإعلانات     </h4>
+                </div>
+                <br />
+                <br />
+                <div class="row" v-if="info==0">
+
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <br /><br />
+                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للإعلانات"
+                                      type="info">
+                            </el-alert>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <!--Table Info-->
+                <div class="row" v-if="info!=0">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="text-danger">
+
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">صورة الإعلان</th>
+                                    <th class="text-center">الموضوع </th>
+                                    <th class="text-center">الإعلان </th>
+                                    <th class="text-center">نوع الإعلان  </th>
+                                    <th class="text-center">وقت النشر  </th>
+                                    <th class="text-center">إعدادات  </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="item,index in info">
+                                            <td class="text-center"> {{index+1 }} </td>
+                                            <td class="text-center"><a :href="'http://localhost:4810/Api/Admin/Courses/' + item.id + '/image'"><img :src="'http://localhost:4810/Api/Admin/Courses/' + item.id + '/image'" style="height: 80px; width:80px" /></a></td>
+                                            <td class="text-center">{{item.subject}}</td>
+                                            <td class="text-center">{{item.post}}</td>
+                                            <td class="text-center" v-if="item.status==1">
+                                                <span class="badge badge-pill badge-info" style="border-radius: 3px;">عام</span>
+                                            </td>
+                                            <td class="text-center" v-if="item.status==2">
+                                                <span class="badge badge-pill badge-danger" style="border-radius: 3px;">خاص</span>
+                                            </td>
+                                            <td class="text-center">{{item.createdOn | moment}}</td>
+
+                                            <td class="td-actions text-center">
+                                                
+                                                <button type="button" rel="tooltip" @click.prevent="deleteAds(item.id)" class="btn btn-danger btn-link" data-original-title="" title="حدف">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="pull-right">
+                                            <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate" style="direction: ltr;">
+                                                <div style="text-align: center;">
+
+                                                    <el-pagination background
+                                                                   layout="prev, pager, next"
+                                                                   :current-page="pageNo"
+                                                                   :page-size="pageSize"
+                                                                   :total="pages"
+                                                                   @current-change="GetUsers($event)">
+                                                    </el-pagination>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="pull-left">
+                                            <div class="disabled-sorting text-right" id="datatable_info" role="status" aria-live="polite">Showing {{pageNo}} to {{pageSize}} of {{pages}} entries</div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

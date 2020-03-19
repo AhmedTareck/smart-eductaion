@@ -81,7 +81,7 @@ namespace Management.Models
                 entity.HasOne(d => d.Subject)
                     .WithMany(p => p.Shapters)
                     .HasForeignKey(d => d.SubjectId)
-                    .HasConstraintName("FK_Shapters_Subjects");
+                    .HasConstraintName("FK_Shapters_Subjects1");
             });
 
             modelBuilder.Entity<Subjects>(entity =>
