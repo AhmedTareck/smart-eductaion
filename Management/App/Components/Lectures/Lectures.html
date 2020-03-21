@@ -13,7 +13,8 @@
                 <br />
                 <div class="row" style="margin-right: 0px; margin-left: 0px">
                     <div class="col-md-3">
-                        <el-select v-model="yearSelected"
+                        <el-select v-model="yearSelectedId"
+                                   style="    width: 100%;"
                                    @change="getSubject()"
                                    filterable placeholder="السنة الدراسية ">
 
@@ -27,10 +28,10 @@
                     </div>
 
                     <div class="col-md-3">
-                        <el-select v-model="SubjectSelected"
+                        <el-select v-model="subjectSeletect"
                                    style="    width: 100%;"
-                                   @change="getShpater()"
-                                   filterable placeholder="المادة الدراسية ">
+                                   @change="getShapterName()"
+                                   filterable placeholder="السنة الدراسية ">
 
                             <el-option v-for="item in SubjectName"
                                        :key="item.id"
@@ -41,27 +42,32 @@
                         </el-select>
                     </div>
 
-                    
+                    <div class="col-md-3">
+                        <el-select v-model="shapterSelected"
+                                   style="    width: 100%;"
+                                   @change="getLectures()"
+                                   filterable placeholder="الشابتر ">
 
-                    <div class="col-md-6" v-if="SubjectSelected!=0" style=";margin-top:-10px">
-                        <div class="pull-left">
+                            <el-option v-for="item in shapterName"
+                                       :key="item.id"
+                                       :label="item.name"
+                                       :value="item.id">
+                            </el-option>
 
-                            <br>
-
-                            <el-button class="btn btn-danger btn-fill pull-right" style="margin-top:-20px" type="primary" @click="addYers()">إضافة شباتر</el-button>
-                        </div>
-
+                        </el-select>
                     </div>
+
+
 
 
                 </div>
 
-                <div class="row" v-if="shapters==0">
+                <div class="row" v-if="info==0">
 
                     <div class="col-md-10">
                         <div class="form-group">
                             <br /><br />
-                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات  للشباتر "
+                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات  للمحاضرات "
                                       type="info">
                             </el-alert>
                         </div>
@@ -70,7 +76,7 @@
                 <br />
                 <br />
                 <!--Table Info-->
-                <div class="row" v-if="shapters!=0">
+                <div class="row" v-if="info!=0">
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -80,10 +86,13 @@
                                         #
                                     </th>
                                     <th>
-                                        رقم الشابتر
+                                        رقم المحاضرة
                                     </th>
                                     <th>
-                                        اسم الشابتر
+                                        اسم لمحاضرة
+                                    </th>
+                                    <th>
+                                        وصف لمحاضرة
                                     </th>
                                     <th>
                                         تاريخ الإدراج
@@ -93,17 +102,18 @@
                                     </th>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="item,index in shapters">
+                                        <tr v-for="item,index in info">
                                             <td>{{index+1}} </td>
                                             <td>{{item.number }} </td>
                                             <td>{{item.name }} </td>
+                                            <td>{{item.description }} </td>
                                             <td>{{item.createdOn | moment }} </td>
 
                                             <td class="td-actions text-left">
                                                 <button type="button" rel="tooltip" @click.prevent="viewStudent(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
                                                     <i class="material-icons">edit</i>
                                                 </button>
-                                                <button type="button" rel="tooltip" @click.prevent="delteShpter(item.id)" class="btn btn-danger btn-link" data-original-title="" title="">
+                                                <button type="button" rel="tooltip" @click.prevent="deletelecture(item.id)" class="btn btn-danger btn-link" data-original-title="" title="">
                                                     <i class="material-icons" title="حدف">close</i>
                                                 </button>
                                             </td>

@@ -1,0 +1,573 @@
+﻿<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title ">إضافة إختبار  </h4>
+                    <p class="card-category"> بمكن من خلال هذه الواجهة إضافة إختبار </p>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+
+                        <el-form :model="ruleForm" ref="ruleForm" label-position="top" label-width="120px" class="demo-ruleForm">
+                            <br />
+                            <el-row class="row">
+
+
+                                <el-col class="col-md-3">
+
+
+                                    <el-form-item prop="Name" label="إسم الإختبار"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال إسم الإختبار'} ]">
+
+                                        <el-input placeholder="إسم الإختبار"
+                                                  v-model="ruleForm.Name"
+                                                  :rows="6"
+                                                  autocomplete="off">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                                <el-col class="col-md-3">
+
+
+                                    <el-form-item prop="Number" label="رقم الإختبار"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال رقم الإختبار'} ]">
+
+                                        <el-input type="number"
+                                                  placeholder="رقم الإختبار"
+                                                  v-model="ruleForm.Number"
+                                                  :rows="6"
+                                                  autocomplete="off">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                                <el-col class="col-md-3">
+
+
+                                    <el-form-item prop="FullMarck" label="الدرجة النهائية"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال الدرجة النهائية'} ]">
+
+                                        <el-input type="number"
+                                                  placeholder="الدرجة النهائية"
+                                                  v-model="ruleForm.FullMarck"
+                                                  :rows="6"
+                                                  autocomplete="off">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                                <el-col class="col-md-3">
+
+
+                                    <el-form-item prop="Lenght" label="الزمن"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال الزمن'} ]">
+
+                                        <el-input type="number"
+                                                  placeholder="الزمن"
+                                                  v-model="ruleForm.Lenght"
+                                                  :rows="6"
+                                                  autocomplete="off">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+
+
+
+                            </el-row>
+
+
+
+                        </el-form>
+
+                        <div class="title"><h5> البيانات الخاصة بالأسئلة</h5> <hr /></div>
+
+
+                        <el-form :model="Question" ref="Question" label-position="top" label-width="120px" class="demo-ruleForm">
+
+
+                            <el-row class="row">
+
+                                <el-col class="col-md-6">
+
+
+                                    <el-form-item prop="Number" label="رقم السؤال"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال رقم السؤال'} ]">
+
+                                        <el-input type="number"
+                                                  placeholder="رقم السؤال"
+                                                  v-model="Question.Number"
+                                                  :rows="3"
+                                                  autocomplete="off">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                                <el-col class="col-md-6">
+
+
+                                    <el-form-item prop="Points" label="درجة السؤال"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال درجة السؤال'} ]">
+
+                                        <el-input type="number"
+                                                  placeholder="درجة السؤال"
+                                                  v-model="Question.Points"
+                                                  :rows="3"
+                                                  autocomplete="off">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                            </el-row>
+
+                            <el-row class="row">
+
+                                <el-col class="col-md-12">
+
+
+                                    <el-form-item prop="Question" label="السؤال"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال السؤال'} ]">
+
+                                        <el-input type="textarea"
+                                                  :rows="5"
+                                                  placeholder=""
+                                                  v-model="Question.Question">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+
+
+
+                            </el-row>
+
+                            <el-row class="row">
+
+
+                                <el-col class="col-md-3">
+
+
+                                    <el-form-item prop="A1" label="الخيار الأول"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال الخيار الأول'} ]">
+
+                                        <el-input type="textarea"
+                                                  placeholder="الخيار الأول"
+                                                  v-model="Question.A1"
+                                                  :rows="3"
+                                                  autocomplete="off">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                                <el-col class="col-md-3">
+
+
+                                    <el-form-item prop="A2" label="الخيار التاني"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال الخيار التاني'} ]">
+
+                                        <el-input type="textarea"
+                                                  placeholder="الخيار التاني"
+                                                  v-model="Question.A2"
+                                                  :rows="3"
+                                                  autocomplete="off">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                                <el-col class="col-md-3">
+
+
+                                    <el-form-item prop="A3" label="الخيار التالت"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال الخيار التالت'} ]">
+
+                                        <el-input type="textarea"
+                                                  placeholder="الخيار التالت"
+                                                  v-model="Question.A3"
+                                                  :rows="3"
+                                                  autocomplete="off">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                                <el-col class="col-md-3">
+
+
+                                    <el-form-item prop="A4" label="الخيار الرابع"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال الخيار الرابع'} ]">
+
+                                        <el-input type="textarea"
+                                                  placeholder="الخيار الرابع"
+                                                  v-model="Question.A4"
+                                                  :rows="3"
+                                                  autocomplete="off">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+
+                            </el-row>
+
+                            <el-row class="row">
+
+                                <el-col class="col-md-6">
+
+
+                                    <el-form-item prop="Answer" label="الخيار الصحيح"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إختيار الإجابة الصحيحة'} ]">
+
+                                        <el-radio-group v-model="Question.Answer" style="margin-top:10px">
+                                            <el-radio :label="1" id="1">  الخيار الأول</el-radio>
+                                            <el-radio :label="2" id="2">  الخيار التاني</el-radio>
+                                            <el-radio :label="3" id="3">  الخيار الثالت</el-radio>
+                                            <el-radio :label="4" id="4">  الخيار الرابع </el-radio>
+                                        </el-radio-group>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                                <el-col class="col-md-6">
+                                    <div class="pull-left" style="margin-top:18px">
+                                        <el-button class="btn btn-danger btn-fill pull-right" type="primary" @click="submitForm('Question')">إضافة سؤال</el-button>
+                                    </div>
+                                </el-col>
+
+
+
+                            </el-row>
+
+                        </el-form>
+
+                        <div class="row" v-if="ruleForm.QuestionsObj!=0">
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class="text-danger">
+
+                                            <th>
+                                                رقم السؤال
+                                            </th>
+                                            <th>
+                                                درجة السؤال
+                                            </th>
+                                            <th>
+                                                السؤال
+                                            </th>
+                                            <th>
+                                                الخيار الصحيح
+                                            </th>
+                                            <th style="text-align:left">
+                                                الإعدادات
+                                            </th>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="item,index in ruleForm.QuestionsObj">
+                                                    <td>{{item.Number }} </td>
+                                                    <td>{{item.Points }} </td>
+                                                    <td>{{item.Question }} </td>
+                                                    <td>{{item.Answer }} </td>
+
+                                                    <td class="td-actions text-left">
+
+                                                        <button type="button" rel="tooltip" @click.prevent="removeQuestion(index)" class="btn btn-danger btn-link" data-original-title="" title="">
+                                                            <i class="material-icons" title="حدف">close</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <hr />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <br />
+                        <div class="d-flex justify-content-center" v-if="ruleForm.QuestionsObj!=0">
+                            <div class="col-md-2">
+                                <el-button class="btn btn-danger btn-fill pull-right"
+                                           type="primary"
+                                           @click.prevent="submitExamForm('ruleForm')">
+                                    إضافة الإختبار
+
+                                </el-button>
+                            </div>
+                        </div>
+
+
+
+                        <!--<form>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>إسم الإختيار</label>
+                    <input type="text" class="form-control" placeholder="إسم الإختيار" v-model="form.ExamName">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>الدرجة</label>
+                    <input type="number" class="form-control" placeholder="الدرجة" v-model="form.ExamMarcks">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>مقدمة عن الإختبار</label>
+                    <el-input type="textarea"
+                              :rows="4"
+                              placeholder="نبدة مختصرة عن الإختبار ، سيتم وضعها أعلي ورقة الأسئلة "
+                              v-model="form.ExamHedar">
+                    </el-input>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <br />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button v-if="QuestionsTables.length==0" type="submit" @click.prevent="BackFromExam()" class="btn btn-info btn-fill pull-right">رجوع</button>
+                    <button type="button" @click="dialogFormVisible=true" class="btn btn-danger btn-fill pull-right" style="margin-left: 4px;">إظافة سؤال</button>
+                    <el-dialog title="إظافة سؤال" :visible.sync="dialogFormVisible" :modalAppendToBody="false" @close="closeDialog()" @visible-change="onVisible">
+                        <el-form :model="Questionform">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>السؤال </label>
+                                        <el-input type="textarea"
+                                                  :rows="10"
+                                                  placeholder=""
+                                                  v-model="Questionform.Questions">
+                                        </el-input>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>الخيار الأول</label>
+                                        <el-input type="textarea"
+                                                  :rows="2"
+                                                  placeholder="الخيار الأول"
+                                                  v-model="Questionform.AnserOne">
+                                        </el-input>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>الخيار التاني</label>
+                                        <el-input type="textarea"
+                                                  :rows="2"
+                                                  placeholder="الخيار التاني"
+                                                  v-model="Questionform.AnserTwo">
+                                        </el-input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>الخيار الثالت</label>
+                                        <el-input type="textarea"
+                                                  :rows="2"
+                                                  placeholder="الخيار الثالت"
+                                                  v-model="Questionform.AnserThree">
+                                        </el-input>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>الخيار الرابع</label>
+                                        <el-input type="textarea"
+                                                  :rows="2"
+                                                  placeholder="الخيار الرابع"
+                                                  v-model="Questionform.AnserFour">
+                                        </el-input>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label> الخيار الصحيح</label><br />
+                                        <el-radio-group v-model="Questionform.CorrectAnswer" style="margin-top:10px">
+                                            <el-radio :label="1" id="1">  الخيار الأول</el-radio>
+                                            <el-radio :label="2" id="2">  الخيار التاني</el-radio>
+                                            <el-radio :label="3" id="3">  الخيار الثالت</el-radio>
+                                            <el-radio :label="4" id="4">  الخيار الرابع </el-radio>
+                                        </el-radio-group>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>درجة السؤال </label>
+                                        <input type="number" class="form-control" placeholder="الدرجة" v-model="Questionform.Point">
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <el-button type="submit" @click.prevent="BackFromQuestion()" class="btn btn-info btn-fill pull-right">رجوع</el-button>
+                            <el-button type="submit" @click.prevent="AddQuestion()" v-if="UpdateAction==0" class="btn btn-danger btn-fill pull-right" style="margin-left: 4px;">إظافة السؤال</el-button>
+                            <el-button type="submit" @click.prevent="SaveUpdate()" v-if="UpdateAction==1" class="btn btn-danger btn-fill pull-right" style="margin-left: 4px;">حفظ</el-button>
+                            <div class="clearfix"></div>
+                        </el-form>
+
+                    </el-dialog>
+                    <br />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <table class="table table-hover table-striped" v-if="QuestionsTables.length!=0 ">
+                        <tbody style="text-align:center">
+                            <tr class="TableHeaderBackground">
+                                <td class="t-small">
+                                    <span style="font-size: 14px;font-weight:bold">
+                                        رقم السؤال
+                                    </span>
+                                </td>
+                                <td class="t-medium">
+                                    <span style="font-size: 14px;font-weight:bold">
+                                        نص السؤال
+                                    </span>
+                                </td>
+
+                                <td class="t-medium">
+                                    <span style="font-size: 14px;font-weight:bold">
+                                        الدرجة
+                                    </span>
+                                </td>
+                                <td class="t-medium">
+                                    <span style="font-size: 14px;font-weight:bold">
+                                        الإجابة الصحيحة
+                                    </span>
+                                </td>
+                                <td class="t-medium">
+                                    <span style="font-size: 14px;font-weight:bold">
+                                        الإعدادت
+                                    </span>
+                                </td>
+
+
+
+                            </tr>
+                        </tbody>
+
+                        <tbody style="text-align:center">
+                            <tr v-for="(QuestionsTables,index) in QuestionsTables" style="font-size:11.3pt;">
+
+                                <td>{{QuestionsTables.QuestionsNum }} </td>
+                                <td>{{QuestionsTables.Questions}}</td>
+                                <td>{{QuestionsTables.Point}}</td>
+                                <td>{{QuestionsTables.CorrectAnswer}}</td>
+                                <td>
+                                    <a title="تعديل" href="#" @click.prevent="DeleteQuestions(index)">
+                                        <i class="el-icon-delete" style="color:red"></i>&nbsp;
+                                    </a>
+                                    <a title="تعديل" href="#" @click.prevent="EditQuestions(QuestionsTables)">
+                                        <i class="el-icon-edit"></i>&nbsp;
+                                    </a>
+
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <br />
+                </div>
+            </div>
+        </div>
+
+        <button v-if="QuestionsTables.length!=0" type="submit" @click.prevent="BackFromExam()" class="btn btn-info btn-fill pull-right">رجوع</button>
+        <button v-if="QuestionsTables.length!=0" type="submit" @click.prevent="AddExam()" class="btn btn-danger btn-fill pull-right" style="margin-left: 4px;">إظافة إختبار</button>
+        <div class="clearfix"></div>
+    </form>-->
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

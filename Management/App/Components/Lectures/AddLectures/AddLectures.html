@@ -24,15 +24,16 @@
                                 <el-col class="col-md-4">
 
 
-                                    <el-form-item prop="status" label="السنة الدراسية"
+                                    <el-form-item prop="yearSelectedId" label="السنة الدراسية"
                                                   label-width="0px"
                                                   :rules="[{required: true, message: ' الرجاء إختيار السنة الدراسية'} ]">
 
-                                        <el-select v-model="ruleForm.status"
+                                        <el-select v-model="ruleForm.yearSelectedId"
                                                    style="    width: 100%;"
+                                                   @change="getSubject()"
                                                    filterable placeholder="السنة الدراسية ">
 
-                                            <el-option v-for="item in type"
+                                            <el-option v-for="item in year"
                                                        :key="item.id"
                                                        :label="item.name"
                                                        :value="item.id">
@@ -48,15 +49,16 @@
                                 <el-col class="col-md-4">
 
 
-                                    <el-form-item prop="status" label="المادة الدراسية"
+                                    <el-form-item prop="subjectSeletect" label="المادة الدراسية"
                                                   label-width="0px"
                                                   :rules="[{required: true, message: ' الرجاء إختيار المادة الدراسية'} ]">
 
-                                        <el-select v-model="ruleForm.status"
+                                        <el-select v-model="ruleForm.subjectSeletect"
                                                    style="    width: 100%;"
+                                                   @change="getShapterName()"
                                                    filterable placeholder="السنة الدراسية ">
 
-                                            <el-option v-for="item in type"
+                                            <el-option v-for="item in SubjectName"
                                                        :key="item.id"
                                                        :label="item.name"
                                                        :value="item.id">
@@ -72,15 +74,15 @@
                                 <el-col class="col-md-4">
 
 
-                                    <el-form-item prop="status" label="الشابتر"
+                                    <el-form-item prop="shapterSelected" label="الشابتر"
                                                   label-width="0px"
                                                   :rules="[{required: true, message: ' الرجاء إختيار الشابتر'} ]">
 
-                                        <el-select v-model="ruleForm.status"
+                                        <el-select v-model="ruleForm.shapterSelected"
                                                    style="    width: 100%;"
                                                    filterable placeholder="الشابتر ">
 
-                                            <el-option v-for="item in type"
+                                            <el-option v-for="item in shapterName"
                                                        :key="item.id"
                                                        :label="item.name"
                                                        :value="item.id">
@@ -102,13 +104,13 @@
                                     <div class="form-group">
 
 
-                                        <el-form-item prop="subject" label="رقم المحاضرة"
+                                        <el-form-item prop="Number" label="رقم المحاضرة"
                                                       label-width="0px"
                                                       :rules="[{ required: true, message: 'الرحاء إدخال رقم المحاضرة'} ]">
 
                                             <el-input type="name"
                                                       placeholder="رقم المحاضرة"
-                                                      v-model="ruleForm.subject"
+                                                      v-model="ruleForm.Number"
                                                       :rows="6"
                                                       autocomplete="off">
                                             </el-input>
@@ -126,13 +128,13 @@
                                     <div class="form-group">
 
 
-                                        <el-form-item prop="subject" label="إسم المحاضرة"
+                                        <el-form-item prop="Name" label="إسم المحاضرة"
                                                       label-width="0px"
                                                       :rules="[{ required: true, message: 'الرحاء إدخال إسم المحاضرة'} ]">
 
                                             <el-input type="name"
                                                       placeholder="إسم المحاضرة"
-                                                      v-model="ruleForm.subject"
+                                                      v-model="ruleForm.Name"
                                                       :rows="6"
                                                       autocomplete="off">
                                             </el-input>
@@ -158,7 +160,7 @@
                                     <div class="form-group UploadButton pull-left" style="margin-top:19px">
 
                                         <label for="file-upload" class="btn btn-danger btn-round">
-                                            <i class="fa fa-cloud-upload" style="color:white"></i> إضافة ملف
+                                            <i class="fa fa-cloud-upload" style="color:white"></i> إضافة صورة
                                         </label>
                                         <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
                                     </div>
@@ -166,7 +168,23 @@
                                     <div class="form-group UploadButton pull-left" style="margin-top:19px">
 
                                         <label for="file-upload" class="btn btn-danger btn-round">
-                                            <i class="fa fa-cloud-upload" style="color:white"></i> إضافة فيديو
+                                            <i class="fa fa-cloud-upload" style="color:white"></i> إضافة ملف pdf
+                                        </label>
+                                        <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
+                                    </div>
+
+                                    <div class="form-group UploadButton pull-left" style="margin-top:19px">
+
+                                        <label for="file-upload" class="btn btn-danger btn-round">
+                                            <i class="fa fa-cloud-upload" style="color:white"></i> إضافة ملف صوتي
+                                        </label>
+                                        <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
+                                    </div>
+
+                                    <div class="form-group UploadButton pull-left" style="margin-top:19px">
+
+                                        <label for="file-upload" class="btn btn-danger btn-round">
+                                            <i class="fa fa-cloud-upload" style="color:white"></i>  إضافة فيديو
                                         </label>
                                         <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
                                     </div>
@@ -182,14 +200,14 @@
 
                                 <el-col class="col-md-12">
 
-                                    <el-form-item prop="post" label=" الإعلان"
+                                    <el-form-item prop="decreption" label=" وصف عن المحاضرة"
                                                   label-width="0px"
-                                                  :rules="[{required: true, message: ' الرحاء إدخال الإعلان'} ]">
+                                                  :rules="[{required: true, message: ' الرحاء إدخال وصف للمحاضرة'} ]">
 
                                         <el-input type="textarea"
                                                   :rows="5"
-                                                  placeholder=" الإعلان "
-                                                  v-model="ruleForm.post">
+                                                  placeholder=" وصف توضيحي  "
+                                                  v-model="ruleForm.decreption">
                                         </el-input>
 
                                     </el-form-item>

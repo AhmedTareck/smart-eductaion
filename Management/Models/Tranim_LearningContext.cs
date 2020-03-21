@@ -8,9 +8,10 @@ namespace Management.Models
     {
         public virtual DbSet<AcadimacYears> AcadimacYears { get; set; }
         public virtual DbSet<Ads> Ads { get; set; }
-        public virtual DbSet<Events> Events { get; set; }
+        public virtual DbSet<Exams> Exams { get; set; }
         public virtual DbSet<LectureImage> LectureImage { get; set; }
         public virtual DbSet<Lectures> Lectures { get; set; }
+        public virtual DbSet<Questions> Questions { get; set; }
         public virtual DbSet<Shapters> Shapters { get; set; }
         public virtual DbSet<Subjects> Subjects { get; set; }
         public virtual DbSet<Users> Users { get; set; }
@@ -40,16 +41,11 @@ namespace Management.Models
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<Events>(entity =>
+            modelBuilder.Entity<Exams>(entity =>
             {
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-                entity.Property(e => e.Name).HasColumnType("nchar(10)");
-
-                entity.HasOne(d => d.Subject)
-                    .WithMany(p => p.Events)
-                    .HasForeignKey(d => d.SubjectId)
-                    .HasConstraintName("FK_Events_Subjects");
+                entity.Property(e => e.Name).HasMaxLength(50);
             });
 
             modelBuilder.Entity<LectureImage>(entity =>
@@ -70,6 +66,24 @@ namespace Management.Models
                     .WithMany(p => p.Lectures)
                     .HasForeignKey(d => d.ShaptersId)
                     .HasConstraintName("FK_Lectures_Shapters");
+            });
+
+            modelBuilder.Entity<Questions>(entity =>
+            {
+                entity.Property(e => e.A1).HasMaxLength(250);
+
+                entity.Property(e => e.A2).HasMaxLength(250);
+
+                entity.Property(e => e.A3).HasMaxLength(250);
+
+                entity.Property(e => e.A4).HasMaxLength(250);
+
+                entity.Property(e => e.Question).HasMaxLength(250);
+
+                entity.HasOne(d => d.Exam)
+                    .WithMany(p => p.Questions)
+                    .HasForeignKey(d => d.ExamId)
+                    .HasConstraintName("FK_Questions_Exams");
             });
 
             modelBuilder.Entity<Shapters>(entity =>

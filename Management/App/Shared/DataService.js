@@ -103,6 +103,11 @@ export default {
         return axios.get(baseUrl + `/admin/Courses/GetEvents?yearId=${yearId}`);
     },
 
+    getShapterName(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/getShapterName?id=${id}`);
+    },
+
     getSubject(yearId) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(baseUrl + `/admin/Courses/getSubject?yearId=${yearId}`);
@@ -363,6 +368,32 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + `/admin/Courses/${id}/deleteAds`);
     },
+
+    addExam(obj) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + '/Admin/Courses/addExam', obj);
+    },
+
+    GetExamingInfo(pageNo, pageSize) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/GetExamingInfo?pageno=${pageNo}&pagesize=${pageSize}`);
+    },
+
+    DeleteExaming(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/${id}/DeleteExaming`);
+    },
+
+    getLectures(pageNo, pageSize,id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/getLectures?pageno=${pageNo}&pagesize=${pageSize}&id=${id}`);
+    },
+
+    deletelecture(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/${id}/deletelecture`);
+    },
+
 
     
 }

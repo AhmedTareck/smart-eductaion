@@ -19,7 +19,7 @@ export default {
             state:0,
 
             pageNo: 1,
-            pageSize: 5,
+            pageSize: 10,
             pages: 0,
 
             Subject: [],

@@ -1,6 +1,9 @@
 ﻿export default {
     name: 'AddAdsInfo',
     created() {
+
+        this.getyearName();
+
         this.type = [
             {
                 id: 1,
@@ -22,11 +25,25 @@
             type: [],
 
             photo: [],
+            Video: [],
+            sound: [],
+            attashFile: [],
+
+            year: [],
+
+            SubjectName: [],
+            shapterName: [],
 
             ruleForm: {
-                post: '',
-                status: '',
-                subject: '',
+                
+                shapterSelected: '',
+                Name:'',
+                Number: '',
+                decreption:'',
+
+                yearSelectedId: '',
+                subjectSeletect: '',
+
 
             },
 
@@ -37,6 +54,60 @@
     },
     methods: {
 
+        getyearName() {
+
+            this.$blockUI.Start();
+            this.$http.getyearName()
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.year = response.data.years;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
+
+        getSubject() {
+            this.SubjectName = [];
+            this.ruleForm.subjectSeletect = '';
+            this.shapterName = [];
+            this.ruleForm.shapterSelected = '';
+            //this.getShpater();
+            this.$blockUI.Start();
+            this.$http.getSubject(this.ruleForm.yearSelectedId)
+
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.SubjectName = response.data.subject;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
+
+        getShapterName() {
+            this.shapterName = [];
+            this.ruleForm.shapterSelected = '';
+            //this.getShpater();
+            this.$blockUI.Start();
+            this.$http.getShapterName(this.ruleForm.subjectSeletect)
+
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.shapterName = response.data.shapterNames;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
+
+
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
@@ -46,7 +117,6 @@
                     return false;
                 }
             });
-
 
         },
 
@@ -80,16 +150,17 @@
         },
 
 
-
         UploadImage() {
             this.$blockUI.Start();
             var obj = {
                 Photo: this.photo,
-                post: this.ruleForm.post,
-                status: this.ruleForm.status,
-                subject: this.ruleForm.subject,
+               
+                shapterSelected: this.ruleForm.shapterSelected,
+                Name: this.ruleForm.Name,
+                Number: this.ruleForm.Number,
+                decreption: this.ruleForm.decreption,
             };
-            this.$http.addPost(obj)
+            this.$http.addLecture(obj)
                 .then(response => {
                     this.$blockUI.Stop();
                     this.$message({

@@ -1,0 +1,267 @@
+﻿<div class="content">
+    <!--<EditExam v-if="state==2"></EditExam>-->
+    <div class="container-fluid" v-if="state==0">
+        <div class="row">
+            <div class="card">
+
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title "> بيانات الإختبارات </h4>
+                </div>
+
+                <br />
+                <br />
+                
+
+                <div class="row" v-if="Examing==0">
+
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <br /><br />
+                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات  للإختبارات "
+                                      type="info">
+                            </el-alert>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <!--Table Info-->
+                <div class="row" v-if="Examing!=0">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="text-danger">
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        رقم الإختبار
+                                    </th>
+                                    <th>
+                                        اسم الإختبار
+                                    </th>
+                                    <th>
+                                        زمن الإختبار
+                                    </th>
+                                    <th>
+                                        الدرجة النهائية
+                                    </th>
+                                    
+                                    <th>
+                                        تاريخ الإضافة
+                                    </th>
+                                    <th style="text-align:left">
+                                        العمليات
+                                    </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="item,index in Examing">
+                                            <td>{{index+1}} </td>
+                                            <td>{{item.number }} </td>
+                                            <td>{{item.name }} </td>
+                                            <td>{{item.lenght }} </td>
+                                            <td>{{item.fullMarck }} </td>
+                                            <td>{{item.createdOn | moment }} </td>
+
+                                            <td class="td-actions text-left">
+                                                <!--<button type="button" rel="tooltip" @click.prevent="EditExam(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
+                                                    <i class="material-icons">edit</i>
+                                                </button>-->
+                                                <button type="button" rel="tooltip" @click.prevent="DeleteExaming(item.id)" class="btn btn-danger btn-link" data-original-title="" title="">
+                                                    <i class="material-icons" title="حدف">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="pull-right">
+                                            <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate" style="direction: ltr;">
+                                                <div style="text-align: center;">
+
+                                                    <el-pagination background
+                                                                   layout="prev, pager, next"
+                                                                   :current-page="pageNo"
+                                                                   :page-size="pageSize"
+                                                                   :total="pages"
+                                                                   @current-change="GetSubjectInfo($event)">
+                                                    </el-pagination>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="pull-left">
+                                            <div class="disabled-sorting text-right" id="datatable_info" role="status" aria-live="polite">Showing {{pageNo}} to {{pageSize}} of {{pages}} entries</div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--<div class="content" dir="rtl">
+    <AddExam v-if="state==1"></AddExam>
+    <EditExam v-if="state==2"></EditExam>
+    <div class="container-fluid" v-if="state==0">
+
+        <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100" v-if="state==0">
+            <div class="md-card md-theme-default">
+                <div class="md-card-header" data-background-color="green"><h4 class="title">   <i class="fas fa-book"></i> <span>الاختبارات </span></h4></div><div class="md-card-content">
+                    <div class="card-body">
+
+
+                        <div class="card-body">
+
+                            <div class="headerCustom">
+
+
+                                <el-select class="SelectUser" style="position:relative;top:15px" v-model="AcadimacSelected" @change="ChangeAcadimacID()" v-if="" filterable placeholder="السنة الدراسية ">
+                                    <el-option v-for="item in AcadimacName"
+                                               :key="item.academicYearID"
+                                               :label="item.academicName"
+                                               :value="item.academicYearID">
+                                    </el-option>
+                                </el-select>
+
+                                <el-select class="SelectUser" style="position:relative;top:15px" v-model="CourseSelcted" @change="GetExamingInfo()" v-if="AcadimacSelected!=null" filterable placeholder="المقرر الدراسي ">
+                                    <el-option v-for="item in CourseName"
+                                               :key="item.courseId"
+                                               :label="item.name"
+                                               :value="item.courseId">
+                                    </el-option>
+                                </el-select>
+
+
+                                <div class="col-1-5">
+                                    <div class="card-footer" style="justify-content:center;">
+                                        <el-button type="primary" class="signup" @click.prevent="AddExam()" v-if="CourseSelcted!=null" style="margin-bottom:15px">إضافة إختبار</el-button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div style="padding-left:22px;  padding-top: 28px;">
+                                    <div class="NoData" v-if="ExamList==0">
+                                        <el-alert title="عفــوا! لاتوجد بيانات للإختبارات"
+                                                  type="info">
+                                        </el-alert>
+                                    </div>
+
+                                    <div class="content table-responsive table-full-width" v-if="ExamList!= 0">
+                                        <table class="table table-hover table-striped">
+                                            <tbody style="text-align:center">
+                                                <tr >
+                                                    <td class="t-small">
+                                                        <span style="font-size: 14px;font-weight:bold">
+                                                            إسم االإختبار
+                                                        </span>
+                                                    </td>
+                                                    <td class="t-medium">
+                                                        <span style="font-size: 14px;font-weight:bold">
+                                                            عدد الأسئلة
+                                                        </span>
+                                                    </td>
+
+                                                    <td class="t-medium">
+                                                        <span style="font-size: 14px;font-weight:bold">
+                                                            الدرجة
+                                                        </span>
+                                                    </td>
+
+                                                    <td class="t-medium">
+                                                        <span style="font-size: 14px;font-weight:bold">
+                                                            عدد المشاركين
+                                                        </span>
+                                                    </td>
+
+                                                    <td class="t-medium">
+                                                        <span style="font-size: 14px;font-weight:bold">
+                                                            تاريخ الإدراج
+                                                        </span>
+                                                    </td>
+
+                                                    <td class="t-medium">
+                                                        <span style="font-size: 14px;font-weight:bold">
+                                                            العمليات
+                                                        </span>
+                                                    </td>
+
+
+
+                                                </tr>
+                                            </tbody>
+
+                                            <tbody style="text-align:center">
+                                                <tr v-for="ExamLists in ExamList" style="font-size:11.3pt;">
+                                                    <td>{{ExamLists.name }} </td>
+                                                    <td>{{ExamLists.questionCount}}</td>
+                                                    <td>{{ExamLists.marcks}}</td>
+                                                    <td>{{ExamLists.studentCount}}</td>
+                                                    <td>{{ExamLists.createdOn | moment}}</td>
+
+
+
+
+
+                                                    <td>
+                                                        <a title="حدف" style="color:red;" href="#" @click.prevent="DeleteExaming(ExamLists)">
+                                                            <i class="el-icon-delete"></i>&nbsp;
+                                                        </a>
+                                                        <a title="تعديل" href="#" @click.prevent="EditExaming(ExamLists)">
+                                                            <i class="el-icon-edit"></i>&nbsp;
+                                                        </a>
+                                                        <a title="عرض" href="#" @click.prevent="">
+                                                            <i class="el-icon-view"></i>&nbsp;
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+</div>
+</div>
+</div>-->

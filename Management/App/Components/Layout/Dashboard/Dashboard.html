@@ -89,6 +89,34 @@
             </li>
 
             <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#exam">
+                    <i class="material-icons">file_copy</i>
+                    <p>
+                        الإختبارات
+                        <b class="caret" style="    float: left;position:relative;"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="exam">
+                    <ul class="nav">
+                        <li :class="menuFlag[7]">
+                            <a class="nav-link" href="#" @click.prevent="href('/Excaming',7)">
+                                <i class="material-icons">file_copy</i>
+
+                                <p>عرض الإختبارات </p>
+                            </a>
+                        </li>
+                        <li :class="menuFlag[8]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddExaming',8)">
+                                <i class="material-icons">file_copy</i>
+
+                                <p>إضافة إختبار</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#homeWorck">
                     <i class="material-icons">book</i>
                     <p>
@@ -153,7 +181,7 @@
                     </p>
                 </a>
                 <div class="collapse" id="shpter">
-                    <ul class="nav"> 
+                    <ul class="nav">
                         <li :class="menuFlag[17]">
                             <a class="nav-link" href="#" @click.prevent="href('/Shapters',17)">
                                 <i class="fa fa-shekel"></i>
@@ -184,15 +212,14 @@
             </p>
         </a>
     </li>-->
-
             <!--<li :class="menuFlag[18]">
-                <a class="nav-link" href="#" @click.prevent="href('/Shapters',18)">
-                    <i class="fa fa-shekel"></i>
-                    <p>
-                        بيانات الشباتر
-                    </p>
-                </a>
-            </li>-->
+        <a class="nav-link" href="#" @click.prevent="href('/Shapters',18)">
+            <i class="fa fa-shekel"></i>
+            <p>
+                بيانات الشباتر
+            </p>
+        </a>
+    </li>-->
 
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#user">

@@ -6,8 +6,6 @@ export default {
     
     created() { 
         this.getyearName();
-        this.GetSubjectInfo();
-        this.getShpater();
     },
     components: {
         'EditLectures': EditLectures,
@@ -22,18 +20,16 @@ export default {
             pageSize: 5,
             pages: 0,
 
-            Subject: [],
-
             year: [],
-            yearSelected: '',
 
             SubjectName: [],
-            SubjectSelected: '',
+            shapterName: [],
 
+            shapterSelected: '',
+            yearSelectedId: '',
+            subjectSeletect: '',
 
-
-            shapters: [],
-            selectedItem: [],
+            info:[],
 
         };
     },
@@ -51,31 +47,8 @@ export default {
 
     methods: {
 
-        getShpater(pageNo) {
-            this.pageNo = pageNo;
-            if (this.pageNo === undefined) {
-                this.pageNo = 1;
-            }
-            this.$blockUI.Start();
-            this.$http.getShpater(this.pageNo, this.pageSize, this.SubjectSelected)
-                .then(response => {
-
-                    this.$blockUI.Stop();
-                    this.shapters = response.data.shapter;
-                    this.pages = response.data.count;
-
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-                    console.error(err);
-                    this.pages = 0;
-                });
-        },
-
-
-
         getyearName() {
-            
+
             this.$blockUI.Start();
             this.$http.getyearName()
                 .then(response => {
@@ -91,10 +64,12 @@ export default {
 
         getSubject() {
             this.SubjectName = [];
-            this.SubjectSelected = '';
-            this.getShpater();
+            this.subjectSeletect = '';
+            this.shapterName = [];
+            this.shapterSelected = '';
+            //this.getShpater();
             this.$blockUI.Start();
-            this.$http.getSubject(this.yearSelected)
+            this.$http.getSubject(this.yearSelectedId)
 
                 .then(response => {
 
@@ -107,56 +82,61 @@ export default {
                 });
         },
 
-        GetSubjectInfo(pageNo) {
+        getShapterName() {
+            this.shapterName = [];
+            this.shapterSelected = '';
+            //this.getShpater();
+            this.$blockUI.Start();
+            this.$http.getShapterName(this.subjectSeletect)
+
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.shapterName = response.data.shapterNames;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
+
+        getLectures(pageNo) {
             this.pageNo = pageNo;
             if (this.pageNo === undefined) {
                 this.pageNo = 1;
             }
             this.$blockUI.Start();
-            this.$http.GetSubjectInfo(this.pageNo, this.pageSize, this.yearSelected)
-                .then(response => {
 
+            this.$http.getLectures(this.pageNo, this.pageSize, this.shapterSelected)
+                .then(response => {
                     this.$blockUI.Stop();
-                    this.Subject = response.data.subjects;
+                    this.info = response.data.lectures;
                     this.pages = response.data.count;
-                    
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();
-                    console.error(err);
                     this.pages = 0;
                 });
         },
 
-        viewStudent(item)
-        {
-            this.state=2;
-            this.selectedItem=item;
-        },
-
-        addYers() {
-            this.state = 1;
-        },
+        deletelecture(id) {
 
 
-        delteShpter(id) {
-
-
-            this.$confirm('سيؤدي ذلك إلى حدف الشابتر  . استمر؟', 'تـحذير', {
+            this.$confirm('سيؤدي ذلك إلى حدف المحاضرة  . استمر؟', 'تـحذير', {
                 confirmButtonText: 'نـعم',
                 cancelButtonText: 'لا',
                 type: 'warning'
             }).then(() => {
 
 
-                this.$http.delteShpter(id)
+                this.$http.deletelecture(id)
                     .then(response => {
                         this.$message({
                             type: 'info',
                             message: response.data
                         });
                         this.$blockUI.Stop();
-                        this.getShpater();
+                        this.getLectures();
                     })
                     .catch((err) => {
                         this.$blockUI.Stop();

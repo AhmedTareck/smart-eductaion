@@ -633,5 +633,238 @@ namespace CMS.Controllers
             }
         }
 
+        [HttpGet("getShapterName")]
+        public IActionResult getShapterName(long id)
+        {
+            try
+            {
+                var shpter = from p in db.Shapters where p.Status != 9 && p.SubjectId==id select p;
+
+                var shpterInfo = (from p in shpter
+                                orderby p.CreatedOn descending
+                                select new
+                                {
+                                    id = p.Id,
+                                    name = p.Name,
+                                }).ToList();
+
+                return Ok(new { shapterNames = shpterInfo });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost("addExam")]
+        public IActionResult addExam([FromBody] ExamObj obj)
+        {
+            try
+            {
+                if (obj == null)
+                {
+                    return StatusCode(401, "حدتت مشكلة في ارسال البيانات");
+                }
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+
+                var examExist = (from p in db.Exams where p.Name == obj.Name select p).SingleOrDefault();
+
+                if (examExist !=null)
+                {
+                    return StatusCode(401, "إسم الإختبار موجود مسبقا");
+                }
+
+                if(obj.QuestionsObj.Count==0)
+                {
+                    return StatusCode(401, "حدتت مشكلة في ارسال البيانات");
+                }
+
+                int marck = 0;
+
+                foreach (var item in obj.QuestionsObj)
+                {
+                    marck += item.Points;
+                }
+
+                if(marck!=obj.FullMarck)
+                {
+                    return StatusCode(401, "مجموع الدرجات لا يساوي الدرجة النهائية الرجاء التأكد من البيانات");
+                }
+
+                Exams exams = new Exams();
+                exams.Name = obj.Name;
+                exams.Number = obj.Number;
+                exams.Lenght = obj.Lenght;
+                exams.FullMarck = obj.FullMarck;
+                exams.CreatedBy = userId;
+                exams.CreatedOn = DateTime.Now;
+                exams.Status = 1;
+                db.Exams.Add(exams);
+
+                var questionsList = new List<Questions>();
+
+                foreach (QuestionsObj item in obj.QuestionsObj)
+                {
+                    questionsList.Add(new Questions
+                    {
+                        Number = item.Number,
+                        Points = item.Points,
+                        Question = item.Question,
+                        Answer = item.Answer,
+                        A1 = item.A1,
+                        A2 = item.A2,
+                        A3 = item.A3,
+                        A4 = item.A4,
+                        Status = 1,
+                    });
+
+                }
+
+                exams.Questions = questionsList;
+
+                db.SaveChanges();
+                return Ok("تمت عملية الإضافة بنجاح ");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+        }
+
+        [HttpGet("GetExamingInfo")]
+        public IActionResult GetExamingInfo(int pageNo, int pageSize)
+        {
+            try
+            {
+                var Examing = from p in db.Exams where p.Status != 9 select p;
+
+
+                var Count = (from p in Examing select p).Count();
+
+                var examingInfo = (from p in Examing
+                               orderby p.CreatedOn descending
+                               select new
+                               {
+                                   id = p.Id,
+                                   Name = p.Name,
+                                   Number = p.Number,
+                                   FullMarck = p.FullMarck,
+                                   Lenght = p.Lenght,
+                                   CreatedOn = p.CreatedOn  
+                               }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new { exams = examingInfo, count = Count });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost("{id}/DeleteExaming")]
+        public IActionResult DeleteExaming(long id)
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var Exam = (from p in db.Exams where p.Id == id select p).SingleOrDefault();
+
+                if (Exam == null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي السجل ربما تم مسحه مسبقا");
+                }
+
+                Exam.Status = 9;
+
+                db.SaveChanges();
+
+                return Ok("تمت عملية الحدف بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("getLectures")]
+        public IActionResult getLectures(int pageNo, int pageSize,long id)
+        {
+            try
+            {
+                var LecturesInfo = from p in db.Lectures where p.Status != 9 select p;
+
+                if(id!=0)
+                {
+                    LecturesInfo = from p in LecturesInfo where p.ShaptersId == id select p;
+                }
+
+                var Count = (from p in LecturesInfo select p).Count();
+
+                var LectureInfo = (from p in LecturesInfo
+                                   orderby p.CreatedOn descending
+                                   select new
+                                   {
+                                       id = p.Id,
+                                       Name = p.Name,
+                                       Number = p.Number,
+                                       Description = p.Description,
+                                       CreatedOn = p.CreatedOn
+                                   }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new { lectures = LectureInfo, count = Count });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost("{id}/deletelecture")]
+        public IActionResult deletelecture(long id)
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var lecture = (from p in db.Lectures where p.Id == id select p).SingleOrDefault();
+
+                if (lecture == null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي السجل ربما تم مسحه مسبقا");
+                }
+
+                lecture.Status = 9;
+
+                db.SaveChanges();
+
+                return Ok("تمت عملية الحدف بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+
+
     }
 }
