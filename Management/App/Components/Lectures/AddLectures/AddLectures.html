@@ -154,44 +154,84 @@
 
                             <el-row class="row">
 
-                                <el-col class="col-md-12">
+                                <el-col class="col-md-3">
+
+                                    <el-upload class="upload-demo"
+                                               action="#"
+                                               :on-preview="handlePreview"
+                                               :on-remove="handleRemoveImage"
+                                               :before-remove="beforeRemove"
+                                               multiple
+                                               :limit="10"
+                                               :on-exceed="handleExceedImage"
+                                               :auto-upload="false"
+                                               :on-change="ImageChanged"
+                                               accept="image/png, image/jpeg">
+                                        <el-button size="small" type="danger">إضافة صورة</el-button>
+
+                                    </el-upload>
+
+                                </el-col>
+                                <el-col class="col-md-3">
+
+                                    <el-upload class="upload-demo"
+                                               action="#"
+                                               :on-preview="handlePreview"
+                                               :on-remove="handleRemovePDF"
+                                               :before-remove="beforeRemove"
+                                               multiple
+                                               :limit="1"
+                                               :on-exceed="handleExceedPDF"
+                                               :auto-upload="false"
+                                               accept=".pdf"
+                                               :on-change="PdfChanged">
+                                        <el-button size="small" type="danger">إضافة ملف pdf</el-button>
+                                    </el-upload>
 
 
-                                    <div class="form-group UploadButton pull-left" style="margin-top:19px">
 
-                                        <label for="file-upload" class="btn btn-danger btn-round">
-                                            <i class="fa fa-cloud-upload" style="color:white"></i> إضافة صورة
-                                        </label>
-                                        <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
-                                    </div>
 
-                                    <div class="form-group UploadButton pull-left" style="margin-top:19px">
+                                </el-col>
+                                <el-col class="col-md-3">
+                                    <el-upload class="upload-demo"
+                                               action="#"
+                                               :on-preview="handlePreview"
+                                               :on-remove="handleRemoveSound"
+                                               :before-remove="beforeRemove"
+                                               multiple
+                                               :limit="1"
+                                               :on-exceed="handleExceedSound"
+                                               :auto-upload="false"
+                                               :on-change="SoundChanged"
+                                               accept="audio/*">
 
-                                        <label for="file-upload" class="btn btn-danger btn-round">
-                                            <i class="fa fa-cloud-upload" style="color:white"></i> إضافة ملف pdf
-                                        </label>
-                                        <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
-                                    </div>
+                                        <el-button size="small" type="danger">إضافة ملف صوتي</el-button>
+                                    </el-upload>
 
-                                    <div class="form-group UploadButton pull-left" style="margin-top:19px">
+                                </el-col>
+                                <el-col class="col-md-3">
 
-                                        <label for="file-upload" class="btn btn-danger btn-round">
-                                            <i class="fa fa-cloud-upload" style="color:white"></i> إضافة ملف صوتي
-                                        </label>
-                                        <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
-                                    </div>
+                                    <el-upload class="upload-demo"
+                                               action="#"
+                                               :on-preview="handlePreview"
+                                               :on-remove="handleRemoveVedio"
+                                               :before-remove="beforeRemove"
+                                               multiple
+                                               :limit="1"
+                                               :on-exceed="handleExceedVedio"
+                                               :auto-upload="false"
+                                               :on-change="VedioChanged"
+                                               accept="video/*">
+                                        <el-button size="small" type="danger">إضافة فيديو</el-button>
+                                    </el-upload>
 
-                                    <div class="form-group UploadButton pull-left" style="margin-top:19px">
 
-                                        <label for="file-upload" class="btn btn-danger btn-round">
-                                            <i class="fa fa-cloud-upload" style="color:white"></i>  إضافة فيديو
-                                        </label>
-                                        <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
-                                    </div>
 
 
                                 </el-col>
 
+
+                       
                             </el-row>
 
 

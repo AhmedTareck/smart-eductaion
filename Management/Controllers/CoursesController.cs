@@ -865,6 +865,35 @@ namespace CMS.Controllers
         }
 
 
+        [HttpPost("addLecture")]
+        public IActionResult addLecture([FromBody] LectureObject form)
+        {
+            try
+            {
+
+                if (form == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+               
+
+                return Ok("تمت عملية الاضافة بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+
 
     }
 }

@@ -23,28 +23,22 @@
         return {
 
             type: [],
-
-            photo: [],
-            Video: [],
-            sound: [],
-            attashFile: [],
-
             year: [],
 
             SubjectName: [],
             shapterName: [],
 
             ruleForm: {
-                
                 shapterSelected: '',
                 Name:'',
                 Number: '',
                 decreption:'',
-
                 yearSelectedId: '',
                 subjectSeletect: '',
-
-
+                Photo: [],
+                Video: [],
+                sound: [],
+                attashFile: []
             },
 
 
@@ -53,6 +47,145 @@
 
     },
     methods: {
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePreview(file) {
+            console.log(file);
+        },
+        handleExceed(files, fileList) {
+            this.$message.warning(`لايمكن تحميل أكتر من 5 ملفات `);
+        },
+        beforeRemove(file, fileList) {
+            return this.$confirm(`هل انت متأكد من عملية إلغاء ${file.name} ?`);
+        },
+
+
+        //Image Upload
+        handleExceedImage(files, fileList) {
+            this.$message.warning(`لايمكن تحميل أكتر من 10 صور `);
+        },
+        
+        
+        handleRemoveImage(file) {
+            var $this = this;
+            var reader = new FileReader();
+            reader.readAsDataURL(file.raw);
+            reader.onload = function (e) {
+                $this.ruleForm.Photo.splice($this.ruleForm.Photo.indexOf(reader.result), 1);
+            }
+        },
+        ImageChanged(file, fileList) {
+
+            console.log(file.raw.type);
+
+            var $this = this;
+            var reader = new FileReader();
+            reader.readAsDataURL(file.raw);
+            reader.onload = function (e) {
+                var obj =
+                {
+                    FileName: file.raw.name,
+                    FileBase64: reader.result,
+                };
+                $this.ruleForm.Photo.push(obj);
+            }
+            console.log($this.ruleForm.Photo);
+        },
+
+        //PDF Upload
+        handleExceedPDF(files, fileList) {
+            this.$message.warning(`لايمكن تحميل أكتر من  ملف `);
+        },
+        handleRemovePDF(file) {
+            var $this = this;
+            var reader = new FileReader();
+            reader.readAsDataURL(file.raw);
+            reader.onload = function (e) {
+                $this.ruleForm.attashFile.splice($this.ruleForm.attashFile.indexOf(reader.result), 1);
+            }
+        },
+        PdfChanged(file, fileList) {
+
+
+            var $this = this;
+            var reader = new FileReader();
+            reader.readAsDataURL(file.raw);
+            reader.onload = function (e) {
+                var obj =
+                {
+                    fileName: file.raw.name,
+                    fileBase64: reader.result,
+                };
+                $this.ruleForm.attashFile.push(obj);
+            }
+            console.log($this.ruleForm.attashFile);
+        },
+
+        //Sound Upload
+        handleExceedSound(files, fileList) {
+            this.$message.warning(`لايمكن تحميل أكتر من  صوت `);
+        },
+        handleRemoveSound(file) {
+            var $this = this;
+            var reader = new FileReader();
+            reader.readAsDataURL(file.raw);
+            reader.onload = function (e) {
+                $this.ruleForm.sound.splice($this.ruleForm.sound.indexOf(reader.result), 1);
+            }
+        },
+        SoundChanged(file, fileList) {
+
+
+            var $this = this;
+            var reader = new FileReader();
+            reader.readAsDataURL(file.raw);
+            reader.onload = function (e) {
+                var obj =
+                {
+                    fileName: file.raw.name,
+                    fileBase64: reader.result,
+                };
+                $this.ruleForm.sound.push(obj);
+            }
+            console.log($this.ruleForm.sound);
+        },
+
+
+
+        //Vedio Upload
+        handleExceedVedio(files, fileList) {
+            this.$message.warning(`لايمكن تحميل أكتر من  فيديو `);
+        },
+        handleRemoveVedio(file) {
+            var $this = this;
+            var reader = new FileReader();
+            reader.readAsDataURL(file.raw);
+            reader.onload = function (e) {
+                $this.ruleForm.Video.splice($this.ruleForm.Video.indexOf(reader.result), 1);
+            }
+        },
+        VedioChanged(file, fileList) {
+
+            var $this = this;
+            var reader = new FileReader();
+            reader.readAsDataURL(file.raw);
+            reader.onload = function (e) {
+                var obj =
+                {
+                    fileName: file.raw.name,
+                    fileBase64: reader.result,
+                };
+                $this.ruleForm.Video.push(obj);
+            }
+            console.log($this.ruleForm.Video);
+        },
+
+
+
+
+
+         
 
         getyearName() {
 
@@ -109,14 +242,31 @@
 
 
         submitForm(formName) {
+            
             this.$refs[formName].validate((valid) => {
-                if (valid) {
-                    this.UploadImage();
-                } else {
-                    console.log('error submit!!');
+                if (!valid) {
                     return false;
-                }
+                }  
             });
+
+          
+
+            this.$http.addLecture(this.ruleForm)
+                .then(response => {
+                    this.$message({
+                        type: 'info',
+                        message: response.data
+                    });
+                    this.resetForm(formName);
+                    this.$blockUI.Stop();
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    this.$message({
+                        type: 'error',
+                        message: err.response.data
+                    });
+                });
 
         },
 
