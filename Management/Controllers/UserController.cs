@@ -14,9 +14,9 @@ namespace Management.Controllers
     [Route("Api/Admin/User")]
     public class UserController : Controller
     {
-        private readonly Tranim_LearningContext db;
+        private readonly SmartEducationContext db;
         private Helper help;
-        public UserController(Tranim_LearningContext context)
+        public UserController(SmartEducationContext context)
         {
             this.db = context;
             help = new Helper();
@@ -27,11 +27,11 @@ namespace Management.Controllers
         {
             try
             {
-                IQueryable<Users> Users = from p in db.Users where p.Status != 9 && p.UserType==UserType select p;
+                IQueryable<Users> Users = from p in db.Users where p.State != 9 && p.UserType==UserType select p;
 
                 if(id!=0)
                 {
-                    Users = from p in Users where p.UserId == id select p;
+                    Users = from p in Users where p.Id == id select p;
                 }
 
                 var UsersCount = (from p in Users
@@ -42,10 +42,10 @@ namespace Management.Controllers
                                 orderby p.CreatedOn descending
                                 select new
                                 {
-                                    UserId = p.UserId,
+                                    UserId = p.Id,
                                     Name = p.Name,
                                     LoginName = p.LoginName,
-                                    Status = p.Status,
+                                    Status = p.State,
                                     Email = p.Email,
                                     Password = p.Password,
                                     CreatedOn = p.CreatedOn,
@@ -70,13 +70,13 @@ namespace Management.Controllers
         {
             try
             {
-                IQueryable<Users> Users = from p in db.Users where p.Status != 9 && p.UserType==UserType select p;
+                IQueryable<Users> Users = from p in db.Users where p.State != 9 && p.UserType==UserType select p;
 
                 var NameList = (from p in Users
                                 orderby p.CreatedOn descending
                                 select new
                                 {
-                                    Id = p.UserId,
+                                    Id = p.Id,
                                     Name = p.Name,
                                 }).ToList();
 
@@ -149,16 +149,16 @@ namespace Management.Controllers
                 }
 
                 var cUser = (from u in db.Users
-                             where u.Email == user.Email && u.Status != 9
+                             where u.Email == user.Email && u.State != 9
                              select u).SingleOrDefault();
 
                 if (cUser != null)
                 {
-                    if (cUser.Status == 0)
+                    if (cUser.State == 0)
                     {
                         return BadRequest("هدا المستخدم موجود من قبل يحتاج الي تقعيل الحساب فقط");
                     }
-                    if (cUser.Status == 1 || cUser.Status == 2)
+                    if (cUser.State == 1 || cUser.State == 2)
                     {
                         return BadRequest("هدا المستخدم موجود من قبل يحتاج الي دخول فقط");
                     }
@@ -192,7 +192,7 @@ namespace Management.Controllers
                 //1- Active
                 //2- locked
                 //9- deleted not exist
-                cUser.Status = 0;
+                cUser.State = 0;
                 db.Users.Add(cUser);
 
                 db.SaveChanges();
@@ -222,8 +222,8 @@ namespace Management.Controllers
                 }
 
                 var Users = (from p in db.Users
-                             where p.UserId == user.UserId
-                             && (p.Status != 9)
+                             where p.Id == user.UserId
+                             && (p.State != 9)
                              select p).SingleOrDefault();
 
                 if (Users == null)
@@ -249,16 +249,16 @@ namespace Management.Controllers
                 if (Users.Email != user.Email)
                 {
                     var cUser = (from u in db.Users
-                                 where u.Email == user.Email && u.Status != 9
+                                 where u.Email == user.Email && u.State != 9
                                  select u).SingleOrDefault();
 
                     if (cUser != null)
                     {
-                        if (cUser.Status == 0)
+                        if (cUser.State == 0)
                         {
                             return BadRequest("هدا المستخدم موجود من قبل يحتاج الي تقعيل الحساب فقط");
                         }
-                        if (cUser.Status == 1 || cUser.Status == 2)
+                        if (cUser.State == 1 || cUser.State == 2)
                         {
                             return BadRequest("هدا المستخدم موجود من قبل يحتاج الي دخول فقط");
                         }
@@ -294,7 +294,7 @@ namespace Management.Controllers
                 }
 
                 var User = (from p in db.Users
-                            where p.UserId == UserId && p.Status != 9
+                            where p.Id == UserId && p.State != 9
                             select p).SingleOrDefault();
 
                 if (User == null)
@@ -302,7 +302,7 @@ namespace Management.Controllers
                     return NotFound("خــطأ : المستخدم غير موجود");
                 }
 
-                User.Status = 2;
+                User.State = 2;
                 db.SaveChanges();
                 return Ok("تم العمليه بنجاح");
             }
@@ -325,7 +325,7 @@ namespace Management.Controllers
                 }
 
                 var User = (from p in db.Users
-                            where p.UserId == UserId && p.Status != 9
+                            where p.Id == UserId && p.State != 9
                             select p).SingleOrDefault();
 
                 if (User == null)
@@ -333,7 +333,7 @@ namespace Management.Controllers
                     return NotFound("خــطأ : المستخدم غير موجود");
                 }
 
-                User.Status = 1;
+                User.State = 1;
                 db.SaveChanges();
                 return Ok("تم العمليه بنجاح");
             }
@@ -356,7 +356,7 @@ namespace Management.Controllers
                 }
 
                 var User = (from p in db.Users
-                            where p.UserId == UserId && p.Status != 9
+                            where p.Id == UserId && p.State != 9
                             select p).SingleOrDefault();
 
                 if (User == null)
@@ -364,7 +364,7 @@ namespace Management.Controllers
                     return NotFound("خــطأ : المستخدم غير موجود");
                 }
 
-                User.Status = 9;
+                User.State = 9;
                 db.SaveChanges();
                 return Ok("تم العمليه بنجاح");
             }
@@ -380,7 +380,7 @@ namespace Management.Controllers
             try
             {
                 var UserImage = (from p in db.Users
-                                 where p.UserId == UserId
+                                 where p.Id == UserId
                                  select p.Image).SingleOrDefault();
 
                 if (UserImage == null)
@@ -406,8 +406,8 @@ namespace Management.Controllers
                 return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
             }
             var Users = (from p in db.Users
-                         where p.UserId == user.UserId
-                         && (p.Status == 1 || p.Status == 2)
+                         where p.Id == user.UserId
+                         && (p.State == 1 || p.State == 2)
                          select p).SingleOrDefault();
 
             if (Users == null)
@@ -436,8 +436,8 @@ namespace Management.Controllers
                 }
 
                 var Users = (from p in db.Users
-                             where p.UserId == userId
-                             && (p.Status != 9)
+                             where p.Id == userId
+                             && (p.State != 9)
                              select p).SingleOrDefault();
 
                 if (Users == null)
@@ -464,16 +464,16 @@ namespace Management.Controllers
                 if (Users.Email != user.Email)
                 {
                     var cUser = (from u in db.Users
-                                 where u.Email == user.Email && u.Status != 9
+                                 where u.Email == user.Email && u.State != 9
                                  select u).SingleOrDefault();
 
                     if (cUser != null)
                     {
-                        if (cUser.Status == 0)
+                        if (cUser.State == 0)
                         {
                             return BadRequest("هدا المستخدم موجود من قبل يحتاج الي تقعيل الحساب فقط");
                         }
-                        if (cUser.Status == 1 || cUser.Status == 2)
+                        if (cUser.State == 1 || cUser.State == 2)
                         {
                             return BadRequest("هدا المستخدم موجود من قبل يحتاج الي دخول فقط");
                         }
@@ -514,8 +514,8 @@ namespace Management.Controllers
                 }
 
                 var Users = (from p in db.Users
-                             where p.UserId == user.UserId
-                             && (p.Status != 9)
+                             where p.Id == user.UserId
+                             && (p.State != 9)
                              select p).SingleOrDefault();
 
                 if (Users == null)
@@ -542,16 +542,16 @@ namespace Management.Controllers
                 if (Users.Email != user.Email)
                 {
                     var cUser = (from u in db.Users
-                                 where u.Email == user.Email && u.Status != 9
+                                 where u.Email == user.Email && u.State != 9
                                  select u).SingleOrDefault();
 
                     if (cUser != null)
                     {
-                        if (cUser.Status == 0)
+                        if (cUser.State == 0)
                         {
                             return BadRequest("هدا المستخدم موجود من قبل يحتاج الي تقعيل الحساب فقط");
                         }
-                        if (cUser.Status == 1 || cUser.Status == 2)
+                        if (cUser.State == 1 || cUser.State == 2)
                         {
                             return BadRequest("هدا المستخدم موجود من قبل يحتاج الي دخول فقط");
                         }

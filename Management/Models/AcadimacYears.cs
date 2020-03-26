@@ -7,15 +7,21 @@ namespace Management.Models
     {
         public AcadimacYears()
         {
+            Exams = new HashSet<Exams>();
+            Students = new HashSet<Students>();
             Subjects = new HashSet<Subjects>();
         }
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public long? ModifiedBy { get; set; }
         public short? Status { get; set; }
 
+        public ICollection<Exams> Exams { get; set; }
+        public ICollection<Students> Students { get; set; }
         public ICollection<Subjects> Subjects { get; set; }
     }
 }

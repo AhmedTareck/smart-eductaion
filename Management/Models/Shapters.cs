@@ -11,14 +11,16 @@ namespace Management.Models
         }
 
         public long Id { get; set; }
-        public long? SubjectId { get; set; }
+        public long? EventId { get; set; }
         public string Name { get; set; }
         public int? Number { get; set; }
         public DateTime? CreatedOn { get; set; }
         public long? CreatedBy { get; set; }
+        public long? ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
         public short? Status { get; set; }
 
-        public Subjects Subject { get; set; }
+        public Events Event { get; set; }
         public ICollection<Lectures> Lectures { get; set; }
     }
 }

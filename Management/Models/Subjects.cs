@@ -7,17 +7,20 @@ namespace Management.Models
     {
         public Subjects()
         {
-            Shapters = new HashSet<Shapters>();
+            Events = new HashSet<Events>();
         }
 
         public long Id { get; set; }
-        public int? AcadimecYearId { get; set; }
+        public long? AcadimecYearId { get; set; }
         public string Name { get; set; }
+        public string Discreptions { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
+        public long? ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
         public short? Status { get; set; }
 
         public AcadimacYears AcadimecYear { get; set; }
-        public ICollection<Shapters> Shapters { get; set; }
+        public ICollection<Events> Events { get; set; }
     }
 }

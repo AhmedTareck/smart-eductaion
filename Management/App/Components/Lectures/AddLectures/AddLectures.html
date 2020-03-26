@@ -154,7 +154,31 @@
 
                             <el-row class="row">
 
-                                <el-col class="col-md-3">
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+
+
+                                        <el-form-item prop="Video" label="المسار الخاص برابط المحاضرة"
+                                                      label-width="0px"
+                                                      :rules="[{ required: true, message: 'الرحاء إدخال المسار'} ]">
+
+                                            <el-input type="name"
+                                                      placeholder="رابط الموقع"
+                                                      v-model="ruleForm.Video"
+                                                      :rows="6"
+                                                      autocomplete="off">
+                                            </el-input>
+
+                                        </el-form-item>
+
+
+                                    </div>
+
+
+                                </div>
+
+                                <el-col class="col-md-3" style="margin-top:50px">
 
                                     <el-upload class="upload-demo"
                                                action="#"
@@ -172,7 +196,7 @@
                                     </el-upload>
 
                                 </el-col>
-                                <el-col class="col-md-3">
+                                <el-col class="col-md-3" style="margin-top:50px">
 
                                     <el-upload class="upload-demo"
                                                action="#"
@@ -192,7 +216,7 @@
 
 
                                 </el-col>
-                                <el-col class="col-md-3">
+                                <el-col class="col-md-3" style="margin-top:50px">
                                     <el-upload class="upload-demo"
                                                action="#"
                                                :on-preview="handlePreview"
@@ -209,29 +233,10 @@
                                     </el-upload>
 
                                 </el-col>
-                                <el-col class="col-md-3">
-
-                                    <el-upload class="upload-demo"
-                                               action="#"
-                                               :on-preview="handlePreview"
-                                               :on-remove="handleRemoveVedio"
-                                               :before-remove="beforeRemove"
-                                               multiple
-                                               :limit="1"
-                                               :on-exceed="handleExceedVedio"
-                                               :auto-upload="false"
-                                               :on-change="VedioChanged"
-                                               accept="video/*">
-                                        <el-button size="small" type="danger">إضافة فيديو</el-button>
-                                    </el-upload>
 
 
 
 
-                                </el-col>
-
-
-                       
                             </el-row>
 
 

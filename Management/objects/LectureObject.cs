@@ -14,7 +14,7 @@ namespace Management.objects
         public string decreption { get; set; }
         public List<BaseFile> attashFile = new List<BaseFile>();
         public List<BaseFile> sound = new List<BaseFile>();
-        public List<BaseFile> Video = new List<BaseFile>();
+        public string Video { get; set; }
         public List<BaseFile> Photo = new List<BaseFile>();
 
 

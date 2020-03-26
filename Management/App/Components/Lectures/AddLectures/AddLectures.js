@@ -36,7 +36,7 @@
                 yearSelectedId: '',
                 subjectSeletect: '',
                 Photo: [],
-                Video: [],
+                Video: '',
                 sound: [],
                 attashFile: []
             },

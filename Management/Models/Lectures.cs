@@ -7,7 +7,7 @@ namespace Management.Models
     {
         public Lectures()
         {
-            LectureImage = new HashSet<LectureImage>();
+            LectureFiles = new HashSet<LectureFiles>();
         }
 
         public long Id { get; set; }
@@ -15,14 +15,13 @@ namespace Management.Models
         public string Name { get; set; }
         public int? Number { get; set; }
         public string Description { get; set; }
-        public byte[] AttashmentFile { get; set; }
-        public byte[] SoundFile { get; set; }
-        public byte[] VideoFile { get; set; }
-        public DateTime? CreatedOn { get; set; }
         public long? CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public long? ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
         public short? Status { get; set; }
 
         public Shapters Shapters { get; set; }
-        public ICollection<LectureImage> LectureImage { get; set; }
+        public ICollection<LectureFiles> LectureFiles { get; set; }
     }
 }
