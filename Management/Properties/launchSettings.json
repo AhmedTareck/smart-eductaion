@@ -15,13 +15,13 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Web": {
+    "Management": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:4810/"
+      "applicationUrl": "http://localhost:5000"
     }
   }
 }
