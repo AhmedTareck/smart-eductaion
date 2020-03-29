@@ -258,9 +258,17 @@
                     </p>
                 </a>
             </li>
-
+            <li :class="menuFlag[15]" v-if="IsAuth('Permissions_View')==1">
+                <a class="nav-link" href="#" @click.prevent="href('/Permission',15)">
+                    <i class="fa fa-files-o"></i>
+                    <p>
+                        pre 
+                    </p>
+                </a>
+            </li>
 
             <!--<li class="nav-item ">
+
         <a class="nav-link" data-toggle="collapse" href="#StudentInfo">
             <i class="fa fa-users"></i>
             <p>

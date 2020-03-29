@@ -20,6 +20,6 @@ namespace Management.Models
         public DateTime? ModifiedOn { get; set; }
         public short? Status { get; set; }
 
-        public ICollection<AdsFiles> AdsFiles { get; set; }
+        public virtual ICollection<AdsFiles> AdsFiles { get; set; }
     }
 }

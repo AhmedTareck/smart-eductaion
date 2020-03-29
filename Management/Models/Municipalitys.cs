@@ -22,8 +22,8 @@ namespace Management.Models
         public DateTime? ModifiedOn { get; set; }
         public short? Status { get; set; }
 
-        public Locations Location { get; set; }
-        public Users Responsible { get; set; }
-        public ICollection<Schools> Schools { get; set; }
+        public virtual Locations Location { get; set; }
+        public virtual Users Responsible { get; set; }
+        public virtual ICollection<Schools> Schools { get; set; }
     }
 }

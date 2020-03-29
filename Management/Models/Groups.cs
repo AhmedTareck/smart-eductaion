@@ -8,6 +8,7 @@ namespace Management.Models
         public Groups()
         {
             PermissionGroup = new HashSet<PermissionGroup>();
+            Users = new HashSet<Users>();
         }
 
         public int Id { get; set; }
@@ -16,6 +17,7 @@ namespace Management.Models
         public DateTime? CreatedOn { get; set; }
         public short? State { get; set; }
 
-        public ICollection<PermissionGroup> PermissionGroup { get; set; }
+        public virtual ICollection<PermissionGroup> PermissionGroup { get; set; }
+        public virtual ICollection<Users> Users { get; set; }
     }
 }

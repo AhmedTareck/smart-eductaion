@@ -398,7 +398,22 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.post(baseUrl + `/admin/Courses/addLecture`, form);
     },
+    //********************** permission **************************
 
-
-    
+    GetPermissionsInfo(pageNo, pageSize) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Permission/GetPermissionsInfo?pageno=${pageNo}&pagesize=${pageSize}`);
+    },
+    addPermissionName(form) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Permission/addPermissionName`, form);
+    },
+    IsPermissin(permission) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Permission/IsPermissin?perimm=${permission}`);
+    },
+    //deleteYears(id) {
+    //    axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+    //    return axios.post(baseUrl + `/admin/Courses/${id}/deleteYears`);
+    //},
 }

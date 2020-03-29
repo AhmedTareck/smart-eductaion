@@ -23,8 +23,8 @@ namespace Management.Models
         public long? ModifiedBy { get; set; }
         public short? Status { get; set; }
 
-        public AcadimacYears AcadimacYear { get; set; }
-        public ICollection<Questions> Questions { get; set; }
-        public ICollection<StudentExam> StudentExam { get; set; }
+        public virtual AcadimacYears AcadimacYear { get; set; }
+        public virtual ICollection<Questions> Questions { get; set; }
+        public virtual ICollection<StudentExam> StudentExam { get; set; }
     }
 }

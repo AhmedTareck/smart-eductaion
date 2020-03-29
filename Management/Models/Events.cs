@@ -21,8 +21,8 @@ namespace Management.Models
         public DateTime? ModifiedOn { get; set; }
         public short? Status { get; set; }
 
-        public Subjects Subject { get; set; }
-        public Users Teacher { get; set; }
-        public ICollection<Shapters> Shapters { get; set; }
+        public virtual Subjects Subject { get; set; }
+        public virtual Users Teacher { get; set; }
+        public virtual ICollection<Shapters> Shapters { get; set; }
     }
 }

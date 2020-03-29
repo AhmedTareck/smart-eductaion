@@ -6,6 +6,15 @@ namespace Management.Models
 {
     public partial class SmartEducationContext : DbContext
     {
+        public SmartEducationContext()
+        {
+        }
+
+        public SmartEducationContext(DbContextOptions<SmartEducationContext> options)
+            : base(options)
+        {
+        }
+
         public virtual DbSet<AcadimacYears> AcadimacYears { get; set; }
         public virtual DbSet<Ads> Ads { get; set; }
         public virtual DbSet<AdsFiles> AdsFiles { get; set; }
@@ -28,19 +37,19 @@ namespace Management.Models
         public virtual DbSet<Subjects> Subjects { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
-        public SmartEducationContext(DbContextOptions<SmartEducationContext> options) : base(options) { }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"server=LAPTOP-DVJT5BST;database=SmartEducation;uid=Ahmed;pwd=35087124567Ahmed;");
+                optionsBuilder.UseSqlServer("Server=localhost,1433;Database=SmartEducation;User=SA;Password=Ab102030;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
+
             modelBuilder.Entity<AcadimacYears>(entity =>
             {
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
@@ -375,10 +384,10 @@ namespace Management.Models
 
                 entity.Property(e => e.UserType).HasDefaultValueSql("((2))");
 
-                entity.HasOne(d => d.PermissionGroup)
+                entity.HasOne(d => d.Group)
                     .WithMany(p => p.Users)
-                    .HasForeignKey(d => d.PermissionGroupId)
-                    .HasConstraintName("FK_Users_PermissionGroup");
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK_Users_Group");
             });
         }
     }

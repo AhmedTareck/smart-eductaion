@@ -20,8 +20,8 @@ namespace Management.Models
         public long? ModifiedBy { get; set; }
         public short? Status { get; set; }
 
-        public ICollection<Exams> Exams { get; set; }
-        public ICollection<Students> Students { get; set; }
-        public ICollection<Subjects> Subjects { get; set; }
+        public virtual ICollection<Exams> Exams { get; set; }
+        public virtual ICollection<Students> Students { get; set; }
+        public virtual ICollection<Subjects> Subjects { get; set; }
     }
 }
