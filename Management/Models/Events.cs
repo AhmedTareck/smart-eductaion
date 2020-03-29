@@ -7,6 +7,7 @@ namespace Management.Models
     {
         public Events()
         {
+            Exams = new HashSet<Exams>();
             Shapters = new HashSet<Shapters>();
         }
 
@@ -23,6 +24,7 @@ namespace Management.Models
 
         public Subjects Subject { get; set; }
         public Users Teacher { get; set; }
+        public ICollection<Exams> Exams { get; set; }
         public ICollection<Shapters> Shapters { get; set; }
     }
 }

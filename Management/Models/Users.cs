@@ -13,7 +13,7 @@ namespace Management.Models
         }
 
         public long Id { get; set; }
-        public int? PermissionGroupId { get; set; }
+        public int? GroupId { get; set; }
         public string Name { get; set; }
         public string LoginName { get; set; }
         public string Email { get; set; }
@@ -32,7 +32,7 @@ namespace Management.Models
         public long? ModifiedBy { get; set; }
         public short? State { get; set; }
 
-        public PermissionGroup PermissionGroup { get; set; }
+        public Groups Group { get; set; }
         public ICollection<Events> Events { get; set; }
         public ICollection<Municipalitys> Municipalitys { get; set; }
         public ICollection<Schools> Schools { get; set; }

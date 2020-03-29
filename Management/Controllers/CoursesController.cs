@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Managegment.Controllers;
@@ -655,88 +656,137 @@ namespace CMS.Controllers
         //    }
         //}
 
-        //[HttpPost("addExam")]
-        //public IActionResult addExam([FromBody] ExamObj obj)
-        //{
-        //    try
-        //    {
-        //        if (obj == null)
-        //        {
-        //            return StatusCode(401, "حدتت مشكلة في ارسال البيانات");
-        //        }
+        [HttpPost("addExam")]
+        public IActionResult addExam([FromBody] Exams exam)
+        {
+            try
+            {
+                if (exam == null)
+                {
+                    return StatusCode(401, "حدتت مشكلة في ارسال البيانات");
+                }
 
-        //        var userId = this.help.GetCurrentUser(HttpContext);
+                var userId = this.help.GetCurrentUser(HttpContext);
 
-        //        if (userId <= 0)
-        //        {
-        //            return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-        //        }
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                if (string.IsNullOrEmpty(exam.Name))
+                {
+                    return StatusCode(401, "يجب إدخال إسم الإمتحان");
+                }
+
+                if (string.IsNullOrWhiteSpace(exam.Name))
+                {
+                    return StatusCode(401, "يجب إدخال إسم الإمتحان");
+                }
 
 
-        //        var examExist = (from p in db.Exams where p.Name == obj.Name select p).SingleOrDefault();
+                var examExist = (from p in db.Exams where p.Name == exam.Name select p).SingleOrDefault();
 
-        //        if (examExist != null)
-        //        {
-        //            return StatusCode(401, "إسم الإختبار موجود مسبقا");
-        //        }
+                if (examExist != null)
+                {
+                    return StatusCode(401, "إسم الإختبار موجود مسبقا");
+                }
 
-        //        if (obj.QuestionsObj.Count == 0)
-        //        {
-        //            return StatusCode(401, "حدتت مشكلة في ارسال البيانات");
-        //        }
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
 
-        //        int marck = 0;
+                if (exam.Status == 1)
+                {
+                    if (exam.SubjectId <= 0)
+                    {
+                        return StatusCode(401, "الرجاء إختيار المادة الدراسية");
+                    }
+                }
+                else if (exam.Status == 2)
+                {
+                    if (exam.EventId <= 0)
+                    {
+                        return StatusCode(401, "الرجاء إختيار الكورس");
+                    }
 
-        //        foreach (var item in obj.QuestionsObj)
-        //        {
-        //            marck += item.Points;
-        //        }
+                }
 
-        //        if (marck != obj.FullMarck)
-        //        {
-        //            return StatusCode(401, "مجموع الدرجات لا يساوي الدرجة النهائية الرجاء التأكد من البيانات");
-        //        }
+                if (exam.Number < 0)
+                {
+                    return StatusCode(401, "الرجاء إختيار رقم الإختبار");
+                }
 
-        //        Exams exams = new Exams();
-        //        exams.Name = obj.Name;
-        //        exams.Number = obj.Number;
-        //        exams.Lenght = obj.Lenght;
-        //        exams.FullMarck = obj.FullMarck;
-        //        exams.CreatedBy = userId;
-        //        exams.CreatedOn = DateTime.Now;
-        //        exams.Status = 1;
-        //        db.Exams.Add(exams);
+                int marck = 0;
 
-        //        var questionsList = new List<Questions>();
+                foreach (var item in exam.Questions)
+                {
+                    marck += (int)item.Points;
+                }
 
-        //        foreach (QuestionsObj item in obj.QuestionsObj)
-        //        {
-        //            questionsList.Add(new Questions
-        //            {
-        //                Number = item.Number,
-        //                Points = item.Points,
-        //                Question = item.Question,
-        //                Answer = item.Answer,
-        //                A1 = item.A1,
-        //                A2 = item.A2,
-        //                A3 = item.A3,
-        //                A4 = item.A4,
-        //                Status = 1,
-        //            });
+                if (marck != exam.FullMarck)
+                {
+                    return StatusCode(401, "مجموع الدرجات لا يساوي الدرجة النهائية الرجاء التأكد من البيانات");
+                }
 
-        //        }
+                Exams exams = new Exams
+                {
+                    Name = exam.Name,
+                    Number = exam.Number,
+                    SubjectId = exam.SubjectId,
+                    EventId = exam.EventId,
+                    Length = exam.Length,
+                    FullMarck = exam.FullMarck,
+                    CreatedBy = userId,
+                    CreatedOn = DateTime.Now,
+                    Status = exam.Status
+                };
+               db.Exams.Add(exams);
 
-        //        exams.Questions = questionsList;
+                var questionsList = new List<Questions>();
 
-        //        db.SaveChanges();
-        //        return Ok("تمت عملية الإضافة بنجاح ");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, e.Message);
-        //    }
+                foreach (Questions item in exam.Questions)
+                {
+                    var question = new Questions
+                    {
 
-        //}
+                        ExamId = exam.Id,
+                        Question = item.Question,
+                        Number = item.Number,
+                        Points = item.Points,
+                        CreatedBy = userId,
+                        CreatedOn = DateTime.Now,
+
+                        Status = item.Status,
+                    };
+                  
+
+                    var answersList = new List<Answers>();
+                    foreach (Answers answers in item.Answers)
+                       
+                        answersList.Add(new Answers
+                        {
+                            ExamAnswers = answers.ExamAnswers,
+                            CreatedBy = userId,
+                            CreatedOn = DateTime.Now
+                        });
+                    question.Answers = answersList;
+
+                    questionsList.Add(question);
+                }
+
+                exams.Questions = questionsList;
+              
+
+                db.SaveChanges();
+                return Ok("تمت عملية الإضافة بنجاح ");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.InnerException.Message);
+            }
+
+        }
 
         //[HttpGet("GetExamingInfo")]
         //public IActionResult GetExamingInfo(int pageNo, int pageSize)
@@ -935,6 +985,78 @@ namespace CMS.Controllers
         //}
 
 
+        [HttpGet("getEvents")]
+        public IActionResult getEvents()
+        {
+            try
+            {
 
+                var selectedEvents = (from e in db.Events
+                                      select new { e.Id, e.Name }).ToList();
+                if (selectedEvents == null || selectedEvents.Count <= 0)
+                {
+
+                    return StatusCode(401, "لا يوجد أي كورس مسجلة");
+                }
+
+
+
+                return Ok(selectedEvents);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("getAcadmeicYears")]
+        public IActionResult getAcadmeicYears()
+        {
+            try
+            {
+
+
+                var selectedAcadmeicYears = (from ay in db.AcadimacYears
+                                             select new { ay.Id, ay.Name}).ToList();
+
+
+                if (selectedAcadmeicYears.Count == 0 || selectedAcadmeicYears == null)
+                {
+                    return StatusCode(401, "لا يوجد أي سنة دراسية مسجلة");
+                }
+
+
+                return Ok(selectedAcadmeicYears);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("getSubjects")]
+        public IActionResult getSubjectsBasedOnAcadmeicYearId([FromQuery] int academicYearId)
+        {
+            try
+            {
+
+
+                var selectedSubjects = (from s in db.Subjects where s.AcadimecYearId == academicYearId
+                                        select new { s.Id, s.Name }).ToList();
+
+
+                if (selectedSubjects.Count == 0 || selectedSubjects == null)
+                {
+                    return StatusCode(401, "لا يوجد أي مادة مسجلة تحت هذه السنة");
+                }
+
+
+                return Ok(selectedSubjects);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

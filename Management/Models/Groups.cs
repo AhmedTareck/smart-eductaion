@@ -8,6 +8,7 @@ namespace Management.Models
         public Groups()
         {
             PermissionGroup = new HashSet<PermissionGroup>();
+            Users = new HashSet<Users>();
         }
 
         public int Id { get; set; }
@@ -17,5 +18,6 @@ namespace Management.Models
         public short? State { get; set; }
 
         public ICollection<PermissionGroup> PermissionGroup { get; set; }
+        public ICollection<Users> Users { get; set; }
     }
 }

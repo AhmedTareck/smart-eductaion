@@ -27,15 +27,13 @@ namespace Management.Models
         public virtual DbSet<Students> Students { get; set; }
         public virtual DbSet<Subjects> Subjects { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-
         public SmartEducationContext(DbContextOptions<SmartEducationContext> options) : base(options) { }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"server=LAPTOP-DVJT5BST;database=SmartEducation;uid=Ahmed;pwd=35087124567Ahmed;");
+                optionsBuilder.UseSqlServer(@"server=localhost;database=SmartEducation;uid=sa;pwd=Pass123;");
             }
         }
 
@@ -110,10 +108,15 @@ namespace Management.Models
 
                 entity.Property(e => e.Name).HasMaxLength(50);
 
-                entity.HasOne(d => d.AcadimacYear)
+                entity.HasOne(d => d.Event)
                     .WithMany(p => p.Exams)
-                    .HasForeignKey(d => d.AcadimacYearId)
-                    .HasConstraintName("FK_Exams_AcadimacYears");
+                    .HasForeignKey(d => d.EventId)
+                    .HasConstraintName("FK_Exams_Events");
+
+                entity.HasOne(d => d.Subject)
+                    .WithMany(p => p.Exams)
+                    .HasForeignKey(d => d.SubjectId)
+                    .HasConstraintName("FK_Exams_Subjects");
             });
 
             modelBuilder.Entity<Groups>(entity =>
@@ -216,11 +219,11 @@ namespace Management.Models
 
             modelBuilder.Entity<Questions>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Question).HasMaxLength(250);
 
                 entity.HasOne(d => d.Exam)
                     .WithMany(p => p.Questions)
@@ -375,10 +378,10 @@ namespace Management.Models
 
                 entity.Property(e => e.UserType).HasDefaultValueSql("((2))");
 
-                entity.HasOne(d => d.PermissionGroup)
+                entity.HasOne(d => d.Group)
                     .WithMany(p => p.Users)
-                    .HasForeignKey(d => d.PermissionGroupId)
-                    .HasConstraintName("FK_Users_PermissionGroup");
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK_Users_Group");
             });
         }
     }

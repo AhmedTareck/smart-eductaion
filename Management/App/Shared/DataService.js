@@ -399,6 +399,19 @@ export default {
         return axios.post(baseUrl + `/admin/Courses/addLecture`, form);
     },
 
+    getEvents() {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/getEvents`);
+    },
+    getAcademicYears() {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/getAcadmeicYears`);
+    },
+    getSubjects(academicYearId) {
+        //AcademicYearId
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/getSubjects?academicYearId=${academicYearId}`);
+    }
 
     
 }

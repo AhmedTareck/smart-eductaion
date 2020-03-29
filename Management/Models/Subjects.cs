@@ -8,6 +8,7 @@ namespace Management.Models
         public Subjects()
         {
             Events = new HashSet<Events>();
+            Exams = new HashSet<Exams>();
         }
 
         public long Id { get; set; }
@@ -22,5 +23,6 @@ namespace Management.Models
 
         public AcadimacYears AcadimecYear { get; set; }
         public ICollection<Events> Events { get; set; }
+        public ICollection<Exams> Exams { get; set; }
     }
 }

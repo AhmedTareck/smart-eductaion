@@ -20,3 +20,4 @@ Code-First Approach
 Enable-migrate
 Add-Migration StudentTracker
 update-database
+
