@@ -98,7 +98,8 @@ props: ['QuestionList'],
             }],
             Events: [{ id: 0, name:"إختار الكورس"}],
             AcademicYears: [{ id: 0, name: "إختار السنة الدراسية" }],
-            Subjects:[]
+            Subjects: [],
+            DescriptiveQuestions: []
 
         };
     },
@@ -113,6 +114,7 @@ props: ['QuestionList'],
                     return false;
                 }
             });
+
         },
 
         resetForm(formName) {
@@ -125,6 +127,7 @@ props: ['QuestionList'],
                 Points: this.Question.Points,
                 Question: this.Question.Question,
                 Answers: this.chooseAnswersType(this.Question.QuestionTypeID),
+                DescriptiveAnswer: this.DescriptiveAnswer(this.Question.Answer),
                 Status: this.Question.Answer
             };
 
@@ -249,7 +252,7 @@ props: ['QuestionList'],
             this.$emit('input', e);
             this.Question.QuestionTypeID = e;
         },
-        labelAnswer(answerId) {
+        DescriptiveAnswer(answerId) {
             if (this.Question.QuestionTypeID === 1)
                 switch (answerId) {
                     case 1:
