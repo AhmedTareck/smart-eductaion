@@ -3,7 +3,7 @@
         <div class="row">
 
             <div class="card">
-                <div class="card-header card-header-danger">
+                <div class="card-header card-header-info">
                     <h4 class="card-title ">إضافة إختبار  </h4>
                     <p class="card-category"> بمكن من خلال هذه الواجهة إضافة إختبار </p>
                 </div>
@@ -11,7 +11,103 @@
                 <div class="card-body">
                     <div class="table-responsive">
 
-                        <el-form :model="ruleForm" ref="ruleForm" label-position="top" label-width="120px" class="demo-ruleForm">
+                        <el-form :model="body" ref="body" label-position="top" label-width="120px" class="demo-body">
+                            <br />
+                            <el-row class="row">
+
+
+                                <el-col class="col-md-3">
+
+                                    <el-form-item prop="Status" label="نوع الإختبار"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال نوع الإختبار'} ]">
+
+                                        <el-select :value="body.Status"
+                                                   @input="selectExamType"
+                                                   placeholder="إختار نوع الإمتحان"
+                                                   :remote="true"
+                                                   :remote-method="filter"
+                                                   :loading="loading">
+                                            <el-option v-for="item in ExamType"
+                                                       :disabled="item.id == 0"
+                                                       :key="item.id"
+                                                       :label="item.name"
+                                                       :value="item.id">
+                                            </el-option>
+                                        </el-select>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                                <el-col class="col-md-3" v-if="body.Status == 1">
+                                    <el-form-item prop="AcademicYearId" label="إختار السنة الدراسية"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إختيار السنة الدراسية'} ]">
+
+                                        <el-select :value="body.AcademicYearId"
+                                                   @input="selectAcademicYears"
+                                                   placeholder="إختار السنة الدراسية"
+                                                   :remote="true"
+                                                   :remote-method="filter"
+                                                   :loading="loading">
+                                            <el-option v-for="item in AcademicYears"
+                                                       :disabled="item.id == 0"
+                                                       :key="item.id"
+                                                       :label="item.name"
+                                                       :value="item.id">
+                                            </el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                    <el-col class="col-md-3" v-if="Subjects.length > 1">
+                                        <el-form-item prop="SubjectId" label="إختار المادة الدراسية"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: ' الرجاء إختيار المادة الدراسية'} ]">
+
+                                            <el-select :value="body.SubjectId"
+                                                       @input="selectSubject"
+                                                       placeholder="إختار المادة الدراسية"
+                                                       :remote="true"
+                                                       :remote-method="filter"
+                                                       :loading="loading">
+                                                <el-option v-for="item in Subjects"
+                                                           :disabled="item.id == 0"
+                                                           :key="item.id"
+                                                           :label="item.name"
+                                                           :value="item.id">
+                                                </el-option>
+                                            </el-select>
+
+                                        </el-form-item>
+
+                                    </el-col>
+                                    <el-col class="col-md-3" v-if="body.Status == 2">
+
+                                        <el-form-item prop="EventId" label="إختيار كورس"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: ' الرجاء إختيار الكورس'} ]">
+
+                                            <el-select :value="body.EventId"
+                                                       @input="selectEvents"
+                                                       placeholder="إختار الكورس"
+                                                       :remote="true"
+                                                       :remote-method="filter"
+                                                       :loading="loading">
+                                                <el-option v-for="item in Events"
+                                                           :disabled="item.id == 0"
+                                                           :key="item.id"
+                                                           :label="item.name"
+                                                           :value="item.id">
+                                                </el-option>
+                                            </el-select>
+
+                                        </el-form-item>
+
+                                    </el-col>
+
+</el-row>
                             <br />
                             <el-row class="row">
 
@@ -24,7 +120,7 @@
                                                   :rules="[{required: true, message: ' الرجاء إدخال إسم الإختبار'} ]">
 
                                         <el-input placeholder="إسم الإختبار"
-                                                  v-model="ruleForm.Name"
+                                                  v-model="body.Name"
                                                   :rows="6"
                                                   autocomplete="off">
                                         </el-input>
@@ -43,7 +139,7 @@
 
                                         <el-input type="number"
                                                   placeholder="رقم الإختبار"
-                                                  v-model="ruleForm.Number"
+                                                  v-model="body.Number"
                                                   :rows="6"
                                                   autocomplete="off">
                                         </el-input>
@@ -62,7 +158,7 @@
 
                                         <el-input type="number"
                                                   placeholder="الدرجة النهائية"
-                                                  v-model="ruleForm.FullMarck"
+                                                  v-model="body.FullMarck"
                                                   :rows="6"
                                                   autocomplete="off">
                                         </el-input>
@@ -79,9 +175,9 @@
                                                   label-width="0px"
                                                   :rules="[{required: true, message: ' الرجاء إدخال الزمن'} ]">
 
-                                        <el-input type="number"
+                                        <el-input type="time"
                                                   placeholder="الزمن"
-                                                  v-model="ruleForm.Lenght"
+                                                  v-model="body.Lenght"
                                                   :rows="6"
                                                   autocomplete="off">
                                         </el-input>
@@ -103,7 +199,7 @@
                         <div class="title"><h5> البيانات الخاصة بالأسئلة</h5> <hr /></div>
 
 
-                        <el-form :model="Question" ref="Question" label-position="top" label-width="120px" class="demo-ruleForm">
+                        <el-form :model="Question" ref="Question" label-position="top" label-width="120px" class="demo-body">
 
 
                             <el-row class="row">
@@ -172,8 +268,32 @@
 
 
                             </el-row>
-
                             <el-row class="row">
+
+                                <el-col class="col-md-12">
+                                    <el-form-item prop="QuestionTypeID" label="نوع السؤال"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: 'الرجاءإختيار نوع السؤال'} ]">
+
+                                        <el-select :value="Question.QuestionTypeID"
+                                                   @input="selectQuestionType"
+                                                   placeholder="إختار نوع السؤال"
+                                                   :remote="true"
+                                                   :remote-method="filter"
+                                                   :loading="loading">
+                                            <el-option v-for="item in Question.QuestionType"
+                                                       :disabled="item.id == 0"
+                                                       :key="item.id"
+                                                       :label="item.type"
+                                                       :value="item.id">
+                                            </el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+
+                            
+                            <el-row class="row" v-if="Question.QuestionTypeID == 2">
 
 
                                 <el-col class="col-md-3">
@@ -235,7 +355,6 @@
 
                                 <el-col class="col-md-3">
 
-
                                     <el-form-item prop="A4" label="الخيار الرابع"
                                                   label-width="0px"
                                                   :rules="[{required: true, message: ' الرجاء إدخال الخيار الرابع'} ]">
@@ -257,19 +376,48 @@
 
                             <el-row class="row">
 
-                                <el-col class="col-md-6">
+                                <el-col class="col-md-6" v-if="Question.QuestionTypeID == 1">
 
+                                        <el-form-item prop="AnswerType" label="إختار الإجابة"
+                                                      label-width="0px"
+                                                      :rules="[{required: true, message: 'الرجاء إختيار الإجابة'} ]">
+
+                                            <el-select :value="Question.Answer"
+                                                       @input="selectAnswers"
+                                                       placeholder="إختار الإجابة"
+                                                       :remote="true"
+                                                       :remote-method="filter"
+                                                       :loading="loading">
+                                                <el-option v-for="item in Question.AnswerType"
+                                                           :disabled="item.id == 0"
+                                                           :key="item.id"
+                                                           :label="item.name"
+                                                           :value="item.id">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+
+                                </el-col>
+
+                                <el-col class="col-md-6" v-if="Question.QuestionTypeID == 2">
 
                                     <el-form-item prop="Answer" label="الخيار الصحيح"
                                                   label-width="0px"
                                                   :rules="[{required: true, message: ' الرجاء إختيار الإجابة الصحيحة'} ]">
 
-                                        <el-radio-group v-model="Question.Answer" style="margin-top:10px">
-                                            <el-radio :label="1" id="1">  الخيار الأول</el-radio>
-                                            <el-radio :label="2" id="2">  الخيار التاني</el-radio>
-                                            <el-radio :label="3" id="3">  الخيار الثالت</el-radio>
-                                            <el-radio :label="4" id="4">  الخيار الرابع </el-radio>
-                                        </el-radio-group>
+                                        <el-select :value="Question.Answer"
+                                                   @input="selectAnswers"
+                                                   placeholder="إختار الإجابة الصحيحة"
+                                                   :remote="true"
+                                                   :remote-method="filter"
+                                                   :loading="loading">
+                                            <el-option v-for="item in Answers"
+                                                       :disabled="item.id == 0"
+                                                       :key="item.id"
+                                                       :label="item.name"
+                                                       :value="item.id">
+                                            </el-option>
+                                        </el-select>
 
                                     </el-form-item>
 
@@ -288,7 +436,7 @@
 
                         </el-form>
 
-                        <div class="row" v-if="ruleForm.QuestionsObj!=0">
+                        <div class="row" v-if="body.Questions!=0">
                             <div class="col-md-12">
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -312,11 +460,11 @@
                                             </th>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="item,index in ruleForm.QuestionsObj">
+                                                <tr v-for="item,index in body.Questions">
                                                     <td>{{item.Number }} </td>
                                                     <td>{{item.Points }} </td>
                                                     <td>{{item.Question }} </td>
-                                                    <td>{{item.Answer }} </td>
+                                                    <td>{{item.DescriptiveAnswer}} </td>
 
                                                     <td class="td-actions text-left">
 
@@ -335,13 +483,12 @@
                         </div>
                         
                         <br />
-                        <div class="d-flex justify-content-center" v-if="ruleForm.QuestionsObj!=0">
+                        <div class="d-flex justify-content-center" v-if="body.Questions!=0">
                             <div class="col-md-2">
                                 <el-button class="btn btn-danger btn-fill pull-right"
                                            type="primary"
-                                           @click.prevent="submitExamForm('ruleForm')">
+                                           @click.prevent="submitExamForm('body')">
                                     إضافة الإختبار
-
                                 </el-button>
                             </div>
                         </div>

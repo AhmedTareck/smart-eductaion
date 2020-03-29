@@ -5,11 +5,6 @@ namespace Management.Models
 {
     public partial class PermissionGroup
     {
-        public PermissionGroup()
-        {
-            Users = new HashSet<Users>();
-        }
-
         public int Id { get; set; }
         public int? GroupId { get; set; }
         public int? PermissioinId { get; set; }
@@ -20,6 +15,5 @@ namespace Management.Models
 
         public Groups Group { get; set; }
         public Permissions Permissioin { get; set; }
-        public ICollection<Users> Users { get; set; }
     }
 }
