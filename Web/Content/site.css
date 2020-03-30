@@ -5,3 +5,12 @@
     height: 133px;
 }
 
+.el-message__content {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.presentation-page section {
+    padding: 0px 0!important;
+}
+

@@ -114,7 +114,7 @@ namespace Management.Controllers
                     return BadRequest("الرجاء ادخال كلمه المرور");
                 }
 
-                var cUser = (from p in db.Users
+                var cUser = (from p in db.Students
                              where (p.Email == loginUser.Email || p.LoginName == loginUser.Email) && p.Status != 9
                              select p).SingleOrDefault();
 
@@ -124,14 +124,16 @@ namespace Management.Controllers
 
                 }
 
-                if (cUser.UserType != 1 && cUser.UserType != 2 && cUser.UserType != 3)
-                {
-                    return BadRequest("ليس لديك صلاحيه للدخول علي النظام");
-                }
+               
 
                 if (cUser.Status == 0)
                 {
-                    return BadRequest("حسابك غير مفعل");
+                    return BadRequest("تم قفل الحساب نهائيا");
+                }
+
+                if (cUser.Status == 2)
+                {
+                    return BadRequest("تم إغلاق الحساب مؤقتا للأسباب امنية");
                 }
 
                 if (!Security.VerifyHash(loginUser.Password, cUser.Password, HashAlgorithms.SHA512))
@@ -160,24 +162,29 @@ namespace Management.Controllers
                 var userInfo = new
                 {
                     userId = cUser.Id,
-                    fullName = cUser.Name,
-                    userType = cUser.UserType,
+                    FirstName = cUser.FirstName,
+                    FatherName = cUser.FatherName,
+                    SurName = cUser.SurName,
+                    GrandFatherName = cUser.GrandFatherName,
                     //branchId = branchId,
                     LoginName = cUser.LoginName,
                     Email = cUser.Email,
                     Gender = cUser.Gender,
                     Status = cUser.Status,
                     Phone = cUser.Phone,
-                    Photo = cUser.Image,
                     BirthDate = cUser.BirthDate,
+                    cUser.Nid,
+                    School="مدرسة الفجر الجديد",//cUser.School.Name,
+                    yearAcadimic ="السنة الدراسية 2018",//cUser.AcadimecYear.Name,
+                    imge = (cUser.Image !=null? 1:0),
+                    userType=8
                 };
 
                 const string Issuer = "http://www.nid.ly";
                 var claims = new List<Claim>();
                 claims.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/id", cUser.Id.ToString(), ClaimValueTypes.Integer64, Issuer));
-                claims.Add(new Claim(ClaimTypes.Name, cUser.Name, ClaimValueTypes.String, Issuer));
-                claims.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/OfficeId", ClaimValueTypes.Integer64, Issuer));
-                claims.Add(new Claim("userType", cUser.UserType.ToString(), ClaimValueTypes.Integer32, Issuer));
+                claims.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/userType","8", ClaimValueTypes.Integer64, Issuer));
+                
                 var userIdentity = new ClaimsIdentity("thisisasecreteforauth");
                 userIdentity.AddClaims(claims);
                 var userPrincipal = new ClaimsPrincipal(userIdentity);
