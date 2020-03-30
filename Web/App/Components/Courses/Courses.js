@@ -1,5 +1,4 @@
-﻿import addCourses from './AddCourses/AddCourses.vue';
-import editCourses from './EditCourses/EditCourses.vue';
+﻿
 import moment from 'moment';
 export default {
     name: 'Courses',    
@@ -13,8 +12,7 @@ export default {
         //welcome
     },
     components: {
-        'add-Courses': addCourses,
-        'edit-Courses': editCourses
+      
     },
     filters: {
         moment: function (date) {
