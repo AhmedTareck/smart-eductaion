@@ -18,7 +18,7 @@ props: ['QuestionList'],
                 Name:'',
                 Number:'',
                 FullMarck:'',
-                Lenght: '',
+                Length: '',
                 Questions: [],
                 EventId: null,
                 AcademicYearId:null,
@@ -99,7 +99,6 @@ props: ['QuestionList'],
             Events: [{ id: 0, name:"إختار الكورس"}],
             AcademicYears: [{ id: 0, name: "إختار السنة الدراسية" }],
             Subjects: [],
-            DescriptiveQuestions: []
 
         };
     },

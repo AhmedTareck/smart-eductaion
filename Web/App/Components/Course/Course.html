@@ -1,0 +1,15 @@
+﻿<div class="section section-hero section-shaped">
+
+    <div class="container pt-5 mb-5c upper">
+
+        <div class="row flex-row">
+            <div class="col-lg-8">
+                <Content class="position-sticky" :lecture="selectedLecture"></Content>
+                
+            </div>
+            <div class="col-lg-4 pt-5 ">
+                <Topics @lecture="setLecture"></Topics>
+            </div>
+        </div>
+    </div>
+</div>
