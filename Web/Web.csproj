@@ -115,6 +115,7 @@
 
   <ItemGroup>
     <Folder Include="Content\Images\" />
+    <Folder Include="Content\Images\" />
   </ItemGroup>
 
  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot') ">
