@@ -20,7 +20,7 @@ using System.IO;
 //using Managegment.Models;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Authorization;
-using Web.Models;
+//using Web.Models;
 using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Managegment
@@ -36,7 +36,7 @@ namespace Managegment
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SmartEducationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SmartEducation")));
+            //services.AddDbContext<SmartEducationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SmartEducation")));
             //services.AddDbContext<Models.AppointmentsContext>(options => options.UseMySQL(Configuration.GetConnectionString("Appointment")));
 
 

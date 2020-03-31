@@ -30,7 +30,7 @@ namespace Web.Models
         public DateTime? CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public long? ModifiedBy { get; set; }
-        public short? Status { get; set; }
+        public short? State { get; set; }
 
         public Groups Group { get; set; }
         public ICollection<Events> Events { get; set; }

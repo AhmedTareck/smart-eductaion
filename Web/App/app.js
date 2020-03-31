@@ -8,14 +8,9 @@ import BlockUIService from './Shared/BlockUIService.js';
 import Layout from './Components/Layout/Layout.vue';
 import Login from './Components/Login/Login.vue';
 import SignUp from './Components/SignUp/SignUp.vue';
-import Messages from './Components/Messages/Messages.vue';
 import Home from './Components/Home/Home.vue';
-<<<<<<< HEAD
 import Course from './Components/Course/Course.vue';
 import MyCourses from './Components/MyCourses/MyCourses.vue';
-=======
-import Courses from './Components/Courses/Courses.vue';
->>>>>>> 86d22e16ecdd7f058025f6d08c23e02cde4b0c73
 
 /*import Students from './Components/Students/Students.vue';
 import Companies from './Components/Companies/Companies.vue';
@@ -36,7 +31,7 @@ import messages from './i18n';
 Vue.use(Vuetify)
 Vue.use(VueI18n);
 Vue.use(VueRouter);
-Vue.use(ElementUI,{ locale });
+Vue.use(ElementUI, { locale });
 
 Vue.config.productionTip = false;
 
@@ -56,19 +51,13 @@ const router = new VueRouter({
     base: __dirname,
     linkActiveClass: 'active',
     routes: [
-        { path: '/', component: Home }, 
-        { path: '/Login', component: Login }, 
+        { path: '/', component: Home },
+        { path: '/Login', component: Login },
         { path: '/SignUp', component: SignUp },
-<<<<<<< HEAD
         { path: '/Course', component: Course },
         { path: '/MyCourses', component: MyCourses }
-        ]
-
-=======
-        { path: '/Messages', component: Messages },
-        { path: '/Courses', component: Courses}
     ]
->>>>>>> 86d22e16ecdd7f058025f6d08c23e02cde4b0c73
+
 });
 
 Vue.filter('toUpperCase', function (value) {
@@ -81,5 +70,8 @@ new Vue({
     router,
     render: h => {
         return h(Layout);
-    }    
+    }
 }).$mount('#app');
+
+
+

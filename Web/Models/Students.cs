@@ -19,17 +19,9 @@ namespace Web.Models
         public string GrandFatherName { get; set; }
         public string SurName { get; set; }
         public string MatherName { get; set; }
-        public string Address { get; set; }
+        public string Adrress { get; set; }
         public string Phone { get; set; }
         public bool? Gender { get; set; }
-        public string LoginName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public byte[] Image { get; set; }
-        public DateTime? BirthDate { get; set; }
-        public DateTime? LoginTryAttemptDate { get; set; }
-        public short? LoginTryAttempts { get; set; }
-        public DateTime? LastLoginOn { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
         public long? ModifiedBy { get; set; }

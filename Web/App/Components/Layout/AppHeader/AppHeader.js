@@ -18,16 +18,16 @@
     methods: {
 
         pathChange(route) {
-            if (route == "Login") {
+            if (route === "Login") {
                 this.NavBar = "navbar navbar-main navbar-expand-lg navbar-transparent headroom";
-            } else if (route == "SignUp") {
+            } else if (route === "SignUp") {
                 this.NavBar = "navbar navbar-main navbar-expand-lg navbar-transparent headroom";
             } else {
                 this.NavBar = 'navbar navbar-main navbar-expand-lg bg-primary navbar-dark headroom';
             }
         },
         href(url, visbilty) {
-            if (visbilty == 1) {
+            if (visbilty === 1) {
                 this.NavBar = "navbar navbar-main navbar-expand-lg navbar-transparent headroom";
             } else {
                 this.NavBar = "navbar navbar-main navbar-expand-lg bg-primary navbar-dark headroom";
