@@ -27,6 +27,8 @@ namespace Web.Models
         public virtual DbSet<Students> Students { get; set; }
         public virtual DbSet<Subjects> Subjects { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public SmartEducationContext(DbContextOptions<SmartEducationContext> options) : base(options) { }
+
 
         public SmartEducationContext(DbContextOptions<SmartEducationContext> options) : base(options) { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,7 +36,11 @@ namespace Web.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+<<<<<<< HEAD
                 optionsBuilder.UseSqlServer(@"server=localhost;database=SmartEducation;uid=sa;pwd=Pass123;");
+=======
+                optionsBuilder.UseSqlServer(@"Server=localhost;database=SmartEducation;uid=sa;pwd=Root1234_;");
+>>>>>>> 146117951ac1bff667dcf560e809ba1b91c12f10
             }
         }
 
