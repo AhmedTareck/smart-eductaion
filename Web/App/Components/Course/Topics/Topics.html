@@ -5,14 +5,14 @@
      
     </div>
     <!--//active bg-gradient-primary-->
-    <div  v-for="(item, index) in chapters" :key="index" unselectable="on">
+    <div  v-for="(item, index) in chapters" :key="index">
         <div class="list-group list-group-chat list-group-flush">
             <a href="javascript:;" class="list-group-item" :class="{
     'active': index === selectedChapterIndex,
     'bg-gradient-primary': index === selectedChapterIndex}" @click.prevent='setselectedChapterIndex(index)'>
                 <div class="media pull-right">
                     <div class="media-body ml-1">
-                        <div class="justify-content-between align-items-center">
+                        <div class="justify-content-between">
                             <h6 class="mb-0" :class="{'text-white': index === selectedChapterIndex}">
                                 {{item.title}}
                             </h6>
