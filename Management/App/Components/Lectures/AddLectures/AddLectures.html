@@ -5,7 +5,7 @@
         <div class="row">
 
             <div class="card">
-                <div class="card-header card-header-danger">
+                <div class="card-header card-header-info">
                     <h4 class="card-title ">إضافة محاضرة </h4>
                     <p class="card-category"> من خلال هذه الواجهة يمكن إضافة بيانات محاضرة </p>
                 </div>
@@ -21,7 +21,7 @@
                             <el-row class="row">
 
 
-                                <el-col class="col-md-4">
+                                <el-col class="col-md-3">
 
 
                                     <el-form-item prop="yearSelectedId" label="السنة الدراسية"
@@ -46,7 +46,7 @@
 
                                 </el-col>
 
-                                <el-col class="col-md-4">
+                                <el-col class="col-md-3">
 
 
                                     <el-form-item prop="subjectSeletect" label="المادة الدراسية"
@@ -55,8 +55,8 @@
 
                                         <el-select v-model="ruleForm.subjectSeletect"
                                                    style="    width: 100%;"
-                                                   @change="getShapterName()"
-                                                   filterable placeholder="السنة الدراسية ">
+                                                   @change="getEventName()"
+                                                   filterable placeholder="المادة الدراسية ">
 
                                             <el-option v-for="item in SubjectName"
                                                        :key="item.id"
@@ -71,7 +71,32 @@
 
                                 </el-col>
 
-                                <el-col class="col-md-4">
+                                <el-col class="col-md-3">
+
+
+                                    <el-form-item prop="EventId" label="المجموعة"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إختيار المجموعة'} ]">
+
+                                        <el-select v-model="ruleForm.EventId"
+                                                   style="    width: 100%;"
+                                                   @change="getShapterName()"
+                                                   filterable placeholder="المجموعة ">
+
+                                            <el-option v-for="item in EventName"
+                                                       :key="item.id"
+                                                       :label="item.name"
+                                                       :value="item.id">
+                                            </el-option>
+
+                                        </el-select>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                                <el-col class="col-md-3">
 
 
                                     <el-form-item prop="shapterSelected" label="الشابتر"
@@ -191,7 +216,7 @@
                                                :auto-upload="false"
                                                :on-change="ImageChanged"
                                                accept="image/png, image/jpeg">
-                                        <el-button size="small" type="danger">إضافة صورة</el-button>
+                                        <el-button size="small" type="info">إضافة صورة</el-button>
 
                                     </el-upload>
 
@@ -209,7 +234,7 @@
                                                :auto-upload="false"
                                                accept=".pdf"
                                                :on-change="PdfChanged">
-                                        <el-button size="small" type="danger">إضافة ملف pdf</el-button>
+                                        <el-button size="small" type="info">إضافة ملف pdf</el-button>
                                     </el-upload>
 
 
@@ -229,7 +254,7 @@
                                                :on-change="SoundChanged"
                                                accept="audio/*">
 
-                                        <el-button size="small" type="danger">إضافة ملف صوتي</el-button>
+                                        <el-button size="small" type="info">إضافة ملف صوتي</el-button>
                                     </el-upload>
 
                                 </el-col>
@@ -263,7 +288,7 @@
 
                             <div class="d-flex justify-content-center">
                                 <div class="col-md-2">
-                                    <el-button class="btn btn-danger btn-fill pull-right"
+                                    <el-button class="btn btn-info btn-fill pull-right"
                                                type="primary"
                                                @click.prevent="submitForm('ruleForm')">
                                         إضافة المحاضرة

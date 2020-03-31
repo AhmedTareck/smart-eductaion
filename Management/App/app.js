@@ -28,7 +28,17 @@ import AddAdsInfo from './Components/AdsInfo/AddAdsInfo/AddAdsInfo.vue';
 import Lectures from './Components/Lectures/Lectures.vue';
 import AddLectures from './Components/Lectures/AddLectures/AddLectures.vue';
 import Excaming from './Components/Excaming/Excaming.vue';
+
 import AddExaming from './Components/Excaming/AddExaming/AddExaming.vue';
+
+import Events from './Components/Events/Events.vue';
+import AddEvents from './Components/Events/AddEvents/AddEvents.vue';
+import Parents from './Components/Parents/Parents.vue';
+import AddParents from './Components/Parents/AddParents/AddParents.vue';
+
+import Presness from './Components/Presness/Presness.vue';
+import AddPresness from './Components/Presness/AddPresness/AddPresness.vue';
+
 
 
 
@@ -65,6 +75,10 @@ const router = new VueRouter({
         { path: '/', component: Home }, 
         { path: '/Users', component: Users },
         { path: '/EditUsersProfile', component: EditUsersProfile },
+        { path: '/Parents', component: Parents },
+        { path: '/AddParents', component: AddParents },
+        { path: '/Presness', component: Presness },
+        { path: '/AddPresness', component: AddPresness },
         { path: '/ChangePassword', component: ChangePassword },  
         { path: '/Student', name: 'Student', component: Student },
         { path: '/AddStudent', name: 'Student', component: AddStudent },
@@ -81,6 +95,8 @@ const router = new VueRouter({
         { path: '/AddLectures', name: 'AddLectures', component: AddLectures },
         { path: '/AddExaming', name: 'AddExaming', component: AddExaming },
         { path: '/Excaming', name: 'Excaming', component: Excaming },
+        { path: '/Events', name: 'Events', component: Events },
+        { path: '/AddEvents', name: 'AddEvents', component: AddEvents },
 
 
 

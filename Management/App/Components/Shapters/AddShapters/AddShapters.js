@@ -18,11 +18,15 @@ export default {
                 name: '',
                 SubjectId: '',
                 ShapterNumber: '',
+                EventId: '',
+                yearId:'',
             },
 
             year: [],
 
             SubjectName: [],
+
+            EventName: [],
         };
     },
 
@@ -60,6 +64,7 @@ export default {
 
 
         addSubject(formName) {
+            this.$blockUI.Start();
             this.$http.addShapter(this.form)
                 .then(response => {
                     this.$message({
@@ -94,16 +99,34 @@ export default {
         },
 
         getSubject() {
-            this.SubjectName = [];
-            this.form.SubjectId= '';
+            //this.SubjectName = [];
+            //this.form.SubjectId= '';
             //this.getShpater();
             this.$blockUI.Start();
-            this.$http.getSubject(this.form.id)
+            this.$http.getSubject(this.form.yearId)
 
                 .then(response => {
 
                     this.$blockUI.Stop();
                     this.SubjectName = response.data.subject;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
+
+        getEventName() {
+            //this.SubjectName = [];
+            //this.form.SubjectId = '';
+            //this.getShpater();
+            this.$blockUI.Start();
+            this.$http.getEventName(this.form.SubjectId)
+
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.EventName = response.data.eventinfo;
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();

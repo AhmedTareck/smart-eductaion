@@ -1,44 +1,39 @@
 ﻿import moment from 'moment';
 export default {
-    name: 'EditShapters',
+    name: 'EditSubjects',
     
     created() {
         this.getyearName();
-        this.form.id = this.$parent.selectedItem.id;
-        this.form.name = this.$parent.selectedItem.name;
-        this.form.SubjectId = this.$parent.selectedItem.subjectId;
-        this.form.ShapterNumber = this.$parent.selectedItem.number;
-        this.form.EventId = this.$parent.selectedItem.eventId;
-        this.form.yearId = this.$parent.selectedItem.yearId;
-        
-        this.getSubject()();
-        this.getEventName()();
-        //this.form.id = this.$parent.selectedItem.id;
-        //this.form.name = this.$parent.selectedItem.name;
-        //this.form.SubjectId = this.$parent.selectedItem.subjectId;
-        //this.form.ShapterNumber = this.$parent.selectedItem.shapterNumber;
-        //this.form.EventId = this.$parent.selectedItem.eventId;
-        //this.form.yearId = this.$parent.selectedItem.yearId;
+        this.getTeatcherName();
+
+        this.form.Id = this.$parent.selectedStudent.id;
+        this.form.yearId = this.$parent.selectedStudent.yearId;
+        this.form.TeacherId = this.$parent.selectedStudent.teacherId;
+        this.form.SubjectId = this.$parent.selectedStudent.subjectId;
+        this.form.Name = this.$parent.selectedStudent.name;
+        this.form.Discreptions = this.$parent.selectedStudent.discreptions;
     },
     components: {
     },
     data() {
         return {
-            form: {
-                
-                id: '',
-                name: '',
-                SubjectId: '',
-                ShapterNumber: '',
-                EventId: '',
-                yearId:'',
-            },
-
             year: [],
 
-            SubjectName: [],
 
-            EventName: [],
+            subjects: [],
+            teachers: [],
+
+
+            form: {
+
+                yearId: '',
+                Id: '',
+
+                TeacherId: '',
+                SubjectId: '',
+                Name: '',
+                Discreptions: '',
+            },
         };
     },
 
@@ -73,16 +68,13 @@ export default {
         },
 
         getSubject() {
-            //this.SubjectName = [];
-            //this.form.SubjectId= '';
-            //this.getShpater();
+
             this.$blockUI.Start();
             this.$http.getSubject(this.form.yearId)
-
                 .then(response => {
 
                     this.$blockUI.Stop();
-                    this.SubjectName = response.data.subject;
+                    this.subjects = response.data.subject;
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();
@@ -90,17 +82,14 @@ export default {
                 });
         },
 
-        getEventName() {
-            //this.SubjectName = [];
-            //this.form.SubjectId = '';
-            //this.getShpater();
-            this.$blockUI.Start();
-            this.$http.getEventName(this.form.SubjectId)
+        getTeatcherName() {
 
+            this.$blockUI.Start();
+            this.$http.getTeatcherName()
                 .then(response => {
 
                     this.$blockUI.Stop();
-                    this.EventName = response.data.eventinfo;
+                    this.teachers = response.data.teacher;
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();
@@ -108,17 +97,30 @@ export default {
                 });
         },
 
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.editEvent();
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
 
-        editShpter() {
+
+        },
+
+
+        editEvent() {
             this.$blockUI.Start();
-            this.$http.editShpter(this.form)
+            this.$http.editEvent(this.form)
                 .then(response => {
                     //this.$parent.state = 0;
                     this.$message({
                         type: 'info',
                         message: response.data
                     });
-                    this.$parent.getShpater();
+                    this.$parent.getEventInfo();
                     this.$parent.state = 0;
                     this.$blockUI.Stop();
                 })

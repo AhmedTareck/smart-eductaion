@@ -399,6 +399,37 @@ export default {
         return axios.post(baseUrl + `/admin/Courses/addLecture`, form);
     },
 
+    getTeatcherName() {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/getTeatcherName`);
+    },
+
+    addEvent(form) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/addEvent`, form);
+    },
+
+    getEventInfo(pageNo, pageSize) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/getEventInfo?pageno=${pageNo}&pagesize=${pageSize}`);
+    },
+
+    editEvent(form) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/editEvent`, form);
+    },
+
+    delteEvent(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(baseUrl + `/admin/Courses/${id}/delteEvent`);
+    },
+
+    getEventName(id) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(baseUrl + `/admin/Courses/getEventName?id=${id}`);
+    },
+
+
 
     
 }

@@ -1,0 +1,609 @@
+﻿
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="#pablo">
+
+                            <img class="img" :src="'/Api/Admin/User/' + ruleForm.UserId + '/image'" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="title"> {{ruleForm.FullName}}</h5>
+
+                        <h4 class="card-title">{{ruleForm.LoginName}}</h4>
+                    </div>
+                    <p class="description" style="padding: 7px;">
+                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you
+                        like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                    </p>
+
+
+                    <div class="form-group UploadButton">
+
+                        <label for="file-upload" class="btn btn-info btn-round">
+                            <i class="fa fa-cloud-upload" style="color:white"></i> تـغير الصورة
+                        </label>
+                        <input accept="image/jpg" @change="FileChanged($event)" id="file-upload" type="file" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">تعديل الملف الشخصي</h4>
+                        <p class="card-category">
+
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-position="top" label-width="120px" class="demo-ruleForm">
+
+                                <el-row class="row">
+                                    <el-col class="col-md-6">
+
+
+
+                                        <el-form-item label="الاسم التلاثي" prop="FullName">
+                                            <el-input placeholder="الاسم التلاثي" v-model="ruleForm.FullName"></el-input>
+                                        </el-form-item>
+
+
+                                    </el-col>
+
+                                    <el-col class="col-md-6">
+
+
+
+
+                                        <el-form-item label="اسم الدخول" prop="LoginName">
+                                            <el-input placeholder="اسم الدخول" v-model="ruleForm.LoginName"></el-input>
+                                        </el-form-item>
+
+
+                                    </el-col>
+
+                                </el-row>
+
+
+
+                                <el-row class="row">
+                                    <el-col class="col-md-4">
+
+
+                                        <el-form-item label="البريد الإلكتروني" prop="Email">
+                                            <el-input placeholder="البريد الإلكتروني" v-model="ruleForm.Email"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col class="col-md-4">
+
+                                        <el-form-item label="تاريخ الميلاد" prop="DateOfBirth">
+                                            <el-date-picker v-model="ruleForm.DateOfBirth"
+                                                            type="date"
+                                                            placeholder="تاريخ الميلاد">
+                                            </el-date-picker>
+
+                                        </el-form-item>
+
+
+                                    </el-col>
+                                    <el-col class="col-md-4">
+
+
+                                        <el-form-item label="رقم الهاتف" prop="Phone">
+                                            <el-input placeholder="رقم الهاتف" v-model="ruleForm.Phone"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+
+                                <el-row class="row">
+                                    <el-col class="col-md-6">
+                                        <el-form-item label="الجنس" prop="Gender">
+                                            <el-select style="width: 100%;" v-model="ruleForm.Gender" filterable placeholder="الجنس">
+
+                                                <el-option v-for="item in [{id:1,Gender:'ذكـر'},{id:2,Gender:'انـثي'}]"
+                                                           :key="item.id"
+                                                           :label="item.Gender"
+                                                           :value="item.id">
+                                                </el-option>
+
+                                            </el-select>
+
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col class="col-md-6">
+                                        <button class="btn btn-info pull-left" style="margin-top:39px" @click.prevent="Save('ruleForm')">حفظ التعديلات </button>
+
+
+                                    </el-col>
+                                </el-row>
+
+                                <div class="tile-footer">
+
+
+                                </div>
+                                <div class="clearfix"></div>
+                            </el-form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-info">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <span class="nav-tabs-title">الإعدادات </span>
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#profile" data-toggle="tab">
+                                            <i class="material-icons">person</i> إضافة طالب جديد
+                                            <div class="ripple-container"></div>
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#messages" data-toggle="tab">
+                                            <i class="material-icons">code</i> بيانات الطلبة
+                                            <div class="ripple-container"></div>
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active show" href="#settings" data-toggle="tab">
+                                            <i class="material-icons">cloud</i> الإشتراكات
+                                            <div class="ripple-container"></div>
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane" id="profile">
+                                <div class="row">
+                                    <div class="col-md-12" style="padding: 46px;">
+                                        <el-form :model="PersnalInfoForm" ref="PersnalInfoForm" label-width="100px" class="demo-ruleForm" dir="rtl">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>السنة الدراسية</label>
+                                                    <el-select v-model="YearSelected"
+                                                               @change="getEvents()"
+                                                               style="    width: 100%;"
+                                                               filterable placeholder="السنة الدراسية ">
+
+                                                        <el-option v-for="item in Years"
+                                                                   :key="item.acadimecYearId"
+                                                                   :label="item.name"
+                                                                   :value="item.acadimecYearId">
+                                                        </el-option>
+
+                                                    </el-select>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label>الفصل</label>
+                                                    <el-form-item prop="EventId"
+                                                                  label-width="0px"
+                                                                  :rules="[{required: true, message: 'Class Is Requird'} ]">
+                                                        <el-select v-model="PersnalInfoForm.EventId"
+                                                                   filterable
+                                                                   placeholder="الفصل "
+                                                                   style="    width: 100%;">
+
+                                                            <el-option v-for="item in Events"
+                                                                       :key="item.eventId"
+                                                                       :label="item.eventGroup"
+                                                                       :value="item.eventId">
+                                                            </el-option>
+
+                                                        </el-select>
+                                                    </el-form-item>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group">
+
+                                                        <label>الإسم الأول</label>
+
+
+                                                        <el-form-item prop="firstName"
+                                                                      label-width="0px"
+                                                                      :rules="[{required: true, message: 'First Name Is Requird'} ]">
+
+                                                            <el-input type="firstName"
+                                                                      placeholder="First Name"
+                                                                      v-model="PersnalInfoForm.firstName"
+                                                                      autocomplete="off" />
+
+                                                        </el-form-item>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group">
+
+                                                        <label>إسم الأب</label>
+
+                                                        <el-form-item prop="fatherName"
+                                                                      label-width="0px"
+                                                                      :rules="[{ required: true, message: 'Father Name Is Requird'} ]">
+
+                                                            <el-input type="fatherName"
+                                                                      placeholder="Father Name"
+                                                                      v-model="PersnalInfoForm.fatherName"
+                                                                      autocomplete="off">
+                                                            </el-input>
+
+                                                        </el-form-item>
+
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group">
+
+                                                        <label>إسم الجد</label>
+
+                                                        <el-form-item prop="grandFatherName"
+                                                                      label-width="0px"
+                                                                      :rules="[{ required: true, message: 'Grandfathers Name Is Requird'} ]">
+
+                                                            <el-input type="grandFatherName"
+                                                                      placeholder="Grandfathers Name"
+                                                                      v-model="PersnalInfoForm.grandFatherName"
+                                                                      autocomplete="off">
+                                                            </el-input>
+
+                                                        </el-form-item>
+
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group">
+
+                                                        <label>اللقب</label>
+
+                                                        <el-form-item prop="surName"
+                                                                      label-width="0px"
+                                                                      :rules="[{ required: true, message: 'Surname  Is Requird'} ]">
+
+                                                            <el-input type="surName"
+                                                                      placeholder="Surname"
+                                                                      v-model="PersnalInfoForm.surName"
+                                                                      autocomplete="off">
+                                                            </el-input>
+
+                                                        </el-form-item>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group">
+
+                                                        <label>إسم الأم</label>
+
+                                                        <el-form-item prop="matherName"
+                                                                      label-width="0px"
+                                                                      :rules="[{ required: true, message: 'Mather Name  Is Requird'} ]">
+
+                                                            <el-input type="motherFirstName"
+                                                                      placeholder="Mather Name"
+                                                                      v-model="PersnalInfoForm.matherName"
+                                                                      autocomplete="off">
+                                                            </el-input>
+
+                                                        </el-form-item>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group">
+
+                                                        <label>العنوان</label>
+
+
+                                                        <el-form-item prop="Adrress"
+                                                                      label-width="0px"
+                                                                      :rules="[{required: true, message: 'Address Is Requird'} ]">
+
+                                                            <el-input type="Adrress"
+                                                                      placeholder="Address"
+                                                                      v-model="PersnalInfoForm.Adrress"
+                                                                      autocomplete="off" />
+
+                                                        </el-form-item>
+
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                            </div>
+
+                                            <div class="row">
+
+                                                <div class="col-md-4">
+
+                                                    <div class="form-group">
+
+                                                        <label>الجنس</label>
+
+                                                        <el-form-item prop="selectedSex"
+                                                                      label-width="0px"
+                                                                      :rules="[{ required: true, message: 'Sex  Is Requird'} ]">
+
+                                                            <el-select style="width: 100%;" filterable placeholder="الجنس" v-model="PersnalInfoForm.selectedSex">
+
+                                                                <el-option v-for="item in sex"
+                                                                           :key="item.id"
+                                                                           :label="item.name"
+                                                                           :value="item.id">
+                                                                </el-option>
+
+                                                            </el-select>
+
+                                                        </el-form-item>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-8">
+
+                                                    <div class="form-group">
+
+                                                        <label>رقم الهاتف</label>
+
+                                                        <el-form-item prop="phone"
+                                                                      label-width="0px"
+                                                                      :rules="[{ required: true, message: 'Phone  Is Requird'} ]">
+
+                                                            <el-input type="phone"
+                                                                      placeholder="Phone"
+                                                                      v-model="PersnalInfoForm.phone"
+                                                                      autocomplete="off">
+                                                            </el-input>
+
+                                                        </el-form-item>
+
+                                                    </div>
+
+                                                </div>
+
+                                                
+
+                                                <div class="col-md-1">
+
+
+                                                </div>
+
+
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="pull-left">
+
+
+                                                        <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="submitForm('PersnalInfoForm')">إضافة بيانات الطالب</el-button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </el-form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="messages">
+                                <div class="row" v-if="Students==0">
+
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <br /><br />
+                                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للطلبة"
+                                                      type="info">
+                                            </el-alert>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <!--Table Info-->
+                                <div class="row" v-if="Students!=0">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead class="text-info">
+                                                    <th>
+                                                        #
+                                                    </th>
+                                                    <th>
+                                                        الإسم
+                                                    </th>
+                                                    <th>
+                                                        رقم الهاتف
+                                                    </th>
+                                                    <th>
+                                                        عدد الحضور
+                                                    </th>
+                                                    <th>
+                                                        عدد الغياب
+                                                    </th>
+                                                    <th style="text-align:left">
+                                                        العمليات
+                                                    </th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="item,index in Students">
+                                                            <td>{{index+1}} </td>
+                                                            <td>{{item.studentName }} </td>
+                                                            <td>{{item.phone}}</td>
+                                                            <td>{{10}}</td>
+                                                            <td>{{20}}</td>
+
+
+                                                            <td class="td-actions pull-left">
+                                                                <button type="button" rel="tooltip" @click.prevent="delteStudent(item.studentId)" class="btn btn-danger btn-link" data-original-title="" title="">
+                                                                    <i class="material-icons" title="حدف">close</i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-7">
+                                                        <div class="pull-right">
+                                                            <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate" style="direction: ltr;">
+                                                                <div style="text-align: center;">
+
+                                                                    <el-pagination background
+                                                                                   layout="prev, pager, next"
+                                                                                   :current-page="pageNo"
+                                                                                   :page-size="pageSize"
+                                                                                   :total="pages"
+                                                                                   @current-change="GetStudent($event)">
+                                                                    </el-pagination>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-5">
+                                                        <div class="pull-left">
+                                                            <div class="disabled-sorting text-right" id="datatable_info" role="status" aria-live="polite">Showing {{pageNo}} to {{pageSize}} of {{pages}} entries</div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane active show" id="settings">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
+                                            <td class="td-actions text-right">
+                                                <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="" checked="">
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
+                                            </td>
+                                            <td class="td-actions text-right">
+                                                <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="" checked="">
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>Sign contract for "What are conference organizers afraid of?"</td>
+                                            <td class="td-actions text-right">
+                                                <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
