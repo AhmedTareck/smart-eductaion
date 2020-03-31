@@ -21,7 +21,7 @@
             if (route == "Login") {
                 this.NavBar = "navbar navbar-main navbar-expand-lg navbar-transparent headroom";
             } else if (route == "SignUp") {
-                this.NavBar = 'navbar navbar-main navbar-expand-lg bg-primary navbar-dark headroom';
+                this.NavBar = "navbar navbar-main navbar-expand-lg navbar-transparent headroom";
             } else {
                 this.NavBar = 'navbar navbar-main navbar-expand-lg bg-primary navbar-dark headroom';
             }

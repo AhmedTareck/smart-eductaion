@@ -16,7 +16,7 @@
                         </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" @click.prevent="href('/SignUp',0)" class="nav-link" data-toggle="dropdown" role="button" style="font-weight:bold">
+                    <a href="#" @click.prevent="href('/SignUp',1)" class="nav-link" data-toggle="dropdown" role="button" style="font-weight:bold">
                         <i class="ni ni-ui-04 d-lg-none"></i>
                         SignUp
                         </a>
@@ -36,34 +36,43 @@
                             <i class="fa fa-user text-muted" style="font-weight:bold"></i>
                             Abdullah Elamir
                         </a>
-                        <a class="dropdown-item" href="./examples/account-settings.html">
-                            <i class="ni ni-lock-circle-open text-muted"></i>
-                            Account Settings
+
+                       
+                        <a class="dropdown-item" href="#" @click.prevent="href('/Messages',0)">
+
+                            <i class="fa fa-inbox text-muted" style="font-weight:bold"></i>
+                            Messages
+                            <el-badge class="mark" :value="3" />
                         </a>
-                        <a class="dropdown-item" href="./examples/login-page.html">
-                            <i class="ni ni-tv-2 text-danger"></i>
-                            Login Page
-                        </a>
-                        <a class="dropdown-item" href="./examples/register-page.html">
-                            <i class="ni ni-air-baloon text-pink"></i>
-                            Register Page
-                        </a>
-                        <a class="dropdown-item" href="./examples/reset-page.html">
-                            <i class="ni ni-atom text-info"></i>
-                            Reset Page
-                        </a>
-                        <a class="dropdown-item" href="./examples/invoice-page.html">
-                            <i class="ni ni-bullet-list-67 text-success"></i>
-                            Invoice Page
-                        </a>
-                        <a class="dropdown-item" href="./examples/checkout-page.html">
-                            <i class="ni ni-basket text-orange"></i>
-                            Checkout Page
-                        </a>
-                        <a class="dropdown-item" href="./examples/chat-page.html">
-                            <i class="ni ni-chat-round text-primary"></i>
-                            Chat Page
-                        </a>
+                       
+                            <a class="dropdown-item" href="./examples/account-settings.html">
+                                <i class="ni ni-lock-circle-open text-muted"></i>
+                                Account Settings
+                            </a>
+                            <a class="dropdown-item" href="./examples/login-page.html">
+                                <i class="ni ni-tv-2 text-danger"></i>
+                                Login Page
+                            </a>
+                            <a class="dropdown-item" href="./examples/register-page.html">
+                                <i class="ni ni-air-baloon text-pink"></i>
+                                Register Page
+                            </a>
+                            <a class="dropdown-item" href="./examples/reset-page.html">
+                                <i class="ni ni-atom text-info"></i>
+                                Reset Page
+                            </a>
+                            <a class="dropdown-item" href="./examples/invoice-page.html">
+                                <i class="ni ni-bullet-list-67 text-success"></i>
+                                Invoice Page
+                            </a>
+                            <a class="dropdown-item" href="./examples/checkout-page.html">
+                                <i class="ni ni-basket text-orange"></i>
+                                Checkout Page
+                            </a>
+                            <a class="dropdown-item" href="./examples/chat-page.html">
+                                <i class="ni ni-chat-round text-primary"></i>
+                                Chat Page
+                            </a>
                     </div>
                 </li>
             </ul>

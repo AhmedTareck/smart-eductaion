@@ -164,6 +164,8 @@
     <Content Remove="wwwroot\assets\scss\theme\vendor\headroom.scss" />
     <Content Remove="wwwroot\assets\scss\theme\variables.scss" />
     <Content Remove="wwwroot\assets\scss\theme\vendor\scrollbar.scss" />
+    <None Remove="App\Components\Course\Course.html" />
+    <None Remove="App\Components\Course\Content\Content.vue" />
   </ItemGroup>
 
   <ItemGroup>

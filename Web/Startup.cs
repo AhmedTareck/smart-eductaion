@@ -20,6 +20,8 @@ using System.IO;
 //using Managegment.Models;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Authorization;
+using Web.Models;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Managegment
 {
@@ -34,7 +36,7 @@ namespace Managegment
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Models.CMSContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CMS")));
+            services.AddDbContext<SmartEducationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SmartEducation")));
             //services.AddDbContext<Models.AppointmentsContext>(options => options.UseMySQL(Configuration.GetConnectionString("Appointment")));
 
 
@@ -42,14 +44,21 @@ namespace Managegment
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    
+                    .AllowAnyMethod()        
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
 
-            services.AddMvc();
-          
+
+            var policy = new AuthorizationPolicyBuilder()
+                       .RequireAuthenticatedUser()
+                       .Build();
+
+            services.AddMvc(opt =>
+            {
+                opt.Filters.Add(new AuthorizeFilter(policy));
+            });
+
 
             services.AddAuthentication(o =>
             {
@@ -59,8 +68,8 @@ namespace Managegment
             })
             .AddCookie(options =>
             {
-                options.AccessDeniedPath = new PathString("/Security/Login/");
-                options.LoginPath = new PathString("/Security/Login/");
+                options.AccessDeniedPath = new PathString("/");
+                options.LoginPath = new PathString("/");
             })
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
             {

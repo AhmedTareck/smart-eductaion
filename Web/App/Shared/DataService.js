@@ -8,6 +8,10 @@ export default {
     Login(loginName, password, secretNo) {
         return axios.post(baseUrl + '/security/login', { loginName, password, secretNo });
     },
+
+    loginUserAccount(user) {
+        return axios.post(`/Security/loginUser`, user);
+    },
     Logout() {
         return axios.post(baseUrl + '/security/logout');
     },    
