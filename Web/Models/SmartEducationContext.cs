@@ -6,13 +6,6 @@ namespace Web.Models
 {
     public partial class SmartEducationContext : DbContext
     {
-        public SmartEducationContext()
-        {
-        }
-        public SmartEducationContext(DbContextOptions<SmartEducationContext> options)
-            : base(options)
-        {
-        }
         public virtual DbSet<AcadimacYears> AcadimacYears { get; set; }
         public virtual DbSet<Ads> Ads { get; set; }
         public virtual DbSet<AdsFiles> AdsFiles { get; set; }
@@ -36,13 +29,15 @@ namespace Web.Models
         public virtual DbSet<Students> Students { get; set; }
         public virtual DbSet<Subjects> Subjects { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public SmartEducationContext(DbContextOptions<SmartEducationContext> options) : base(options) { }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"server=DESKTOP-4AI87L8\SQLEXPRESS;Database=SmartEducation;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(@"Server=localhost;database=SmartEducation;uid=sa;pwd=Root1234_;");
             }
         }
 

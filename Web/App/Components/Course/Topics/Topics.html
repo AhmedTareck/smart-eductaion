@@ -1,12 +1,11 @@
-<<<<<<< HEAD
-﻿<div class="card bg-secondary pl--6 ">
+<div class="card bg-secondary pl--6 ">
     <div class="card-header mb-3 ">
-       
+
         <h4 class="pull-right"> iOS مادة برمجة </h4>
-     
+
     </div>
     <!--//active bg-gradient-primary-->
-    <div  v-for="(item, index) in chapters" :key="index">
+    <div v-for="(item, index) in chapters" :key="index">
         <div class="list-group list-group-chat list-group-flush">
             <a href="javascript:;" class="list-group-item" :class="{
     'active': index === selectedChapterIndex,
@@ -22,39 +21,13 @@
                 </div>
             </a>
         </div>
-        <div id="navbarNav" class="noselect" v-show="index === selectedChapterIndex" >
-            
+        <div id="navbarNav" class="noselect" v-show="index === selectedChapterIndex">
+
             <ul class="navbar-nav">
                 <li class="nav-item active  mr-0 clickable" v-for="(lecture, lectureIndex) in item.lectures" @click.prevent="setSelectedLectureIndex(lectureIndex), displayLecture(index, lectureIndex), window.location='#Content'" @mouseover='hover = true, sethighlightedLectureIndex(lectureIndex)' @mouseleave="hover = false" :class="{'highlight': hover && lectureIndex === highlightedLectureIndex,'selected': savedSelectedChapterIndex === selectedChapterIndex && lectureIndex === selectedLectureIndex }">
-                    <a class="nav-link pull-right mr-2 ml--3" :href="contentLink"  >{{lecture.title}} </a>
+                    <a class="nav-link pull-right mr-2 ml--3" :href="contentLink">{{lecture.title}} </a>
                 </li>
             </ul>
         </div>
-=======
-﻿<div class="card bg-secondary pl--6 scrollable" >
-    <form class="card-header mb-3">
-        <div class="input-group input-group-alternative">
-            <input type="text" class="form-control" placeholder="Search contact">
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
-            </div>
-        </div>
-    </form>
-    <!--//active bg-gradient-primary-->
-    <div v-for="(item, index) in lectures" :key="index" class="list-group list-group-chat list-group-flush">
-        <a href="javascript:;" class="list-group-item" :class="{ 
-    'active': index === selectedIndex, 
-    'bg-gradient-primary': index === selectedIndex}" @click.prevent='setSelectedIndex(index), displayLecture(index)'>
-            <div class="media">
-                <div class="media-body ml-1">
-                    <div class="justify-content-between align-items-center">
-                        <h6 class="mb-0" :class="{'text-white': index === selectedIndex}">
-                            {{item.title}}
-                        </h6>
-                    </div>
-                </div>
-            </div>
-        </a>
->>>>>>> 86d22e16ecdd7f058025f6d08c23e02cde4b0c73
     </div>
 </div>

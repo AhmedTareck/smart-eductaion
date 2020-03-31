@@ -2,7 +2,6 @@
     overflow-y: auto;
     height: 90%;
 }
-<<<<<<< HEAD
 
 .highlight {
     background-color: #ededed;
@@ -13,17 +12,15 @@
 }
 
 .noselect {
-    -webkit-touch-callout: none; 
-    -webkit-user-select: none; 
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
     -khtml-user-select: none;
-    -moz-user-select: none; 
+    -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none; 
+    user-select: none;
 }
 
 
 .clickable {
     cursor: pointer;
 }
-=======
->>>>>>> 86d22e16ecdd7f058025f6d08c23e02cde4b0c73
