@@ -4,10 +4,10 @@
 
         <div class="row flex-row">
             <div class="col-lg-8">
-                <Content class="position-sticky" :lecture="selectedLecture"></Content>
+                <Content :lecture="selectedLecture" class="position-sticky"></Content>
                 
             </div>
-            <div class="col-lg-4 pt-5 ">
+            <div class="col-lg-4 pt-4 pull-right">
                 <Topics @lecture="setLecture"></Topics>
             </div>
         </div>

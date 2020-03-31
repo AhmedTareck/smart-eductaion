@@ -9,89 +9,252 @@ export default {
     },
     data() {
         return {
-            selectedIndex: null,
-            lectures: [{
+            selectedChapterIndex: null,
+            highlightedLectureIndex: null,
+            selectedLectureIndex: null,
+            savedSelectedChapterIndex :null,
+            hover: false,
+            contentLink:'#Content',
+            chapters: [{
                 id: 0,
-                url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                title: "hello world"
-            }, {
-                id: 1,
-                    url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                    title: "Swift Programming Tutorial "
-            }, {
-                id: 2,
-                    url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                    title: "How to show alert in Swift "
-                }, {
-                    id: 3,
+                title: "الفصل الأول",
+                lectures: [{
+                    Id: 0,
                     url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                    title: "hello world"
+                    title: "المحاضرة الأولى"
+
                 }, {
-                    id: 4,
+                    Id: 1,
                     url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                    title: "Swift Programming Tutorial "
-                }, {
-                    id: 5,
-                    url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                    title: "How to show alert in Swift "
-                }, {
-                    id: 6,
-                    url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                    title: "hello world"
-                }, {
-                    id: 7,
-                    url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                    title: "Swift Programming Tutorial "
-                }, {
-                    id: 8,
-                    url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                    title: "How to show alert in Swift "
+                    title: "المحاضرة الثانية"
                 },
                 {
-                    id: 9,
-                    url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                    title: "hello world"
-                }, {
-                    id: 10,
-                    url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                    title: "Swift Programming Tutorial "
-                }, {
-                    id: 11,
+                    Id: 2,
                     url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                    title: "How to show alert in Swift "
-                }, {
-                    id: 12,
-                    url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                    title: "hello world"
-                }, {
-                    id: 13,
-                    url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                    title: "Swift Programming Tutorial "
-                }, {
-                    id: 14,
+                    title: "المحاضرة الثالثة"
+                }]
+            },{
+                    id: 1,
+                    title: "الفصل الثاني",
+                    lectures: [{
+                        Id: 0,
+                        url: "https://www.youtube.com/embed/BM2o8LG5QkE",
+                        title: "المحاضرة الأولى"
+
+                    }, {
+                        Id: 1,
+                        url: "https://www.youtube.com/embed/Ulp1Kimblg0",
+                        title: "المحاضرة الثانية"
+                    },
+                    {
+                        Id: 2,
+                        url: "https://www.youtube.com/embed/5wZU8u4f0m8",
+                        title: "المحاضرة الثالثة"
+                        },
+                {
+                    Id: 3,
                     url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                    title: "How to show alert in Swift "
+                    title: "المحاضرة الرابعة"
+                }]
                 }, {
-                    id: 15,
-                    url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                    title: "hello world"
+                    id: 2,
+                    title: "الفصل الثالث",
+                    lectures: [{
+                        Id: 0,
+                        url: "https://www.youtube.com/embed/BM2o8LG5QkE",
+                        title: "المحاضرة الأولى"
+
+                    }, {
+                        Id: 1,
+                        url: "https://www.youtube.com/embed/Ulp1Kimblg0",
+                        title: "المحاضرة الثانية"
+                    }]
                 }, {
-                    id: 16,
-                    url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                    title: "Swift Programming Tutorial "
+                    id: 0,
+                    title: "الفصل الرابع",
+                    lectures: [{
+                        Id: 0,
+                        url: "https://www.youtube.com/embed/BM2o8LG5QkE",
+                        title: "المحاضرة الأولى"
+
+                    }, {
+                        Id: 1,
+                        url: "https://www.youtube.com/embed/Ulp1Kimblg0",
+                        title: "المحاضرة الثانية"
+                    },
+                    {
+                        Id: 2,
+                        url: "https://www.youtube.com/embed/5wZU8u4f0m8",
+                        title: "المحاضرة الثالثة"
+                    }]
                 }, {
-                    id: 17,
-                    url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                    title: "How to show alert in Swift "
-                },]
-        }
+                    id: 1,
+                    title: "الفصل الخامس",
+                    lectures: [{
+                        Id: 0,
+                        url: "https://www.youtube.com/embed/BM2o8LG5QkE",
+                        title: "المحاضرة الأولى"
+
+                    }, {
+                        Id: 1,
+                        url: "https://www.youtube.com/embed/Ulp1Kimblg0",
+                        title: "المحاضرة الثانية"
+                    },
+                    {
+                        Id: 2,
+                        url: "https://www.youtube.com/embed/5wZU8u4f0m8",
+                        title: "المحاضرة الثالثة"
+                    },
+                    {
+                        Id: 3,
+                        url: "https://www.youtube.com/embed/5wZU8u4f0m8",
+                        title: "المحاضرة الرابعة"
+                    }]
+                }, {
+                    id: 2,
+                    title: "الفصل السادس",
+                    lectures: [{
+                        Id: 0,
+                        url: "https://www.youtube.com/embed/BM2o8LG5QkE",
+                        title: "المحاضرة الأولى"
+
+                    }, {
+                        Id: 1,
+                        url: "https://www.youtube.com/embed/Ulp1Kimblg0",
+                        title: "المحاضرة الثانية"
+                    }]
+                }, {
+                    id: 0,
+                    title: "الفصل السابع",
+                    lectures: [{
+                        Id: 0,
+                        url: "https://www.youtube.com/embed/BM2o8LG5QkE",
+                        title: "المحاضرة الأولى"
+
+                    }, {
+                        Id: 1,
+                        url: "https://www.youtube.com/embed/Ulp1Kimblg0",
+                        title: "المحاضرة الثانية"
+                    },
+                    {
+                        Id: 2,
+                        url: "https://www.youtube.com/embed/5wZU8u4f0m8",
+                        title: "المحاضرة الثالثة"
+                    }]
+                }, {
+                    id: 1,
+                    title: "الفصل الثامن",
+                    lectures: [{
+                        Id: 0,
+                        url: "https://www.youtube.com/embed/BM2o8LG5QkE",
+                        title: "المحاضرة الأولى"
+
+                    }, {
+                        Id: 1,
+                        url: "https://www.youtube.com/embed/Ulp1Kimblg0",
+                        title: "المحاضرة الثانية"
+                    },
+                    {
+                        Id: 2,
+                        url: "https://www.youtube.com/embed/5wZU8u4f0m8",
+                        title: "المحاضرة الثالثة"
+                    },
+                    {
+                        Id: 3,
+                        url: "https://www.youtube.com/embed/5wZU8u4f0m8",
+                        title: "المحاضرة الرابعة"
+                    }]
+                }, {
+                    id: 2,
+                    title: "الفصل التاسع",
+                    lectures: [{
+                        Id: 0,
+                        url: "https://www.youtube.com/embed/BM2o8LG5QkE",
+                        title: "المحاضرة الأولى"
+
+                    }, {
+                        Id: 1,
+                        url: "https://www.youtube.com/embed/Ulp1Kimblg0",
+                        title: "المحاضرة الثانية"
+                    }]
+                }, {
+                    id: 0,
+                    title: "الفصل العاشر",
+                    lectures: [{
+                        Id: 0,
+                        url: "https://www.youtube.com/embed/BM2o8LG5QkE",
+                        title: "المحاضرة الأولى"
+
+                    }, {
+                        Id: 1,
+                        url: "https://www.youtube.com/embed/Ulp1Kimblg0",
+                        title: "المحاضرة الثانية"
+                    },
+                    {
+                        Id: 2,
+                        url: "https://www.youtube.com/embed/5wZU8u4f0m8",
+                        title: "المحاضرة الثالثة"
+                    }]
+                }, {
+                    id: 1,
+                    title: "الفصل الحادي عاشر",
+                    lectures: [{
+                        Id: 0,
+                        url: "https://www.youtube.com/embed/BM2o8LG5QkE",
+                        title: "المحاضرة الأولى"
+
+                    }, {
+                        Id: 1,
+                        url: "https://www.youtube.com/embed/Ulp1Kimblg0",
+                        title: "المحاضرة الثانية"
+                    },
+                    {
+                        Id: 2,
+                        url: "https://www.youtube.com/embed/5wZU8u4f0m8",
+                        title: "المحاضرة الثالثة"
+                    },
+                    {
+                        Id: 3,
+                        url: "https://www.youtube.com/embed/5wZU8u4f0m8",
+                        title: "المحاضرة الرابعة"
+                    }]
+                }, {
+                    id: 2,
+                    title: "الفصل الثاني عشر",
+                    lectures: [{
+                        Id: 0,
+                        url: "https://www.youtube.com/embed/BM2o8LG5QkE",
+                        title: "المحاضرة الأولى"
+
+                    }, {
+                        Id: 1,
+                        url: "https://www.youtube.com/embed/Ulp1Kimblg0",
+                        title: "المحاضرة الثانية"
+                    }]
+                }]
+        };
     },
     methods: {
-        setSelectedIndex(index) {
-            this.selectedIndex = index;
+        setselectedChapterIndex(index) {
+            if (this.selectedChapterIndex !== index) {
+                this.selectedChapterIndex = index;
+            } else if (this.selectedChapterIndex === index) {
+             
+                this.selectedChapterIndex = null;
+            }
+           
+        }, sethighlightedLectureIndex(index) {
+            
+            this.highlightedLectureIndex = index;
+           
+
         },
-        displayLecture(index) {
-            this.$emit('lecture', this.lectures[index]);
+        setSelectedLectureIndex(index) {
+            this.selectedLectureIndex = index;
+            this.savedSelectedChapterIndex = this.selectedChapterIndex;
+        },
+        displayLecture(index, lectureIndex) {
+            this.$emit('lecture', this.chapters[index].lectures[lectureIndex]);
         }
     }
 }
