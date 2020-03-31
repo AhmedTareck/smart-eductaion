@@ -1,78 +1,14 @@
-﻿<nav id="navbar-main" :class="NavBar">
+﻿<nav id="navbar-main" class="navbar navbar-expand-lg navbar-dark bg-default">
     <div class="container">
         <button type="button" class="btn btn-secondary ni ni-hat-3"> منصة اللبنة الذكية </button>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="navbar-collapse collapse" id="navbar_global">
-            <div class="navbar-collapse-header">
-                <div class="row">
-                    <div class="col-6 collapse-brand">
-                        <a href="./index.html">
-                            <img src="/assets/img/brand/blue.png">
-                        </a>
-                    </div>
-                    <div class="col-6 collapse-close">
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-                            <span></span>
-                            <span></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto">
                 <li class="nav-item">
-                    
                     <a href="#" @click.prevent="href('/',0)" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="ni ni-ui-04 d-lg-none"></i>
                         <span class="nav-link-inner--text">Home</span>
                     </a>
                 </li>
-
-                <li class="nav-item dropdown">
-                    <a href="javascript:;" class="nav-link" data-toggle="dropdown" role="button">
-                        <i class="ni ni-ui-04 d-lg-none"></i>
-                        <span class="nav-link-inner--text">Elements</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-xl">
-                        <div class="dropdown-menu-inner">
-                            <a href="https://demos.creative-tim.com/argon-design-system-pro/index.html" class="media d-flex align-items-center">
-                                <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
-                                    <i class="ni ni-spaceship"></i>
-                                </div>
-                                <div class="media-body ml-3">
-                                    <h6 class="heading text-primary mb-md-1">Elements</h6>
-                                    <p class="description d-none d-md-inline-block mb-0">Learn how to use compiling Scss, change brand colors and more.</p>
-                                </div>
-                            </a>
-                            <a href="https://demos.creative-tim.com/argon-design-system-pro/presentation.html" class="media d-flex align-items-center">
-                                <div class="icon icon-shape bg-gradient-warning rounded-circle text-white">
-                                    <i class="ni ni-palette"></i>
-                                </div>
-                                <div class="media-body ml-3">
-                                    <h6 class="heading text-primary mb-md-1">Presentation</h6>
-                                    <p class="description d-none d-md-inline-block mb-0">Learn more about colors, typography, icons and the grid system we used for .</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="dropdown-menu-footer">
-                            <a class="dropdown-item" href="https://demos.creative-tim.com/argon-design-system-pro/docs/1.0/getting-started/overview.html">
-                                <i class="ni ni-atom"></i>
-                                Getting Started
-                            </a>
-                            <a class="dropdown-item" href="https://demos.creative-tim.com/argon-design-system-pro/docs/1.0/foundation/colors.html">
-                                <i class="ni ni-ui-04"></i>
-                                Foundation
-                            </a>
-                            <a class="dropdown-item" href="https://demos.creative-tim.com/argon-design-system-pro/docs/1.0/components/alerts.html">
-                                <i class="ni ni-archive-2"></i>
-                                Components
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                
-
                 <li class="nav-item">
                     <a href="#" @click.prevent="href('/Login',1)" class="nav-link" data-toggle="dropdown" role="button" style="font-weight:bold">
                         <i class="ni ni-ui-04 d-lg-none" ></i>
