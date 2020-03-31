@@ -14,3 +14,25 @@
     padding: 0px 0!important;
 }
 
+.el-form{
+    text-align:right;
+}
+
+/*.el-form-item__error {
+    right: 0;
+}*/
+
+.el-form-item__label {
+    padding: 0 0 0px!important;
+}
+
+@font-face {
+    font-family: 'DroidArabicKufiRegular';
+    src: url('fonts/DroidKufi-Regular.eot') format('embedded-opentype'), url('fonts/DroidKufi-Regular.woff') format('woff'), url('fonts/DroidKufi-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#SignUp {
+    font-family: 'DroidArabicKufiRegular';
+}
