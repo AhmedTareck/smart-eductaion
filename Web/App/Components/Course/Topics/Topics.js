@@ -1,4 +1,4 @@
-﻿
+﻿import image from '../../../../Content/assets/img/docs/bg6.png';
 
 export default {
     name: 'Topics',
@@ -21,17 +21,20 @@ export default {
                 lectures: [{
                     Id: 0,
                     url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                    title: "المحاضرة الأولى"
+                    title: "المحاضرة الأولى",
+                    fileUrl: image
 
                 }, {
                     Id: 1,
                     url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                    title: "المحاضرة الثانية"
+                        title: "المحاضرة الثانية",
+                        fileUrl: image
                 },
                 {
                     Id: 2,
                     url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                    title: "المحاضرة الثالثة"
+                    title: "المحاضرة الثالثة",
+                    fileUrl: image
                 }]
             },{
                     id: 1,
@@ -39,22 +42,26 @@ export default {
                     lectures: [{
                         Id: 0,
                         url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                        title: "المحاضرة الأولى"
+                        title: "المحاضرة الأولى",
+                        fileUrl: image
 
                     }, {
                         Id: 1,
                         url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                        title: "المحاضرة الثانية"
+                            title: "المحاضرة الثانية",
+                            fileUrl: image
                     },
                     {
                         Id: 2,
                         url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                        title: "المحاضرة الثالثة"
+                        title: "المحاضرة الثالثة",
+                        fileUrl: image
                         },
                 {
                     Id: 3,
                     url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                    title: "المحاضرة الرابعة"
+                    title: "المحاضرة الرابعة",
+                    fileUrl: image
                 }]
                 }, {
                     id: 2,
@@ -62,12 +69,14 @@ export default {
                     lectures: [{
                         Id: 0,
                         url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                        title: "المحاضرة الأولى"
+                        title: "المحاضرة الأولى",
+                        fileUrl: image
 
                     }, {
                         Id: 1,
                         url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                        title: "المحاضرة الثانية"
+                            title: "المحاضرة الثانية",
+                            fileUrl: image
                     }]
                 }, {
                     id: 0,
@@ -75,17 +84,20 @@ export default {
                     lectures: [{
                         Id: 0,
                         url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                        title: "المحاضرة الأولى"
+                        title: "المحاضرة الأولى",
+                        fileUrl: image
 
                     }, {
                         Id: 1,
                         url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                        title: "المحاضرة الثانية"
+                            title: "المحاضرة الثانية",
+                            fileUrl: image
                     },
                     {
                         Id: 2,
                         url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                        title: "المحاضرة الثالثة"
+                        title: "المحاضرة الثالثة",
+                        fileUrl: image
                     }]
                 }, {
                     id: 1,
@@ -93,22 +105,26 @@ export default {
                     lectures: [{
                         Id: 0,
                         url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                        title: "المحاضرة الأولى"
+                        title: "المحاضرة الأولى",
+                        fileUrl: image
 
                     }, {
                         Id: 1,
                         url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                        title: "المحاضرة الثانية"
+                            title: "المحاضرة الثانية",
+                            fileUrl: image
                     },
                     {
                         Id: 2,
                         url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                        title: "المحاضرة الثالثة"
+                        title: "المحاضرة الثالثة",
+                        fileUrl: image
                     },
                     {
                         Id: 3,
                         url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                        title: "المحاضرة الرابعة"
+                        title: "المحاضرة الرابعة",
+                        fileUrl: image
                     }]
                 }, {
                     id: 2,
@@ -116,12 +132,14 @@ export default {
                     lectures: [{
                         Id: 0,
                         url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                        title: "المحاضرة الأولى"
+                        title: "المحاضرة الأولى",
+                        fileUrl: image
 
                     }, {
                         Id: 1,
                         url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                        title: "المحاضرة الثانية"
+                            title: "المحاضرة الثانية",
+                            fileUrl: image
                     }]
                 }, {
                     id: 0,
@@ -129,17 +147,20 @@ export default {
                     lectures: [{
                         Id: 0,
                         url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                        title: "المحاضرة الأولى"
+                        title: "المحاضرة الأولى",
+                        fileUrl: image
 
                     }, {
                         Id: 1,
                         url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                        title: "المحاضرة الثانية"
+                            title: "المحاضرة الثانية",
+                            fileUrl: image
                     },
                     {
                         Id: 2,
                         url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                        title: "المحاضرة الثالثة"
+                        title: "المحاضرة الثالثة",
+                        fileUrl: image
                     }]
                 }, {
                     id: 1,
@@ -147,22 +168,26 @@ export default {
                     lectures: [{
                         Id: 0,
                         url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                        title: "المحاضرة الأولى"
+                        title: "المحاضرة الأولى",
+                        fileUrl: image
 
                     }, {
                         Id: 1,
                         url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                        title: "المحاضرة الثانية"
+                            title: "المحاضرة الثانية",
+                            fileUrl: image
                     },
                     {
                         Id: 2,
                         url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                        title: "المحاضرة الثالثة"
+                        title: "المحاضرة الثالثة",
+                        fileUrl: image
                     },
                     {
                         Id: 3,
                         url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                        title: "المحاضرة الرابعة"
+                        title: "المحاضرة الرابعة",
+                        fileUrl: image
                     }]
                 }, {
                     id: 2,
@@ -170,12 +195,14 @@ export default {
                     lectures: [{
                         Id: 0,
                         url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                        title: "المحاضرة الأولى"
+                        title: "المحاضرة الأولى",
+                        fileUrl: image
 
                     }, {
                         Id: 1,
                         url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                        title: "المحاضرة الثانية"
+                            title: "المحاضرة الثانية",
+                            fileUrl: image
                     }]
                 }, {
                     id: 0,
@@ -183,17 +210,20 @@ export default {
                     lectures: [{
                         Id: 0,
                         url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                        title: "المحاضرة الأولى"
+                        title: "المحاضرة الأولى",
+                        fileUrl: image
 
                     }, {
                         Id: 1,
                         url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                        title: "المحاضرة الثانية"
+                            title: "المحاضرة الثانية",
+                            fileUrl: image
                     },
                     {
                         Id: 2,
                         url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                        title: "المحاضرة الثالثة"
+                        title: "المحاضرة الثالثة",
+                        fileUrl: image
                     }]
                 }, {
                     id: 1,
@@ -201,22 +231,26 @@ export default {
                     lectures: [{
                         Id: 0,
                         url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                        title: "المحاضرة الأولى"
+                        title: "المحاضرة الأولى",
+                        fileUrl: image
 
                     }, {
                         Id: 1,
                         url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                        title: "المحاضرة الثانية"
+                            title: "المحاضرة الثانية",
+                            fileUrl: image
                     },
                     {
                         Id: 2,
                         url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                        title: "المحاضرة الثالثة"
+                        title: "المحاضرة الثالثة",
+                        fileUrl: image
                     },
                     {
                         Id: 3,
                         url: "https://www.youtube.com/embed/5wZU8u4f0m8",
-                        title: "المحاضرة الرابعة"
+                        title: "المحاضرة الرابعة",
+                        fileUrl: image
                     }]
                 }, {
                     id: 2,
@@ -224,12 +258,14 @@ export default {
                     lectures: [{
                         Id: 0,
                         url: "https://www.youtube.com/embed/BM2o8LG5QkE",
-                        title: "المحاضرة الأولى"
+                        title: "المحاضرة الأولى",
+                        fileUrl: image
 
                     }, {
                         Id: 1,
                         url: "https://www.youtube.com/embed/Ulp1Kimblg0",
-                        title: "المحاضرة الثانية"
+                            title: "المحاضرة الثانية",
+                            fileUrl: image
                     }]
                 }]
         };

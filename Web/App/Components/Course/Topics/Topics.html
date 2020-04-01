@@ -1,4 +1,4 @@
-<div class="card bg-secondary pl--6">
+<div class="card bg-secondary pl--6 ">
     <div class="card-header mb-3 ">
        
         <h4 class="pull-right"> iOS مادة برمجة </h4>
@@ -25,7 +25,7 @@
             
             <ul class="navbar-nav flex-column">
                 <li class="nav-item   mr-0 clickable" v-for="(lecture, lectureIndex) in item.lectures" @click.prevent="setSelectedLectureIndex(lectureIndex), displayLecture(index, lectureIndex), window.location='#Content'" @mouseover='hover = true, sethighlightedLectureIndex(lectureIndex)' @mouseleave="hover = false" :class="{'highlight': hover && lectureIndex === highlightedLectureIndex,'selected': savedSelectedChapterIndex === selectedChapterIndex && lectureIndex === selectedLectureIndex }">
-                    <a class="nav-link pull-right mr-2 ml--3" :href="contentLink"  >{{lecture.title}} </a>
+                    <a class="nav-link pull-right mr-2 ml--3" :href="contentLink"  >{{lecture.title}} </a>   
                 </li>
             </ul>
         </div>
