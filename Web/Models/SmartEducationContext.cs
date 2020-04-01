@@ -28,8 +28,6 @@ namespace Web.Models
         public virtual DbSet<Subjects> Subjects { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public SmartEducationContext(DbContextOptions<SmartEducationContext> options) : base(options) { }
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
