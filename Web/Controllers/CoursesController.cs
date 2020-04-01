@@ -255,9 +255,9 @@ namespace Web.Controllers
 
 
         [HttpGet("fetchCourses")]
-        public String Courses([FromBody] Events events)
+        public IActionResult getLectures([FromBody] Events events)
         {
-            return "j";
+              return Ok("تم تعديل بينات الدورة بنجاح");
         }
 
      }
