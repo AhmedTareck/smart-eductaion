@@ -5,13 +5,13 @@ export default {
     name: 'Course',
     components: {
         'Topics': Topics,
-        'Content':Content,
+        'Content': Content,
     },
     created() {
     },
     data() {
         return {
-            selectedLecture:null
+            selectedLecture: null
         };
     },
     methods: {
