@@ -123,13 +123,22 @@
                                                 <div class="col-md-4">
                                                     <el-form-item label="إسم المدرسة" prop="SchoolId">
                                                         <el-select v-model="ruleForm.SchoolId" placeholder="إسم المدرسة">
-                                                            <!--<el-option label="Zone one" value="shanghai"></el-option>-->
+                                                            <el-option v-for="item in Schools"
+                                                                       :key="item.id"
+                                                                       :label="item.name"
+                                                                       :value="item.id">
+                                                            </el-option>
                                                         </el-select>
                                                     </el-form-item>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <el-form-item label="السنة الدراسية" prop="AcadimecYearId">
-                                                        <el-select v-model="ruleForm.AcadimecYearId" placeholder="السنة الدراسية">
+                                                        <el-select v-model="ruleForm.AcadimecYearId" placeholder="السنة الدراسية">    
+                                                            <el-option v-for="item in AcadimacYears"
+                                                                       :key="item.id"
+                                                                       :label="item.name"
+                                                                       :value="item.id">
+                                                            </el-option>
                                                             <!--<el-option label="Zone one" value="shanghai"></el-option>-->
                                                         </el-select>
                                                     </el-form-item>
@@ -150,20 +159,20 @@
                                           
                                             </div>
 
-                                            <div class="row">
+                                            <!--<div class="row">
                                                 <div class="col-md-6">
                                                     <el-form-item label="الرقم السري" prop="Password">
-                                                        <el-input v-model="ruleForm.Password" placeholder="الرقم السري"></el-input>
+                                                        <el-input type="password" v-model="ruleForm.Password" placeholder="الرقم السري"></el-input>
                                                     </el-form-item>
                                                 </div>
 
                                                 <div class="col-md-6">
-                                                    <el-form-item label="تأكيد الرقم السري" prop="ConfirmPassword">
-                                                        <el-input v-model="ConfirmPassword" placeholder=" تأكيد الرقم السري"></el-input>
+                                                    <el-form-item label="تأكيد الرقم السري" >
+                                                        <el-input type="password" v-model="ConfirmPassword" placeholder=" تأكيد الرقم السري"></el-input>
                                                     </el-form-item>
                                                 </div>
 
-                                            </div>
+                                            </div>-->
                                             <div class="row" style="float: left;">            
                                                     <el-form-item>
                                                         <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>

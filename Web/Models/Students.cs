@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Web.Models
 {
@@ -21,10 +22,12 @@ namespace Web.Models
         public string MatherName { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
-        public bool? Gender { get; set; }
+        public int? Gender { get; set; }
         public string LoginName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        [NotMapped]
+        public string photo { get; set; }
         public byte[] Image { get; set; }
         public DateTime? BirthDate { get; set; }
         public DateTime? LoginTryAttemptDate { get; set; }
