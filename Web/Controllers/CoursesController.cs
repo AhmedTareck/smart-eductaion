@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Web.Controllers;
 using Web.Models;
-using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -147,7 +144,7 @@ namespace Web.Controllers
 
 
 
-      //  [HttpPost("{CourseId}/delete")]
+        //  [HttpPost("{CourseId}/delete")]
         // public IActionResult DeleteCourse(long CourseId)
         // {
         //     try
@@ -181,84 +178,89 @@ namespace Web.Controllers
         //     }
         // }
 
-    //     [HttpPost("Add")]
-    //     public IActionResult AddCourse([FromBody] Courses Course)
-    //     {
-    //         try
-    //         {
-    //             if (Course == null)
-    //             {
-    //                 return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
-    //             }
+        //     [HttpPost("Add")]
+        //     public IActionResult AddCourse([FromBody] Courses Course)
+        //     {
+        //         try
+        //         {
+        //             if (Course == null)
+        //             {
+        //                 return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+        //             }
 
-    //             var userId = this.help.GetCurrentUser(HttpContext);
+        //             var userId = this.help.GetCurrentUser(HttpContext);
 
-    //             if (userId <= 0)
-    //             {
-    //                 return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-    //             }
+        //             if (userId <= 0)
+        //             {
+        //                 return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+        //             }
 
-    //             Course.CreatedBy = userId;
-    //             Course.CreatedOn = DateTime.Now;
-    //             Course.Status = 1;
-    //             db.Courses.Add(Course);
-    //             db.SaveChanges();
+        //             Course.CreatedBy = userId;
+        //             Course.CreatedOn = DateTime.Now;
+        //             Course.Status = 1;
+        //             db.Courses.Add(Course);
+        //             db.SaveChanges();
 
-    //             return Ok("لقد قمت بتسـجيل بيانات الــدورة بنــجاح");
-    //         }
-    //         catch (Exception e)
-    //         {
-    //             return StatusCode(500, e.Message);
-    //         }
-    //     }
+        //             return Ok("لقد قمت بتسـجيل بيانات الــدورة بنــجاح");
+        //         }
+        //         catch (Exception e)
+        //         {
+        //             return StatusCode(500, e.Message);
+        //         }
+        //     }
 
 
-    //     [HttpPost("Edit")]
-    //     public IActionResult EditCourse([FromBody] Courses Course)
-    //     {
-    //         try
-    //         {
-    //             var userId = this.help.GetCurrentUser(HttpContext);
+        //     [HttpPost("Edit")]
+        //     public IActionResult EditCourse([FromBody] Courses Course)
+        //     {
+        //         try
+        //         {
+        //             var userId = this.help.GetCurrentUser(HttpContext);
 
-    //             if (userId <= 0)
-    //             {
-    //                 return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-    //             }
+        //             if (userId <= 0)
+        //             {
+        //                 return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+        //             }
 
-    //             var Courses = (from p in db.Courses
-    //                                  where p.CourseId == Course.CourseId
-    //                                  && (p.Status == 1)
-    //                                  select p).SingleOrDefault();
+        //             var Courses = (from p in db.Courses
+        //                                  where p.CourseId == Course.CourseId
+        //                                  && (p.Status == 1)
+        //                                  select p).SingleOrDefault();
 
-    //             if (Courses == null)
-    //             {
-    //                 return BadRequest("خطأ بيانات الدورة غير موجودة");
-    //             }
+        //             if (Courses == null)
+        //             {
+        //                 return BadRequest("خطأ بيانات الدورة غير موجودة");
+        //             }
 
-    //             Courses.Color = Course.Color;
-    //             Courses.Description = Course.Description;
-    //             Courses.Discount = Course.Discount;
-    //             Courses.PricePersonal = Course.PricePersonal;
-    //             Courses.PriceCompany = Course.PriceCompany;
-    //             Courses.Name = Course.Name;
-    //             Courses.Status = 1;
-    //             Courses.UpdatedBy = userId;
-    //             Courses.UpdatedOn = DateTime.Now;
-    //             db.SaveChanges();
-    //             return Ok("تم تعديل بينات الدورة بنجاح");
-    //         }
-    //         catch (Exception e)
-    //         {
-    //             return StatusCode(500, e.Message);
-    //         }
-    //     }
+        //             Courses.Color = Course.Color;
+        //             Courses.Description = Course.Description;
+        //             Courses.Discount = Course.Discount;
+        //             Courses.PricePersonal = Course.PricePersonal;
+        //             Courses.PriceCompany = Course.PriceCompany;
+        //             Courses.Name = Course.Name;
+        //             Courses.Status = 1;
+        //             Courses.UpdatedBy = userId;
+        //             Courses.UpdatedOn = DateTime.Now;
+        //             db.SaveChanges();
+        //             return Ok("تم تعديل بينات الدورة بنجاح");
+        //         }
+        //         catch (Exception e)
+        //         {
+        //             return StatusCode(500, e.Message);
+        //         }
+        //     }
 
 
         [HttpGet("fetchCourses")]
-        public IActionResult getLectures([FromBody] Events events)
+        public IQueryable<object> getLectures([FromQuery] int eventId)
         {
-              return Ok("تم تعديل بينات الدورة بنجاح");
+            // var selectedEvent =  (from e in db.Events join s in db.Shapters on e.Id equals s.EventId  where e.Id == eventId  select e.Shapters ).ToList();
+
+
+            return from s in db.Shapters join l in db.Lectures on s.Id equals l.ShaptersId into shapterLectures where s.EventId == eventId select new { id = s.Id, title = s.Name, lectures = shapterLectures.Select(sl => new { id = sl.Id, title = sl.Name, videoUrl = sl.VideoPath, fileUrl = sl.LectureFiles.Select(lf => new { id = lf.Id, lf.AttashmentFile, lf.Status }) }) };
+
+
         }
 
-     }
+    }
 }

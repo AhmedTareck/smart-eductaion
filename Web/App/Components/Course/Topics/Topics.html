@@ -1,15 +1,15 @@
-<div class="card bg-secondary pl--6 ">
-    <div class="card-header mb-3 ">
+<div class="card bg-secondary card-shadowless">
+    <div class="card-header mb-3 cell-border">
        
         <h4 class="pull-right"> iOS مادة برمجة </h4>
      
     </div>
     <!--//active bg-gradient-primary-->
-    <div  v-for="(item, index) in chapters" :key="index" unselectable="on">
+    <div c  v-for="(item, index) in chapters" :key="index" class="cell-border">
         <div class="list-group list-group-chat list-group-flush">
             <a href="javascript:;" class="list-group-item" :class="{
     'active': index === selectedChapterIndex,
-    'bg-gradient-primary': index === selectedChapterIndex}" @click.prevent='setselectedChapterIndex(index)'>
+    'bg-gradient-default': index === selectedChapterIndex}" @click.prevent='setselectedChapterIndex(index)'>
                 <div class="media pull-right">
                     <div class="media-body ml-1">
                         <div class="justify-content-between align-items-center">
