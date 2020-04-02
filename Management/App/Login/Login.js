@@ -110,7 +110,7 @@ export default {
                         duration: 5000,
                         message: '<strong>' + error.response.data  + '</strong>'
                     });
-                    if (error.response.status == 400) {
+                    if (error.response.status === 400) {
                         this.$message({
                             type: 'warning',
                             dangerouslyUseHTMLString: true,
@@ -118,7 +118,7 @@ export default {
                             message: '<strong>' + error.response.data + '</strong>'
                         });
                       
-                    } else if (error.response.status == 404) {
+                    } else if (error.response.status === 404) {
                         this.$message({
                             type: 'warning',
                             dangerouslyUseHTMLString: true,
@@ -153,9 +153,9 @@ export default {
                         .catch((error) => {
                             $blockUI.close()
 
-                            if (error.response.status == 400) {
+                            if (error.response.status === 400) {
                                 this.$alert('<h4>' + error.response.data + '</h4>', '', this.warning);
-                            } else if (error.response.status == 404) {
+                            } else if (error.response.status === 404) {
                                 this.$alert('<h4>' + error.response.data + '</h4>', '', this.error);
                             } else {
                                 console.log(error.response);

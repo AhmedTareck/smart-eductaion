@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Managegment.Controllers;
+using Web.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
 
 namespace Web.Controllers
 {
     [Produces("application/json")]
-    [Route("Api/Web/Messages")]
+    [Route("api/web/messages")]
     public class MessagesController : Controller
     {
         private readonly SmartEducationContext db;

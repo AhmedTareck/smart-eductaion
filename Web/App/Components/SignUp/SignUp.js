@@ -104,7 +104,7 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    if (this.ruleForm.Password != this.ConfirmPassword) {
+                    if (this.ruleForm.Password !== this.ConfirmPassword) {
                         this.$message({
                             type: 'error',
                             message: 'الرجاء التحقق من تأكيد الرقم السري'
@@ -118,7 +118,7 @@ export default {
                         .then(response => {
                             this.$blockUI.Stop();
                            // this.$alert('<h4>' + 'تم تسجيل بياناتك بنجاح وارسال بريد التحقق بنجاح الرجاء فتح بريدك الإلكتروني ' + '</h4>', '', this.success);
-                            debugger;
+                          
                             swal({
                                 title: "Success",
                                 text: "تم تسجيل بياناتك بنجاح وارسال بريد التحقق بنجاح الرجاء فتح بريدك الإلكتروني ",
@@ -131,13 +131,13 @@ export default {
                             this.$refs[formName].resetFields();
                         })
                         .catch((error) => {
-                            debugger;
+                          
                             this.$blockUI.Stop();
                             console.log(error.response.status);
-                            if (error.response.status == 400) {
+                            if (error.response.status === 400) {
                                 this.$alert('<h4>' + error.response.data + '</h4>', '', this.warning);
                             }
-                            if (error.response.status == 404) {
+                            if (error.response.status === 404) {
                                 this.$alert('<h4>' + error.response.data + '</h4>', '', this.error);
                             } else {
                                 this.$alert('<h4>' + error.response.data + '</h4>', '', this.error);

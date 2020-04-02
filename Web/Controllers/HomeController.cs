@@ -12,7 +12,7 @@ namespace Web.Controllers
     {
         [AllowAnonymous]
         public IActionResult Index()
-        {            
+        {
             return View();
         }
     }

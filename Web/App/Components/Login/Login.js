@@ -49,7 +49,7 @@ export default {
                     $blockUI.close();
                     //this.secureStorage.setItem('currentUser', response.data);
                     sessionStorage.setItem('currentUser', (JSON.stringify(response.data)));
-                    window.location.href = '/';
+                    window.location.href = '/MyCourses';
                 })
                 .catch((error) => {
                     $blockUI.close()
@@ -61,7 +61,7 @@ export default {
                         duration: 5000,
                         message: '<strong>' + error.response.data + '</strong>'
                     });
-                    if (error.response.status == 400) {
+                    if (error.response.status === 400) {
                         this.$message({
                             type: 'warning',
                             dangerouslyUseHTMLString: true,
@@ -69,7 +69,7 @@ export default {
                             message: '<strong>' + error.response.data + '</strong>'
                         });
 
-                    } else if (error.response.status == 404) {
+                    } else if (error.response.status === 404) {
                         this.$message({
                             type: 'warning',
                             dangerouslyUseHTMLString: true,

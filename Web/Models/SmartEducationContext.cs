@@ -6,13 +6,6 @@ namespace Web.Models
 {
     public partial class SmartEducationContext : DbContext
     {
-        public SmartEducationContext()
-        {
-        }
-        public SmartEducationContext(DbContextOptions<SmartEducationContext> options)
-            : base(options)
-        {
-        }
         public virtual DbSet<AcadimacYears> AcadimacYears { get; set; }
         public virtual DbSet<Ads> Ads { get; set; }
         public virtual DbSet<AdsFiles> AdsFiles { get; set; }
@@ -23,8 +16,6 @@ namespace Web.Models
         public virtual DbSet<LectureFiles> LectureFiles { get; set; }
         public virtual DbSet<Lectures> Lectures { get; set; }
         public virtual DbSet<Locations> Locations { get; set; }
-        public virtual DbSet<Messages> Messages { get; set; }
-        public virtual DbSet<MessageTransaction> MessageTransaction { get; set; }
         public virtual DbSet<Municipalitys> Municipalitys { get; set; }
         public virtual DbSet<PermissionGroup> PermissionGroup { get; set; }
         public virtual DbSet<Permissions> Permissions { get; set; }
@@ -36,13 +27,13 @@ namespace Web.Models
         public virtual DbSet<Students> Students { get; set; }
         public virtual DbSet<Subjects> Subjects { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-
+        public SmartEducationContext(DbContextOptions<SmartEducationContext> options) : base(options) { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"server=DESKTOP-4AI87L8\SQLEXPRESS;Database=SmartEducation;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(@"server=localhost;database=SmartEducation;uid=sa;pwd=Pass123;");
             }
         }
 
@@ -171,29 +162,6 @@ namespace Web.Models
                     .WithMany(p => p.InverseParent)
                     .HasForeignKey(d => d.ParentId)
                     .HasConstraintName("FK_Locations_Locations");
-            });
-
-            modelBuilder.Entity<Messages>(entity =>
-            {
-                entity.HasKey(e => e.MesssageId);
-
-                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
-
-                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
-
-                entity.Property(e => e.Subject).HasMaxLength(150);
-            });
-
-            modelBuilder.Entity<MessageTransaction>(entity =>
-            {
-                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
-
-                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
-
-                entity.HasOne(d => d.Message)
-                    .WithMany(p => p.MessageTransaction)
-                    .HasForeignKey(d => d.MessageId)
-                    .HasConstraintName("FK_MessageTransaction_Messages");
             });
 
             modelBuilder.Entity<Municipalitys>(entity =>
@@ -337,25 +305,13 @@ namespace Web.Models
             {
                 entity.Property(e => e.Address).HasMaxLength(50);
 
-                entity.Property(e => e.BirthDate).HasColumnType("datetime");
-
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(60)
-                    .IsUnicode(false);
 
                 entity.Property(e => e.FatherName).HasMaxLength(50);
 
                 entity.Property(e => e.FirstName).HasMaxLength(50);
 
                 entity.Property(e => e.GrandFatherName).HasMaxLength(50);
-
-                entity.Property(e => e.LastLoginOn).HasColumnType("datetime");
-
-                entity.Property(e => e.LoginName).HasMaxLength(50);
-
-                entity.Property(e => e.LoginTryAttemptDate).HasColumnType("datetime");
 
                 entity.Property(e => e.MatherName).HasMaxLength(50);
 
@@ -364,8 +320,6 @@ namespace Web.Models
                 entity.Property(e => e.Nid)
                     .HasColumnName("NID")
                     .HasMaxLength(50);
-
-                entity.Property(e => e.Password).HasMaxLength(250);
 
                 entity.Property(e => e.Phone).HasMaxLength(50);
 
@@ -404,9 +358,7 @@ namespace Web.Models
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-                entity.Property(e => e.Email)
-                    .HasMaxLength(60)
-                    .IsUnicode(false);
+                entity.Property(e => e.Email).HasMaxLength(50);
 
                 entity.Property(e => e.LastLoginOn).HasColumnType("datetime");
 

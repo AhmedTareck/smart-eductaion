@@ -1,6 +1,5 @@
 ﻿
 
-
 #navbar-main {
     height: 133px;
 }
@@ -11,7 +10,7 @@
 }
 
 .presentation-page section {
-    padding: 0px 0!important;
+    padding: 0px 0 !important;
 }
 
 .el-form{

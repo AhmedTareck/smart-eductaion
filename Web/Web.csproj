@@ -6,8 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0"><PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
+<Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
+</PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.11" />
   </ItemGroup>
 
@@ -50,16 +52,12 @@
     <Compile Remove="Content\element-ui\**" />
     <Compile Remove="Content\Quiz\**" />
     <Compile Remove="Content\vuetify\**" />
-    <Compile Remove="ModelsX\**" />
-    <Compile Remove="ModelsY\**" />
     <Compile Remove="Uploads\**" />
     <Compile Remove="Views\Game\**" />
 
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="App\**" />
     <Content Remove="Content\**" />
-    <Content Remove="ModelsX\**" />
-    <Content Remove="ModelsY\**" />
     <Content Remove="Uploads\**" />
     <Content Remove="Views\Game\**" />
     <EmbeddedResource Remove="App\Components\Home\NewFolder\**" />
@@ -75,8 +73,6 @@
     <EmbeddedResource Remove="Content\element-ui\**" />
     <EmbeddedResource Remove="Content\Quiz\**" />
     <EmbeddedResource Remove="Content\vuetify\**" />
-    <EmbeddedResource Remove="ModelsX\**" />
-    <EmbeddedResource Remove="ModelsY\**" />
     <EmbeddedResource Remove="Uploads\**" />
     <EmbeddedResource Remove="Views\Game\**" />
     <None Remove="App\Components\Home\NewFolder\**" />
@@ -92,17 +88,78 @@
     <None Remove="Content\element-ui\**" />
     <None Remove="Content\Quiz\**" />
     <None Remove="Content\vuetify\**" />
-    <None Remove="ModelsX\**" />
-    <None Remove="ModelsY\**" />
     <None Remove="Uploads\**" />
     <None Remove="Views\Game\**" />
-    <Compile Remove="Controllers\CoursesController.cs" />
     <Compile Remove="Controllers\CustometsController.cs" />
     <Compile Remove="Controllers\DateController.cs" />
     <Compile Remove="Controllers\Security.cs" />
     <Compile Remove="Controllers\Validation.cs" />
     <Content Remove="package-lock.json" />
    
+    <Content Remove="wwwroot\assets\img\ill\p2.svg" />
+    <Content Remove="wwwroot\assets\img\ill\1.svg" />
+    <Content Remove="wwwroot\assets\img\ill\inn.svg" />
+    <Content Remove="wwwroot\assets\img\ill\p31.svg" />
+    <Content Remove="wwwroot\assets\scss\theme\vendors.scss" />
+    <Content Remove="wwwroot\assets\fonts\fontawesome-webfont.woff" />
+    <Content Remove="wwwroot\assets\img\presentation-page\sections\testimonial-3.jpg" />
+    <Content Remove="wwwroot\assets\img\ill\bg4-1.svg" />
+    <Content Remove="wwwroot\assets\img\ill\p8.svg" />
+    <Content Remove="wwwroot\assets\img\ill\pattern_pricing6.svg" />
+    <Content Remove="wwwroot\assets\img\ill\ill.png" />
+    <Content Remove="wwwroot\assets\img\ill\bg_pricing5.svg" />
+    <Content Remove="wwwroot\assets\img\ill\presentation_bg.png" />
+    <Content Remove="wwwroot\assets\fonts\nucleo-icons.woff2" />
+    <Content Remove="wwwroot\assets\scss\theme\docs\variables.scss" />
+    <Content Remove="wwwroot\assets\img\ill\linth3.svg" />
+    <Content Remove="wwwroot\assets\img\mastercard.png" />
+    <Content Remove="wwwroot\assets\fonts\fontawesome-webfont.svg" />
+    <Content Remove="wwwroot\assets\scss\theme\cards\card-register.scss" />
+    <Content Remove="wwwroot\assets\img\ill\404.svg" />
+    <Content Remove="wwwroot\assets\img\pages\bracelet.png" />
+    <Content Remove="wwwroot\assets\img\ill\p51.svg" />
+    <Content Remove="wwwroot\assets\scss\theme\sections\tables.scss" />
+    <Content Remove="wwwroot\assets\img\ill\p7.svg" />
+    <Content Remove="wwwroot\assets\img\pages\georgie.jpg" />
+    <Content Remove="wwwroot\assets\img\ill\p22.png" />
+    <Content Remove="wwwroot\assets\img\pages\nicolas-prieto.jpg" />
+    <Content Remove="wwwroot\assets\img\pages\hat.png" />
+    <Content Remove="wwwroot\assets\img\ill\pattern_pricing1.svg" />
+    <Content Remove="wwwroot\assets\img\pages\jeans.png" />
+    <Content Remove="wwwroot\assets\img\pages\kevin-grieve.jpg" />
+    <Content Remove="wwwroot\assets\img\ill\example-3.svg" />
+    <Content Remove="wwwroot\assets\img\pages\shorts.png" />
+    <Content Remove="wwwroot\assets\css\nucleo-icons.css" />
+    <Content Remove="wwwroot\assets\img\pages\photo-15.jpg" />
+    <Content Remove="wwwroot\assets\css\argon-design-system.css.map" />
+    <Content Remove="wwwroot\assets\img\brand\creativetim-black-slim.png" />
+    <Content Remove="wwwroot\assets\img\ill\pattern_pricing5.svg" />
+    <Content Remove="wwwroot\assets\img\faces\atikh.jpg" />
+    <Content Remove="wwwroot\assets\img\faces\brooke-cagle.jpg" />
+    <Content Remove="wwwroot\assets\scss\theme\variables-pro.scss" />
+    <Content Remove="wwwroot\assets\img\faces\alejandro-escamilla.jpg" />
+    <Content Remove="wwwroot\assets\img\faces\fezbot.jpg" />
+    <Content Remove="wwwroot\assets\img\image_placeholder.jpg" />
+    <Content Remove="wwwroot\assets\img\ill\register_bg.png" />
+    <Content Remove="wwwroot\assets\img\docs\computer-docs.jpg" />
+    <Content Remove="wwwroot\assets\img\ill\testimonial_bg.svg" />
+    <Content Remove="wwwroot\assets\img\presentation-page\pages\reset-page.png" />
+    <Content Remove="wwwroot\assets\img\pages\bullet.png" />
+    <Content Remove="wwwroot\assets\img\jacket.png" />
+    <Content Remove="wwwroot\assets\img\docs\bg6.png" />
+    <Content Remove="wwwroot\assets\img\pages\nathan-dumlao.jpg" />
+    <Content Remove="wwwroot\assets\scss\theme\utilities.scss" />
+    <Content Remove="wwwroot\assets\scss\theme\toggle-buttons.scss" />
+    <Content Remove="wwwroot\assets\img\pages\mohamed.jpg" />
+    <Content Remove="wwwroot\assets\img\icons\common\github.svg" />
+    <Content Remove="wwwroot\assets\fonts\nucleo-icons.woff" />
+    <Content Remove="wwwroot\assets\scss\theme\tables.scss" />
+    <Content Remove="wwwroot\assets\img\ill\bg5-1.svg" />
+    <Content Remove="wwwroot\assets\scss\theme\vendor\headroom.scss" />
+    <Content Remove="wwwroot\assets\scss\theme\variables.scss" />
+    <Content Remove="wwwroot\assets\scss\theme\vendor\scrollbar.scss" />
+    <None Remove="App\Components\Course\Course.html" />
+    <None Remove="App\Components\Course\Content\Content.vue" />
   </ItemGroup>
 
   <ItemGroup>
@@ -116,6 +173,7 @@
   <ItemGroup>
     <Folder Include="Content\Images\" />
     <Folder Include="Content\Images\" />
+    <Folder Include="App\Components\MyCourses\" />
   </ItemGroup>
 
  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot') ">

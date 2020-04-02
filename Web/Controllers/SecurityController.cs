@@ -21,7 +21,6 @@ using Common;
 
 using System.Net.Mail;
 using Web.Models;
-using Managegment.Controllers;
 using Web.Controllers;
 
 namespace Management.Controllers
@@ -276,7 +275,7 @@ namespace Management.Controllers
 
                 }
 
-               
+
 
                 if (cUser.Status == 0)
                 {
@@ -326,17 +325,17 @@ namespace Management.Controllers
                     Phone = cUser.Phone,
                     BirthDate = cUser.BirthDate,
                     cUser.Nid,
-                    School="مدرسة الفجر الجديد",//cUser.School.Name,
-                    yearAcadimic ="السنة الدراسية 2018",//cUser.AcadimecYear.Name,
-                    imge = (cUser.Image !=null? 1:0),
-                    userType=8
+                    School = "مدرسة الفجر الجديد",//cUser.School.Name,
+                    yearAcadimic = "السنة الدراسية 2018",//cUser.AcadimecYear.Name,
+                    imge = (cUser.Image != null ? 1 : 0),
+                    userType = 8
                 };
 
                 const string Issuer = "http://www.nid.ly";
                 var claims = new List<Claim>();
                 claims.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/id", cUser.Id.ToString(), ClaimValueTypes.Integer64, Issuer));
-                claims.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/userType","8", ClaimValueTypes.Integer64, Issuer));
-                
+                claims.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/userType", "8", ClaimValueTypes.Integer64, Issuer));
+
                 var userIdentity = new ClaimsIdentity("thisisasecreteforauth");
                 userIdentity.AddClaims(claims);
                 var userPrincipal = new ClaimsPrincipal(userIdentity);
