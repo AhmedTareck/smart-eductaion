@@ -27,7 +27,9 @@ namespace Management.Models
         public virtual DbSet<Students> Students { get; set; }
         public virtual DbSet<Subjects> Subjects { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+
         public SmartEducationContext(DbContextOptions<SmartEducationContext> options) : base(options) { }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -138,8 +140,6 @@ namespace Management.Models
 
             modelBuilder.Entity<Lectures>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
