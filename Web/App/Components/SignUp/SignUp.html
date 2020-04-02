@@ -26,17 +26,20 @@
                             <section class="text-center">
                                 <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                     <div class="fileinput-new thumbnail img-circle img-raised">
-                                        <img src="/assets/img/placeholder.jpg" alt="...">
+                                        <img :src="imageData" alt="...">
+                                      
                                     </div>
+                                  
                                     <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
                                     <div>
-                                        <span class="btn btn-raised btn-round btn-primary btn-file btn-sm mx-auto mt-3">
-                                            <span class="fileinput-new" >أضف الصورة</span>
+                                        <span class="btn btn-raised btn-round btn-primary btn-file btn-sm mx-auto mt-3" >
+                                            <span class="fileinput-new" style="cursor: pointer;">أضف الصورة</span>
                                             <span class="fileinput-exists">Change</span>
-                                            <input type="file" name="...">
+                                         
+                                            <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" style="cursor: pointer;">
                                         </span>
                                         <br>
-                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists btn-simple btn-sm" data-dismiss="fileinput"><i class="tim-icons icon-simple-remove"></i> Remove</a>
+                                       
                                     </div>
                                 </div>
                                 <h3  id="SignUp" style="font-size:20px">الصورة الشخصية</h3>

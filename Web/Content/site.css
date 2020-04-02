@@ -1,5 +1,9 @@
 ﻿
 
+.pointer {
+    cursor: pointer!important;
+}
+
 #navbar-main {
     height: 133px;
 }

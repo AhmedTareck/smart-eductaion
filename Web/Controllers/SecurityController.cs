@@ -424,9 +424,9 @@ namespace Management.Controllers
         }
         [HttpGet]
 
-        public IActionResult GetUserImage(long userId)
+        public IActionResult GetStudentImage(long userId)
         {
-            var userimage = (from p in db.Users
+            var userimage = (from p in db.Students
                              where p.Id == userId
                              select p.Image).SingleOrDefault();
 

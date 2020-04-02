@@ -12,6 +12,7 @@ export default {
     },
     data() {
         return {
+            imageData: '/assets/img/placeholder.jpg',
             AcadimacYears: [],
             Schools:[],
             ConfirmPassword: '',
@@ -32,6 +33,7 @@ export default {
                 Gender: '',
                 SchoolId: '',
                 AcadimecYearId: '',
+                photo:'',
                 Image: '',
                 LoginName: '',
                 Email: '',
@@ -101,6 +103,33 @@ export default {
         };
     },
     methods: {
+        uploadImage(e) {
+            var files = e.target.files;
+            if (files.length <= 0) {
+                return;
+            }
+
+            if (files[0].type !== 'image/jpeg' && files[0].type !== 'image/png') {
+                this.$message({
+                    type: 'error',
+                    message: 'عفوا يجب انت تكون الصورة من نوع JPG ,PNG'
+                });
+                this.photo = null;
+                return;
+            }
+
+            var $this = this;
+
+            var reader = new FileReader();
+            reader.onload = function () {
+                $this.imageData = reader.result;
+                $this.ruleForm.photo = reader.result;
+            };
+            reader.onerror = function (error) {
+                $this.photo = null;
+            };
+            reader.readAsDataURL(files[0]);
+        },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
