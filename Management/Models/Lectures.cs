@@ -15,6 +15,7 @@ namespace Management.Models
         public string Name { get; set; }
         public int? Number { get; set; }
         public string Description { get; set; }
+        public string VideoPath { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
         public long? ModifiedBy { get; set; }

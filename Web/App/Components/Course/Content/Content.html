@@ -1,28 +1,19 @@
-<div id="content" style="height:100%;">
-    <!--<div class="card">
-      <div class="card-header d-inline-block">-->
-    <!-- <div class="row">
-             <div class="col-md-10">
-     <div class="media align-items-center">
-         <div class="media-body">-->
+﻿<div id="content" style="height:100%;">
 
-    <iframe class="video h-50  d-inline-block " :src="lecture.url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <!-- <div class="card ">
-        <div class="card-header pr--6 d-inline-block">
-    <h5 class="align-items-center " style="text-align:center;"></h5>
-    </div>
-    </div> -->
+    <iframe class="video h-75 d-inline-block " :src="lecture.url" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
     <div class="pt-2 pr-4 pl-4 rtl">
-    <ul class="nav nav-pills nav-fill">
-        <li class="nav-item">
-          <a class="nav-link" :class="{'active': tabIndex === 1}"  @click="setTabIndex(1)">مرفقات</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" :class="{'active': tabIndex === 0}" @click="setTabIndex(0)">حول الدرس</a>
-        </li>
-      </ul>
+        <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+                <a class="nav-link" :class="{'active': tabIndex === 1}" @click="setTabIndex(1)">مرفقات</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" :class="{'active': tabIndex === 0}" @click="setTabIndex(0)">حول الدرس</a>
+            </li>
+        </ul>
     </div>
-    <div class="card shadow m-3 p-5">
+    <div class="card shadow m-3 p-4 mr-4">
 
         <div class=" pull-right" v-show="tabIndex === 0">
             <h6 class="pull-right">{{lecture.title}}</h6>
@@ -31,44 +22,13 @@
             <h5 class="pull-right">يحتوي هذا الدرس على المعلومات المفيدة</h5>
         </div>
 
-         <div class="card pull-right" v-show="tabIndex === 1">
-             
-             <a type="button" class="btn btn-primary btn-lg btn-block text-white"  :href="lecture.fileUrl" download>
-                 <span class="btn-inner--icon"><i class="ni ni-cloud-download-95 pr-4"></i></span>
-                 <span class="btn-inner--text">تحميل ملف هذا الدرس</span>
-             </a>
-             
-         </div>
-    </div>
+        <div class="card pull-right" v-show="tabIndex === 1">
 
-    <!--</div>-->
-    <!-- <div class="col-md-1 col-3">
-            <div class="dropdown">
-        <button class="btn btn-link text-primary" type="button" data-toggle="dropdown">
-            <i class="ni ni-settings-gear-65"></i>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="javascript:;">
-                <i class="ni ni-single-02"></i> Profile
+            <a type="button" class="btn btn-primary btn-lg btn-block text-white" :href="lecture.fileUrl" download>
+                <span class="btn-inner--icon"><i class="ni ni-cloud-download-95 pr-4"></i></span>
+                <span class="btn-inner--text">تحميل ملف هذا الدرس</span>
             </a>
-            <a class="dropdown-item" href="javascript:;">
-                <i class="ni ni-notification-70"></i> Mute conversation
-            </a>
-            <a class="dropdown-item" href="javascript:;">
-                <i class="ni ni-key-25"></i> Block
-            </a>
-            <a class="dropdown-item" href="javascript:;">
-                <i class="ni ni-button-power"></i> Clear chat
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="javascript:;">
-                <i class="ni ni-fat-remove"></i> Delete chat
-            </a>
+
         </div>
     </div>
-           </div>>-->
-    <!-- </div>
-    </div>
-
-    </div>-->
 </div>

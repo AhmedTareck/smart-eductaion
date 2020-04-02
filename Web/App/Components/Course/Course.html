@@ -1,15 +1,16 @@
-﻿<div class="">
-
+﻿
+<div class="fixed">
     <div class=" mb-5c upper">
 
         <div class="row flex-row">
-            <div class="col-lg-9 pr-0">
+            <div class="col-lg-9 pb-4 pr-0">
                 <Content :lecture="selectedLecture" class="position-sticky"></Content>
                 
             </div>
-            <div class="col-lg-3 pl-0 pull-right" >
+            <div class="col-lg-3 pull-right pl-0" >
                 <Topics @lecture="setLecture"></Topics>
             </div>
         </div>
     </div>
+
 </div>

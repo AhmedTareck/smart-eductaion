@@ -1058,5 +1058,16 @@ namespace CMS.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpGet("fetchCourses")]
+        public IQueryable<object> getLectures([FromQuery] int eventId)
+        {
+            // var selectedEvent =  (from e in db.Events join s in db.Shapters on e.Id equals s.EventId  where e.Id == eventId  select e.Shapters ).ToList();
+
+
+            return from s in db.Shapters join l in db.Lectures on s.Id equals l.ShaptersId into shapterLectures where s.EventId == eventId select new {id = s.Id, title = s.Name, lectures = shapterLectures.Select(sl => new { id = sl.Id, title = sl.Name, videoUrl = sl.VideoPath, fileUrl = sl.LectureFiles.Select(lf => new { id = lf.Id, lf.AttashmentFile , lf.Status }) }) };
+
+
+        }
     }
 }
