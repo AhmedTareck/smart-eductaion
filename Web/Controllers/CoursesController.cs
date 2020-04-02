@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Web.Models;
@@ -8,7 +9,7 @@ using Web.Models;
 namespace Web.Controllers
 {
     [Produces("application/json")]
-    [Route("Api/Admin/Courses")]
+    [Route("Api/Web/Courses")]
     public class CoursesController : Controller
     {
 
@@ -20,41 +21,47 @@ namespace Web.Controllers
             help = new Helper();
         }
 
-        // [HttpGet("GetCoursesBySuperPackageId")]
-        // public IActionResult GetCoursesBySuperPackageId(int pageNo, int pageSize, int SuperPackageId)
-        // {
-        //     try
-        //     {
-        //         IQueryable<Courses> CoursesQuery;
-        //         CoursesQuery = from p in db.Courses
-        //                         where p.Status == 1 && p.SuperPackageId == SuperPackageId
-        //                        select p;
+        [HttpGet("GetMySubjects")]
+        public IActionResult GetMyCourses(int pageNo, int pageSize)
+        {
+            try
+            {
+                var userId = help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return BadRequest(" You need to login to access this page");
+                }
 
-        //         var CoursesCount = (from p in CoursesQuery
-        //                              select p).Count();
+                long? yearid = db.Students.Where(x => x.Id == userId).SingleOrDefault().AcadimecYearId;
 
-        //         var CoursesList = (from p in CoursesQuery
-        //                             orderby p.CreatedOn descending
-        //                             select new
-        //                             {
-        //                                 Name = p.Name,
-        //                                 Description = p.Description,
-        //                                 CourseId = p.CourseId,
-        //                                 Color = p.Color,
-        //                                 Discount = p.Discount,
-        //                                 PriceCompany = p.PriceCompany,
-        //                                 PricePersonal = p.PricePersonal,
-        //                                 Status = p.Status,
-        //                                 SuperPackageId = p.SuperPackageId,
-        //                             }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
-        //         return Ok(new { Courses = CoursesList, count = CoursesCount });
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         return StatusCode(500, e.Message);
-        //     }
-        // }
+                IQueryable<Subjects> SubjectsQuery;
+                SubjectsQuery = from p in db.Subjects
+                               where p.Status == 1 && p.AcadimecYearId==yearid
+                               select p;
+
+                var CoursesCount = (from p in SubjectsQuery
+                                    select p).Count();
+
+                var SubjectList = (from p in SubjectsQuery
+                                   orderby p.CreatedOn descending
+                                   select new
+                                   {
+                                       Name = p.Name,
+                                       Discreptions = p.Discreptions,
+                                       AcadimacName = p.AcadimecYear.Name,
+                                       AcadimecYearId = p.AcadimecYearId,
+                                       SubId = p.Id,
+                                   }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new { Subjects = SubjectList, count = CoursesCount });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+            
+        }
 
 
         // [HttpGet("GetCoursesByPackageId")]
