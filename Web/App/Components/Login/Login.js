@@ -48,7 +48,7 @@ export default {
                 .then(response => {
                     $blockUI.close();
                     //this.secureStorage.setItem('currentUser', response.data);
-                    sessionStorage.setItem('currentUser', (JSON.stringify(response.data)));
+                    localStorage.setItem('currentUser', (JSON.stringify(response.data)));
                     window.location.href = '/MyCourses';
                 })
                 .catch((error) => {

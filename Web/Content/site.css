@@ -33,5 +33,9 @@
 }
 
 #SignUp {
-    font-family: 'DroidArabicKufiRegular';
+    font-family: 'DroidArabicKufiRegular'!important;
+}
+
+span {
+    font-family: 'DroidArabicKufiRegular' !important;
 }
