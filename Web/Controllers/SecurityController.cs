@@ -188,7 +188,7 @@ namespace Management.Controllers
                  "<p>للحصول على آخر التحديثات ، ومعرفة آخر الأخبار ، بإمكانك الاطلاع على صفحتنا عبر<a href=\"" + FaceBookPage + "\" class=\"calibri\"><b>FaceBook</b></a> ، و إذا كان لديك أي أسئلة أخرى، الرجاء مراسلتنا عبر<a href = \"mailto:" + EmailSupport + "\" class=\"calibri\"><b>" + EmailSupport + "</b></a>  .</p>" +
                  "<br><p>فريق عمل مشروع<b>(اللبنة الذكية)</b> </p>" +
                 "</div><footer class=\"Helvetica\"><div class=\"grey\"><a href = \"" + WebServer + "\"> visit our website</a> | <a href = \"" + WebServer + "\"> log in to your account</a> | <a href = \"mailto:" + EmailSupport + "\"> get support</a></div>" +
-                "<div class=\"grey\"> All rights reserved ,مشروع اللبنة الذكية  Copyright © ACT</div></footer></div></body></html>";
+                "<div class=\"grey\"> All rights reserved ,مشروع اللبنة الذكية  Copyright ©</div></footer></div></body></html>";
 
         }
 
@@ -507,8 +507,8 @@ namespace Management.Controllers
                     Port = Int32.Parse(Configuration.GetSection("Links")["SMTPPORT"]),
                     EnableSsl = Configuration.GetSection("Links")["SMTSSL"] == "1"
                 };
-                smtp.Send(mail);
-                //Task.Factory.StartNew(() => smtp.Send(mail));
+               // smtp.Send(mail);
+                Task.Factory.StartNew(() => smtp.Send(mail));
                 return Ok("تم ارسال بريد التحقق بنجاح الرجاء فتح بريدك الإلكتروني");
             }
             catch (Exception e)
