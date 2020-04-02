@@ -4,75 +4,76 @@
         <div class="navbar-collapse collapse" id="navbar_global">
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto">
                 <li class="nav-item">
+
                     <a href="#" @click.prevent="href('/',0)" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="ni ni-ui-04 d-lg-none"></i>
                         <span class="nav-link-inner--text">Home</span>
                     </a>
                 </li>
-                <li class="nav-item">
+
+
+                <li class="nav-item" v-if="loginDetails==null">
                     <a href="#" @click.prevent="href('/Login',1)" class="nav-link" data-toggle="dropdown" role="button" style="font-weight:bold">
-                        <i class="ni ni-ui-04 d-lg-none" ></i>
+                        <i class="ni ni-ui-04 d-lg-none"></i>
                         Login
-                        </a>
+                    </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-if="loginDetails==null">
                     <a href="#" @click.prevent="href('/SignUp',1)" class="nav-link" data-toggle="dropdown" role="button" style="font-weight:bold">
                         <i class="ni ni-ui-04 d-lg-none"></i>
                         SignUp
-                        </a>
+                    </a>
                 </li>
-                <li class="nav-item dropdown">
+
+                <li class="nav-item" style="margin-right: -1.5rem;" v-if="loginDetails!=null">
+                    <a href="#" class="nav-link" data-toggle="dropdown" role="button" style="font-weight:bold">
+                        <i class="ni ni-ui-04 d-lg-none"></i>
+                         <span style="font-size:20px;font-weight:bold;">
+                                    {{loginDetails.firstName}}
+                                </span>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown" v-if="loginDetails!=null">
                     <a href="javascript:;" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="ni ni-tablet-button d-lg-none"></i>
                         <div class="demo-basic--circle">
+
                             <div class="block" key="large">
+                               
                                 <el-avatar size="large" :src="circleUrl"></el-avatar>
+
                             </div>
                         </div>
                         <!--<div class="sub-title">User Name</div>-->
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="./examples/account-settings.html">
+                        <a class="dropdown-item" href="#">
                             <i class="fa fa-user text-muted" style="font-weight:bold"></i>
-                            Abdullah Elamir
+                            {{loginDetails.firstName}} {{loginDetails.fatherName}}  {{loginDetails.surName}}
                         </a>
 
-                       
-                        <a class="dropdown-item" href="#" @click.prevent="href('/Messages',0)">
 
+                        <a class="dropdown-item" href="#" @click.prevent="href('/Messages',0)">
                             <i class="fa fa-inbox text-muted" style="font-weight:bold"></i>
-                            Messages
+                            الرسـائل
                             <el-badge class="mark" :value="3" />
                         </a>
-                       
-                            <a class="dropdown-item" href="./examples/account-settings.html">
-                                <i class="ni ni-lock-circle-open text-muted"></i>
-                                Account Settings
-                            </a>
-                            <a class="dropdown-item" href="./examples/login-page.html">
-                                <i class="ni ni-tv-2 text-danger"></i>
-                                Login Page
-                            </a>
-                            <a class="dropdown-item" href="./examples/register-page.html">
-                                <i class="ni ni-air-baloon text-pink"></i>
-                                Register Page
-                            </a>
-                            <a class="dropdown-item" href="./examples/reset-page.html">
-                                <i class="ni ni-atom text-info"></i>
-                                Reset Page
-                            </a>
-                            <a class="dropdown-item" href="./examples/invoice-page.html">
-                                <i class="ni ni-bullet-list-67 text-success"></i>
-                                Invoice Page
-                            </a>
-                            <a class="dropdown-item" href="./examples/checkout-page.html">
-                                <i class="ni ni-basket text-orange"></i>
-                                Checkout Page
-                            </a>
-                            <a class="dropdown-item" href="./examples/chat-page.html">
-                                <i class="ni ni-chat-round text-primary"></i>
-                                Chat Page
-                            </a>
+                        <a class="dropdown-item" href="#" @click.prevent="href('/MyCourses',1)">
+                            <i class="ni ni-lock-circle-open text-muted"></i>
+                            دوراتي تدريبية
+                        </a>
+
+                        <a class="dropdown-item" href="./examples/account-settings.html">
+                            <i class="ni ni-lock-circle-open text-muted"></i>
+                            ملف الشخصي
+                        </a>
+
+                        <a class="dropdown-item" href="#" @click.prevent="logout()">
+                            <i class="fa fa-sign-out"></i>
+                            تسجيل الخروج
+                        </a>
+
                     </div>
                 </li>
             </ul>

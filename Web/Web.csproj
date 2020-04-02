@@ -93,7 +93,6 @@
     <Compile Remove="Controllers\CustometsController.cs" />
     <Compile Remove="Controllers\DateController.cs" />
     <Compile Remove="Controllers\Security.cs" />
-    <Compile Remove="Controllers\SecurityController.cs" />
     <Compile Remove="Controllers\Validation.cs" />
     <Content Remove="package-lock.json" />
    
@@ -199,7 +198,7 @@
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="Properties\wwwroot\**; App\dist\**" />
-      <ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </ResolvedFileToPublish>

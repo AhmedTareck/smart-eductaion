@@ -303,7 +303,7 @@ namespace Web.Models
 
             modelBuilder.Entity<Students>(entity =>
             {
-                entity.Property(e => e.Adrress).HasMaxLength(50);
+                entity.Property(e => e.Address).HasMaxLength(50);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
@@ -374,7 +374,7 @@ namespace Web.Models
 
                 entity.Property(e => e.Phone).HasMaxLength(25);
 
-                entity.Property(e => e.State).HasDefaultValueSql("((0))");
+                entity.Property(e => e.Status).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.UserType).HasDefaultValueSql("((2))");
 

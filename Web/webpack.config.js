@@ -25,7 +25,7 @@ module.exports = (env) => {
             hotUpdateMainFilename: 'hot-update.json'
         },
         resolve: {
-            extensions: ['.js', '.vue'],
+            extensions: ['*', '.js', '.vue', '.json'],
             alias: {
                 'vue$': 'vue/dist/vue.common.js'
             }

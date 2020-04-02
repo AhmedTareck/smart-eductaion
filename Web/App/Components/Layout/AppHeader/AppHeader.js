@@ -3,6 +3,11 @@
     created() { 
         var route = window.location.href.split("/")[3];
         this.pathChange(route);
+        var loginDetails = sessionStorage.getItem('currentUser');
+        this.loginDetails = JSON.parse(loginDetails);
+        if (loginDetails !== null) {
+            this.loginDetails = JSON.parse(loginDetails);
+        } 
     },
     data() {
         return {            
@@ -16,6 +21,11 @@
     },
   
     methods: {
+        logout() {
+            sessionStorage.clear();
+            window.location.href = '/';
+        },
+
 
         pathChange(route) {
             if (route === "Login") {
