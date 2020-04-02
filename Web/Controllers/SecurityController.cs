@@ -287,6 +287,11 @@ namespace Management.Controllers
                     return BadRequest("تم إغلاق الحساب مؤقتا للأسباب امنية");
                 }
 
+                if (cUser.Status == 3)
+                {
+                    return BadRequest(" لقد قمنا بارسال بريد التحقق سابقا , الرجاء فتح بريدك الإلكتروني");
+                }
+
                 if (!Security.VerifyHash(loginUser.Password, cUser.Password, HashAlgorithms.SHA512))
                 {
 
