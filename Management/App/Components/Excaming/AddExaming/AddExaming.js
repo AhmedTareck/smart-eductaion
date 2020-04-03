@@ -170,6 +170,7 @@ props: ['QuestionList'],
             });
         },
         addExam(formName) {
+            
             this.$blockUI.Start();
             this.$http.addExam(this.body)
                 .then(response => {
@@ -191,6 +192,7 @@ props: ['QuestionList'],
         },
 
         async selectExamType(e) {
+            
             this.body.Status = null;
             this.$emit('input', e);
             this.body.Status = e;
