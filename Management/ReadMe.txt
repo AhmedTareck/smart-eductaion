@@ -21,3 +21,13 @@ Enable-migrate
 Add-Migration StudentTracker
 update-database
 
+--------
+for Mac OS
+Scaffold database first Approach
+
+True one
+dotnet ef dbcontext scaffold "Server=localhost;database=SmartEducation;uid=sa;pwd=Root1234_;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+
+True one //
+dotnet ef dbcontext Scaffold "server=localhost;database=SmartEducation;uid=sa;pwd=Root1234_;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -f
+----------
