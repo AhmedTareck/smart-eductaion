@@ -13,7 +13,8 @@ namespace Management.Models
         public DateTime? CreatedOn { get; set; }
         public short? State { get; set; }
 
-        public virtual Groups Group { get; set; }
-        public virtual Permissions Permissioin { get; set; }
+
+        public Groups Group { get; set; }
+        public Permissions Permissioin { get; set; }
     }
 }

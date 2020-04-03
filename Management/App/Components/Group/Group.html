@@ -1,6 +1,6 @@
 ﻿<div class="content">
-    <EditSubjects v-if="state==2"></EditSubjects>
-    <AddSubjects v-if="state==1"></AddSubjects>
+    <EditGroup v-if="state==2"></EditGroup>
+    <AddSGroup v-if="state==1"></AddSGroup>
     <div class="container-fluid" v-if="state==0">
         <div class="row">
             <div class="card">
@@ -13,34 +13,27 @@
                 <br />
                 <br />
                 <div class="row" style="margin-right: 0px; margin-left: 0px">
-                    <div class="col-md-3">
-                        <el-select v-model="yearSelected"
-                                   @change="GetSubjectInfo()"
-                                   filterable placeholder="السنة الدراسية ">
+                    
 
-                            <el-option v-for="item in year"
-                                       :key="item.id"
-                                       :label="item.name"
-                                       :value="item.id">
-                            </el-option>
+                    <div class="row" style="margin-right: 0px; margin-left: 0px;">
 
-                        </el-select>
-                    </div>
+                        <div class="col-md-12">
+                            <div class="pull-left">
 
-                    <!--<div class="col-md-9" v-if="yearSelected!=0" style=";margin-top:-10px">
-                        <div class="pull-left">
+                                <br>
 
-                            <br>
+                                <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="addGroup()">إضافة   صلاحية</el-button>
+                            </div>
 
-                            <el-button class="btn btn-danger btn-fill pull-right" type="primary" @click="addYers()">إضافة مادة دراسية</el-button>
                         </div>
 
-                    </div>-->
+
+                    </div>
 
 
                 </div>
 
-                <div class="row" v-if="Subject==0">
+                <div class="row" v-if="Group==0">
 
                     <div class="col-md-10">
                         <div class="form-group">
@@ -54,7 +47,7 @@
                 <br />
                 <br />
                 <!--Table Info-->
-                <div class="row" v-if="Subject!=0">
+                <div class="row" v-if="Group!=0">
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -63,9 +56,7 @@
                                     <th>
                                         #
                                     </th>
-                                    <th>
-                                        السنة الدراسية
-                                    </th>
+
                                     <th>
                                         اسم المادة
                                     </th>
@@ -77,9 +68,8 @@
                                     </th>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="item,index in Subject">
+                                        <tr v-for="item,index in Group">
                                             <td>{{index+1}} </td>
-                                            <td>{{item.yearName }} </td>
                                             <td>{{item.name }} </td>
                                             <td>{{item.createdOn | moment }} </td>
 

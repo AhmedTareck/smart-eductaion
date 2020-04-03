@@ -250,3 +250,5 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
+Management/appsettings.json
+Management/appsettings.json

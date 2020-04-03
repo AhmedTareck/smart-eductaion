@@ -1,19 +1,22 @@
 ﻿import moment from 'moment';
 export default {
-    name: 'AddSubjects',
+    name: 'AddGroup',
 
     created() {
         //this.form.id = this.$parent.yearSelected;
-        this.getyearName();
+        this.getpermission();
     },
     components: {
     },
     data() {
         return {
-            year: [],
+          
+               
+            
+            permission: [],
 
             form: {
-                id: '',
+                id:[],
                 name: '',
             },
         };
@@ -34,14 +37,15 @@ export default {
             this.$parent.state = 0;
         },
 
-        getyearName() {
+        getpermission() {
 
             this.$blockUI.Start();
-            this.$http.getyearName()
+            this.$http.GetPermissions()
                 .then(response => {
 
                     this.$blockUI.Stop();
-                    this.year = response.data.years;
+                    
+                    this.permission = response.data.permission;
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();
@@ -53,10 +57,11 @@ export default {
             this.$refs[formName].resetFields();
         },
 
-        submitForm(formName) {
-            this.$refs[formName].validate((valid) => {
+        submitForm() {
+            this.$refs['form'].validate((valid) => {
+                alert(valid);
                 if (valid) {
-                    this.addSubject(formName);
+                    this.addGroup();
                 } else {
                     console.log('error submit!!');
                     return false;
@@ -67,8 +72,11 @@ export default {
         },
 
 
-        addSubject(formName) {
-            this.$http.addSubject(this.form)
+        addGroup() {
+            console.log(this.form);
+            alert("ddddd");
+
+            this.$http.addGroup(this.form)
                 .then(response => {
                     //this.$parent.state = 0;
                     this.$message({
@@ -76,7 +84,7 @@ export default {
                         message: response.data
                     });
                     //this.$parent.GetSubjectInfo();
-                    //this.$parent.state = 0;
+                    this.$parent.state = 0;
                     this.resetForm(formName);
                     this.$blockUI.Stop();
                 })

@@ -13,6 +13,7 @@ namespace Management.Models
         public long Id { get; set; }
         public long? ExamId { get; set; }
         public int? Number { get; set; }
+        public string Question { get; set; }
         public int? Points { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }

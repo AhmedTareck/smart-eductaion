@@ -30,7 +30,7 @@ import AddLectures from './Components/Lectures/AddLectures/AddLectures.vue';
 import Excaming from './Components/Excaming/Excaming.vue';
 import AddExaming from './Components/Excaming/AddExaming/AddExaming.vue';
 import Permissions from './Components/Permissions/Permissions.vue';
-
+import Group from './Components/Group/Group.vue';
 
 
 
@@ -83,7 +83,7 @@ const router = new VueRouter({
         { path: '/AddExaming', name: 'AddExaming', component: AddExaming },
         { path: '/Excaming', name: 'Excaming', component: Excaming },
         { path: '/Permission', name: 'Permission', component: Permissions },
-
+        { path: '/Group', name: 'Group', component: Group },
 
 
 

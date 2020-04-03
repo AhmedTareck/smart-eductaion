@@ -36,5 +36,6 @@ namespace Management.Models
         public virtual ICollection<Events> Events { get; set; }
         public virtual ICollection<Municipalitys> Municipalitys { get; set; }
         public virtual ICollection<Schools> Schools { get; set; }
+
     }
 }

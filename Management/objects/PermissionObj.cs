@@ -8,5 +8,6 @@ namespace Management.objects
     public class PermissionObj
     {
         public string name { get; set; }
+        public int[]  id { get; set; }
     }
 }

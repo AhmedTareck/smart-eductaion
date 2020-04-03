@@ -1,6 +1,6 @@
-﻿<template src="./EditSubjects.html"></template>
+﻿<template src="./EditGroup.html"></template>
 
-<script src="./EditSubjects.js"></script>
+<script src="./EditGroup.js"></script>
 
 <style scoped>
     .card .card-header-primary .card-icon, .card .card-header-primary .card-text, .card .card-header-primary:not(.card-header-icon):not(.card-header-text), .card.bg-primary, .card.card-rotate.bg-primary .back, .card.card-rotate.bg-primary .front {

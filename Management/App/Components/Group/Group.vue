@@ -1,6 +1,6 @@
-﻿<template src="./AddSubjects.html"></template>
+﻿<template src="./Group.html"></template>
 
-<script src="./AddSubjects.js"></script>
+<script src="./Group.js"></script>
 
 <style scoped>
     .card .card-header-primary .card-icon, .card .card-header-primary .card-text, .card .card-header-primary:not(.card-header-icon):not(.card-header-text), .card.bg-primary, .card.card-rotate.bg-primary .back, .card.card-rotate.bg-primary .front {

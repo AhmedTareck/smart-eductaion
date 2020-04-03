@@ -1,6 +1,6 @@
 ﻿import moment from 'moment';
 export default {
-    name: 'EditSubjects',
+    name: 'EditGroup',
     
     created() {
         this.form = this.$parent.selectedStudent;
