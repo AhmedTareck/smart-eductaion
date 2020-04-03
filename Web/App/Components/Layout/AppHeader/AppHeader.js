@@ -26,7 +26,6 @@
             window.location.href = '/';
         },
 
-
         pathChange(route) {
             if (route === "Login") {
                 this.NavBar = "navbar navbar-main navbar-expand-lg navbar-transparent headroom";
@@ -44,7 +43,5 @@
             }
             this.$router.push(url);
         }
-       
-      
     }    
 }

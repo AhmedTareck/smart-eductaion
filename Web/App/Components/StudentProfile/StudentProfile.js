@@ -342,6 +342,15 @@ export default {
                     this.$blockUI.Stop();
                     this.ruleForm.FirstName = response.data.student[0].firstName;
                     console.log(response.data.student[0]);
+                    this.ruleForm.FirstName = response.data.student[0].acadimacYears;
+                    this.ruleForm.FirstName = response.data.student[0].nID;
+                    this.ruleForm.FirstName = response.data.student[0].fatherName;
+                    this.ruleForm.FirstName = response.data.student[0].grandFatherName;
+                    this.ruleForm.FirstName = response.data.student[0].surName;
+                    this.ruleForm.FirstName = response.data.student[0].address;
+                    this.ruleForm.FirstName = response.data.student[0].email;
+                    this.ruleForm.FirstName = response.data.student[0].image;
+                    console.log(response.data.student[0]);
                 })
                 .catch(err => {
                     this.$blockUI.Stop();
