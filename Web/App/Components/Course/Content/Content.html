@@ -19,7 +19,7 @@
             <h6 class="pull-right">{{lecture.title}}</h6>
             <br />
             <br />
-            <h5 class="pull-right">يحتوي هذا الدرس على المعلومات المفيدة</h5>
+            <h5 class="pull-right">{{lecture.description}}</h5>
         </div>
 
         <div v-if="lecture.fileUrl.length == 0 && tabIndex === 1">
