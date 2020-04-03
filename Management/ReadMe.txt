@@ -20,3 +20,6 @@ Code-First Approach
 Enable-migrate
 Add-Migration StudentTracker
 update-database
+
+Ip server : 95.216.93.102
+db: SmartEducation

@@ -15,7 +15,7 @@
 
                     <el-row class="row">
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
 
                             <div class="form-group">
 
@@ -38,63 +38,7 @@
 
                         </div>
 
-
-                    </el-row>
-
-                    <el-row class="row">
-
-                        <el-col class="col-md-4">
-
-
-                            <el-form-item prop="yearId" label="السنة الدراسية"
-                                          label-width="0px"
-                                          :rules="[{required: true, message: ' الرجاء ادخال السنة الدراسية'} ]">
-
-                                <el-select v-model="form.yearId"
-                                           style="    width: 100%;"
-                                           @change="getSubject()"
-                                           filterable placeholder="السنة الدراسية ">
-
-                                    <el-option v-for="item in year"
-                                               :key="item.id"
-                                               :label="item.name"
-                                               :value="item.id">
-                                    </el-option>
-
-                                </el-select>
-
-                            </el-form-item>
-
-
-                        </el-col>
-
-
-                        <el-col class="col-md-4">
-
-
-                            <el-form-item prop="SubjectId" label="المادة الدراسية"
-                                          label-width="0px"
-                                          :rules="[{required: true, message: ' الرجاء ادخال المادة الدراسية'} ]">
-
-                                <el-select v-model="form.SubjectId"
-                                           style="    width: 100%;"
-                                           filterable placeholder="المادة الدراسية ">
-
-                                    <el-option v-for="item in subjects"
-                                               :key="item.id"
-                                               :label="item.name"
-                                               :value="item.id">
-                                    </el-option>
-
-                                </el-select>
-
-                            </el-form-item>
-
-
-                        </el-col>
-
-
-                        <el-col class="col-md-4">
+                        <el-col class="col-md-6">
 
 
                             <el-form-item prop="TeacherId" label="الأستاذ"
@@ -117,6 +61,64 @@
 
 
                         </el-col>
+
+
+                    </el-row>
+
+                    <el-row class="row">
+
+                        <!--<el-col class="col-md-4">
+
+
+                            <el-form-item prop="yearId" label="السنة الدراسية"
+                                          label-width="0px"
+                                          :rules="[{required: true, message: ' الرجاء ادخال السنة الدراسية'} ]">
+
+                                <el-select v-model="form.yearId"
+                                           style="    width: 100%;"
+                                           @change="getSubject()"
+                                           filterable placeholder="السنة الدراسية ">
+
+                                    <el-option v-for="item in year"
+                                               :key="item.id"
+                                               :label="item.name"
+                                               :value="item.id">
+                                    </el-option>
+
+                                </el-select>
+
+                            </el-form-item>
+
+
+                        </el-col>-->
+
+
+                        <!--<el-col class="col-md-4">
+
+
+                            <el-form-item prop="SubjectId" label="المادة الدراسية"
+                                          label-width="0px"
+                                          :rules="[{required: true, message: ' الرجاء ادخال المادة الدراسية'} ]">
+
+                                <el-select v-model="form.SubjectId"
+                                           style="    width: 100%;"
+                                           filterable placeholder="المادة الدراسية ">
+
+                                    <el-option v-for="item in subjects"
+                                               :key="item.id"
+                                               :label="item.name"
+                                               :value="item.id">
+                                    </el-option>
+
+                                </el-select>
+
+                            </el-form-item>
+
+
+                        </el-col>-->
+
+
+                        
 
 
                     </el-row>

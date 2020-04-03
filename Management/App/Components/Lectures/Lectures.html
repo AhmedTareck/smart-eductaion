@@ -5,63 +5,63 @@
         <div class="row">
             <div class="card">
 
-                <div class="card-header card-header-danger">
+                <div class="card-header card-header-info">
                     <h4 class="card-title ">إدارة بيانات المحاضرات </h4>
+                    <p class="card-category"> هذه الصفحه خاصه بإدرة بيانات الشابتر</p>
                 </div>
 
                 <br />
                 <br />
-                <div class="row" style="margin-right: 0px; margin-left: 0px">
-                    <div class="col-md-3">
-                        <el-select v-model="yearSelectedId"
-                                   style="    width: 100%;"
-                                   @change="getSubject()"
-                                   filterable placeholder="السنة الدراسية ">
+                <!--<div class="row" style="margin-right: 0px; margin-left: 0px">
+        <div class="col-md-3">
+            <el-select v-model="yearSelectedId"
+                       style="    width: 100%;"
+                       @change="getSubject()"
+                       filterable placeholder="السنة الدراسية ">
 
-                            <el-option v-for="item in year"
-                                       :key="item.id"
-                                       :label="item.name"
-                                       :value="item.id">
-                            </el-option>
+                <el-option v-for="item in year"
+                           :key="item.id"
+                           :label="item.name"
+                           :value="item.id">
+                </el-option>
 
-                        </el-select>
-                    </div>
+            </el-select>
+        </div>
 
-                    <div class="col-md-3">
-                        <el-select v-model="subjectSeletect"
-                                   style="    width: 100%;"
-                                   @change="getShapterName()"
-                                   filterable placeholder="السنة الدراسية ">
+        <div class="col-md-3">
+            <el-select v-model="subjectSeletect"
+                       style="    width: 100%;"
+                       @change="getShapterName()"
+                       filterable placeholder="السنة الدراسية ">
 
-                            <el-option v-for="item in SubjectName"
-                                       :key="item.id"
-                                       :label="item.name"
-                                       :value="item.id">
-                            </el-option>
+                <el-option v-for="item in SubjectName"
+                           :key="item.id"
+                           :label="item.name"
+                           :value="item.id">
+                </el-option>
 
-                        </el-select>
-                    </div>
+            </el-select>
+        </div>
 
-                    <div class="col-md-3">
-                        <el-select v-model="shapterSelected"
-                                   style="    width: 100%;"
-                                   @change="getLectures()"
-                                   filterable placeholder="الشابتر ">
+        <div class="col-md-3">
+            <el-select v-model="shapterSelected"
+                       style="    width: 100%;"
+                       @change="getLectures()"
+                       filterable placeholder="الشابتر ">
 
-                            <el-option v-for="item in shapterName"
-                                       :key="item.id"
-                                       :label="item.name"
-                                       :value="item.id">
-                            </el-option>
+                <el-option v-for="item in shapterName"
+                           :key="item.id"
+                           :label="item.name"
+                           :value="item.id">
+                </el-option>
 
-                        </el-select>
-                    </div>
-
-
+            </el-select>
+        </div>
 
 
-                </div>
 
+
+    </div>-->
                 <div class="row" v-if="info==0">
 
                     <div class="col-md-10">
@@ -97,7 +97,7 @@
                                     <th>
                                         تاريخ الإدراج
                                     </th>
-                                    <th style="text-align:left">
+                                    <th style="text-align:center">
                                         العمليات
                                     </th>
                                     </thead>
@@ -109,12 +109,12 @@
                                             <td>{{item.description }} </td>
                                             <td>{{item.createdOn | moment }} </td>
 
-                                            <td class="td-actions text-left">
-                                                <button type="button" rel="tooltip" @click.prevent="viewStudent(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
+                                            <td class="td-actions text-center">
+                                                <!--<button type="button" rel="tooltip" @click.prevent="editLecture(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
                                                     <i class="material-icons">edit</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" @click.prevent="deletelecture(item.id)" class="btn btn-danger btn-link" data-original-title="" title="">
-                                                    <i class="material-icons" title="حدف">close</i>
+                                                </button>-->
+                                                <button type="button" rel="tooltip" @click.prevent="deletelecture(item.id)" class="btn btn-danger btn-link" data-original-title="حدف" title="حدف">
+                                                    <i class="material-icons">close</i>
                                                 </button>
                                             </td>
                                         </tr>
@@ -132,7 +132,7 @@
                                                                    :current-page="pageNo"
                                                                    :page-size="pageSize"
                                                                    :total="pages"
-                                                                   @current-change="GetSubjectInfo($event)">
+                                                                   @current-change="getLectures($event)">
                                                     </el-pagination>
 
                                                 </div>

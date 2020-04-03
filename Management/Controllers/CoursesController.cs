@@ -791,7 +791,7 @@ namespace CMS.Controllers
         {
             try
             {
-                var Events = from p in db.Events where p.SubjectId==id select p;
+                var Events = from p in db.Events where p.SubjectId==id && p.Status!=9 select p;
 
 
 
