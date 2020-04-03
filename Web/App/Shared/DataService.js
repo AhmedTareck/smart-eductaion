@@ -29,6 +29,11 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(`/Api/Web/StudentProfile/GetStudentProfile`);
     },
+    
+    updateStudent(user) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.post(`/Api/Web/StudentProfile/updateStudent`, user);
+    },
     // ********************* AcademicYears ****************
     GetAllAcadimacYears() {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');

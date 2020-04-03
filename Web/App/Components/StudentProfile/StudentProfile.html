@@ -1,16 +1,19 @@
 ﻿<div class="account-settings" id="SignUp">
-
     <div class="wrapper">
         <div class="section-shaped my-0 skew-separator skew-mini">
             <div class="page-header page-header-small header-filter">
-                <div class="page-header-image" style="background-image: url('/assets/img/pages/georgie.jpg');">
-                </div>
+                <div
+                    class="page-header-image"
+                    style="background-image: url('/assets/img/pages/georgie.jpg');"
+                ></div>
                 <div class="container">
                     <div class="header-body text-center mb-7">
                         <div class="row justify-content-center">
                             <div class="col-xl-5 col-lg-6 col-md-8 px-5">
                                 <h1 class="text-white">حسابك الشخصي</h1>
-                                <p class="text-lead text-white">نموذج إدخال بيانات الطالب</p>
+                                <p class="text-lead text-white">
+                                    نموذج إدخال بيانات الطالب
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -24,25 +27,45 @@
                         <div class="section">
                             <!-- User Information -->
                             <section class="text-center">
-                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail img-circle img-raised">
-                                        <img :src="imageData" alt="...">
-                                      
+                                <div
+                                    class="fileinput fileinput-new text-center"
+                                    data-provides="fileinput"
+                                >
+                                    <div
+                                        class="fileinput-new thumbnail img-circle img-raised"
+                                    >
+                                        <img :src="imageData" alt="..." />
                                     </div>
-                                  
-                                    <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
+
+                                    <div
+                                        class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"
+                                    ></div>
                                     <div>
-                                        <span class="btn btn-raised btn-round btn-primary btn-file btn-sm mx-auto mt-3" >
-                                            <span class="fileinput-new" style="cursor: pointer;">أضف الصورة</span>
-                                            <span class="fileinput-exists">Change</span>
-                                         
-                                            <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" style="cursor: pointer;">
+                                        <span
+                                            class="btn btn-raised btn-round btn-primary btn-file btn-sm mx-auto mt-3"
+                                        >
+                                            <span
+                                                class="fileinput-new"
+                                                style="cursor: pointer;"
+                                                >أضف الصورة</span
+                                            >
+                                            <span class="fileinput-exists"
+                                                >Change</span
+                                            >
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                @change="uploadImage($event)"
+                                                id="file-input"
+                                                style="cursor: pointer;"
+                                            />
                                         </span>
-                                        <br>
-                                       
+                                        <br />
                                     </div>
                                 </div>
-                                <h3  id="SignUp" style="font-size:20px">الصورة الشخصية</h3>
+                                <h3 id="SignUp" style="font-size:20px">
+                                    الصورة الشخصية
+                                </h3>
                             </section>
                             <!-- User Information -->
                         </div>
@@ -53,94 +76,183 @@
                                 <div class="tab-pane active" id="link1">
                                     <div>
                                         <header>
-                                            <h2 align="center">نموذج بيانات الطالب</h2>
+                                            <h2 align="center">
+                                                نموذج بيانات الطالب
+                                            </h2>
                                         </header>
-                                        <hr class="line-primary"><br>
+                                        <hr class="line-primary" />
+                                        <br />
                                         <!--<div class="row" align="right"> -->
 
-                                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm" label-position="top">
+                                        <el-form
+                                            :model="ruleForm"
+                                            :rules="rules"
+                                            ref="ruleForm"
+                                            label-width="120px"
+                                            class="demo-ruleForm"
+                                            label-position="top"
+                                        >
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <el-form-item label="الإسم" prop="FirstName">
-                                                        <el-input v-model="ruleForm.FirstName" placeholder="الإسم"></el-input>
+                                                    <el-form-item
+                                                        label="الإسم"
+                                                        prop="FirstName"
+                                                    >
+                                                        <el-input
+                                                            v-model="ruleForm.FirstName"
+                                                            placeholder="الإسم"
+                                                        ></el-input>
                                                     </el-form-item>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <el-form-item label="إسم الأب" prop="FatherName">
-                                                        <el-input v-model="ruleForm.FatherName" placeholder="إسم الأب"></el-input>
+                                                    <el-form-item
+                                                        label="إسم الأب"
+                                                        prop="FatherName"
+                                                    >
+                                                        <el-input
+                                                            v-model="ruleForm.FatherName"
+                                                            placeholder="إسم الأب"
+                                                        ></el-input>
                                                     </el-form-item>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <el-form-item label="إسم الجد" prop="GrandFatherName">
-                                                        <el-input v-model="ruleForm.GrandFatherName" placeholder="إسم الجد"></el-input>
+                                                    <el-form-item
+                                                        label="إسم الجد"
+                                                        prop="GrandFatherName"
+                                                    >
+                                                        <el-input
+                                                            v-model="ruleForm.GrandFatherName"
+                                                            placeholder="إسم الجد"
+                                                        ></el-input>
                                                     </el-form-item>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <el-form-item label="اللقب" prop="SurName">
-                                                        <el-input v-model="ruleForm.SurName" placeholder="اللقب"></el-input>
+                                                    <el-form-item
+                                                        label="اللقب"
+                                                        prop="SurName"
+                                                    >
+                                                        <el-input
+                                                            v-model="ruleForm.SurName"
+                                                            placeholder="اللقب"
+                                                        ></el-input>
                                                     </el-form-item>
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <el-form-item label="إسم الام" prop="MatherName">
-                                                        <el-input v-model="ruleForm.MatherName" placeholder="إسم الام"></el-input>
+                                                    <el-form-item
+                                                        label="إسم الام"
+                                                        prop="MatherName"
+                                                    >
+                                                        <el-input
+                                                            v-model="ruleForm.MatherName"
+                                                            placeholder="إسم الام"
+                                                        ></el-input>
                                                     </el-form-item>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <el-form-item label="تاريخ الميلاد" prop="BirthDate">
-                                                        <el-date-picker v-model="ruleForm.BirthDate"
-                                                                        type="date"
-                                                                        placeholder="تاريخ الميلاد">
+                                                    <el-form-item
+                                                        label="تاريخ الميلاد"
+                                                        prop="BirthDate"
+                                                    >
+                                                        <el-date-picker
+                                                            v-model="ruleForm.BirthDate"
+                                                            type="date"
+                                                            placeholder="تاريخ الميلاد"
+                                                        >
                                                         </el-date-picker>
                                                     </el-form-item>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <el-form-item label="الرقم الوطني" prop="NID">
-                                                        <el-input v-model="ruleForm.NID" placeholder="الرقم الوطني"></el-input>
+                                                    <el-form-item
+                                                        label="الرقم الوطني"
+                                                        prop="NID"
+                                                    >
+                                                        <el-input
+                                                            v-model="ruleForm.NID"
+                                                            placeholder="الرقم الوطني"
+                                                        ></el-input>
                                                     </el-form-item>
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <el-form-item label="العنوان" prop="Address">
-                                                        <el-input v-model="ruleForm.Address" placeholder="العنوان"></el-input>
+                                                    <el-form-item
+                                                        label="العنوان"
+                                                        prop="Address"
+                                                    >
+                                                        <el-input
+                                                            v-model="ruleForm.Address"
+                                                            placeholder="العنوان"
+                                                        ></el-input>
                                                     </el-form-item>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <el-form-item label="رقم الهاتف" prop="Phone">
-                                                        <el-input v-model="ruleForm.Phone" placeholder="رقم الهاتف"></el-input>
+                                                    <el-form-item
+                                                        label="رقم الهاتف"
+                                                        prop="Phone"
+                                                    >
+                                                        <el-input
+                                                            v-model="ruleForm.Phone"
+                                                            placeholder="رقم الهاتف"
+                                                        ></el-input>
                                                     </el-form-item>
                                                 </div>
                                             </div>
-
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <el-form-item label="رقم الهاتف" prop="Gender">
-                                                        <el-radio v-model="ruleForm.Gender" label="1">ذكـر</el-radio>
-                                                        <el-radio v-model="ruleForm.Gender" label="2">انثـي</el-radio>
-                                                        </el-form-item>
+                                                    <el-form-item
+                                                        label="الجنس"
+                                                        prop="Gender"
+                                                    >
+                                                        <el-radio
+                                                            v-model="ruleForm.Gender"
+                                                            label="1"
+                                                            >ذكـر</el-radio
+                                                        >
+                                                        <el-radio
+                                                            v-model="ruleForm.Gender"
+                                                            label="2"
+                                                            >انثـي</el-radio
+                                                        >
+                                                    </el-form-item>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <el-form-item label="إسم المدرسة" prop="SchoolId">
-                                                        <el-select v-model="ruleForm.SchoolId" placeholder="إسم المدرسة">
-                                                            <el-option v-for="item in Schools"
-                                                                       :key="item.id"
-                                                                       :label="item.name"
-                                                                       :value="item.id">
+                                                    <el-form-item
+                                                        label="إسم المدرسة"
+                                                        prop="SchoolId"
+                                                    >
+                                                        <el-select
+                                                            v-model="ruleForm.SchoolId"
+                                                            placeholder="إسم المدرسة"
+                                                        >
+                                                            <el-option
+                                                                v-for="item in Schools"
+                                                                :key="item.id"
+                                                                :label="item.name"
+                                                                :value="item.id"
+                                                            >
                                                             </el-option>
                                                         </el-select>
                                                     </el-form-item>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <el-form-item label="السنة الدراسية" prop="AcadimecYearId">
-                                                        <el-select v-model="ruleForm.AcadimecYearId" placeholder="السنة الدراسية">    
-                                                            <el-option v-for="item in AcadimacYears"
-                                                                       :key="item.id"
-                                                                       :label="item.name"
-                                                                       :value="item.id">
+                                                    <el-form-item
+                                                        label="السنة الدراسية"
+                                                        prop="AcadimecYearId"
+                                                    >
+                                                        <el-select
+                                                            v-model="ruleForm.AcadimecYearId"
+                                                            placeholder="السنة الدراسية"
+                                                        >
+                                                            <el-option
+                                                                v-for="item in AcadimacYears"
+                                                                :key="item.id"
+                                                                :label="item.name"
+                                                                :value="item.id"
+                                                            >
                                                             </el-option>
                                                             <!--<el-option label="Zone one" value="shanghai"></el-option>-->
                                                         </el-select>
@@ -150,150 +262,45 @@
 
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <el-form-item label="إسم الدخول" prop="LoginName">
-                                                        <el-input v-model="ruleForm.LoginName" placeholder="إسم الدخول"></el-input>
+                                                    <el-form-item
+                                                        label="إسم الدخول"
+                                                        prop="LoginName"
+                                                    >
+                                                        <el-input
+                                                            v-model="ruleForm.LoginName"
+                                                            placeholder="إسم الدخول"
+                                                        ></el-input>
                                                     </el-form-item>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <el-form-item label="البريدالإلكتروني" prop="Email">
-                                                        <el-input v-model="ruleForm.Email" placeholder="البريدالإلكتروني "></el-input>
+                                                    <el-form-item
+                                                        label="البريدالإلكتروني"
+                                                        prop="Email"
+                                                    >
+                                                        <el-input
+                                                            v-model="ruleForm.Email"
+                                                            placeholder="البريدالإلكتروني "
+                                                        ></el-input>
                                                     </el-form-item>
                                                 </div>
-                                          
                                             </div>
-                                            <div class="row" style="float: left;">            
+                                            <div
+                                                class="row"
+                                                style="float: left;"
+                                            >
                                                 <el-form-item>
-                                                    <el-button @click="resetForm('ruleForm')">إلـغاء</el-button>
-                                                    <el-button type="primary" @click="submitForm('ruleForm')">إنشـاء حساب</el-button>
-                                                </el-form-item>               
-                                                </div>
+                                                    <el-button
+                                                        @click="resetForm('ruleForm')"
+                                                        >إلـغاء</el-button
+                                                    >
+                                                    <el-button
+                                                        type="primary"
+                                                        @click="submitForm('ruleForm')"
+                                                        >إنشـاء حساب</el-button
+                                                    >
+                                                </el-form-item>
+                                            </div>
                                         </el-form>
-
-
-                                        <!--<div class="row">
-        <div class="col-md-3 align-self-center">
-            <label class="labels" for="#firstName">الأسم</label>
-        </div>
-        <div class="col-md-9 align-self-center">
-            <div class="form-group">
-                <input id="firstName" name="firstName" class="form-control" type="text" value="الأسم" required="required">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 align-self-center">
-            <label class="labels" for="#fatherName">أسم الأب</label>
-        </div>
-        <div class="col-md-9 align-self-center">
-            <div class="form-group">
-                <input id="fatherName" name="fatherName" class="form-control" type="text" value="أسم الأب" required="required">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 align-self-center">
-            <label class="labels" for="#grandfatherName">أسم الجد</label>
-        </div>
-        <div class="col-md-9 align-self-center">
-            <div class="form-group">
-                <input id="grandfatherName" name="grandfatherName" class="form-control" type="text" value="أسم الجد" required="required">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 align-self-center">
-            <label class="labels" for="#sureName">اللقب</label>
-        </div>
-        <div class="col-md-9 align-self-center">
-            <div class="form-group">
-                <input id="sureName" name="sureName" class="form-control" type="text" value="اللقب" required="required">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3 align-self-center">
-            <label class="labels" for="#din">الرقم الوطني</label>
-        </div>
-        <div class="col-md-9 align-self-center">
-            <div class="form-group">
-                <input id="din" name="din" class="form-control" type="text" value="الرقم الوطني" required="required">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3 align-self-center">
-            <label class="labels" for="#email">تاريخ الميلام</label>
-        </div>
-        <div class="col-md-9 align-self-center">
-            <div class="form-group" align="right">
-                <input id="date" class="form-control" type="date" name="birthday" required="required">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 align-self-center">
-            <label class="labels" for="#email">الجنس</label>
-        </div>
-        <div class="col-md-9 align-self-center" dir="rtl">
-            <div class="form-group">
-                <input id="male" type="radio" name="gender" value="male"> ذكر<br>
-                <input id="female" type="radio" name="gender" value="female"> أنثى<br>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 align-self-center">
-            <label class="labels" for="#email">البريد الالكتروني</label>
-        </div>
-        <div class="col-md-9 align-self-center">
-            <div class="form-group">
-                <input id="email" name="email" class="form-control" type="email" value="name@example.com" required="required">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 align-self-center">
-            <label class="labels" for="#confirmEmail"> تأكيد البريد الالكتروني</label>
-        </div>
-        <div class="col-md-9 align-self-center">
-            <div class="form-group">
-                <input id="confirmEmail" name="confirmEmail" class="form-control" type="email" value="name@example.com" required="required">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 align-self-center">
-            <label class="labels" for="#password">الرقم السري</label>
-        </div>
-        <div class="col-md-9 align-self-center">
-            <div class="form-group">
-                <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Password" type="password">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 align-self-center">
-            <label class="labels" for="#phone">رقم الهاتف</label>
-        </div>
-        <div class="col-md-4 align-self-center">
-            <div class="form-group">
-                <input id="phone" name="phone" class="form-control" type="tel" value="+218 91 000 0000" required="required">
-            </div>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col-md-6">
-            <button class="btn btn-primary" type="submit">تسجيــل</button>
-            <button class="btn btn-outline-primary" type="reset">إلغاء</button>
-        </div>
-    </div>-->
                                     </div>
                                 </div>
                             </div>

@@ -71,7 +71,6 @@ namespace Management.Controllers
                     return BadRequest("الرجاء إدخال اللفب");
                 }
 
-
                 if (!Validation.IsValidEmail(student.Email))
                 {
                     return BadRequest("الرجاء إدخال البريد الإلكتروني بطريقة الصحيحة");

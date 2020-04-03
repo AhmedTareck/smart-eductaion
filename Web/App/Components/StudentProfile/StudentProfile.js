@@ -283,7 +283,7 @@ export default {
                     this.photo = this.ruleForm.Image;
                     //this.ruleForm.BirthDate = moment(this.ruleForm.BirthDate).format('YYYY-MM-DD HH:mm:ss');
                     this.$http
-                        .SignupStudent(this.ruleForm)
+                        .updateStudent(this.ruleForm)
                         .then(response => {
                             this.$blockUI.Stop();
                             // this.$alert('<h4>' + 'تم تسجيل بياناتك بنجاح وارسال بريد التحقق بنجاح الرجاء فتح بريدك الإلكتروني ' + '</h4>', '', this.success);
@@ -341,15 +341,20 @@ export default {
                 .then(response => {
                     this.$blockUI.Stop();
                     this.ruleForm.FirstName = response.data.student[0].firstName;
-                    console.log(response.data.student[0]);
-                    this.ruleForm.FirstName = response.data.student[0].acadimacYears;
-                    this.ruleForm.FirstName = response.data.student[0].nID;
-                    this.ruleForm.FirstName = response.data.student[0].fatherName;
-                    this.ruleForm.FirstName = response.data.student[0].grandFatherName;
-                    this.ruleForm.FirstName = response.data.student[0].surName;
-                    this.ruleForm.FirstName = response.data.student[0].address;
-                    this.ruleForm.FirstName = response.data.student[0].email;
-                    this.ruleForm.FirstName = response.data.student[0].image;
+                    this.ruleForm.FatherName = response.data.student[0].fatherName;
+                    this.ruleForm.GrandFatherName = response.data.student[0].grandFatherName;
+                    this.ruleForm.SurName = response.data.student[0].surName;
+                    this.ruleForm.BirthDate = response.data.student[0].birthDate;
+                    this.ruleForm.NID = response.data.student[0].nid;
+                    this.ruleForm.imageData = response.data.student[0].image;
+                    this.ruleForm.MatherName = response.data.student[0].matherName;
+                    this.ruleForm.Address = response.data.student[0].address;
+                    this.ruleForm.Phone = response.data.student[0].phone;
+                    this.ruleForm.Gender = response.data.student[0].gender;
+                    this.ruleForm.SchoolId = response.data.student[0].schoolId;
+                    this.ruleForm.Email = response.data.student[0].email;
+                    this.ruleForm.AcadimacYears = response.data.student[0].acadimacYears;
+                    this.ruleForm.LoginName = response.data.student[0].loginName;
                     console.log(response.data.student[0]);
                 })
                 .catch(err => {
