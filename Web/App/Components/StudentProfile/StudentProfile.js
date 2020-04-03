@@ -4,14 +4,15 @@ export default {
     name: "SignUp",
     components: {},
     created() {
-        this.GetAllSchools();
-        this.GetAllAcadimacYears();
+        // this.GetAllSchools();
+        // this.GetAllAcadimacYears();
+        this.GetStudentProfile();
     },
     data() {
         return {
             imageData: "/assets/img/placeholder.jpg",
             AcadimacYears: [],
-            Schools: [],
+            Students: [],
             ConfirmPassword: "",
             photo: "",
             success: {
@@ -333,13 +334,14 @@ export default {
             this.$refs[formName].resetFields();
         },
 
-        GetAllSchools() {
+        GetStudentProfile() {
             this.$blockUI.Start();
             this.$http
-                .GetAllSchools()
+                .GetStudentProfile()
                 .then(response => {
                     this.$blockUI.Stop();
-                    this.Schools = response.data.schools;
+                    this.ruleForm.FirstName = response.data.student[0].firstName;
+                    console.log(response.data.student[0]);
                 })
                 .catch(err => {
                     this.$blockUI.Stop();
