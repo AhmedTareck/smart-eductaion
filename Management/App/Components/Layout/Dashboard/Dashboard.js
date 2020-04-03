@@ -132,7 +132,11 @@ export default {
             }
         },
         IsAuth(perm) {
+
             var permission = this.loginDetails.permission.toString().split(",");
+            if (this.loginDetails.userType == 1) {
+                return (1);
+            }
             for (var i in permission) {
 
                 if (permission[i] == perm) {

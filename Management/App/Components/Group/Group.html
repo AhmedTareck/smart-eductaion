@@ -22,7 +22,7 @@
 
                                 <br>
 
-                                <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="addGroup()">إضافة   صلاحية</el-button>
+                                <el-button class="btn btn-info btn-fill " type="primary" @click="addGroup()"> اضافة مجموعة</el-button>
                             </div>
 
                         </div>
@@ -38,7 +38,7 @@
                     <div class="col-md-10">
                         <div class="form-group">
                             <br /><br />
-                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للمواد الدراسية"
+                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات"
                                       type="info">
                             </el-alert>
                         </div>
@@ -58,14 +58,12 @@
                                     </th>
 
                                     <th>
-                                        اسم المادة
+                                        الاسم
                                     </th>
                                     <th>
                                         تاريخ الإدراج
                                     </th>
-                                    <th style="text-align:left">
-                                        العمليات
-                                    </th>
+                                  
                                     </thead>
                                     <tbody>
                                         <tr v-for="item,index in Group">
@@ -73,14 +71,6 @@
                                             <td>{{item.name }} </td>
                                             <td>{{item.createdOn | moment }} </td>
 
-                                            <td class="td-actions text-left">
-                                                <button type="button" rel="tooltip" @click.prevent="viewStudent(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" @click.prevent="deleteSubject(item.id)" class="btn btn-danger btn-link" data-original-title="" title="">
-                                                    <i class="material-icons" title="حدف">close</i>
-                                                </button>
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -96,7 +86,7 @@
                                                                    :current-page="pageNo"
                                                                    :page-size="pageSize"
                                                                    :total="pages"
-                                                                   @current-change="GetSubjectInfo($event)">
+                                                                   @current-change="GetGroupInfo($event)">
                                                     </el-pagination>
 
                                                 </div>

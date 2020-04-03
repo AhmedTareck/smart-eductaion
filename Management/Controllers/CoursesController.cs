@@ -30,18 +30,23 @@ namespace CMS.Controllers
         {
             try
             {
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Years_Add", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
 
                 if (form == null)
                 {
                     return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
                 }
 
-                var userId = this.help.GetCurrentUser(HttpContext);
-
-                if (userId <= 0)
-                {
-                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-                }
+               
 
                 var Years = (from p in db.AcadimacYears where p.Name == form.name select p).SingleOrDefault();
 
@@ -71,6 +76,16 @@ namespace CMS.Controllers
         {
             try
             {
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Years_View", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
                 var YearInof = from p in db.AcadimacYears where p.Status != 9 select p;
 
                 var Count = (from p in YearInof select p).Count();
@@ -98,18 +113,22 @@ namespace CMS.Controllers
         {
             try
             {
-
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Years_Edit", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
                 if (form == null)
                 {
                     return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
                 }
 
-                var userId = this.help.GetCurrentUser(HttpContext);
-
-                if (userId <= 0)
-                {
-                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-                }
+               
 
                 var Years = (from p in db.AcadimacYears where p.Id == form.id select p).SingleOrDefault();
 
@@ -134,11 +153,16 @@ namespace CMS.Controllers
         {
             try
             {
+                
                 var userId = this.help.GetCurrentUser(HttpContext);
-
                 if (userId <= 0)
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Years_Delete", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
                 }
 
                 var Year = (from p in db.AcadimacYears where p.Id == id select p).SingleOrDefault();
@@ -165,6 +189,16 @@ namespace CMS.Controllers
         {
             try
             {
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Years_View", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
                 var YearInof = from p in db.AcadimacYears where p.Status != 9 select p;
 
                 var YearInfo = (from p in YearInof
@@ -189,6 +223,16 @@ namespace CMS.Controllers
         {
             try
             {
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Subjects_View", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                } 
                 var subjects = from p in db.Subjects where p.Status != 9 select p;
 
                 if (id != 0)
@@ -222,10 +266,14 @@ namespace CMS.Controllers
             try
             {
                 var userId = this.help.GetCurrentUser(HttpContext);
-
                 if (userId <= 0)
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Subjects_Delete", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
                 }
 
                 var subject = (from p in db.Subjects where p.Id == id select p).SingleOrDefault();
@@ -252,18 +300,22 @@ namespace CMS.Controllers
         {
             try
             {
-
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Subjects_Add", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
                 if (form == null)
                 {
                     return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
                 }
 
-                var userId = this.help.GetCurrentUser(HttpContext);
-
-                if (userId <= 0)
-                {
-                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-                }
+               
 
                 var subjectCheck = (from p in db.AcadimacYears where p.Name == form.name select p).SingleOrDefault();
 
@@ -294,18 +346,22 @@ namespace CMS.Controllers
         {
             try
             {
-
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Subjects_Edit", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
                 if (form == null)
                 {
                     return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
                 }
 
-                var userId = this.help.GetCurrentUser(HttpContext);
-
-                if (userId <= 0)
-                {
-                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-                }
+                
 
                 var subject = (from p in db.Subjects where p.Id == form.id select p).SingleOrDefault();
 
@@ -330,6 +386,16 @@ namespace CMS.Controllers
         {
             try
             {
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Subjects_View", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
                 var subject = from p in db.Subjects
                               where p.Status != 9 && p.AcadimecYearId == yearId
                               select p;
@@ -491,11 +557,16 @@ namespace CMS.Controllers
             try
             {
                 var userId = this.help.GetCurrentUser(HttpContext);
-
                 if (userId <= 0)
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
                 }
+                var perm = this.help.getPermissin("Ads_Add", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
+
 
                 if (post == null)
                 {
@@ -526,6 +597,17 @@ namespace CMS.Controllers
         {
             try
             {
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Ads_View", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
+
                 var adds = from p in db.Ads where p.Status != 9 select p;
 
 
@@ -554,7 +636,17 @@ namespace CMS.Controllers
         public IActionResult GetdegreageImage(long id)
         {
             try
-            {
+            {var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Ads_View", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
+
                 var ads = (from p in db.Ads
                            where p.Id == id
                            select p.Image).SingleOrDefault();
@@ -578,11 +670,16 @@ namespace CMS.Controllers
             try
             {
                 var userId = this.help.GetCurrentUser(HttpContext);
-
                 if (userId <= 0)
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
                 }
+                var perm = this.help.getPermissin("Ads_Delete", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
+
 
                 var ads = (from p in db.Ads where p.Id == id select p).SingleOrDefault();
 
@@ -661,17 +758,23 @@ namespace CMS.Controllers
         {
             try
             {
+                
+                    var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Exams_Add", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
                 if (exam == null)
                 {
                     return StatusCode(401, "حدتت مشكلة في ارسال البيانات");
                 }
 
-                var userId = this.help.GetCurrentUser(HttpContext);
-
-                if (userId <= 0)
-                {
-                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-                }
+                
 
                 if (string.IsNullOrEmpty(exam.Name))
                 {
@@ -990,7 +1093,16 @@ namespace CMS.Controllers
         {
             try
             {
-
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Events_View", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
                 var selectedEvents = (from e in db.Events
                                       select new { e.Id, e.Name }).ToList();
                 if (selectedEvents == null || selectedEvents.Count <= 0)
@@ -1014,7 +1126,16 @@ namespace CMS.Controllers
         {
             try
             {
-
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Years_View", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
 
                 var selectedAcadmeicYears = (from ay in db.AcadimacYears
                                              select new { ay.Id, ay.Name}).ToList();
@@ -1040,7 +1161,16 @@ namespace CMS.Controllers
             try
             {
 
-
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Subjects_View", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
                 var selectedSubjects = (from s in db.Subjects where s.AcadimecYearId == academicYearId
                                         select new { s.Id, s.Name }).ToList();
 
