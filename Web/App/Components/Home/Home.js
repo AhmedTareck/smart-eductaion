@@ -1,14 +1,9 @@
-﻿
-
-export default {
-    name: 'home',
-    components: {
-      
-    },
-    created() {        
-    },
+﻿export default {
+    name: "home",
+    components: {},
+    created() {},
     data() {
         return {};
     },
-    methods: {}    
-}
+    methods: {}
+};

@@ -1,0 +1,32 @@
+<div class="card bg-secondary card-shadowless">
+    <div class="card-header mb-3 cell-border">
+       
+        <h4 class="pull-right"> {{lectures.course}} </h4>
+     
+    </div>
+    <div c  v-for="(item, index) in lectures.chapters" :key="index" class="cell-border">
+        <div class="list-group list-group-chat list-group-flush">
+            <a href="javascript:;" class="list-group-item" :class="{
+    'active': index === selectedChapterIndex,
+    'bg-gradient-default': index === selectedChapterIndex}" @click.prevent='setselectedChapterIndex(index)'>
+                <div class="media pull-right">
+                    <div class="media-body ml-1">
+                        <div class="justify-content-between align-items-center">
+                            <h6 class="mb-0" :class="{'text-white': index === selectedChapterIndex}">
+                                {{item.title}}
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div id="navbarNav" class="noselect" v-show="index === selectedChapterIndex" >
+            
+            <ul class="navbar-nav flex-column">
+                <li class="nav-item   mr-0 clickable" v-for="(lecture, lectureIndex) in item.lectures" @click.prevent="setSelectedLectureIndex(lectureIndex), displayLecture(index, lectureIndex), window.location='#Content'" @mouseover='hover = true, sethighlightedLectureIndex(lectureIndex)' @mouseleave="hover = false" :class="{'highlight': hover && lectureIndex === highlightedLectureIndex,'selected': savedSelectedChapterIndex === selectedChapterIndex && lectureIndex === selectedLectureIndex }">
+                    <a class="nav-link pull-right mr-2 ml--3" :href="contentLink"  >{{lecture.title}} </a>   
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -52,14 +52,12 @@
     <Compile Remove="Content\element-ui\**" />
     <Compile Remove="Content\Quiz\**" />
     <Compile Remove="Content\vuetify\**" />
-    <Compile Remove="Models\backup1\**" />
     <Compile Remove="Uploads\**" />
     <Compile Remove="Views\Game\**" />
 
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="App\**" />
     <Content Remove="Content\**" />
-    <Content Remove="Models\backup1\**" />
     <Content Remove="Uploads\**" />
     <Content Remove="Views\Game\**" />
     <EmbeddedResource Remove="App\Components\Home\NewFolder\**" />
@@ -75,7 +73,6 @@
     <EmbeddedResource Remove="Content\element-ui\**" />
     <EmbeddedResource Remove="Content\Quiz\**" />
     <EmbeddedResource Remove="Content\vuetify\**" />
-    <EmbeddedResource Remove="Models\backup1\**" />
     <EmbeddedResource Remove="Uploads\**" />
     <EmbeddedResource Remove="Views\Game\**" />
     <None Remove="App\Components\Home\NewFolder\**" />
@@ -91,15 +88,12 @@
     <None Remove="Content\element-ui\**" />
     <None Remove="Content\Quiz\**" />
     <None Remove="Content\vuetify\**" />
-    <None Remove="Models\backup1\**" />
     <None Remove="Uploads\**" />
     <None Remove="Views\Game\**" />
     <Compile Remove="Controllers\CustometsController.cs" />
     <Compile Remove="Controllers\DateController.cs" />
     <Compile Remove="Controllers\Security.cs" />
-    <Compile Remove="Controllers\SecurityController.cs" />
     <Compile Remove="Controllers\Validation.cs" />
-    <Compile Remove="Models\Users.cs" />
     <Content Remove="package-lock.json" />
    
     <Content Remove="wwwroot\assets\img\ill\p2.svg" />
@@ -164,6 +158,8 @@
     <Content Remove="wwwroot\assets\scss\theme\vendor\headroom.scss" />
     <Content Remove="wwwroot\assets\scss\theme\variables.scss" />
     <Content Remove="wwwroot\assets\scss\theme\vendor\scrollbar.scss" />
+    <None Remove="App\Components\Course\Course.html" />
+    <None Remove="App\Components\Course\Content\Content.vue" />
   </ItemGroup>
 
   <ItemGroup>
@@ -176,6 +172,8 @@
 
   <ItemGroup>
     <Folder Include="Content\Images\" />
+    <Folder Include="Content\Images\" />
+    <Folder Include="App\Components\MyCourses\" />
   </ItemGroup>
 
  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot') ">
@@ -200,7 +198,7 @@
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="Properties\wwwroot\**; App\dist\**" />
-      <ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </ResolvedFileToPublish>

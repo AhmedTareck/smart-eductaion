@@ -1,132 +1,201 @@
 ﻿<nav id="navbar-main" :class="NavBar">
     <div class="container">
-        <button type="button" class="btn btn-secondary ni ni-hat-3"> منصة اللبنة الذكية </button>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button type="button" class="btn btn-secondary ni ni-hat-3">
+            منصة اللبنة الذكية
         </button>
         <div class="navbar-collapse collapse" id="navbar_global">
-            <div class="navbar-collapse-header">
-                <div class="row">
-                    <div class="col-6 collapse-brand">
-                        <a href="./index.html">
-                            <img src="/assets/img/brand/blue.png">
-                        </a>
-                    </div>
-                    <div class="col-6 collapse-close">
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-                            <span></span>
-                            <span></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <ul class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto">
+            <ul
+                class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto"
+                id="SignUp"
+            >
                 <li class="nav-item">
-                    
-                    <a href="#" @click.prevent="href('/',0)" class="nav-link" data-toggle="dropdown" role="button">
+                    <a
+                        href="#"
+                        @click.prevent="href('/',0)"
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        role="button"
+                    >
                         <i class="ni ni-ui-04 d-lg-none"></i>
-                        <span class="nav-link-inner--text">Home</span>
+                        <span class="nav-link-inner--text">الرئيسـية</span>
                     </a>
                 </li>
-
-                <li class="nav-item dropdown">
-                    <a href="javascript:;" class="nav-link" data-toggle="dropdown" role="button">
+                <li class="nav-item">
+                    <a
+                        href="#"
+                        @click.prevent="href('/ContactUs',1)"
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        role="button"
+                    >
                         <i class="ni ni-ui-04 d-lg-none"></i>
-                        <span class="nav-link-inner--text">Elements</span>
+                        <span class="nav-link-inner--text">تواصل معنا</span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-xl">
-                        <div class="dropdown-menu-inner">
-                            <a href="https://demos.creative-tim.com/argon-design-system-pro/index.html" class="media d-flex align-items-center">
-                                <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
-                                    <i class="ni ni-spaceship"></i>
-                                </div>
-                                <div class="media-body ml-3">
-                                    <h6 class="heading text-primary mb-md-1">Elements</h6>
-                                    <p class="description d-none d-md-inline-block mb-0">Learn how to use compiling Scss, change brand colors and more.</p>
-                                </div>
-                            </a>
-                            <a href="https://demos.creative-tim.com/argon-design-system-pro/presentation.html" class="media d-flex align-items-center">
-                                <div class="icon icon-shape bg-gradient-warning rounded-circle text-white">
-                                    <i class="ni ni-palette"></i>
-                                </div>
-                                <div class="media-body ml-3">
-                                    <h6 class="heading text-primary mb-md-1">Presentation</h6>
-                                    <p class="description d-none d-md-inline-block mb-0">Learn more about colors, typography, icons and the grid system we used for .</p>
-                                </div>
-                            </a>
+                </li>
+                <li class="nav-item" v-if="loginDetails==null">
+                    <a
+                        href="#"
+                        @click.prevent="href('/Login',1)"
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        role="button"
+                        style="font-weight:bold"
+                    >
+                        <i class="ni ni-ui-04 d-lg-none"></i>
+                        <span>
+                            تسجيل دخول
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item" v-if="loginDetails==null">
+                    <a
+                        href="#"
+                        @click.prevent="href('/SignUp',1)"
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        role="button"
+                        style="font-weight:bold"
+                    >
+                        <i class="ni ni-ui-04 d-lg-none"></i>
+                        <span>
+                            تسجيل جــديد
+                        </span>
+                    </a>
+                </li>
+                <li
+                    class="nav-item dropdown"
+                    style="margin-right: -1.5rem;"
+                    v-if="loginDetails!=null"
+                >
+                    <a
+                        href="#"
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        role="button"
+                    >
+                        <i class="ni ni-ui-04 d-lg-none"></i>
+                        <div class="demo-basic--circle">
+                            <div class="block" key="large">
+                                <span>
+                                    {{loginDetails.firstName}}
+                                </span>
+                            </div>
                         </div>
-                        <div class="dropdown-menu-footer">
-                            <a class="dropdown-item" href="https://demos.creative-tim.com/argon-design-system-pro/docs/1.0/getting-started/overview.html">
-                                <i class="ni ni-atom"></i>
-                                Getting Started
-                            </a>
-                            <a class="dropdown-item" href="https://demos.creative-tim.com/argon-design-system-pro/docs/1.0/foundation/colors.html">
-                                <i class="ni ni-ui-04"></i>
-                                Foundation
-                            </a>
-                            <a class="dropdown-item" href="https://demos.creative-tim.com/argon-design-system-pro/docs/1.0/components/alerts.html">
-                                <i class="ni ni-archive-2"></i>
-                                Components
-                            </a>
-                        </div>
+                    </a>
+                    <div
+                        class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuLink"
+                    >
+                        <a class="dropdown-item" href="#">
+                            <i
+                                class="fa fa-user text-muted"
+                                style="font-weight:bold"
+                            ></i>
+                            {{loginDetails.firstName}}
+                            {{loginDetails.fatherName}} {{loginDetails.surName}}
+                        </a>
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="href('/Messages',0)"
+                        >
+                            <i
+                                class="fa fa-inbox text-muted"
+                                style="font-weight:bold"
+                            ></i>
+                            الرسـائل
+                            <el-badge class="mark" :value="3" />
+                        </a>
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="href('/MyCourses',1)"
+                        >
+                            <i class="ni ni-lock-circle-open text-muted"></i>
+                            دوراتي تدريبية
+                        </a>
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="href('/StudentProfile',1)"
+                        >
+                            <i class="ni ni-lock-circle-open text-muted"></i>
+                            ملف الشخصي
+                        </a>
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="logout()"
+                        >
+                            <i class="fa fa-sign-out"></i>
+                            تسجيل الخروج
+                        </a>
                     </div>
                 </li>
-                
-
-                <li class="nav-item">
-                    <a href="#" @click.prevent="href('/Login',1)" class="nav-link" data-toggle="dropdown" role="button" style="font-weight:bold">
-                        <i class="ni ni-ui-04 d-lg-none" ></i>
-                        Login
-                        </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" @click.prevent="href('/SignUp',0)" class="nav-link" data-toggle="dropdown" role="button" style="font-weight:bold">
-                        <i class="ni ni-ui-04 d-lg-none"></i>
-                        SignUp
-                        </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="javascript:;" class="nav-link" data-toggle="dropdown" role="button">
+                <li class="nav-item dropdown" v-if="loginDetails!=null">
+                    <a
+                        href="javascript:;"
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        role="button"
+                    >
                         <i class="ni ni-tablet-button d-lg-none"></i>
                         <div class="demo-basic--circle">
                             <div class="block" key="large">
-                                <el-avatar size="large" :src="circleUrl"></el-avatar>
+                                <el-avatar
+                                    size="large"
+                                    :src="'/Security/GetStudentImage?userId='+loginDetails.userId+''"
+                                ></el-avatar>
                             </div>
                         </div>
-                        <!--<div class="sub-title">User Name</div>-->
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="./examples/account-settings.html">
-                            <i class="fa fa-user text-muted" style="font-weight:bold"></i>
-                            Abdullah Elamir
+                    <div
+                        class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuLink"
+                    >
+                        <a class="dropdown-item" href="#">
+                            <i
+                                class="fa fa-user text-muted"
+                                style="font-weight:bold"
+                            ></i>
+                            {{loginDetails.firstName}}
+                            {{loginDetails.fatherName}} {{loginDetails.surName}}
                         </a>
-                        <a class="dropdown-item" href="./examples/account-settings.html">
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="href('/Messages',0)"
+                        >
+                            <i
+                                class="fa fa-inbox text-muted"
+                                style="font-weight:bold"
+                            ></i>
+                            الرسـائل
+                            <el-badge class="mark" :value="3" />
+                        </a>
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="href('/MyCourses',1)"
+                        >
                             <i class="ni ni-lock-circle-open text-muted"></i>
-                            Account Settings
+                            دوراتي تدريبية
                         </a>
-                        <a class="dropdown-item" href="./examples/login-page.html">
-                            <i class="ni ni-tv-2 text-danger"></i>
-                            Login Page
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="href('/StudentProfile',1)"
+                        >
+                            <i class="ni ni-lock-circle-open text-muted"></i>
+                            ملف الشخصي
                         </a>
-                        <a class="dropdown-item" href="./examples/register-page.html">
-                            <i class="ni ni-air-baloon text-pink"></i>
-                            Register Page
-                        </a>
-                        <a class="dropdown-item" href="./examples/reset-page.html">
-                            <i class="ni ni-atom text-info"></i>
-                            Reset Page
-                        </a>
-                        <a class="dropdown-item" href="./examples/invoice-page.html">
-                            <i class="ni ni-bullet-list-67 text-success"></i>
-                            Invoice Page
-                        </a>
-                        <a class="dropdown-item" href="./examples/checkout-page.html">
-                            <i class="ni ni-basket text-orange"></i>
-                            Checkout Page
-                        </a>
-                        <a class="dropdown-item" href="./examples/chat-page.html">
-                            <i class="ni ni-chat-round text-primary"></i>
-                            Chat Page
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="logout()"
+                        >
+                            <i class="fa fa-sign-out"></i>
+                            تسجيل الخروج
                         </a>
                     </div>
                 </li>
