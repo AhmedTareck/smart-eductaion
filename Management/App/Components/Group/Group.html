@@ -1,0 +1,119 @@
+﻿<div class="content">
+    <EditGroup v-if="state==2"></EditGroup>
+    <AddSGroup v-if="state==1"></AddSGroup>
+    <div class="container-fluid" v-if="state==0">
+        <div class="row">
+            <div class="card">
+
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">إدارة بيانات المواد الدراسية </h4>
+                    <p class="card-category"> هذه الصفحه خاصه بإدارة بيانات المواد الدراسية</p>
+                </div>
+
+                <br />
+                <br />
+                <div class="row" style="margin-right: 0px; margin-left: 0px">
+                    
+
+                    <div class="row" style="margin-right: 0px; margin-left: 0px;">
+
+                        <div class="col-md-12">
+                            <div class="pull-left">
+
+                                <br>
+
+                                <el-button class="btn btn-info btn-fill " type="primary" @click="addGroup()"> اضافة مجموعة</el-button>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="row" v-if="Group==0">
+
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <br /><br />
+                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات"
+                                      type="info">
+                            </el-alert>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <!--Table Info-->
+                <div class="row" v-if="Group!=0">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="text-info">
+                                    <th>
+                                        #
+                                    </th>
+
+                                    <th>
+                                        الاسم
+                                    </th>
+                                    <th>
+                                        تاريخ الإدراج
+                                    </th>
+                                  
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="item,index in Group">
+                                            <td>{{index+1}} </td>
+                                            <td>{{item.name }} </td>
+                                            <td>{{item.createdOn | moment }} </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="pull-right">
+                                            <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate" style="direction: ltr;">
+                                                <div style="text-align: center;">
+
+                                                    <el-pagination background
+                                                                   layout="prev, pager, next"
+                                                                   :current-page="pageNo"
+                                                                   :page-size="pageSize"
+                                                                   :total="pages"
+                                                                   @current-change="GetGroupInfo($event)">
+                                                    </el-pagination>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="pull-left">
+                                            <div class="disabled-sorting text-right" id="datatable_info" role="status" aria-live="polite">Showing {{pageNo}} to {{pageSize}} of {{pages}} entries</div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

@@ -10,7 +10,7 @@ export default {
         this.loginDetails = this.decrypt(sessionStorage.getItem('currentUser'));
         if (this.loginDetails != null) {
             this.loginDetails = JSON.parse(this.loginDetails);
-          
+            
         } else {
             window.location.href = '/Security/Login';
         }
@@ -130,6 +130,23 @@ export default {
             } else {
                 root.setAttribute('class', 'nav-open');
             }
+        },
+        IsAuth(perm) {
+
+            var permission = this.loginDetails.permission.toString().split(",");
+            if (this.loginDetails.userType == 1) {
+                return (1);
+            }
+            for (var i in permission) {
+
+                if (permission[i] == perm) {
+                    return(1)
+                }
+            }
+            if (i == permission.length - 1) {
+                return (0);
+            }
+            
         },
         OpenNotificationMenu() {
             var root = document.getElementById("Notifications");
