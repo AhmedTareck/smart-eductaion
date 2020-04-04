@@ -10,12 +10,27 @@ export default {
         
         console.log(this.lectures);
         this.data = this.lectures;
+        
+        
+    },
+    mounted() {
+        this.setselectedChapterIndex(0);
+        this.setSelectedLectureIndex(0);
+        this.displayLecture(0, 0);
+        
+    },
+    updated() {
+        if (this.selectDefaultLecture) {
+            this.selectDefaultLecture = false;
+            this.displayLecture(0, 0);
+        }
     },
     data() {
         return {
             selectedChapterIndex: null,
             highlightedLectureIndex: null,
             selectedLectureIndex: null,
+            selectDefaultLecture:true,
             savedSelectedChapterIndex: null,
             hover: false,
             contentLink: '#Content',

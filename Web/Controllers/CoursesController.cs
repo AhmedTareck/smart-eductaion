@@ -257,7 +257,7 @@ namespace Web.Controllers
         //     }
 
 
-        [HttpGet("fetchCourses")]
+        [HttpGet("fetchCourse")]
         public IActionResult getLectures([FromQuery] int eventId)
         {
             
@@ -265,6 +265,26 @@ namespace Web.Controllers
             try
             {
                 var selectedEvent = (from e in db.Events join s in db.Shapters on e.Id equals s.EventId into eventShapter where e.Id == eventId select new { id = e.Id, course = e.Name, chapters = eventShapter.Select(es => new { title = es.Name, lectures = es.Lectures.Select(sl => new { id = sl.Id, title = sl.Name, videoUrl = sl.VideoPath, Description = sl.Description ,fileUrl = sl.LectureFiles.Select(lf => new { id = lf.Id, lf.AttashmentFile, lf.Status }) }) }) }).ToList();
+
+                if (selectedEvent == null || selectedEvent.Count == 0)
+                    return StatusCode(401, "هذا الكورس غير مسجل");
+
+                return Ok(selectedEvent);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.InnerException.Message);
+            }
+        }
+
+        [HttpGet("fetchCourses")]
+        public IActionResult getCourses([FromQuery] int eventId)
+        {
+
+
+            try
+            {
+                var selectedEvent = (from e in db.Events join s in db.Shapters on e.Id equals s.EventId into eventShapter where e.Id == eventId select new { id = e.Id, course = e.Name, chapters = eventShapter.Select(es => new { title = es.Name, lectures = es.Lectures.Select(sl => new { id = sl.Id, title = sl.Name, videoUrl = sl.VideoPath, Description = sl.Description, fileUrl = sl.LectureFiles.Select(lf => new { id = lf.Id, lf.AttashmentFile, lf.Status }) }) }) }).ToList();
 
                 if (selectedEvent == null || selectedEvent.Count == 0)
                     return StatusCode(401, "هذا الكورس غير مسجل");
