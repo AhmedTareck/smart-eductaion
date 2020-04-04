@@ -12,6 +12,8 @@ import Home from './Components/Home/Home.vue';
 import Course from './Components/Course/Course.vue';
 import MyCourses from './Components/MyCourses/MyCourses.vue';
 import Messages from './Components/Messages/Messages.vue';
+import StudentProfile from './Components/StudentProfile/StudentProfile.vue';
+import ContactUs from './Components/ContactUs/ContactUs.vue';
 /*import Students from './Components/Students/Students.vue';
 import Companies from './Components/Companies/Companies.vue';
 import Packages from './Components/Packages/Packages.vue';
@@ -56,8 +58,9 @@ const router = new VueRouter({
         { path: '/SignUp', component: SignUp },
         { path: '/Course', component: Course },
         { path: '/MyCourses', component: MyCourses },
-        { path: '/Messages', component: Messages }
-        
+        { path: '/Messages', component: Messages },
+        { path: '/StudentProfile', component: StudentProfile },
+        { path: '/ContactUs', component: ContactUs }
     ]
 
 });

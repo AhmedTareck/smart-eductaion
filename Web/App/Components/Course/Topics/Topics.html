@@ -1,11 +1,10 @@
 <div class="card bg-secondary card-shadowless">
     <div class="card-header mb-3 cell-border">
        
-        <h4 class="pull-right"> iOS مادة برمجة </h4>
+        <h4 class="pull-right"> {{lectures.course}} </h4>
      
     </div>
-    <!--//active bg-gradient-primary-->
-    <div c  v-for="(item, index) in chapters" :key="index" class="cell-border">
+    <div c  v-for="(item, index) in lectures.chapters" :key="index" class="cell-border">
         <div class="list-group list-group-chat list-group-flush">
             <a href="javascript:;" class="list-group-item" :class="{
     'active': index === selectedChapterIndex,

@@ -1,19 +1,46 @@
-﻿<nav id="navbar-main" :class="NavBar" >
-    <div class="container" >
-        <button type="button" class="btn btn-secondary ni ni-hat-3"> منصة اللبنة الذكية </button>
+﻿<nav id="navbar-main" :class="NavBar">
+    <div class="container">
+        <button type="button" class="btn btn-secondary ni ni-hat-3">
+            منصة اللبنة الذكية
+        </button>
         <div class="navbar-collapse collapse" id="navbar_global">
-            <ul class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto" id="SignUp">
+            <ul
+                class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto"
+                id="SignUp"
+            >
                 <li class="nav-item">
-
-                    <a href="#" @click.prevent="href('/',0)" class="nav-link" data-toggle="dropdown" role="button">
+                    <a
+                        href="#"
+                        @click.prevent="href('/',0)"
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        role="button"
+                    >
                         <i class="ni ni-ui-04 d-lg-none"></i>
                         <span class="nav-link-inner--text">الرئيسـية</span>
                     </a>
                 </li>
-
-
+                <li class="nav-item">
+                    <a
+                        href="#"
+                        @click.prevent="href('/ContactUs',1)"
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        role="button"
+                    >
+                        <i class="ni ni-ui-04 d-lg-none"></i>
+                        <span class="nav-link-inner--text">تواصل معنا</span>
+                    </a>
+                </li>
                 <li class="nav-item" v-if="loginDetails==null">
-                    <a href="#" @click.prevent="href('/Login',1)" class="nav-link" data-toggle="dropdown" role="button" style="font-weight:bold">
+                    <a
+                        href="#"
+                        @click.prevent="href('/Login',1)"
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        role="button"
+                        style="font-weight:bold"
+                    >
                         <i class="ni ni-ui-04 d-lg-none"></i>
                         <span>
                             تسجيل دخول
@@ -21,18 +48,32 @@
                     </a>
                 </li>
                 <li class="nav-item" v-if="loginDetails==null">
-                    <a href="#" @click.prevent="href('/SignUp',1)" class="nav-link" data-toggle="dropdown" role="button" style="font-weight:bold">
+                    <a
+                        href="#"
+                        @click.prevent="href('/SignUp',1)"
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        role="button"
+                        style="font-weight:bold"
+                    >
                         <i class="ni ni-ui-04 d-lg-none"></i>
                         <span>
                             تسجيل جــديد
                         </span>
                     </a>
                 </li>
-
-                <li class="nav-item dropdown" style="margin-right: -1.5rem;" v-if="loginDetails!=null">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">
+                <li
+                    class="nav-item dropdown"
+                    style="margin-right: -1.5rem;"
+                    v-if="loginDetails!=null"
+                >
+                    <a
+                        href="#"
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        role="button"
+                    >
                         <i class="ni ni-ui-04 d-lg-none"></i>
-
                         <div class="demo-basic--circle">
                             <div class="block" key="large">
                                 <span>
@@ -41,73 +82,122 @@
                             </div>
                         </div>
                     </a>
-
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div
+                        class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuLink"
+                    >
                         <a class="dropdown-item" href="#">
-                            <i class="fa fa-user text-muted" style="font-weight:bold"></i>
-                            {{loginDetails.firstName}} {{loginDetails.fatherName}}  {{loginDetails.surName}}
+                            <i
+                                class="fa fa-user text-muted"
+                                style="font-weight:bold"
+                            ></i>
+                            {{loginDetails.firstName}}
+                            {{loginDetails.fatherName}} {{loginDetails.surName}}
                         </a>
-
-
-                        <a class="dropdown-item" href="#" @click.prevent="href('/Messages',0)">
-                            <i class="fa fa-inbox text-muted" style="font-weight:bold"></i>
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="href('/Messages',0)"
+                        >
+                            <i
+                                class="fa fa-inbox text-muted"
+                                style="font-weight:bold"
+                            ></i>
                             الرسـائل
                             <el-badge class="mark" :value="3" />
                         </a>
-                        <a class="dropdown-item" href="#" @click.prevent="href('/MyCourses',1)">
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="href('/MyCourses',1)"
+                        >
                             <i class="ni ni-lock-circle-open text-muted"></i>
                             دوراتي تدريبية
                         </a>
-
-                        <a class="dropdown-item" href="./examples/account-settings.html">
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="href('/StudentProfile',1)"
+                        >
                             <i class="ni ni-lock-circle-open text-muted"></i>
                             ملف الشخصي
                         </a>
-
-                        <a class="dropdown-item" href="#" @click.prevent="logout()">
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="logout()"
+                        >
                             <i class="fa fa-sign-out"></i>
                             تسجيل الخروج
                         </a>
-
                     </div>
                 </li>
               
                 <li class="nav-item dropdown" v-if="loginDetails!=null">
-                    <a href="javascript:;" class="nav-link" data-toggle="dropdown" role="button">
+                    <a
+                        href="javascript:;"
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        role="button"
+                    >
                         <i class="ni ni-tablet-button d-lg-none"></i>
                         <div class="demo-basic--circle">
                             <div class="block" key="large">
-                                <el-avatar size="large" :src="'/Security/GetStudentImage?userId='+loginDetails.userId+''"></el-avatar>
+                                <el-avatar
+                                    size="large"
+                                    :src="'/Security/GetStudentImage?userId='+loginDetails.userId+''"
+                                ></el-avatar>
                             </div>
                         </div>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div
+                        class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuLink"
+                    >
                         <a class="dropdown-item" href="#">
-                            <i class="fa fa-user text-muted" style="font-weight:bold"></i>
-                            {{loginDetails.firstName}} {{loginDetails.fatherName}}  {{loginDetails.surName}}
+                            <i
+                                class="fa fa-user text-muted"
+                                style="font-weight:bold"
+                            ></i>
+                            {{loginDetails.firstName}}
+                            {{loginDetails.fatherName}} {{loginDetails.surName}}
                         </a>
-
-
-                        <a class="dropdown-item" href="#" @click.prevent="href('/Messages',0)">
-                            <i class="fa fa-inbox text-muted" style="font-weight:bold"></i>
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="href('/Messages',0)"
+                        >
+                            <i
+                                class="fa fa-inbox text-muted"
+                                style="font-weight:bold"
+                            ></i>
                             الرسـائل
                             <el-badge class="mark" :value="3" />
                         </a>
-                        <a class="dropdown-item" href="#" @click.prevent="href('/MyCourses',1)">
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="href('/MyCourses',1)"
+                        >
                             <i class="ni ni-lock-circle-open text-muted"></i>
                             دوراتي تدريبية
                         </a>
-
-                        <a class="dropdown-item" href="./examples/account-settings.html">
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="href('/StudentProfile',1)"
+                        >
                             <i class="ni ni-lock-circle-open text-muted"></i>
                             ملف الشخصي
                         </a>
-
-                        <a class="dropdown-item" href="#" @click.prevent="logout()">
+                        <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="logout()"
+                        >
                             <i class="fa fa-sign-out"></i>
                             تسجيل الخروج
                         </a>
-
                     </div>
                 </li>
             </ul>

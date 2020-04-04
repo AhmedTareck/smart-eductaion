@@ -1,6 +1,6 @@
 ﻿<div id="content" style="height:100%;">
 
-    <iframe class="video h-75 d-inline-block " :src="lecture.url" frameborder="0"
+    <iframe class="video h-100 d-inline-block " :src="lecture.videoUrl" frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     <div class="pt-2 pr-4 pl-4 rtl">
@@ -19,14 +19,20 @@
             <h6 class="pull-right">{{lecture.title}}</h6>
             <br />
             <br />
-            <h5 class="pull-right">يحتوي هذا الدرس على المعلومات المفيدة</h5>
+            <h5 class="pull-right">{{lecture.description}}</h5>
         </div>
 
-        <div class="card pull-right" v-show="tabIndex === 1">
+        <div v-if="lecture.fileUrl.length == 0 && tabIndex === 1">
+            <h5 class="pull-right">لا يوجد مرفقات مع هذا الدرس</h5>
+        </div>  
 
-            <a type="button" class="btn btn-primary btn-lg btn-block text-white" :href="lecture.fileUrl" download>
+        <div class="card pull-right" v-show="lecture.fileUrl.length > 0 && tabIndex === 1">
+
+
+
+            <a v-for="(item, index) in lecture.fileUrl" type="button" class="btn btn-primary btn-lg btn-block text-white" :href="item.attashmentFile" download>
                 <span class="btn-inner--icon"><i class="ni ni-cloud-download-95 pr-4"></i></span>
-                <span class="btn-inner--text">تحميل ملف هذا الدرس</span>
+                <span class="btn-inner--text">تحميل ملف هذا الدرس #{{index + 1}}</span>
             </a>
 
         </div>

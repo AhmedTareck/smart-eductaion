@@ -89,7 +89,5 @@
             }
             this.$router.push(url);
         }
-       
-      
     }    
 }
