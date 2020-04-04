@@ -44,7 +44,7 @@ export default {
 
     GetLectures(eventId) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
-        return axios.get(`/Api/web/Courses/fetchCourses?eventId=${eventId}`);
+        return axios.get(`/Api/web/Courses/fetchCourse?eventId=${eventId}`);
     },
 
     // *********************** courses ********************
