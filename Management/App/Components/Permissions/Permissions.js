@@ -65,33 +65,33 @@ export default {
         },
 
 
-        deletePermissions(id) {
+        //deletePermissions(id) {
 
 
-            this.$confirm('سيؤدي ذلك إلى حدف السنة الدراسية  . استمر؟', 'تـحذير', {
-                confirmButtonText: 'نـعم',
-                cancelButtonText: 'لا',
-                type: 'warning'
-            }).then(() => {
+        //    this.$confirm('سيؤدي ذلك إلى حدف السنة الدراسية  . استمر؟', 'تـحذير', {
+        //        confirmButtonText: 'نـعم',
+        //        cancelButtonText: 'لا',
+        //        type: 'warning'
+        //    }).then(() => {
 
 
-                this.$http.deletePermissions(id)
-                    .then(response => {
-                        this.$message({
-                            type: 'info',
-                            message: response.data
-                        });
-                        this.$blockUI.Stop();
-                        this.GetYearsInfo();
-                    })
-                    .catch((err) => {
-                        this.$blockUI.Stop();
-                        this.$message({
-                            type: 'error',
-                            message: err.response.data
-                        });
-                    });
-            });
-        },
+        //        this.$http.deletePermissions(id)
+        //            .then(response => {
+        //                this.$message({
+        //                    type: 'info',
+        //                    message: response.data
+        //                });
+        //                this.$blockUI.Stop();
+        //                this.GetYearsInfo();
+        //            })
+        //            .catch((err) => {
+        //                this.$blockUI.Stop();
+        //                this.$message({
+        //                    type: 'error',
+        //                    message: err.response.data
+        //                });
+        //            });
+        //    });
+        //},
     }    
 }

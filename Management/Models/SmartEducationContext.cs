@@ -4,396 +4,386 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Management.Models
 {
-  public partial class SmartEducationContext : DbContext
-  {
-    public SmartEducationContext()
+    public partial class SmartEducationContext : DbContext
     {
-    }
+        public virtual DbSet<AcadimacYears> AcadimacYears { get; set; }
+        public virtual DbSet<Ads> Ads { get; set; }
+        public virtual DbSet<AdsFiles> AdsFiles { get; set; }
+        public virtual DbSet<Answers> Answers { get; set; }
+        public virtual DbSet<Events> Events { get; set; }
+        public virtual DbSet<Exams> Exams { get; set; }
+        public virtual DbSet<Groups> Groups { get; set; }
+        public virtual DbSet<LectureFiles> LectureFiles { get; set; }
+        public virtual DbSet<Lectures> Lectures { get; set; }
+        public virtual DbSet<Locations> Locations { get; set; }
+        public virtual DbSet<Municipalitys> Municipalitys { get; set; }
+        public virtual DbSet<PermissionGroup> PermissionGroup { get; set; }
+        public virtual DbSet<Permissions> Permissions { get; set; }
+        public virtual DbSet<Questions> Questions { get; set; }
+        public virtual DbSet<Schools> Schools { get; set; }
+        public virtual DbSet<Shapters> Shapters { get; set; }
+        public virtual DbSet<StudentAnswer> StudentAnswer { get; set; }
+        public virtual DbSet<StudentExam> StudentExam { get; set; }
+        public virtual DbSet<Students> Students { get; set; }
+        public virtual DbSet<Subjects> Subjects { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
 
-    public SmartEducationContext(DbContextOptions<SmartEducationContext> options)
-        : base(options)
-    {
-    }
+        public SmartEducationContext(DbContextOptions<SmartEducationContext> options) : base(options) { }
 
-    public virtual DbSet<AcadimacYears> AcadimacYears { get; set; }
-    public virtual DbSet<Ads> Ads { get; set; }
-    public virtual DbSet<AdsFiles> AdsFiles { get; set; }
-    public virtual DbSet<Answers> Answers { get; set; }
-    public virtual DbSet<Events> Events { get; set; }
-    public virtual DbSet<Exams> Exams { get; set; }
-    public virtual DbSet<Groups> Groups { get; set; }
-    public virtual DbSet<LectureFiles> LectureFiles { get; set; }
-    public virtual DbSet<Lectures> Lectures { get; set; }
-    public virtual DbSet<Locations> Locations { get; set; }
-    public virtual DbSet<Municipalitys> Municipalitys { get; set; }
-    public virtual DbSet<PermissionGroup> PermissionGroup { get; set; }
-    public virtual DbSet<Permissions> Permissions { get; set; }
-    public virtual DbSet<Questions> Questions { get; set; }
-    public virtual DbSet<Schools> Schools { get; set; }
-    public virtual DbSet<Shapters> Shapters { get; set; }
-    public virtual DbSet<StudentAnswer> StudentAnswer { get; set; }
-    public virtual DbSet<StudentExam> StudentExam { get; set; }
-    public virtual DbSet<Students> Students { get; set; }
-    public virtual DbSet<Subjects> Subjects { get; set; }
-    public virtual DbSet<Users> Users { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-      if (!optionsBuilder.IsConfigured)
-      {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-        optionsBuilder.UseSqlServer("Server=localhost,1433;Database=SmartEducation;User=SA;Password=Ab102030;");
-      }
-    }
+                optionsBuilder.UseSqlServer(@"server=localhost;database=SmartEducation;uid=sa;pwd=Pass123;");
+            }
+        }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-      modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AcadimacYears>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<AcadimacYears>(entity =>
-      {
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+                entity.Property(e => e.Name).HasMaxLength(50);
+            });
 
-        entity.Property(e => e.Name).HasMaxLength(50);
-      });
+            modelBuilder.Entity<Ads>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<Ads>(entity =>
-      {
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+            });
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
-      });
+            modelBuilder.Entity<AdsFiles>(entity =>
+            {
+                entity.HasOne(d => d.Ads)
+                    .WithMany(p => p.AdsFiles)
+                    .HasForeignKey(d => d.AdsId)
+                    .HasConstraintName("FK_AdsFiles_Ads");
+            });
 
-      modelBuilder.Entity<AdsFiles>(entity =>
-      {
-        entity.HasOne(d => d.Ads)
-                  .WithMany(p => p.AdsFiles)
-                  .HasForeignKey(d => d.AdsId)
-                  .HasConstraintName("FK_AdsFiles_Ads");
-      });
+            modelBuilder.Entity<Answers>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<Answers>(entity =>
-      {
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.ExamAnswers).HasMaxLength(150);
 
-        entity.Property(e => e.ExamAnswers).HasMaxLength(150);
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+                entity.Property(e => e.QuestionId).HasColumnName("QuestionID");
 
-        entity.Property(e => e.QuestionId).HasColumnName("QuestionID");
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.Answers)
+                    .HasForeignKey(d => d.QuestionId)
+                    .HasConstraintName("FK_Answers_Questions");
+            });
 
-        entity.HasOne(d => d.Question)
-                  .WithMany(p => p.Answers)
-                  .HasForeignKey(d => d.QuestionId)
-                  .HasConstraintName("FK_Answers_Questions");
-      });
+            modelBuilder.Entity<Events>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<Events>(entity =>
-      {
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.Discreptions).HasMaxLength(150);
 
-        entity.Property(e => e.Discreptions).HasMaxLength(150);
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+                entity.Property(e => e.Name).HasMaxLength(150);
 
-        entity.Property(e => e.Name).HasMaxLength(150);
+                entity.HasOne(d => d.Subject)
+                    .WithMany(p => p.Events)
+                    .HasForeignKey(d => d.SubjectId)
+                    .HasConstraintName("FK_Events_Subjects");
 
-        entity.HasOne(d => d.Subject)
-                  .WithMany(p => p.Events)
-                  .HasForeignKey(d => d.SubjectId)
-                  .HasConstraintName("FK_Events_Subjects");
+                entity.HasOne(d => d.Teacher)
+                    .WithMany(p => p.Events)
+                    .HasForeignKey(d => d.TeacherId)
+                    .HasConstraintName("FK_Events_Users");
+            });
 
-        entity.HasOne(d => d.Teacher)
-                  .WithMany(p => p.Events)
-                  .HasForeignKey(d => d.TeacherId)
-                  .HasConstraintName("FK_Events_Users");
-      });
+            modelBuilder.Entity<Exams>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<Exams>(entity =>
-      {
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+                entity.Property(e => e.Name).HasMaxLength(50);
 
-        entity.Property(e => e.Name).HasMaxLength(50);
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.Exams)
+                    .HasForeignKey(d => d.EventId)
+                    .HasConstraintName("FK_Exams_Events");
 
-        entity.HasOne(d => d.Event)
-                  .WithMany(p => p.Exams)
-                  .HasForeignKey(d => d.EventId)
-                  .HasConstraintName("FK_Exams_Events");
+                entity.HasOne(d => d.Subject)
+                    .WithMany(p => p.Exams)
+                    .HasForeignKey(d => d.SubjectId)
+                    .HasConstraintName("FK_Exams_Subjects");
+            });
 
-        entity.HasOne(d => d.Subject)
-                  .WithMany(p => p.Exams)
-                  .HasForeignKey(d => d.SubjectId)
-                  .HasConstraintName("FK_Exams_Subjects");
-      });
+            modelBuilder.Entity<Groups>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<Groups>(entity =>
-      {
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.Name).HasMaxLength(150);
 
-        entity.Property(e => e.Name).HasMaxLength(150);
+                entity.Property(e => e.State).HasDefaultValueSql("((0))");
+            });
 
-        entity.Property(e => e.State).HasDefaultValueSql("((0))");
-      });
+            modelBuilder.Entity<LectureFiles>(entity =>
+            {
+                entity.HasOne(d => d.Lecture)
+                    .WithMany(p => p.LectureFiles)
+                    .HasForeignKey(d => d.LectureId)
+                    .HasConstraintName("FK_LectureFiles_Lectures");
+            });
 
-      modelBuilder.Entity<LectureFiles>(entity =>
-      {
-        entity.HasOne(d => d.Lecture)
-                  .WithMany(p => p.LectureFiles)
-                  .HasForeignKey(d => d.LectureId)
-                  .HasConstraintName("FK_LectureFiles_Lectures");
-      });
+            modelBuilder.Entity<Lectures>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<Lectures>(entity =>
-      {
-        entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.Name).HasMaxLength(50);
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+                entity.HasOne(d => d.Shapters)
+                    .WithMany(p => p.Lectures)
+                    .HasForeignKey(d => d.ShaptersId)
+                    .HasConstraintName("FK_Lectures_Shapters");
+            });
 
-        entity.Property(e => e.Name).HasMaxLength(50);
+            modelBuilder.Entity<Locations>(entity =>
+            {
+                entity.Property(e => e.Coordinates).HasMaxLength(150);
 
-        entity.HasOne(d => d.Shapters)
-                  .WithMany(p => p.Lectures)
-                  .HasForeignKey(d => d.ShaptersId)
-                  .HasConstraintName("FK_Lectures_Shapters");
-      });
+                entity.Property(e => e.Name).HasMaxLength(150);
 
-      modelBuilder.Entity<Locations>(entity =>
-      {
-        entity.Property(e => e.Coordinates).HasMaxLength(150);
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.InverseParent)
+                    .HasForeignKey(d => d.ParentId)
+                    .HasConstraintName("FK_Locations_Locations");
+            });
 
-        entity.Property(e => e.Name).HasMaxLength(150);
+            modelBuilder.Entity<Municipalitys>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
-        entity.HasOne(d => d.Parent)
-                  .WithMany(p => p.InverseParent)
-                  .HasForeignKey(d => d.ParentId)
-                  .HasConstraintName("FK_Locations_Locations");
-      });
+                entity.Property(e => e.AddressDiscreption).HasMaxLength(150);
 
-      modelBuilder.Entity<Municipalitys>(entity =>
-      {
-        entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-        entity.Property(e => e.AddressDiscreption).HasMaxLength(150);
+                entity.Property(e => e.Discreption).HasMaxLength(150);
 
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-        entity.Property(e => e.Discreption).HasMaxLength(150);
+                entity.Property(e => e.Name).HasMaxLength(150);
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+                entity.HasOne(d => d.Location)
+                    .WithMany(p => p.Municipalitys)
+                    .HasForeignKey(d => d.LocationId)
+                    .HasConstraintName("FK_Municipalitys_Locations");
 
-        entity.Property(e => e.Name).HasMaxLength(150);
+                entity.HasOne(d => d.Responsible)
+                    .WithMany(p => p.Municipalitys)
+                    .HasForeignKey(d => d.ResponsibleId)
+                    .HasConstraintName("FK_Municipalitys_Users");
+            });
 
-        entity.HasOne(d => d.Location)
-                  .WithMany(p => p.Municipalitys)
-                  .HasForeignKey(d => d.LocationId)
-                  .HasConstraintName("FK_Municipalitys_Locations");
+            modelBuilder.Entity<PermissionGroup>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-        entity.HasOne(d => d.Responsible)
-                  .WithMany(p => p.Municipalitys)
-                  .HasForeignKey(d => d.ResponsibleId)
-                  .HasConstraintName("FK_Municipalitys_Users");
-      });
+                entity.Property(e => e.Name).HasMaxLength(150);
 
-      modelBuilder.Entity<PermissionGroup>(entity =>
-      {
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.State).HasDefaultValueSql("((0))");
 
-        entity.Property(e => e.Name).HasMaxLength(150);
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.PermissionGroup)
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK_PermissionGroup_Groups");
 
-        entity.Property(e => e.State).HasDefaultValueSql("((0))");
+                entity.HasOne(d => d.Permissioin)
+                    .WithMany(p => p.PermissionGroup)
+                    .HasForeignKey(d => d.PermissioinId)
+                    .HasConstraintName("FK_PermissionGroup_Permissions");
+            });
 
-        entity.HasOne(d => d.Group)
-                  .WithMany(p => p.PermissionGroup)
-                  .HasForeignKey(d => d.GroupId)
-                  .HasConstraintName("FK_PermissionGroup_Groups");
+            modelBuilder.Entity<Permissions>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-        entity.HasOne(d => d.Permissioin)
-                  .WithMany(p => p.PermissionGroup)
-                  .HasForeignKey(d => d.PermissioinId)
-                  .HasConstraintName("FK_PermissionGroup_Permissions");
-      });
+                entity.Property(e => e.Name).HasMaxLength(150);
 
-      modelBuilder.Entity<Permissions>(entity =>
-      {
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.State).HasDefaultValueSql("((0))");
+            });
 
-        entity.Property(e => e.Name).HasMaxLength(150);
+            modelBuilder.Entity<Questions>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-        entity.Property(e => e.State).HasDefaultValueSql("((0))");
-      });
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<Questions>(entity =>
-      {
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.Question).HasMaxLength(250);
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+                entity.HasOne(d => d.Exam)
+                    .WithMany(p => p.Questions)
+                    .HasForeignKey(d => d.ExamId)
+                    .HasConstraintName("FK_Questions_Exams");
+            });
 
-        entity.Property(e => e.Question).HasMaxLength(250);
+            modelBuilder.Entity<Schools>(entity =>
+            {
+                entity.Property(e => e.AddressDiscreption).HasMaxLength(150);
 
-        entity.HasOne(d => d.Exam)
-                  .WithMany(p => p.Questions)
-                  .HasForeignKey(d => d.ExamId)
-                  .HasConstraintName("FK_Questions_Exams");
-      });
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<Schools>(entity =>
-      {
-        entity.Property(e => e.AddressDiscreption).HasMaxLength(150);
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.Name).HasMaxLength(150);
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+                entity.HasOne(d => d.Location)
+                    .WithMany(p => p.Schools)
+                    .HasForeignKey(d => d.LocationId)
+                    .HasConstraintName("FK_Schools_Locations");
 
-        entity.Property(e => e.Name).HasMaxLength(150);
+                entity.HasOne(d => d.Municipality)
+                    .WithMany(p => p.Schools)
+                    .HasForeignKey(d => d.MunicipalityId)
+                    .HasConstraintName("FK_Schools_Municipalitys");
 
-        entity.HasOne(d => d.Location)
-                  .WithMany(p => p.Schools)
-                  .HasForeignKey(d => d.LocationId)
-                  .HasConstraintName("FK_Schools_Locations");
+                entity.HasOne(d => d.Responsible)
+                    .WithMany(p => p.Schools)
+                    .HasForeignKey(d => d.ResponsibleId)
+                    .HasConstraintName("FK_Schools_Users");
+            });
 
-        entity.HasOne(d => d.Municipality)
-                  .WithMany(p => p.Schools)
-                  .HasForeignKey(d => d.MunicipalityId)
-                  .HasConstraintName("FK_Schools_Municipalitys");
+            modelBuilder.Entity<Shapters>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-        entity.HasOne(d => d.Responsible)
-                  .WithMany(p => p.Schools)
-                  .HasForeignKey(d => d.ResponsibleId)
-                  .HasConstraintName("FK_Schools_Users");
-      });
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<Shapters>(entity =>
-      {
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.Name).HasMaxLength(50);
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.Shapters)
+                    .HasForeignKey(d => d.EventId)
+                    .HasConstraintName("FK_Shapters_Events");
+            });
 
-        entity.Property(e => e.Name).HasMaxLength(50);
+            modelBuilder.Entity<StudentAnswer>(entity =>
+            {
+                entity.HasOne(d => d.Ansewr)
+                    .WithMany(p => p.StudentAnswer)
+                    .HasForeignKey(d => d.AnsewrId)
+                    .HasConstraintName("FK_StudentAnswer_Answers");
 
-        entity.HasOne(d => d.Event)
-                  .WithMany(p => p.Shapters)
-                  .HasForeignKey(d => d.EventId)
-                  .HasConstraintName("FK_Shapters_Events");
-      });
+                entity.HasOne(d => d.StudentExam)
+                    .WithMany(p => p.StudentAnswer)
+                    .HasForeignKey(d => d.StudentExamId)
+                    .HasConstraintName("FK_StudentAnswer_StudentExam");
+            });
 
-      modelBuilder.Entity<StudentAnswer>(entity =>
-      {
-        entity.HasOne(d => d.Ansewr)
-                  .WithMany(p => p.StudentAnswer)
-                  .HasForeignKey(d => d.AnsewrId)
-                  .HasConstraintName("FK_StudentAnswer_Answers");
+            modelBuilder.Entity<StudentExam>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
-        entity.HasOne(d => d.StudentExam)
-                  .WithMany(p => p.StudentAnswer)
-                  .HasForeignKey(d => d.StudentExamId)
-                  .HasConstraintName("FK_StudentAnswer_StudentExam");
-      });
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<StudentExam>(entity =>
-      {
-        entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.HasOne(d => d.Exam)
+                    .WithMany(p => p.StudentExam)
+                    .HasForeignKey(d => d.ExamId)
+                    .HasConstraintName("FK_StudentExam_Exams");
 
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.StudentExam)
+                    .HasForeignKey(d => d.StudentId)
+                    .HasConstraintName("FK_StudentExam_Students");
+            });
 
-        entity.HasOne(d => d.Exam)
-                  .WithMany(p => p.StudentExam)
-                  .HasForeignKey(d => d.ExamId)
-                  .HasConstraintName("FK_StudentExam_Exams");
+            modelBuilder.Entity<Students>(entity =>
+            {
+                entity.Property(e => e.Adrress).HasMaxLength(50);
 
-        entity.HasOne(d => d.Student)
-                  .WithMany(p => p.StudentExam)
-                  .HasForeignKey(d => d.StudentId)
-                  .HasConstraintName("FK_StudentExam_Students");
-      });
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<Students>(entity =>
-      {
-        entity.Property(e => e.Adrress).HasMaxLength(50);
+                entity.Property(e => e.FatherName).HasMaxLength(50);
 
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.FirstName).HasMaxLength(50);
 
-        entity.Property(e => e.FatherName).HasMaxLength(50);
+                entity.Property(e => e.GrandFatherName).HasMaxLength(50);
 
-        entity.Property(e => e.FirstName).HasMaxLength(50);
+                entity.Property(e => e.MatherName).HasMaxLength(50);
 
-        entity.Property(e => e.GrandFatherName).HasMaxLength(50);
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-        entity.Property(e => e.MatherName).HasMaxLength(50);
+                entity.Property(e => e.Nid)
+                    .HasColumnName("NID")
+                    .HasMaxLength(50);
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+                entity.Property(e => e.Phone).HasMaxLength(50);
 
-        entity.Property(e => e.Nid)
-                  .HasColumnName("NID")
-                  .HasMaxLength(50);
+                entity.Property(e => e.SurName).HasMaxLength(50);
 
-        entity.Property(e => e.Phone).HasMaxLength(50);
+                entity.HasOne(d => d.AcadimecYear)
+                    .WithMany(p => p.Students)
+                    .HasForeignKey(d => d.AcadimecYearId)
+                    .HasConstraintName("FK_Students_AcadimacYears");
 
-        entity.Property(e => e.SurName).HasMaxLength(50);
+                entity.HasOne(d => d.School)
+                    .WithMany(p => p.Students)
+                    .HasForeignKey(d => d.SchoolId)
+                    .HasConstraintName("FK_Students_Schools");
+            });
 
-        entity.HasOne(d => d.AcadimecYear)
-                  .WithMany(p => p.Students)
-                  .HasForeignKey(d => d.AcadimecYearId)
-                  .HasConstraintName("FK_Students_AcadimacYears");
+            modelBuilder.Entity<Subjects>(entity =>
+            {
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-        entity.HasOne(d => d.School)
-                  .WithMany(p => p.Students)
-                  .HasForeignKey(d => d.SchoolId)
-                  .HasConstraintName("FK_Students_Schools");
-      });
+                entity.Property(e => e.Discreptions).HasMaxLength(150);
 
-      modelBuilder.Entity<Subjects>(entity =>
-      {
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-        entity.Property(e => e.Discreptions).HasMaxLength(150);
+                entity.Property(e => e.Name).HasMaxLength(150);
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+                entity.HasOne(d => d.AcadimecYear)
+                    .WithMany(p => p.Subjects)
+                    .HasForeignKey(d => d.AcadimecYearId)
+                    .HasConstraintName("FK_Subjects_AcadimacYears");
+            });
 
-        entity.Property(e => e.Name).HasMaxLength(150);
+            modelBuilder.Entity<Users>(entity =>
+            {
+                entity.Property(e => e.BirthDate).HasColumnType("datetime");
 
-        entity.HasOne(d => d.AcadimecYear)
-                  .WithMany(p => p.Subjects)
-                  .HasForeignKey(d => d.AcadimecYearId)
-                  .HasConstraintName("FK_Subjects_AcadimacYears");
-      });
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-      modelBuilder.Entity<Users>(entity =>
-      {
-        entity.Property(e => e.BirthDate).HasColumnType("datetime");
+                entity.Property(e => e.Email).HasMaxLength(50);
 
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+                entity.Property(e => e.LastLoginOn).HasColumnType("datetime");
 
-        entity.Property(e => e.Email).HasMaxLength(50);
+                entity.Property(e => e.LoginName).HasMaxLength(50);
 
-        entity.Property(e => e.LastLoginOn).HasColumnType("datetime");
+                entity.Property(e => e.LoginTryAttemptDate).HasColumnType("datetime");
 
-        entity.Property(e => e.LoginName).HasMaxLength(50);
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
-        entity.Property(e => e.LoginTryAttemptDate).HasColumnType("datetime");
+                entity.Property(e => e.Name).HasMaxLength(50);
 
-        entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+                entity.Property(e => e.Password).HasMaxLength(250);
 
-        entity.Property(e => e.Name).HasMaxLength(50);
-
-        entity.Property(e => e.Password).HasMaxLength(250);
-
-        entity.Property(e => e.Phone).HasMaxLength(25);
+                entity.Property(e => e.Phone).HasMaxLength(25);
 
         entity.Property(e => e.Status).HasDefaultValueSql("((0))");
 
-        entity.Property(e => e.UserType).HasDefaultValueSql("((2))");
 
-        entity.HasOne(d => d.Group)
-                  .WithMany(p => p.Users)
-                  .HasForeignKey(d => d.GroupId)
-                  .HasConstraintName("FK_Users_Group");
-      });
+                entity.Property(e => e.UserType).HasDefaultValueSql("((2))");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK_Users_Group");
+            });
+        }
     }
-  }
 }

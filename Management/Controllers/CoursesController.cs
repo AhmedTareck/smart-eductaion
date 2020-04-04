@@ -786,13 +786,17 @@ namespace CMS.Controllers
                     return StatusCode(401, "يجب إدخال إسم الإمتحان");
                 }
 
+                //var eventExist = (from p in db.Exams where p.EventId == exam.EventId select p.Name).SingleOrDefault();
+                //if (eventExist != null){
+                //    var examExist = (from p in db.Exams where p.Name == exam.Name select p).SingleOrDefault();
+                //    if (examExist != null)
+                //    {
+                //        return StatusCode(401, "إسم الإختبار موجود مسبقا");
+                //    }
+                //}
+               
 
-                var examExist = (from p in db.Exams where p.Name == exam.Name select p).SingleOrDefault();
-
-                if (examExist != null)
-                {
-                    return StatusCode(401, "إسم الإختبار موجود مسبقا");
-                }
+               
 
                 if (userId <= 0)
                 {
@@ -1186,6 +1190,36 @@ namespace CMS.Controllers
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("fetchCourses")]
+        public IActionResult getLectures([FromQuery] int eventId)
+        {
+            // var selectedEvent =  (from e in db.Events join s in db.Shapters on e.Id equals s.EventId  where e.Id == eventId  select e.Shapters ).ToList();
+
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Events_View", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
+                var selectedEvent = (from e in db.Events join s in db.Shapters on e.Id equals s.EventId into eventShapter where e.Id == eventId select new { id = e.Id, course = e.Name, chapters = eventShapter.Select(es => new { title = es.Name, lectures = es.Lectures.Select(sl => new { id = sl.Id, title = sl.Name, videoUrl = sl.VideoPath, fileUrl = sl.LectureFiles.Select(lf => new { id = lf.Id, lf.AttashmentFile, lf.Status }) }) }) }).ToList();
+
+                if (selectedEvent == null || selectedEvent.Count == 0)
+                    return StatusCode(401, "هذا الكورس مسجل");
+
+                return Ok(selectedEvent);
+            }
+            catch(Exception e)
+            {
+                return StatusCode(500, e.InnerException.Message);
             }
         }
     }

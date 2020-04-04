@@ -1,0 +1,21 @@
+.custom-font{
+    font-size:155%;
+}
+
+.cite-custom-font {
+    font-size:133%;
+}
+
+
+#info {
+    text-align: right;
+}
+
+
+.imgBg{
+    background-image: url('/assets/img/ill/pattern_pricing5.svg')
+}
+
+.imgBg2{
+    background-image: url('/assets/img/ill/pattern_pricing6.svg')
+}

@@ -141,6 +141,8 @@
                                                   placeholder="رقم الإختبار"
                                                   v-model="body.Number"
                                                   :rows="6"
+                                                  min="1"
+                                                  onkeydown="return false"
                                                   autocomplete="off">
                                         </el-input>
 
@@ -158,8 +160,10 @@
 
                                         <el-input type="number"
                                                   placeholder="الدرجة النهائية"
+                                                  onkeydown="return false"
                                                   v-model="body.FullMarck"
                                                   :rows="6"
+                                                  min="1"
                                                   autocomplete="off">
                                         </el-input>
 
@@ -171,13 +175,14 @@
                                 <el-col class="col-md-3">
 
 
-                                    <el-form-item prop="Lenght" label="الزمن"
+                                    <el-form-item prop="Length" label="الزمن"
                                                   label-width="0px"
-                                                  :rules="[{required: true, message: ' الرجاء إدخال الزمن'} ]">
+                                                  :rules="[{required: true, message: 'الرجاء إدخال الزمن'} ]">
 
                                         <el-input type="time"
                                                   placeholder="الزمن"
-                                                  v-model="body.Lenght"
+                                                  onkeydown="return false"
+                                                  v-model="body.Length"
                                                   :rows="6"
                                                   autocomplete="off">
                                         </el-input>
@@ -215,6 +220,7 @@
                                                   placeholder="رقم السؤال"
                                                   v-model="Question.Number"
                                                   :rows="3"
+                                                  min="1"
                                                   autocomplete="off">
                                         </el-input>
 
@@ -234,6 +240,8 @@
                                                   placeholder="درجة السؤال"
                                                   v-model="Question.Points"
                                                   :rows="3"
+                                                  min="1"
+                                                  onkeydown="return false"
                                                   autocomplete="off">
                                         </el-input>
 
@@ -378,7 +386,7 @@
 
                                 <el-col class="col-md-6" v-if="Question.QuestionTypeID == 1">
 
-                                        <el-form-item prop="AnswerType" label="إختار الإجابة"
+                                        <el-form-item prop="Answer" label="إختار الإجابة"
                                                       label-width="0px"
                                                       :rules="[{required: true, message: 'الرجاء إختيار الإجابة'} ]">
 
