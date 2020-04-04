@@ -2,8 +2,13 @@
     height: 450px!important;
 }
 
-.mail-box{
-    width:110%;
+.el-alert__title {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.mail-box {
+    width: 110%;
 }
 .pointer {
     cursor: pointer !important;

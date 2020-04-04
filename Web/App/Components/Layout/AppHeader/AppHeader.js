@@ -45,21 +45,22 @@
 
         CheckLoginStatus(status) {
             this.$http.CheckLoginStatus()
-                .then(response => {  
+                .then(response => {
                     if (response.data.slice(1, 9) !== "!DOCTYPE") {
                         if (status == 2) {
                             window.location.href = '/';
                         }
                     } else {
                         localStorage.setItem('currentUser', null);
-                    }   
-                    })
+                    }
+                })
                 .catch((err) => {
 
                     if (status == 1) {
                         localStorage.setItem('currentUser', null);
                         window.location.href = '/Login';
                     }
+                });
         },
 
         pathChange(route) {
@@ -71,6 +72,7 @@
                 this.NavBar = 'navbar navbar-expand-lg navbar-dark bg-default';
             }
         },
+
         href(url, visbilty) {
             if (visbilty === 1) {
                 this.NavBar = "navbar navbar-main navbar-expand-lg navbar-transparent headroom";

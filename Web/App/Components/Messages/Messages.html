@@ -117,16 +117,16 @@
                 <li @click.prevent="changepage(2)">
                     <a href="#" ><i class="fa fa-envelope-o"></i> الرسائل المرسلة</a>
                 </li>
-                <li>
+                <li @click.prevent="changepage(3)">
                     <a href="#"><i class="fa fa-bookmark-o"></i> الرسائل المقروءة</a>
                 </li>
               
-                <li>
+                <li @click.prevent="changepage(4)">
                     <a href="#"><i class=" fa fa-trash-o"></i> الممسوحه</a>
                 </li>
             </ul>
 
-            <div class="inbox-body text-center">
+            <!--<div class="inbox-body text-center">
                 <div class="btn-group">
                     <a class="btn mini btn-primary" href="javascript:;">
                         <i class="fa fa-plus"></i>
@@ -142,7 +142,7 @@
                         <i class="fa fa-cog"></i>
                     </a>
                 </div>
-            </div>
+            </div>-->
         </aside>
         <aside class="lg-side">
             <div class="inbox-head">
@@ -150,7 +150,7 @@
                 <h3 v-if="Show==2">البريد المرسلة</h3>
                 <form action="#" class="pull-right position">
                     <div class="input-append">
-                        <input type="text" class="sr-input" placeholder="Search Mail" style="background-color:white;">
+                        <input type="text" class="sr-input" placeholder="بحـث" style="background-color:white;">
                         <button class="btn sr-btn" type="button"><i class="fa fa-search"></i></button>
                     </div>
                 </form>
@@ -209,14 +209,28 @@
               type="info">
     </el-alert>-->
                 <!--<el-alert v-if="Inbox==0 && Show==1" title="لا تــوجد رسائل للعرض , يمكنك انشاء رسالة جديدة"
+              type="info">
+    </el-alert>
+
+    <el-alert v-if="Sent==0 && Show==2" title="لا تــوجد رسائل للعرض , يمكنك انشاء رسالة جديدة"
+              type="info">
+    </el-alert>-->
+
+                <el-alert v-if="Inbox==0 && Show==1" title="لا تــوجد رسائل في البريــد الوارد"
                           type="info">
                 </el-alert>
 
-                <el-alert v-if="Sent==0 && Show==2" title="لا تــوجد رسائل للعرض , يمكنك انشاء رسالة جديدة"
+                <el-alert v-if="Sent==0 && Show==2" title="لا تــوجد رسائل مرسـلة , يمكنك انشاء رسالة جديدة"
                           type="info">
-                </el-alert>-->
+                </el-alert>
 
-                <table class="table table-inbox table-hover" v-if="Show==1">
+                <el-alert v-if="Show==3" title="لا تــوجد رسـائل مقــروءة"
+                          type="info">
+                </el-alert>
+                <el-alert v-if="Show==4" title="لا تــوجد رسـائل ممســـوحة"
+                          type="info">
+                </el-alert>
+                <table class="table table-inbox table-hover" v-if="Inbox!=0 && Show==1">
                     <tbody>
                         <tr class="unread" v-for="x in  Inbox">
                             <td class="inbox-small-cells">
@@ -231,8 +245,8 @@
                         </tr>
                     </tbody>
                 </table>
-              
-                <table class="table table-inbox table-hover" v-if="Show==2">
+
+                <table class="table table-inbox table-hover" v-if="Sent!=0 && Show==2">
                     <tbody>
                         <tr class="unread" v-for="x in  Sent">
                             <td class="inbox-small-cells">
