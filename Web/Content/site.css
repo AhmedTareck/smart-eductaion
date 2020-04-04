@@ -1,7 +1,12 @@
-﻿
+﻿.el-dialog {
+    height: 450px!important;
+}
 
+.mail-box{
+    width:110%;
+}
 .pointer {
-    cursor: pointer!important;
+    cursor: pointer !important;
 }
 
 #navbar-main {

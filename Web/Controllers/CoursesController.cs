@@ -34,7 +34,6 @@ namespace Web.Controllers
 
                 long? yearid = db.Students.Where(x => x.Id == userId).SingleOrDefault().AcadimecYearId;
 
-
                 IQueryable<Subjects> SubjectsQuery;
                 SubjectsQuery = from p in db.Subjects
                                where p.Status == 1 && p.AcadimecYearId==yearid

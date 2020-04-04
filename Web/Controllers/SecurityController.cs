@@ -40,6 +40,91 @@ namespace Management.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> CheckLoginStatus()
+        {
+            try
+            {
+                var user = HttpContext.User;
+                if (user == null || user.Claims == null)
+                {
+                    return NotFound("Unauthenticated User");
+                }
+
+                var claims = user.Claims.ToList();
+
+                if (claims.Count == 0)
+                {
+                    return NotFound("Unauthenticated User");
+                }
+                string userIdClaim = "";
+                if (claims.Count > 1)
+                {
+                    userIdClaim = claims.Where(p => p.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/id").ToList()[0].Value;
+                }
+                else
+                {
+                    userIdClaim = claims.Where(p => p.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/id").SingleOrDefault().Value;
+                }
+
+
+                long userId = Convert.ToInt64(userIdClaim);
+
+                var cUser = await (from p in db.Students
+                                   where p.Id == userId
+                                   && p.Status == 1
+                                   select p).SingleOrDefaultAsync();
+
+                if (cUser == null)
+                {
+                    return NotFound("User Not Found");
+                }
+
+                var tokenClaims = user.Claims.ToList();
+                tokenClaims.Add(new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()));
+                tokenClaims.Add(new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()));
+
+                SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thisisasecreteforauth"));
+                SigningCredentials signingCredential = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+                JwtHeader jwtHeader = new JwtHeader(signingCredential);
+                JwtPayload jwtPayload = new JwtPayload(tokenClaims);
+                JwtSecurityToken token = new JwtSecurityToken(jwtHeader, jwtPayload);
+
+                var apiToken = new JwtSecurityTokenHandler().WriteToken(token);
+
+
+                var userInfo = new
+                {
+                    userId = cUser.Id,
+                    FirstName = cUser.FirstName,
+                    FatherName = cUser.FatherName,
+                    SurName = cUser.SurName,
+                    GrandFatherName = cUser.GrandFatherName,
+                    //branchId = branchId,
+                    LoginName = cUser.LoginName,
+                    Email = cUser.Email,
+                    Gender = cUser.Gender,
+                    Status = cUser.Status,
+                    Phone = cUser.Phone,
+                    BirthDate = cUser.BirthDate,
+                    cUser.Nid,
+                    School = "مدرسة الفجر الجديد",//cUser.School.Name,
+                    yearAcadimic = "السنة الدراسية 2018",//cUser.AcadimecYear.Name,
+                    imge = (cUser.Image != null ? 1 : 0),
+                    userType = 8
+                };
+
+                return Ok(userInfo);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+
+
         [AllowAnonymous]
         [HttpPost]
         public IActionResult SignupStudent([FromBody] Students student)

@@ -14,12 +14,14 @@ export default {
     loginUserAccount(user) {
         return axios.post(`/Security/loginUser`, user);
     },
-    //Logout() {
-    //    return axios.post(baseUrl + '/security/logout');
-    //},    
-    //CheckLoginStatus() {
-    //    return axios.post('/security/checkloginstatus');
-    //}, 
+
+    CheckLoginStatus() {
+          return axios.post('/Security/checkloginstatus');
+    },
+    Logout() {
+        return axios.post('/Security/logout');
+    },    
+   
     // ********************** Schools ***************************
     GetAllSchools() {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
@@ -41,15 +43,28 @@ export default {
     GetMySubjects(pageNo, pageSize) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
         return axios.get(`/Api/Web/Courses/GetMySubjects?pageno=${pageNo}&pagesize=${pageSize}`);
+    },
+    // ************ Students **********
+
+     GetStudents() {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+         return axios.get(`/Api/Web/Students/GetStudents`);
+    },
+
+    // ******************* Messages ************************
+
+     SentMessage(Student) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+         return axios.post(`/Api/Web/Messages/SentMessage`, Student);
+    },
+    GetInbox(pageNo, pageSize) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(`/Api/Web/Messages/GetInbox?pageno=${pageNo}&pagesize=${pageSize}`);
+    },
+    GetSentMessage(pageNo, pageSize) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.querySelector('meta[name="api-token"]').getAttribute('content');
+        return axios.get(`/Api/Web/Messages/GetSentMessage?pageno=${pageNo}&pagesize=${pageSize}`);
     }
-
-
-
-
-
-
-
-
 
     ////********************* Student Service *****************************
     //GetStudents(pageNo, pageSize, UserType, CompanyId) {

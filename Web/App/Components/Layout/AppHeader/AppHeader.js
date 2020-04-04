@@ -1,13 +1,20 @@
 ﻿export default {
     name: 'AppHeader',    
-    created() { 
+     created() { 
         var route = window.location.href.split("/")[3];
+       
         this.pathChange(route);
-        var loginDetails = localStorage.getItem('currentUser');
-        this.loginDetails = JSON.parse(loginDetails);
-        if (loginDetails !== null) {
+        debugger;
+        var loginDetails = localStorage.getItem('currentUser'); 
+        if (loginDetails !== null && loginDetails !== "null" && loginDetails !== undefined && localStorage.getItem('currentUser').slice(2, 10) !== "!DOCTYPE") {
             this.loginDetails = JSON.parse(loginDetails);
-        } 
+             this.CheckLoginStatus(1);
+           
+        } else {
+           // localStorage.removeItem('currentUser');
+             this.CheckLoginStatus(2);
+           
+        }
     },
     data() {
         return {            
@@ -22,10 +29,48 @@
   
     methods: {
         logout() {
-            localStorage.clear();
-            window.location.href = '/';
+            this.$http.Logout()
+                .then(response => {
+                    debugger;
+                    localStorage.setItem('currentUser', null);
+                    window.location.href = '/';
+                })
+                .catch((err) => {
+                    debugger;
+                    //localStorage.removeItem('currentUser');
+                    localStorage.setItem('currentUser', null);
+                    window.location.href = '/';
+                });    
         },
 
+
+        CheckLoginStatus(status) {
+            this.$http.CheckLoginStatus()
+                .then(response => {  
+                    debugger;
+                    localStorage.setItem('currentUser', (JSON.stringify(response.data)));
+                    if (status == 2) {
+                        window.location.href = '/';
+                    }
+                    
+                    })
+                .catch((err) => {
+                    debugger;
+                    //localStorage.setItem('currentUser',null);
+                   // window.location.href = '/';
+                    if (status == 1) {
+                        window.location.href = '/Login';
+                    }
+
+                    //localStorage.setItem('currentUser', null);
+                    //this.$http.Logout()
+                    //    .then(response => {
+                    //        window.location.href = '/';
+                    //    })
+                    //    .catch((err) => {
+                    //    }); 
+                    });
+        },
 
         pathChange(route) {
             if (route === "Login") {

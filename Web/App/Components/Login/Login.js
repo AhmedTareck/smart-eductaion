@@ -53,8 +53,6 @@ export default {
                 })
                 .catch((error) => {
                     $blockUI.close()
-
-
                     this.$message({
                         type: 'error',
                         dangerouslyUseHTMLString: true,

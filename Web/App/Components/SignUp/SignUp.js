@@ -20,6 +20,7 @@ export default {
             success: { confirmButtonText: 'OK', type: 'success', dangerouslyUseHTMLString: true, center: true },
             error: { confirmButtonText: 'OK', type: 'error', dangerouslyUseHTMLString: true, center: true },
             warning: { confirmButtonText: 'OK', type: 'warning', dangerouslyUseHTMLString: true, center: true },
+
             ruleForm: {
                 FirstName: '',
                 FatherName: '',
@@ -100,6 +101,7 @@ export default {
                     {  required: true, message: 'الرجاء إختيار السنة الدراسية ', trigger: 'change' }
                 ],
             }
+
         };
     },
     methods: {
