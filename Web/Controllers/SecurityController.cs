@@ -39,7 +39,7 @@ namespace Management.Controllers
             Configuration = configuration;
         }
 
-
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> CheckLoginStatus()
         {
@@ -350,7 +350,7 @@ namespace Management.Controllers
                 }
 
                 var cUser = (from p in db.Students
-                             where (p.Email == loginUser.Email || p.LoginName == loginUser.Email) && p.Status != 9
+                             where (p.Email == loginUser.Email || p.LoginName == loginUser.Email) && p.Status != 9 && p.Status != 3
                              select p).SingleOrDefault();
 
                 if (cUser == null)
