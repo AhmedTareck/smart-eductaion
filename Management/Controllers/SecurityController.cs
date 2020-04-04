@@ -157,7 +157,11 @@ namespace Management.Controllers
                 db.SaveChanges();
                 //long branchId = -1;
                 // int branchType = -1;
-
+                var pre = (from p in db.Permissions
+                           join g in db.PermissionGroup on p.Id equals g.PermissioinId
+                           where (g.GroupId == cUser.GroupId)
+                           select p.Name).ToList();
+                string preCsv = string.Join(",", pre.ToArray());
                 var userInfo = new
                 {
                     userId = cUser.Id,
@@ -171,6 +175,7 @@ namespace Management.Controllers
                     Phone = cUser.Phone,
                     Photo = cUser.Image,
                     BirthDate = cUser.BirthDate,
+                    Permission = preCsv
                 };
 
                 const string Issuer = "http://www.nid.ly";

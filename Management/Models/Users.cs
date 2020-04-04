@@ -32,9 +32,10 @@ namespace Management.Models
         public long? ModifiedBy { get; set; }
         public short? State { get; set; }
 
-        public Groups Group { get; set; }
-        public ICollection<Events> Events { get; set; }
-        public ICollection<Municipalitys> Municipalitys { get; set; }
-        public ICollection<Schools> Schools { get; set; }
+        public virtual Groups Group { get; set; }
+        public virtual ICollection<Events> Events { get; set; }
+        public virtual ICollection<Municipalitys> Municipalitys { get; set; }
+        public virtual ICollection<Schools> Schools { get; set; }
+
     }
 }

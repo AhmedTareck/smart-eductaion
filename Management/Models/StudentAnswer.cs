@@ -10,7 +10,7 @@ namespace Management.Models
         public long? AnsewrId { get; set; }
         public short? Status { get; set; }
 
-        public Answers Ansewr { get; set; }
-        public StudentExam StudentExam { get; set; }
+        public virtual Answers Ansewr { get; set; }
+        public virtual StudentExam StudentExam { get; set; }
     }
 }
