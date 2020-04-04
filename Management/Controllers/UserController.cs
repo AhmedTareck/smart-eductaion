@@ -7,7 +7,6 @@ using Managegment.Controllers;
 using Management.Models;
 using Management.objects;
 using Microsoft.AspNetCore.Mvc;
-
 namespace Management.Controllers
 {
     [Produces("application/json")]
@@ -27,6 +26,17 @@ namespace Management.Controllers
         {
             try
             {
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Users_View", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
+
                 IQueryable<Users> Users = from p in db.Users where p.State != 9 && p.UserType==UserType select p;
 
                 if(id!=0)
@@ -70,6 +80,16 @@ namespace Management.Controllers
         {
             try
             {
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Users_View", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
                 IQueryable<Users> Users = from p in db.Users where p.State != 9 && p.UserType==UserType select p;
 
                 var NameList = (from p in Users
@@ -93,12 +113,21 @@ namespace Management.Controllers
         {
             try
             {
+                var userId = this.help.GetCurrentUser(HttpContext);
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Users_Add", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
                 if (user == null)
                 {
                     return BadRequest("خطأ في إرسال البيانات");
                 }
 
-                var userId = this.help.GetCurrentUser(HttpContext);
 
                 if (string.IsNullOrWhiteSpace(user.LoginName))
                 {
@@ -124,10 +153,10 @@ namespace Management.Controllers
                 {
                     return BadRequest("الرجاء دخال تاريخ الميلاد المستخدم");
                 }
-                if ((DateTime.Now.Year - user.DateOfBirth.Year) < 18)
-                {
-                    return BadRequest("يجب ان يكون عمر المستخدم اكبر من 18");
-                }
+                //if ((DateTime.Now.Year - user.DateOfBirth.Year) < 18)
+                //{
+                //    return BadRequest("يجب ان يكون عمر المستخدم اكبر من 18");
+                //}
 
                 var cLoginName = (from u in db.Users
                                   where u.LoginName == user.LoginName
@@ -177,6 +206,7 @@ namespace Management.Controllers
                 cUser.Gender = (short)user.Gender;
                 cUser.LoginTryAttempts = 0;
                 cUser.UserType = user.UserType;
+                cUser.GroupId = user.GroupId;
                 cUser.Password = Security.ComputeHash(user.Password, HashAlgorithms.SHA512, null);
                 if (user.Photo == null)
                 {
@@ -192,11 +222,11 @@ namespace Management.Controllers
                 //1- Active
                 //2- locked
                 //9- deleted not exist
-                cUser.State = 0;
+                cUser.State = 1;
                 db.Users.Add(cUser);
 
                 db.SaveChanges();
-                return Ok("تم تسجيل المستخدم بنجاح , الحساب غير مفعل الأن");
+                return Ok("تم تسجيل المستخدم بنجاح ");
             }
             catch (Exception e)
             {
@@ -210,10 +240,14 @@ namespace Management.Controllers
             try
             {
                 var userId = this.help.GetCurrentUser(HttpContext);
-
                 if (userId <= 0)
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Users_Edit", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
                 }
 
                 if (user == null)
@@ -287,11 +321,16 @@ namespace Management.Controllers
             try
             {
                 var userId = this.help.GetCurrentUser(HttpContext);
-
                 if (userId <= 0)
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
                 }
+                var perm = this.help.getPermissin("Users_Add", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
+               
 
                 var User = (from p in db.Users
                             where p.Id == UserId && p.State != 9
@@ -318,11 +357,18 @@ namespace Management.Controllers
             try
             {
                 var userId = this.help.GetCurrentUser(HttpContext);
-
                 if (userId <= 0)
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
                 }
+                var perm = this.help.getPermissin("Users_Add", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
+
+
+                
 
                 var User = (from p in db.Users
                             where p.Id == UserId && p.State != 9
@@ -349,11 +395,16 @@ namespace Management.Controllers
             try
             {
                 var userId = this.help.GetCurrentUser(HttpContext);
-
                 if (userId <= 0)
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
                 }
+                var perm = this.help.getPermissin("Users_Delete", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
+
 
                 var User = (from p in db.Users
                             where p.Id == UserId && p.State != 9
@@ -429,11 +480,16 @@ namespace Management.Controllers
             try
             {
                 var userId = this.help.GetCurrentUser(HttpContext);
-
                 if (userId <= 0)
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
                 }
+                var perm = this.help.getPermissin("Users_Edit", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
+                }
+
 
                 var Users = (from p in db.Users
                              where p.Id == userId
@@ -507,10 +563,14 @@ namespace Management.Controllers
             try
             {
                 var userId = this.help.GetCurrentUser(HttpContext);
-
                 if (userId <= 0)
                 {
                     return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+                var perm = this.help.getPermissin("Users_Edit", userId, db);
+                if (!perm)
+                {
+                    return StatusCode(401, "لا تملك الصلاحية");
                 }
 
                 var Users = (from p in db.Users

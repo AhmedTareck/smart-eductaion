@@ -122,25 +122,37 @@
 
                                     <!--Permations-->
                                     <el-row class="row">
-                                        <el-col class="col-md-11">
-
-
-
-
-
-
-                                            <!--<el-form-item label="صلاحيات الإستخدام" prop="UserType">
+                                        <el-col class="col-md-4">
+                                            <el-form-item label="صلاحيات الإستخدام" prop="UserType">
                                                 <el-radio v-model="ruleForm.UserType" label="1" border><label style="padding-right:10px">مسئول</label></el-radio>
                                                 <el-radio v-model="ruleForm.UserType" label="2" border><label style="padding-right:10px">مستخدم</label></el-radio>
                                                 <el-radio v-model="ruleForm.UserType" label="3" border><label style="padding-right:10px">مراقبه الرسائل</label></el-radio>
-                                            </el-form-item>-->
+                                            </el-form-item>
 
+
+
+                                        </el-col>
+                                        <el-col class="col-md-4">
+
+
+                                            <el-form-item label=" الصلاحية" prop="Group">
+                                                <el-select style="width: 100%;" v-model="ruleForm.GroupId" filterable placeholder="">
+
+                                                    <el-option v-for="item in Group"
+                                                               :key="item.id"
+                                                               :label="item.name"
+                                                               :value="item.id">
+                                                    </el-option>
+
+                                                </el-select>
+
+                                            </el-form-item>
 
 
                                         </el-col>
 
                                     </el-row>
-
+                                    
                                     <!--Add User-->
                                     <div class="tile-footer">
                                         <button class="btn btn-info" @click.prevent="Save('ruleForm')">حفظ</button>

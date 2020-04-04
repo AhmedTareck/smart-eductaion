@@ -28,8 +28,8 @@ namespace Management.Models
         public DateTime? ModifiedOn { get; set; }
         public short? Status { get; set; }
 
-        public AcadimacYears AcadimecYear { get; set; }
-        public Schools School { get; set; }
-        public ICollection<StudentExam> StudentExam { get; set; }
+        public virtual AcadimacYears AcadimecYear { get; set; }
+        public virtual Schools School { get; set; }
+        public virtual ICollection<StudentExam> StudentExam { get; set; }
     }
 }

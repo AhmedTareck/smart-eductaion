@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Management.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,6 +62,39 @@ namespace Managegment.Controllers
             htmlString = htmlString.Replace("&nbsp;", string.Empty);
 
             return htmlString;
+        }
+
+        public bool getPermissin(string perimm,long userId, SmartEducationContext db)
+        {
+            try
+            {
+                
+
+                if (userId <= 0)
+                {
+                    return (false);
+                }
+                var cUser = (from p in db.Users
+                             where p.Id == userId
+                             select p).SingleOrDefault();
+                if (cUser.UserType == 1)
+                {
+                    return (true);
+                }
+                var pre = (from p in db.Permissions
+                           join g in db.PermissionGroup on p.Id equals g.PermissioinId
+                           where (g.GroupId == cUser.GroupId)
+                           select p.Name).ToList();
+
+                var t = pre.Contains(perimm);
+                return (t);
+                // string dogCsv = string.Join(",", pre.ToArray());
+
+            }
+            catch (Exception e)
+            {
+                return (false);
+            }
         }
 
     }

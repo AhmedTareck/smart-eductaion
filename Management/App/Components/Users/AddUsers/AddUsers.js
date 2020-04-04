@@ -3,7 +3,8 @@
     created() 
     {
         //this.BranchId = this.$parent.BrancheModel;
-     
+
+        this.GetGroup();
     },
     
     data() {
@@ -31,21 +32,21 @@
             pageNo: 1,
             pageSize: 10,
             pages: 0,
-
+            Group:[],
             ruleForm: {
                 UserId:0,
                 LoginName: '',
                 Password: '',
                 FullName: '',
-                UserType: 1,
+                UserType: '',
                 Email: '',
                 Gender: '',
                 Phone:'',
                 DateOfBirth: '',
-                Status: 0, 
+                Status: 0,
+                GroupId:'',
                 BranchId:1,
              
-                
                 
               
             },      
@@ -54,6 +55,12 @@
             rules: {
                 DateOfBirth: [
                     { required: true, message: 'الرجاء إدخال تاريخ الميلاد', trigger: 'blur'}
+                ],
+                GroupId: [
+                    { required: true, message: 'الرجاء إدخال الصلاحية', trigger: 'blur' }
+                ],
+                UserType: [
+                    { required: true, message: 'الرجاء إدخال نوع المستخدم', trigger: 'blur' }
                 ],
                 Password: [
                     { validator: validatePass, trigger: 'blur' },
@@ -167,7 +174,21 @@
             this.$refs[formName].resetFields();
         },
 
+        GetGroup() {
+ 
+            this.$blockUI.Start();
+            this.$http.GetGroup()
+                .then(response => {
 
+                    this.$blockUI.Stop();
+                    
+                    this.Group = response.data.group;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                   
+                });
+        },
 
 
     }    
