@@ -46,37 +46,20 @@
         CheckLoginStatus(status) {
             this.$http.CheckLoginStatus()
                 .then(response => {  
-                    debugger;
-
                     if (response.data.slice(1, 9) !== "!DOCTYPE") {
                         if (status == 2) {
                             window.location.href = '/';
                         }
                     } else {
                         localStorage.setItem('currentUser', null);
-                    }
-
-                    
-                   
-                    
+                    }   
                     })
                 .catch((err) => {
-                    debugger;
-                    //localStorage.setItem('currentUser',null);
-                   // window.location.href = '/';
+
                     if (status == 1) {
                         localStorage.setItem('currentUser', null);
                         window.location.href = '/Login';
                     }
-
-                    //localStorage.setItem('currentUser', null);
-                    //this.$http.Logout()
-                    //    .then(response => {
-                    //        window.location.href = '/';
-                    //    })
-                    //    .catch((err) => {
-                    //    }); 
-                    });
         },
 
         pathChange(route) {
