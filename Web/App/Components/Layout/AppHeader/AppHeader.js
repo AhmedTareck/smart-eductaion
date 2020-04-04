@@ -8,11 +8,7 @@
         var loginDetails = localStorage.getItem('currentUser'); 
         if (loginDetails !== null && loginDetails !== "null" && loginDetails !== undefined && localStorage.getItem('currentUser').slice(2, 10) !== "!DOCTYPE") {
             this.loginDetails = JSON.parse(loginDetails);
-        } else {
-           // localStorage.removeItem('currentUser');
-            // this.CheckLoginStatus(2);
-           // window.location.href = '/Login';
-            this.$router.push('/Login');
+            this.CheckLoginStatus();
         }
     },
     data() {
@@ -30,12 +26,10 @@
         logout() {
             this.$http.Logout()
                 .then(response => {
-                    debugger;
                     localStorage.setItem('currentUser', null);
                     window.location.href = '/';
                 })
                 .catch((err) => {
-                    debugger;
                     //localStorage.removeItem('currentUser');
                     localStorage.setItem('currentUser', null);
                     window.location.href = '/';
@@ -43,23 +37,23 @@
         },
 
 
-        CheckLoginStatus(status) {
+        CheckLoginStatus() {
             this.$http.CheckLoginStatus()
                 .then(response => {
-                    if (response.data.slice(1, 9) !== "!DOCTYPE") {
-                        if (status == 2) {
-                            window.location.href = '/';
-                        }
-                    } else {
-                        localStorage.setItem('currentUser', null);
-                    }
+                    debugger;
+                    //this.loginDetails = JSON.parse(response.data);
+                    //if (response.data.slice(1, 9) !== "!DOCTYPE") {
+                    //    if (status == 2) {
+                    //        window.location.href = '/';
+                    //    }
+                    //} else {
+                    //    localStorage.setItem('currentUser', null);
+                    //}
                 })
                 .catch((err) => {
-
-                    if (status == 1) {
+                    debugger;
                         localStorage.setItem('currentUser', null);
                         window.location.href = '/Login';
-                    }
                 });
         },
 
