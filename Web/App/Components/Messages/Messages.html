@@ -201,6 +201,20 @@
             </li>
         </ul>
     </div>-->
+                <!--<el-alert v-if="Inbox==0 && Show==1" title="لا تــوجد رسائل للعرض , يمكنك انشاء رسالة جديدة"
+              type="info">
+    </el-alert>
+
+    <el-alert v-if="Sent==0 && Show==2" title="لا تــوجد رسائل للعرض , يمكنك انشاء رسالة جديدة"
+              type="info">
+    </el-alert>-->
+                <!--<el-alert v-if="Inbox==0 && Show==1" title="لا تــوجد رسائل للعرض , يمكنك انشاء رسالة جديدة"
+                          type="info">
+                </el-alert>
+
+                <el-alert v-if="Sent==0 && Show==2" title="لا تــوجد رسائل للعرض , يمكنك انشاء رسالة جديدة"
+                          type="info">
+                </el-alert>-->
 
                 <table class="table table-inbox table-hover" v-if="Show==1">
                     <tbody>
@@ -217,7 +231,7 @@
                         </tr>
                     </tbody>
                 </table>
-
+              
                 <table class="table table-inbox table-hover" v-if="Show==2">
                     <tbody>
                         <tr class="unread" v-for="x in  Sent">
