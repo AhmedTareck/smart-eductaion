@@ -30,7 +30,7 @@ namespace Management.Models
         public DateTime? CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public long? ModifiedBy { get; set; }
-        public short? State { get; set; }
+        public short? Status { get; set; }
 
         public virtual Groups Group { get; set; }
         public virtual ICollection<Events> Events { get; set; }

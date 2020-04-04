@@ -116,7 +116,7 @@ namespace Management.Controllers
                 }
 
                 var cUser = (from p in db.Users
-                             where (p.Email == loginUser.Email || p.LoginName == loginUser.Email) && p.State != 9
+                             where (p.Email == loginUser.Email || p.LoginName == loginUser.Email) && p.Status != 9
                              select p).SingleOrDefault();
 
                 if (cUser == null)
@@ -130,7 +130,7 @@ namespace Management.Controllers
                     return BadRequest("ليس لديك صلاحيه للدخول علي النظام");
                 }
 
-                if (cUser.State == 0)
+                if (cUser.Status == 0)
                 {
                     return BadRequest("حسابك غير مفعل");
                 }
@@ -171,7 +171,7 @@ namespace Management.Controllers
                     LoginName = cUser.LoginName,
                     Email = cUser.Email,
                     Gender = cUser.Gender,
-                    Status = cUser.State,
+                    Status = cUser.Status,
                     Phone = cUser.Phone,
                     Photo = cUser.Image,
                     BirthDate = cUser.BirthDate,
@@ -232,7 +232,7 @@ namespace Management.Controllers
                 if (loginUser.Password != null)
                 {
                     var User = (from p in db.Users
-                                where p.State == userId && p.State != 9
+                                where p.Id == userId && p.Status != 9
                                 select p).SingleOrDefault();
 
                     if (Security.VerifyHash(loginUser.Password, User.Password, HashAlgorithms.SHA512))
@@ -252,7 +252,7 @@ namespace Management.Controllers
                 else
                 {
                     var User = (from p in db.Users
-                                where p.Id == loginUser.UserId && p.State != 9
+                                where p.Id == loginUser.UserId && p.Status != 9
                                 select p).SingleOrDefault();
                     if (User == null)
                     {
@@ -320,7 +320,7 @@ namespace Management.Controllers
                 }
 
                 var user = (from p in db.Users
-                            where p.Email == email && p.State != 9
+                            where p.Email == email && p.Status != 9
                             select p).SingleOrDefault();
 
                 if (user == null)
@@ -328,7 +328,7 @@ namespace Management.Controllers
                     return NotFound("البريد الإلكتروني غير مسجل بالنظـام !");
                 }
 
-                if (user.State == 0)
+                if (user.Status == 0)
                 {
                     return BadRequest("تم إيقاف هذا المستخدم من النظام !");
                 }
@@ -417,9 +417,9 @@ namespace Management.Controllers
                 {
                     try
                     {
-                        if (user.State == 0)
+                        if (user.Status == 0)
                         {
-                            user.State = 1;
+                            user.Status = 1;
                         }
                         user.Password = Security.ComputeHash(userActivate.password, HashAlgorithms.SHA512, null);
                         db.SaveChanges();
