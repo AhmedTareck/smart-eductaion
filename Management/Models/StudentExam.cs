@@ -16,8 +16,8 @@ namespace Management.Models
         public DateTime? CreatedOn { get; set; }
         public short? Status { get; set; }
 
-        public virtual Exams Exam { get; set; }
-        public virtual Students Student { get; set; }
-        public virtual ICollection<StudentAnswer> StudentAnswer { get; set; }
+        public Exams Exam { get; set; }
+        public Students Student { get; set; }
+        public ICollection<StudentAnswer> StudentAnswer { get; set; }
     }
 }

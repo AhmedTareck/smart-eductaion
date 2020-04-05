@@ -20,7 +20,7 @@ namespace Management.Models
         public DateTime? ModifiedOn { get; set; }
         public short? Status { get; set; }
 
-        public virtual Events Event { get; set; }
-        public virtual ICollection<Lectures> Lectures { get; set; }
+        public Events Event { get; set; }
+        public ICollection<Lectures> Lectures { get; set; }
     }
 }

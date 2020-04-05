@@ -16,6 +16,6 @@ namespace Management.Models
         public DateTime? CreatedOn { get; set; }
         public short? State { get; set; }
 
-        public virtual ICollection<PermissionGroup> PermissionGroup { get; set; }
+        public ICollection<PermissionGroup> PermissionGroup { get; set; }
     }
 }

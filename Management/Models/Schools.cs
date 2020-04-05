@@ -23,9 +23,9 @@ namespace Management.Models
         public DateTime? CreatedOn { get; set; }
         public short? Status { get; set; }
 
-        public virtual Locations Location { get; set; }
-        public virtual Municipalitys Municipality { get; set; }
-        public virtual Users Responsible { get; set; }
-        public virtual ICollection<Students> Students { get; set; }
+        public Locations Location { get; set; }
+        public Municipalitys Municipality { get; set; }
+        public Users Responsible { get; set; }
+        public ICollection<Students> Students { get; set; }
     }
 }

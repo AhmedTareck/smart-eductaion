@@ -10,6 +10,6 @@ namespace Management.Models
         public string AttashmentFile { get; set; }
         public short? Status { get; set; }
 
-        public virtual Lectures Lecture { get; set; }
+        public Lectures Lecture { get; set; }
     }
 }

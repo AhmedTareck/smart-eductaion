@@ -16,6 +16,8 @@ namespace Management.Models
         public virtual DbSet<LectureFiles> LectureFiles { get; set; }
         public virtual DbSet<Lectures> Lectures { get; set; }
         public virtual DbSet<Locations> Locations { get; set; }
+        public virtual DbSet<Messages> Messages { get; set; }
+        public virtual DbSet<MessageTransaction> MessageTransaction { get; set; }
         public virtual DbSet<Municipalitys> Municipalitys { get; set; }
         public virtual DbSet<PermissionGroup> PermissionGroup { get; set; }
         public virtual DbSet<Permissions> Permissions { get; set; }
@@ -35,14 +37,18 @@ namespace Management.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"server=localhost;database=SmartEducation;uid=sa;pwd=Pass123;");
+                optionsBuilder.UseSqlServer(@"server=95.216.93.102;database=SmartEducation;uid=smarteducation;pwd=abdullah1988!@#");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("Relational:DefaultSchema", "smarteducation");
+
             modelBuilder.Entity<AcadimacYears>(entity =>
             {
+                entity.ToTable("AcadimacYears", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
@@ -52,6 +58,8 @@ namespace Management.Models
 
             modelBuilder.Entity<Ads>(entity =>
             {
+                entity.ToTable("Ads", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
@@ -59,6 +67,8 @@ namespace Management.Models
 
             modelBuilder.Entity<AdsFiles>(entity =>
             {
+                entity.ToTable("AdsFiles", "dbo");
+
                 entity.HasOne(d => d.Ads)
                     .WithMany(p => p.AdsFiles)
                     .HasForeignKey(d => d.AdsId)
@@ -67,6 +77,8 @@ namespace Management.Models
 
             modelBuilder.Entity<Answers>(entity =>
             {
+                entity.ToTable("Answers", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.ExamAnswers).HasMaxLength(150);
@@ -83,6 +95,8 @@ namespace Management.Models
 
             modelBuilder.Entity<Events>(entity =>
             {
+                entity.ToTable("Events", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Discreptions).HasMaxLength(150);
@@ -104,6 +118,8 @@ namespace Management.Models
 
             modelBuilder.Entity<Exams>(entity =>
             {
+                entity.ToTable("Exams", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
@@ -123,6 +139,8 @@ namespace Management.Models
 
             modelBuilder.Entity<Groups>(entity =>
             {
+                entity.ToTable("Groups", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(150);
@@ -132,6 +150,8 @@ namespace Management.Models
 
             modelBuilder.Entity<LectureFiles>(entity =>
             {
+                entity.ToTable("LectureFiles", "dbo");
+
                 entity.HasOne(d => d.Lecture)
                     .WithMany(p => p.LectureFiles)
                     .HasForeignKey(d => d.LectureId)
@@ -140,6 +160,10 @@ namespace Management.Models
 
             modelBuilder.Entity<Lectures>(entity =>
             {
+                entity.ToTable("Lectures", "dbo");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
@@ -154,6 +178,8 @@ namespace Management.Models
 
             modelBuilder.Entity<Locations>(entity =>
             {
+                entity.ToTable("Locations", "dbo");
+
                 entity.Property(e => e.Coordinates).HasMaxLength(150);
 
                 entity.Property(e => e.Name).HasMaxLength(150);
@@ -164,8 +190,37 @@ namespace Management.Models
                     .HasConstraintName("FK_Locations_Locations");
             });
 
+            modelBuilder.Entity<Messages>(entity =>
+            {
+                entity.HasKey(e => e.MesssageId);
+
+                entity.ToTable("Messages", "dbo");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Subject).HasMaxLength(150);
+            });
+
+            modelBuilder.Entity<MessageTransaction>(entity =>
+            {
+                entity.ToTable("MessageTransaction", "dbo");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Message)
+                    .WithMany(p => p.MessageTransaction)
+                    .HasForeignKey(d => d.MessageId)
+                    .HasConstraintName("FK_MessageTransaction_Messages");
+            });
+
             modelBuilder.Entity<Municipalitys>(entity =>
             {
+                entity.ToTable("Municipalitys", "dbo");
+
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.AddressDiscreption).HasMaxLength(150);
@@ -191,6 +246,8 @@ namespace Management.Models
 
             modelBuilder.Entity<PermissionGroup>(entity =>
             {
+                entity.ToTable("PermissionGroup", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(150);
@@ -210,6 +267,8 @@ namespace Management.Models
 
             modelBuilder.Entity<Permissions>(entity =>
             {
+                entity.ToTable("Permissions", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(150);
@@ -219,6 +278,8 @@ namespace Management.Models
 
             modelBuilder.Entity<Questions>(entity =>
             {
+                entity.ToTable("Questions", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
@@ -233,6 +294,8 @@ namespace Management.Models
 
             modelBuilder.Entity<Schools>(entity =>
             {
+                entity.ToTable("Schools", "dbo");
+
                 entity.Property(e => e.AddressDiscreption).HasMaxLength(150);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
@@ -259,6 +322,8 @@ namespace Management.Models
 
             modelBuilder.Entity<Shapters>(entity =>
             {
+                entity.ToTable("Shapters", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
@@ -273,6 +338,8 @@ namespace Management.Models
 
             modelBuilder.Entity<StudentAnswer>(entity =>
             {
+                entity.ToTable("StudentAnswer", "dbo");
+
                 entity.HasOne(d => d.Ansewr)
                     .WithMany(p => p.StudentAnswer)
                     .HasForeignKey(d => d.AnsewrId)
@@ -286,6 +353,8 @@ namespace Management.Models
 
             modelBuilder.Entity<StudentExam>(entity =>
             {
+                entity.ToTable("StudentExam", "dbo");
+
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
@@ -303,15 +372,29 @@ namespace Management.Models
 
             modelBuilder.Entity<Students>(entity =>
             {
-                entity.Property(e => e.Adrress).HasMaxLength(50);
+                entity.ToTable("Students", "dbo");
+
+                entity.Property(e => e.Address).HasMaxLength(50);
+
+                entity.Property(e => e.BirthDate).HasColumnType("datetime");
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(60)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.FatherName).HasMaxLength(50);
 
                 entity.Property(e => e.FirstName).HasMaxLength(50);
 
                 entity.Property(e => e.GrandFatherName).HasMaxLength(50);
+
+                entity.Property(e => e.LastLoginOn).HasColumnType("datetime");
+
+                entity.Property(e => e.LoginName).HasMaxLength(50);
+
+                entity.Property(e => e.LoginTryAttemptDate).HasColumnType("datetime");
 
                 entity.Property(e => e.MatherName).HasMaxLength(50);
 
@@ -320,6 +403,8 @@ namespace Management.Models
                 entity.Property(e => e.Nid)
                     .HasColumnName("NID")
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Password).HasMaxLength(250);
 
                 entity.Property(e => e.Phone).HasMaxLength(50);
 
@@ -338,6 +423,8 @@ namespace Management.Models
 
             modelBuilder.Entity<Subjects>(entity =>
             {
+                entity.ToTable("Subjects", "dbo");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Discreptions).HasMaxLength(150);
@@ -354,11 +441,15 @@ namespace Management.Models
 
             modelBuilder.Entity<Users>(entity =>
             {
+                entity.ToTable("Users", "dbo");
+
                 entity.Property(e => e.BirthDate).HasColumnType("datetime");
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-                entity.Property(e => e.Email).HasMaxLength(50);
+                entity.Property(e => e.Email)
+                    .HasMaxLength(60)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.LastLoginOn).HasColumnType("datetime");
 
@@ -374,8 +465,7 @@ namespace Management.Models
 
                 entity.Property(e => e.Phone).HasMaxLength(25);
 
-        entity.Property(e => e.Status).HasDefaultValueSql("((0))");
-
+                entity.Property(e => e.Status).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.UserType).HasDefaultValueSql("((2))");
 
