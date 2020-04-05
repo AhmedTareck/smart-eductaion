@@ -59,7 +59,6 @@ export default {
 
         submitForm() {
             this.$refs['form'].validate((valid) => {
-                alert(valid);
                 if (valid) {
                     this.addGroup();
                 } else {
@@ -73,8 +72,7 @@ export default {
 
 
         addGroup() {
-            console.log(this.form);
-            alert("ddddd");
+      
 
             this.$http.addGroup(this.form)
                 .then(response => {

@@ -279,7 +279,49 @@
                 </a>
             </li>
 
+            <li class="nav-item "v-if="IsAuth('Users_View')==1">
+            <a class="nav-link" data-toggle="collapse" href="#user">
+                <i class="fa fa-users"></i>
+                <p>
+                    إدارة المستخدمين
+                    <b class="caret" style="    float: left;position:relative;"></b>
+                </p>
+            </a>
+            <div class="collapse" id="user">
+                <ul class="nav">
+                    <li :class="menuFlag[12]">
+                        <a class="nav-link" href="#" v-if="IsAuth('Users_View')==1" @click.prevent="href('/Users',12)">
+                            <i class="fa fa-users"></i>
 
+                            <p>عرض بيانات المستخدمين </p>
+                        </a>
+                    </li>
+                    <li :class="menuFlag[13]">
+                        <a class="nav-link" href="#" v-if="IsAuth('Users_Add')==1" @click.prevent="href('/AddUsers',13)">
+                            <i class="fa fa-users"></i>
+
+                            <p>إضافة مستخدم </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            </li>
+            <li :class="menuFlag[15]" v-if="IsAuth('Permissions_View')==1">
+        <a class="nav-link" href="#" @click.prevent="href('/Permission',15)">
+            <i class="fa fa-files-o"></i>
+            <p>
+                الصلاحيات
+            </p>
+        </a>
+    </li>
+    <li :class="menuFlag[16]" v-if="IsAuth('Group_View')==1">
+        <a class="nav-link" href="#" @click.prevent="href('/Group',16)">
+            <i class="fa fa-files-o"></i>
+            <p>
+                المجموعات
+            </p>
+        </a>
+    </li>
             <!--<li class="nav-item " v-if="IsAuth('Ads_View')==1">
         <a class="nav-link" data-toggle="collapse" href="#parents">
             <i class="material-icons">poll</i>
