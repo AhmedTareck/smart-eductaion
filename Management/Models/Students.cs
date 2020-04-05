@@ -19,17 +19,25 @@ namespace Management.Models
         public string GrandFatherName { get; set; }
         public string SurName { get; set; }
         public string MatherName { get; set; }
-        public string Adrress { get; set; }
+        public string Address { get; set; }
         public string Phone { get; set; }
-        public bool? Gender { get; set; }
+        public int? Gender { get; set; }
+        public string LoginName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public byte[] Image { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public DateTime? LoginTryAttemptDate { get; set; }
+        public short? LoginTryAttempts { get; set; }
+        public DateTime? LastLoginOn { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
         public long? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public short? Status { get; set; }
 
-        public virtual AcadimacYears AcadimecYear { get; set; }
-        public virtual Schools School { get; set; }
-        public virtual ICollection<StudentExam> StudentExam { get; set; }
+        public AcadimacYears AcadimecYear { get; set; }
+        public Schools School { get; set; }
+        public ICollection<StudentExam> StudentExam { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace Management.Models
         public DateTime? ModifiedOn { get; set; }
         public short? Status { get; set; }
 
-        public virtual Questions Question { get; set; }
-        public virtual ICollection<StudentAnswer> StudentAnswer { get; set; }
+        public Questions Question { get; set; }
+        public ICollection<StudentAnswer> StudentAnswer { get; set; }
     }
 }

@@ -6,7 +6,7 @@ export default {
       
     },
     created() {  
-        this.getDetals();
+        //this.getDetals();
         //this.GetMessageTypes(this.pageNo);
         //this.GetCountInfo();
         //setInterval(() => this.GetCountInfo(), 10000); 

@@ -8,6 +8,8 @@ Scaffold-DbContext "server=LAPTOP-DVJT5BST;database=StudentTracker;uid=Ahmed;pwd
 
  public SmartEducationContext(DbContextOptions<SmartEducationContext> options) : base(options) { }
 
+ Scaffold-DbContext "server=95.216.93.102;database=SmartEducation;uid=smarteducation;pwd=abdullah1988;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
 
 Abdala PC : 
 Scaffold-DbContext "server=LAPTOP-DVJT5BST;database=Credits_db;uid=AhmedTareck;pwd=35087124567Ahmed;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models

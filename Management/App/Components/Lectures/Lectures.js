@@ -6,6 +6,7 @@ export default {
     
     created() { 
         this.getyearName();
+        this.getLectures();
     },
     components: {
         'EditLectures': EditLectures,
@@ -28,6 +29,9 @@ export default {
             shapterSelected: '',
             yearSelectedId: '',
             subjectSeletect: '',
+
+
+            selectedItem: '',
 
             info:[],
 
@@ -117,6 +121,11 @@ export default {
                     this.$blockUI.Stop();
                     this.pages = 0;
                 });
+        },
+
+        editLecture(item) {
+            this.selectedItem = item;
+            this.state = 2;
         },
 
         deletelecture(id) {

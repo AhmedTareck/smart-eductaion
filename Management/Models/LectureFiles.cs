@@ -7,9 +7,9 @@ namespace Management.Models
     {
         public long Id { get; set; }
         public long? LectureId { get; set; }
-        public string AttashmentFile { get; set; }
+        public byte[] AttashmentFile { get; set; }
         public short? Status { get; set; }
 
-        public virtual Lectures Lecture { get; set; }
+        public Lectures Lecture { get; set; }
     }
 }

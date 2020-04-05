@@ -1,0 +1,128 @@
+﻿<div class="content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">تسجيل بيانات الحصور و الإنصراف</h4>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div class="row" style="margin-right: 0px; margin-left: 0px;">
+
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-3">
+                        <span class="demonstration">السنة الدراسية</span>
+                        <el-select v-model="YearSelected"
+                                   @change="getEvents()"
+                                   filterable placeholder="السنة الدراسية ">
+
+                            <el-option v-for="item in Years"
+                                       :key="item.acadimecYearId"
+                                       :label="item.name"
+                                       :value="item.acadimecYearId">
+                            </el-option>
+
+                        </el-select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <span class="demonstration">الفصل الدراسي</span>
+                        <el-select v-model="EventSelectd"
+                                   filterable
+                                   placeholder="الفصل "
+                                   @change="GetStudent()">
+
+                            <el-option v-for="item in Events"
+                                       :key="item.eventId"
+                                       :label="item.eventGroup"
+                                       :value="item.eventId">
+                            </el-option>
+
+                        </el-select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="block">
+                            <span class="demonstration">تاريخ المحاضرة</span>
+                            <el-date-picker v-model="LectureDate"
+                                            type="date"
+                                            placeholder="تاريخ المحاضرة">
+                            </el-date-picker>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row" v-if="Students==0">
+
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <br /><br />
+                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للطلبة"
+                                      type="info">
+                            </el-alert>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <!--Table Info-->
+                <div class="row " v-if="Students!=0">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="text-info">
+                                    <th style="text-align:center">
+                                        #
+                                    </th>
+                                    <th style="text-align:center">
+                                        الإسم
+                                    </th>
+                                    <th style="text-align:center">
+                                        حضور
+                                    </th>
+                                    </thead>
+                                    <tbody style="text-align:center">
+                                        <tr v-for="item,index in Students">
+                                            <td>{{index+1}} </td>
+                                            <td>{{item.studentName }} </td>
+                                            <td v-if="item.firstName==0  || item.firstName==null"><span class="badge badge-pill badge-danger">غياب</span></td>
+                                            <td v-if="item.firstName==1"><span class="badge badge-pill badge-success">حضور</span></td>
+                                            <td><el-checkbox v-model="item.firstName"></el-checkbox></td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="d-flex justify-content-center">
+                    <div class="col-md-2">
+                        <el-button class="btn btn-info btn-fill pull-right"
+                                   type="primary"
+                                   @click="addPresness()"
+                                   v-if="Students!=0">
+                            تسجيل الحضور
+
+                        </el-button>
+                    </div>
+                </div>
+                <br />
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

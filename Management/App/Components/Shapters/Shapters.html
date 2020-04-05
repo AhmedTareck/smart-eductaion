@@ -2,59 +2,50 @@
     <EditShapters v-if="state==2"></EditShapters>
     <AddShapters v-if="state==1"></AddShapters>
     <div class="container-fluid" v-if="state==0">
+
+
         <div class="row">
             <div class="card">
 
-                <div class="card-header card-header-danger">
+                <div class="card-header card-header-info">
                     <h4 class="card-title ">إدارة بيانات الشباتر </h4>
+                    <p class="card-category"> هذه الصفحه خاصه بإدرة بيانات الشابتر</p>
                 </div>
 
                 <br />
                 <br />
-                <div class="row" style="margin-right: 0px; margin-left: 0px">
-                    <div class="col-md-3">
-                        <el-select v-model="yearSelected"
-                                   @change="getSubject()"
-                                   filterable placeholder="السنة الدراسية ">
+                <!--<div class="row" style="margin-right: 0px; margin-left: 0px">
+        <div class="col-md-3">
+            <el-select v-model="yearSelected"
+                       @change="getSubject()"
+                       filterable placeholder="السنة الدراسية ">
 
-                            <el-option v-for="item in year"
-                                       :key="item.id"
-                                       :label="item.name"
-                                       :value="item.id">
-                            </el-option>
+                <el-option v-for="item in year"
+                           :key="item.id"
+                           :label="item.name"
+                           :value="item.id">
+                </el-option>
 
-                        </el-select>
-                    </div>
+            </el-select>
+        </div>
 
-                    <div class="col-md-3">
-                        <el-select v-model="SubjectSelected"
-                                   style="    width: 100%;"
-                                   @change="getShpater()"
-                                   filterable placeholder="المادة الدراسية ">
+        <div class="col-md-3">
+            <el-select v-model="SubjectSelected"
+                       style="    width: 100%;"
+                       @change="getShpater()"
+                       filterable placeholder="المادة الدراسية ">
 
-                            <el-option v-for="item in SubjectName"
-                                       :key="item.id"
-                                       :label="item.name"
-                                       :value="item.id">
-                            </el-option>
+                <el-option v-for="item in SubjectName"
+                           :key="item.id"
+                           :label="item.name"
+                           :value="item.id">
+                </el-option>
 
-                        </el-select>
-                    </div>
-
-                    
-
-                    <!--<div class="col-md-6" v-if="SubjectSelected!=0" style=";margin-top:-10px">
-                        <div class="pull-left">
-
-                            <br>
-
-                            <el-button class="btn btn-danger btn-fill pull-right" style="margin-top:-20px" type="primary" @click="addYers()">إضافة شباتر</el-button>
-                        </div>
-
-                    </div>-->
+            </el-select>
+        </div>
 
 
-                </div>
+    </div>-->
 
                 <div class="row" v-if="shapters==0">
 
@@ -75,9 +66,18 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table">
-                                    <thead class="text-danger">
+                                    <thead class="text-info">
                                     <th>
                                         #
+                                    </th>
+                                    <th>
+                                        السنة الدراسبة
+                                    </th>
+                                    <th>
+                                        المادة الدراسية
+                                    </th>
+                                    <th>
+                                        المجموعة
                                     </th>
                                     <th>
                                         رقم الشابتر
@@ -95,6 +95,9 @@
                                     <tbody>
                                         <tr v-for="item,index in shapters">
                                             <td>{{index+1}} </td>
+                                            <td>{{item.year }} </td>
+                                            <td>{{item.subject }} </td>
+                                            <td>{{item.eventName }} </td>
                                             <td>{{item.number }} </td>
                                             <td>{{item.name }} </td>
                                             <td>{{item.createdOn | moment }} </td>
@@ -103,7 +106,7 @@
                                                 <button type="button" rel="tooltip" @click.prevent="viewStudent(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
                                                     <i class="material-icons">edit</i>
                                                 </button>
-                                                <button type="button" rel="tooltip" @click.prevent="delteShpter(item.id)" class="btn btn-danger btn-link" data-original-title="" title="">
+                                                <button type="button" rel="tooltip" @click.prevent="delteShpter(item.id)" class="btn btn-danger btn-link" data-original-title="" title="حذف">
                                                     <i class="material-icons" title="حدف">close</i>
                                                 </button>
                                             </td>

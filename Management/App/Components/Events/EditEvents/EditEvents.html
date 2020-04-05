@@ -1,0 +1,194 @@
+﻿
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">إضافة بيانات المجموعات</h4>
+                    <p class="card-category"> هذه الصفحه خاصه بإضافة بيانات المجموعات</p>
+                </div>
+
+
+                <el-form :model="form" ref="form" label-position="top" label-width="120px" class="demo-ruleForm" style="padding: 21px;">
+                    <!--Email / Gender / DateOfBirth-->
+
+                    <el-row class="row">
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+
+                                <el-form-item prop="Name" label="إسم المجموعة"
+                                              label-width="0px"
+                                              :rules="[{ required: true, message: 'الرحاء إدخال إسم المجموعة'} ]">
+
+                                    <el-input type="name"
+                                              placeholder="إسم المجموعة"
+                                              v-model="form.Name"
+                                              autocomplete="off">
+                                    </el-input>
+
+                                </el-form-item>
+
+
+                            </div>
+
+
+                        </div>
+
+                        <el-col class="col-md-6">
+
+
+                            <el-form-item prop="TeacherId" label="الأستاذ"
+                                          label-width="0px"
+                                          :rules="[{required: true, message: ' الرجاء إختيار الأستاذ'} ]">
+
+                                <el-select v-model="form.TeacherId"
+                                           style="    width: 100%;"
+                                           filterable placeholder="الأستاذ ">
+
+                                    <el-option v-for="item in teachers"
+                                               :key="item.id"
+                                               :label="item.name"
+                                               :value="item.id">
+                                    </el-option>
+
+                                </el-select>
+
+                            </el-form-item>
+
+
+                        </el-col>
+
+
+                    </el-row>
+
+                    <el-row class="row">
+
+                        <!--<el-col class="col-md-4">
+
+
+                            <el-form-item prop="yearId" label="السنة الدراسية"
+                                          label-width="0px"
+                                          :rules="[{required: true, message: ' الرجاء ادخال السنة الدراسية'} ]">
+
+                                <el-select v-model="form.yearId"
+                                           style="    width: 100%;"
+                                           @change="getSubject()"
+                                           filterable placeholder="السنة الدراسية ">
+
+                                    <el-option v-for="item in year"
+                                               :key="item.id"
+                                               :label="item.name"
+                                               :value="item.id">
+                                    </el-option>
+
+                                </el-select>
+
+                            </el-form-item>
+
+
+                        </el-col>-->
+
+
+                        <!--<el-col class="col-md-4">
+
+
+                            <el-form-item prop="SubjectId" label="المادة الدراسية"
+                                          label-width="0px"
+                                          :rules="[{required: true, message: ' الرجاء ادخال المادة الدراسية'} ]">
+
+                                <el-select v-model="form.SubjectId"
+                                           style="    width: 100%;"
+                                           filterable placeholder="المادة الدراسية ">
+
+                                    <el-option v-for="item in subjects"
+                                               :key="item.id"
+                                               :label="item.name"
+                                               :value="item.id">
+                                    </el-option>
+
+                                </el-select>
+
+                            </el-form-item>
+
+
+                        </el-col>-->
+
+
+                        
+
+
+                    </el-row>
+
+                    <el-row class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+
+
+                                <el-form-item prop="Discreptions" label="نبدة عن المجموعة سبتم إرفاقها عند الإعلان عن المجموعة"
+                                              label-width="0px"
+                                              :rules="[{ required: true, message: 'الرحاء وصف المجموعة'} ]">
+
+                                    <el-input type="textarea"
+                                              :rows="6"
+                                              placeholder="وصف المجموعة"
+                                              v-model="form.Discreptions">
+                                    </el-input>
+
+                                </el-form-item>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </el-row>
+
+                </el-form>
+
+
+                <div class="row">
+
+
+
+                    <div class="col-md-12" style="padding-bottom: 46px;">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-left">
+
+                                    <el-button class="btn btn-danger btn-fill pull-right" type="primary" @click="back()">رجوع</el-button>
+
+                                    <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="submitForm('form')">تعديل بيانات المجموعة</el-button>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
