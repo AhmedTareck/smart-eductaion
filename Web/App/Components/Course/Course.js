@@ -25,7 +25,7 @@ export default {
             loginDetails:null,
             selectedLecture: null,
             lectures: null,
-            eventId: null
+            subjectId: null
         };
     },
     methods: {
@@ -33,9 +33,9 @@ export default {
             this.selectedLecture = lecture;
         },
         GetLectures() {
-            this.eventId = this.$route.query.event;
+            this.subjectId = this.$route.query.subject;
             
-            if (!this.eventId) {
+            if (!this.subjectId) {
                  window.location.href = '/MyCourses';
                 return;
             }
@@ -43,7 +43,7 @@ export default {
                 fullscreen: true,
                 text: 'loading ...'
             });
-            this.$http.GetLectures(this.eventId).then(response => {
+            this.$http.GetLectures(this.subjectId).then(response => {
                 $blockUI.close();
                 this.lectures = response.data[0];
             }).catch(error => {
