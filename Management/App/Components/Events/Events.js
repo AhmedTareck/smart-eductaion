@@ -1,16 +1,14 @@
 ﻿﻿import moment from 'moment';
-import EditLectures from './EditLectures/EditLectures.vue';
-import AddLectures from './AddLectures/AddLectures.vue';
+import EditEvents from './EditEvents/EditEvents.vue';
 export default {
-    name: 'Lectures',
+    name: 'Events',
     
     created() { 
-        this.getyearName();
-        this.getLectures();
+       // this.getyearName();
+        this.getEventInfo();
     },
     components: {
-        'EditLectures': EditLectures,
-        'AddLectures': AddLectures,
+        'EditEvents': EditEvents,
     },
     data() {
         return {
@@ -21,20 +19,10 @@ export default {
             pageSize: 5,
             pages: 0,
 
+            Event: [],
+
             year: [],
-
-            SubjectName: [],
-            shapterName: [],
-
-            shapterSelected: '',
-            yearSelectedId: '',
-            subjectSeletect: '',
-
-
-            selectedItem: '',
-
-            info:[],
-
+            yearSelected:'',
         };
     },
 
@@ -52,7 +40,7 @@ export default {
     methods: {
 
         getyearName() {
-
+            
             this.$blockUI.Start();
             this.$http.getyearName()
                 .then(response => {
@@ -66,86 +54,55 @@ export default {
                 });
         },
 
-        getSubject() {
-            this.SubjectName = [];
-            this.subjectSeletect = '';
-            this.shapterName = [];
-            this.shapterSelected = '';
-            //this.getShpater();
-            this.$blockUI.Start();
-            this.$http.getSubject(this.yearSelectedId)
-
-                .then(response => {
-
-                    this.$blockUI.Stop();
-                    this.SubjectName = response.data.subject;
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-                    console.error(err);
-                });
-        },
-
-        getShapterName() {
-            this.shapterName = [];
-            this.shapterSelected = '';
-            //this.getShpater();
-            this.$blockUI.Start();
-            this.$http.getShapterName(this.subjectSeletect)
-
-                .then(response => {
-
-                    this.$blockUI.Stop();
-                    this.shapterName = response.data.shapterNames;
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-                    console.error(err);
-                });
-        },
-
-        getLectures(pageNo) {
+        getEventInfo(pageNo) {
             this.pageNo = pageNo;
             if (this.pageNo === undefined) {
                 this.pageNo = 1;
             }
             this.$blockUI.Start();
-
-            this.$http.getLectures(this.pageNo, this.pageSize, this.shapterSelected)
+            this.$http.getEventInfo(this.pageNo, this.pageSize)
                 .then(response => {
+
                     this.$blockUI.Stop();
-                    this.info = response.data.lectures;
+                    this.Event = response.data.eventinfo;
                     this.pages = response.data.count;
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();
+                    console.error(err);
                     this.pages = 0;
                 });
         },
 
-        editLecture(item) {
-            this.selectedItem = item;
-            this.state = 2;
+        viewStudent(item)
+        {
+            this.state=2;
+            this.selectedStudent=item;
         },
 
-        deletelecture(id) {
+        addYers() {
+            this.state = 1;
+        },
 
 
-            this.$confirm('سيؤدي ذلك إلى حدف المحاضرة  . استمر؟', 'تـحذير', {
+        deleteEvent(id) {
+
+
+            this.$confirm('سيؤدي ذلك إلى حدف المادة الدراسية  . استمر؟', 'تـحذير', {
                 confirmButtonText: 'نـعم',
                 cancelButtonText: 'لا',
                 type: 'warning'
             }).then(() => {
 
 
-                this.$http.deletelecture(id)
+                this.$http.delteEvent(id)
                     .then(response => {
                         this.$message({
                             type: 'info',
                             message: response.data
                         });
                         this.$blockUI.Stop();
-                        this.getLectures();
+                        this.getEventInfo();
                     })
                     .catch((err) => {
                         this.$blockUI.Stop();

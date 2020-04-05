@@ -4,41 +4,151 @@
         <div class="row">
             <div class="card">
 
-                <div class="card-header card-header-danger">
-                    <h4 class="card-title ">تعديل بيانات المادة الدراسية</h4>
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">تعديل بيانات الشابتر</h4>
+                    <p class="card-category"> هذه الصفحه خاصه تعديل بيانات الشابتر</p>
                 </div>
                 <div class="row">
                     <div class="col-md-12" style="padding: 46px;">
 
-                        <div class="row">
+                        <el-form :model="form" ref="form" label-position="top" label-width="120px" class="demo-ruleForm">
+                            <!--Email / Gender / DateOfBirth-->
 
-                            <div class="col-md-6">
+                            <el-row class="row">
 
-                                <div class="form-group">
 
-                                    <label>إسم المادة الدراسية</label>
+                                <el-col class="col-md-4">
 
-                                    <el-input type="name"
-                                              placeholder="name"
-                                              v-model="form.name"
-                                              autocomplete="off">
-                                    </el-input>
 
-                                </div>
+                                    <!--<el-form-item prop="yearId" label="السنة الدراسية"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إختيار السنة الدراسية'} ]">
 
-                            </div>
-                            <div class="col-md-6">
-                                <div class="pull-left">
+                                        <el-select v-model="form.yearId"
+                                                   style="    width: 100%;"
+                                                   @change="getSubject()"
+                                                   filterable placeholder="السنة الدراسية ">
 
-                                    <br>
-                                    <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="back()">رجوع</el-button>
+                                            <el-option v-for="item in year"
+                                                       :key="item.id"
+                                                       :label="item.name"
+                                                       :value="item.id">
+                                            </el-option>
 
-                                    <el-button class="btn btn-danger btn-fill pull-right" type="primary" @click="editShpter()">تعديل البيانات</el-button>
-                                </div>
+                                        </el-select>
 
-                            </div>
+                                    </el-form-item>-->
 
-                        </div>
+
+                                </el-col>
+
+                                <el-col class="col-md-4">
+
+
+                                    <!--<el-form-item prop="SubjectId" label="المادة الدراسية"
+                                                  label-width="0px"
+                                                  :rules="[{ required: true, message: 'الرحاء إدخال إسم المادة الدراسية'} ]">
+
+                                        <el-select v-model="form.SubjectId"
+                                                   @change="getEventName()"
+                                                   style="    width: 100%;"
+                                                   filterable placeholder="المادة الدراسية ">
+
+                                            <el-option v-for="item in SubjectName"
+                                                       :key="item.id"
+                                                       :label="item.name"
+                                                       :value="item.id">
+                                            </el-option>
+
+                                        </el-select>
+
+                                    </el-form-item>-->
+
+
+                                </el-col>
+
+                                <el-col class="col-md-4">
+
+
+                                    <!--<el-form-item prop="EventId" label="المجموعة"
+                                                  label-width="0px"
+                                                  :rules="[{ required: true, message: 'الرحاء إدخال إسم المجموعة'} ]">
+
+                                        <el-select v-model="form.EventId"
+                                                   style="    width: 100%;"
+                                                   filterable placeholder="المجموعة ">
+
+                                            <el-option v-for="item in EventName"
+                                                       :key="item.id"
+                                                       :label="item.name"
+                                                       :value="item.id">
+                                            </el-option>
+
+                                        </el-select>
+
+                                    </el-form-item>-->
+
+
+                                </el-col>
+
+                            </el-row>
+
+                            <el-row class="row">
+
+
+                                <el-col class="col-md-6">
+
+
+                                    <el-form-item prop="name" label="إسم الشابتر"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال إسم الشابتر'} ]">
+
+                                        <el-input type="name"
+                                                  placeholder="إسم الشابتر"
+                                                  v-model="form.name"
+                                                  autocomplete="off">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                                <el-col class="col-md-6">
+
+
+                                    <el-form-item prop="ShapterNumber" label="رقم الشابتر"
+                                                  label-width="0px"
+                                                  :rules="[{required: true, message: ' الرجاء إدخال  رقم الشابتر'} ]">
+
+                                        <el-input type="name"
+                                                  placeholder="رقم الشابتر"
+                                                  v-model="form.ShapterNumber"
+                                                  autocomplete="off">
+                                        </el-input>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+
+                            </el-row>
+
+                            <el-row class="row">
+
+
+                                <el-col class="col-md-12">
+                                    <div class="pull-left">
+                                        <el-button class="btn btn-danger btn-fill pull-right" type="primary" @click="back()">رجوع</el-button>
+                                        <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="submitForm('form')">تعديل شابتر</el-button>
+                                    </div>
+                                </el-col>
+                            </el-row>
+
+                        </el-form>
+
+
                     </div>
                 </div>
 

@@ -27,6 +27,7 @@
 
             SubjectName: [],
             shapterName: [],
+            EventName: [],
 
             ruleForm: {
                 shapterSelected: '',
@@ -38,7 +39,9 @@
                 Photo: [],
                 Video: '',
                 sound: [],
-                attashFile: []
+                attashFile: [],
+                EventId: '',
+               
             },
 
 
@@ -47,6 +50,27 @@
 
     },
     methods: {
+
+        getEventName() {
+            //this.SubjectName = [];
+            //this.form.SubjectId = '';
+            //this.getShpater();
+            this.$blockUI.Start();
+            this.$http.getEventName(this.ruleForm.subjectSeletect)
+
+                .then(response => {
+
+                    this.$blockUI.Stop();
+                    this.EventName = response.data.eventinfo;
+                })
+                .catch((err) => {
+                    this.$blockUI.Stop();
+                    console.error(err);
+                });
+        },
+
+
+
         handleRemove(file, fileList) {
             console.log(file, fileList);
         },
@@ -223,11 +247,11 @@
         },
 
         getShapterName() {
-            this.shapterName = [];
-            this.ruleForm.shapterSelected = '';
+            //this.shapterName = [];
+            //this.ruleForm.shapterSelected = '';
             //this.getShpater();
             this.$blockUI.Start();
-            this.$http.getShapterName(this.ruleForm.subjectSeletect)
+            this.$http.getShapterName(this.ruleForm.EventId)
 
                 .then(response => {
 

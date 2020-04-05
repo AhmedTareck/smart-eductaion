@@ -4,8 +4,9 @@
         <div class="row">
             <div class="card">
 
-                <div class="card-header card-header-danger">
+                <div class="card-header card-header-info">
                     <h4 class="card-title ">إضافة بيانات الشابتر</h4>
+                    <p class="card-category"> هذه الصفحه خاصه بإضافة بيانات الشابتر</p>
                 </div>
                 <div class="row">
                     <div class="col-md-12" style="padding: 46px;">
@@ -16,14 +17,14 @@
                             <el-row class="row">
 
 
-                                <el-col class="col-md-6">
+                                <el-col class="col-md-4">
 
 
-                                    <el-form-item prop="id" label="السنة الدراسية"
+                                    <el-form-item prop="yearId" label="السنة الدراسية"
                                                   label-width="0px"
                                                   :rules="[{required: true, message: ' الرجاء إختيار السنة الدراسية'} ]">
 
-                                        <el-select v-model="form.id"
+                                        <el-select v-model="form.yearId"
                                                    style="    width: 100%;"
                                                    @change="getSubject()"
                                                    filterable placeholder="السنة الدراسية ">
@@ -41,7 +42,7 @@
 
                                 </el-col>
 
-                                <el-col class="col-md-6">
+                                <el-col class="col-md-4">
 
 
                                     <el-form-item prop="SubjectId" label="المادة الدراسية"
@@ -49,10 +50,35 @@
                                                   :rules="[{ required: true, message: 'الرحاء إدخال إسم المادة الدراسية'} ]">
 
                                         <el-select v-model="form.SubjectId"
+                                                   @change="getEventName()"
                                                    style="    width: 100%;"
                                                    filterable placeholder="المادة الدراسية ">
 
                                             <el-option v-for="item in SubjectName"
+                                                       :key="item.id"
+                                                       :label="item.name"
+                                                       :value="item.id">
+                                            </el-option>
+
+                                        </el-select>
+
+                                    </el-form-item>
+
+
+                                </el-col>
+
+                                <el-col class="col-md-4">
+
+
+                                    <el-form-item prop="EventId" label="المجموعة"
+                                                  label-width="0px"
+                                                  :rules="[{ required: true, message: 'الرحاء إدخال إسم المجموعة'} ]">
+
+                                        <el-select v-model="form.EventId"
+                                                   style="    width: 100%;"
+                                                   filterable placeholder="المجموعة ">
+
+                                            <el-option v-for="item in EventName"
                                                        :key="item.id"
                                                        :label="item.name"
                                                        :value="item.id">
@@ -114,7 +140,7 @@
 
                                 <el-col class="col-md-12">
                                     <div class="pull-left">
-                                        <el-button class="btn btn-danger btn-fill pull-right" type="primary" @click="submitForm('form')">اضافة شابتر</el-button>
+                                        <el-button class="btn btn-info btn-fill pull-right" type="primary" @click="submitForm('form')">اضافة شابتر</el-button>
                                     </div>
                                 </el-col>
                             </el-row>

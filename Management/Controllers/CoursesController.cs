@@ -148,6 +148,7 @@ namespace CMS.Controllers
             }
         }
 
+
         [HttpPost("{id}/deleteYears")]
         public IActionResult delteHomeWorck(long id)
         {
@@ -408,148 +409,150 @@ namespace CMS.Controllers
             }
         }
 
-        //[HttpPost("addShapter")]
-        //public IActionResult addShapter([FromBody] YearsObject form)
-        //{
-        //    try
-        //    {
+        [HttpPost("addShapter")]
+        public IActionResult addShapter([FromBody] YearsObject form)
+        {
+            try
+            {
 
-        //        if (form == null)
-        //        {
-        //            return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
-        //        }
+                if (form == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
 
-        //        var userId = this.help.GetCurrentUser(HttpContext);
+                var userId = this.help.GetCurrentUser(HttpContext);
 
-        //        if (userId <= 0)
-        //        {
-        //            return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-        //        }
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
 
-        //        var subjectCheck = (from p in db.Shapters where p.Name == form.name && p.SubjectId == form.SubjectId select p).SingleOrDefault();
+                var shaptersheck = (from p in db.Shapters where p.Name == form.name && p.EventId== form.EventId select p).SingleOrDefault();
 
-        //        if (subjectCheck != null)
-        //        {
-        //            return StatusCode(401, "الاسم موجود مسبقا");
-        //        }
+                if (shaptersheck != null)
+                {
+                    return StatusCode(401, "الشابتر موجود مسبقا");
+                }
 
-        //        Shapters Shapter = new Shapters();
-        //        Shapter.Name = form.name;
-        //        Shapter.SubjectId = form.SubjectId;
-        //        Shapter.Number = form.ShapterNumber;
-        //        Shapter.Status = 1;
-        //        Shapter.CreatedBy = userId;
-        //        Shapter.CreatedOn = DateTime.Now;
-        //        db.Shapters.Add(Shapter);
-        //        db.SaveChanges();
+                Shapters Shapter = new Shapters();
+                Shapter.Name = form.name;
+                Shapter.EventId = form.SubjectId;
+                Shapter.Number = form.ShapterNumber;
+                Shapter.Status = 1;
+                Shapter.CreatedBy = userId;
+                Shapter.CreatedOn = DateTime.Now;
+                db.Shapters.Add(Shapter);
+                db.SaveChanges();
 
-        //        return Ok("تمت عملية الاضافة بنجاح");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, e.Message);
-        //    }
-        //}
+                return Ok("تمت عملية الاضافة بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
 
-        //[HttpGet("getShpater")]
-        //public IActionResult getShpater(int pageNo, int pageSize, long subjectId)
-        //{
-        //    try
-        //    {
-        //        var Shapters = from p in db.Shapters where p.Status != 9 select p;
+        [HttpGet("getShpater")]
+        public IActionResult getShpater(int pageNo, int pageSize)
+        {
+            try
+            {
+                var Shapters = from p in db.Shapters where p.Status != 9 select p;
 
-        //        if (subjectId != 0)
-        //        {
-        //            Shapters = from p in Shapters where p.SubjectId == subjectId select p;
-        //        }
 
-        //        var Count = (from p in Shapters select p).Count();
+                var Count = (from p in Shapters select p).Count();
 
-        //        var ShpaterInfo = (from p in Shapters
-        //                           orderby p.CreatedOn descending
-        //                           select new
-        //                           {
-        //                               id = p.Id,
-        //                               name = p.Name,
-        //                               SubjectId = p.SubjectId,
-        //                               Number = p.Number,
-        //                               createdOn = p.CreatedOn
-        //                           }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+                var ShpaterInfo = (from p in Shapters
+                                   orderby p.CreatedOn descending
+                                   select new
+                                   {
+                                       id = p.Id,
+                                       name = p.Name,
+                                       EventName = p.Event.Name,
+                                       Number = p.Number,
+                                       subject=p.Event.Subject.Name,
+                                       subjectId=p.Event.SubjectId,
+                                       year=p.Event.Subject.AcadimecYear.Name,
+                                       yeaIdr=p.Event.Subject.AcadimecYearId,
+                                       createdOn = p.CreatedOn
+                                   }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
-        //        return Ok(new { shapter = ShpaterInfo, count = Count });
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, e.Message);
-        //    }
-        //}
+                return Ok(new { shapter = ShpaterInfo, count = Count });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
 
-        //[HttpPost("editShpter")]
-        //public IActionResult editShpter([FromBody] YearsObject form)
-        //{
-        //    try
-        //    {
+        [HttpPost("editShpter")]
+        public IActionResult editShpter([FromBody] YearsObject form)
+        {
+            try
+            {
 
-        //        if (form == null)
-        //        {
-        //            return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
-        //        }
+                if (form == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
 
-        //        var userId = this.help.GetCurrentUser(HttpContext);
+                var userId = this.help.GetCurrentUser(HttpContext);
 
-        //        if (userId <= 0)
-        //        {
-        //            return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-        //        }
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
 
-        //        var Shpagter = (from p in db.Shapters where p.Id == form.id select p).SingleOrDefault();
+                var Shpagter = (from p in db.Shapters where p.Id == form.id select p).SingleOrDefault();
 
-        //        if (Shpagter == null)
-        //        {
-        //            return StatusCode(401, "لم يتم العتور علي السجل الرجاء التأكد من البيانات");
-        //        }
+                if (Shpagter == null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي السجل الرجاء التأكد من البيانات");
+                }
 
-        //        Shpagter.Name = form.name;
-        //        db.SaveChanges();
+                Shpagter.Name = form.name;
+                Shpagter.Number = form.ShapterNumber;
+                Shpagter.EventId = form.EventId;
+                db.SaveChanges();
 
-        //        return Ok("تمت عملية التعديل بنجاح");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, e.Message);
-        //    }
-        //}
+                return Ok("تمت عملية التعديل بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
 
-        //[HttpPost("{id}/delteShpter")]
-        //public IActionResult delteShpter(long id)
-        //{
-        //    try
-        //    {
-        //        var userId = this.help.GetCurrentUser(HttpContext);
+        [HttpPost("{id}/delteShpter")]
+        public IActionResult delteShpter(long id)
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
 
-        //        if (userId <= 0)
-        //        {
-        //            return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-        //        }
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
 
-        //        var subject = (from p in db.Shapters where p.Id == id select p).SingleOrDefault();
+                var shapter = (from p in db.Shapters where p.Id == id select p).SingleOrDefault();
 
-        //        if (subject == null)
-        //        {
-        //            return StatusCode(401, "لم يتم العتور علي السجل ربما تم مسحه مسبقا");
-        //        }
+                if (shapter == null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي السجل ربما تم مسحه مسبقا");
+                }
 
-        //        subject.Status = 9;
+                shapter.Status = 9;
 
-        //        db.SaveChanges();
+                db.SaveChanges();
 
-        //        return Ok("تت عملية الحدف بنجاح");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, e.Message);
-        //    }
-        //}
+                return Ok("تت عملية الحدف بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
 
         [HttpPost("addPost")]
         public IActionResult addPost([FromBody] postObject post)
@@ -700,6 +703,212 @@ namespace CMS.Controllers
             }
         }
 
+        [HttpGet("getTeatcherName")]
+        public IActionResult getTeatcherName()
+        {
+            try
+            {
+                var teatsher = from p in db.Users where p.State ==5 select p;
+
+                var tetshers = (from p in teatsher
+                                orderby p.CreatedOn descending
+                                select new
+                                {
+                                    id = p.Id,
+                                    name = p.Name,
+                                }).ToList();
+
+                return Ok(new { teacher = tetshers });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        public class EventObj
+        {
+            public long? Id { get; set; }
+            public long TeacherId { get; set; }
+            public long SubjectId { get; set; }
+            public string Name { get; set; }
+            public string Discreptions { get; set; }
+        }
+
+        [HttpPost("addEvent")]
+        public IActionResult addEvent([FromBody] EventObj form)
+        {
+            try
+            {
+
+                if (form == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var EventCheck = (from p in db.Events where p.Name == form.Name select p).SingleOrDefault();
+
+                if (EventCheck != null)
+                {
+                    return StatusCode(401, "الاسم موجود مسبقا");
+                }
+
+                Events Event = new Events();
+                Event.Name = form.Name;
+                Event.TeacherId = form.TeacherId;
+                Event.SubjectId = form.SubjectId;
+                Event.Discreptions = form.Discreptions;
+                Event.Status = 1;
+                Event.CreatedBy = userId;
+                Event.CreatedOn = DateTime.Now;
+                db.Events.Add(Event);
+                db.SaveChanges();
+
+                return Ok("تمت عملية الاضافة بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("getEventInfo")]
+        public IActionResult getEventInfo(int pageNo, int pageSize)
+        {
+            try
+            {
+                var Events = from p in db.Events where p.Status != 9 select p;
+
+
+                var Count = (from p in Events select p).Count();
+
+                var EventInfo = (from p in Events
+                               orderby p.CreatedOn descending
+                               select new
+                               {
+                                   id = p.Id,
+                                   Name = p.Name,
+                                   Subject = p.Subject.Name,
+                                   SubjectId = p.SubjectId,
+                                   TeacherId = p.TeacherId,
+                                   Teacher = p.Teacher.Name,
+                                   yearId=p.Subject.AcadimecYearId,
+                                   Discreptions = p.Discreptions,
+                                   createdOn = p.CreatedOn
+                               }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new { eventinfo = EventInfo, count = Count });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost("editEvent")]
+        public IActionResult editEvent([FromBody] EventObj form)
+        {
+            try
+            {
+
+                if (form == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
+
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                Events Event = (from p in db.Events where p.Id == form.Id select p).SingleOrDefault();
+
+                if (Event == null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي السجل ربما تم مسحه مسبقا");
+                }
+
+                Event.Name = form.Name;
+                Event.TeacherId = form.TeacherId;
+                Event.SubjectId = form.SubjectId;
+                Event.Discreptions = form.Discreptions;
+                Event.ModifiedBy = userId;
+                Event.ModifiedOn = DateTime.Now;
+                db.SaveChanges();
+
+                return Ok("تمت عملية التعديل بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost("{id}/delteEvent")]
+        public IActionResult delteEvent(long id)
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                var item = (from p in db.Events where p.Id == id select p).SingleOrDefault();
+
+                if (item == null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي السجل ربما تم مسحه مسبقا");
+                }
+
+                item.Status = 9;
+
+                db.SaveChanges();
+
+                return Ok("تمت عملية الحدف بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("getEventName")]
+        public IActionResult getEventName(long id)
+        {
+            try
+            {
+                var Events = from p in db.Events where p.SubjectId==id && p.Status!=9 select p;
+
+
+
+                var EventInfo = (from p in Events
+                                 orderby p.CreatedOn descending
+                                 select new
+                                 {
+                                     id = p.Id,
+                                     Name = p.Name,
+                                 }).ToList();
+
+                return Ok(new { eventinfo = EventInfo});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
         //[HttpGet("getDetals")]
         //public IActionResult getDetals()
         //{
@@ -730,28 +939,28 @@ namespace CMS.Controllers
         //    }
         //}
 
-        //[HttpGet("getShapterName")]
-        //public IActionResult getShapterName(long id)
-        //{
-        //    try
-        //    {
-        //        var shpter = from p in db.Shapters where p.Status != 9 && p.SubjectId == id select p;
+        [HttpGet("getShapterName")]
+        public IActionResult getShapterName(long id)
+        {
+            try
+            {
+                var shpter = from p in db.Shapters where p.Status != 9 && p.EventId==id select p;
 
-        //        var shpterInfo = (from p in shpter
-        //                          orderby p.CreatedOn descending
-        //                          select new
-        //                          {
-        //                              id = p.Id,
-        //                              name = p.Name,
-        //                          }).ToList();
+                var shpterInfo = (from p in shpter
+                                  orderby p.CreatedOn descending
+                                  select new
+                                  {
+                                      id = p.Id,
+                                      name = p.Name,
+                                  }).ToList();
 
-        //        return Ok(new { shapterNames = shpterInfo });
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, e.Message);
-        //    }
-        //}
+                return Ok(new { shapterNames = shpterInfo });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
 
         [HttpPost("addExam")]
         public IActionResult addExam([FromBody] Exams exam)
@@ -956,140 +1165,141 @@ namespace CMS.Controllers
         //    }
         //}
 
-        //[HttpGet("getLectures")]
-        //public IActionResult getLectures(int pageNo, int pageSize, long id)
-        //{
-        //    try
-        //    {
-        //        var LecturesInfo = from p in db.Lectures where p.Status != 9 select p;
+        [HttpGet("getLectures")]
+        public IActionResult getLectures(int pageNo, int pageSize, long id)
+        {
+            try
+            {
+                var LecturesInfo = from p in db.Lectures where p.Status != 9 select p;
 
-        //        if (id != 0)
-        //        {
-        //            LecturesInfo = from p in LecturesInfo where p.ShaptersId == id select p;
-        //        }
+                if (id != 0)
+                {
+                    LecturesInfo = from p in LecturesInfo where p.ShaptersId == id select p;
+                }
 
-        //        var Count = (from p in LecturesInfo select p).Count();
+                var Count = (from p in LecturesInfo select p).Count();
 
-        //        var LectureInfo = (from p in LecturesInfo
-        //                           orderby p.CreatedOn descending
-        //                           select new
-        //                           {
-        //                               id = p.Id,
-        //                               Name = p.Name,
-        //                               Number = p.Number,
-        //                               Description = p.Description,
-        //                               CreatedOn = p.CreatedOn
-        //                           }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+                var LectureInfo = (from p in LecturesInfo
+                                   orderby p.CreatedOn descending
+                                   select new
+                                   {
+                                       id = p.Id,
+                                       Name = p.Name,
+                                       Number = p.Number,
+                                       Description = p.Description,
+                                       CreatedOn = p.CreatedOn
+                                   }).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
 
-        //        return Ok(new { lectures = LectureInfo, count = Count });
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, e.Message);
-        //    }
-        //}
+                return Ok(new { lectures = LectureInfo, count = Count });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
 
-        //[HttpPost("{id}/deletelecture")]
-        //public IActionResult deletelecture(long id)
-        //{
-        //    try
-        //    {
-        //        var userId = this.help.GetCurrentUser(HttpContext);
+        [HttpPost("{id}/deletelecture")]
+        public IActionResult deletelecture(long id)
+        {
+            try
+            {
+                var userId = this.help.GetCurrentUser(HttpContext);
 
-        //        if (userId <= 0)
-        //        {
-        //            return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-        //        }
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
 
-        //        var lecture = (from p in db.Lectures where p.Id == id select p).SingleOrDefault();
+                var lecture = (from p in db.Lectures where p.Id == id select p).SingleOrDefault();
 
-        //        if (lecture == null)
-        //        {
-        //            return StatusCode(401, "لم يتم العتور علي السجل ربما تم مسحه مسبقا");
-        //        }
+                if (lecture == null)
+                {
+                    return StatusCode(401, "لم يتم العتور علي السجل ربما تم مسحه مسبقا");
+                }
 
-        //        lecture.Status = 9;
+                lecture.Status = 9;
 
-        //        db.SaveChanges();
+                db.SaveChanges();
 
-        //        return Ok("تمت عملية الحدف بنجاح");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, e.Message);
-        //    }
-        //}
-
-
-        //[HttpPost("addLecture")]
-        //public IActionResult addLecture([FromBody] LectureObject form)
-        //{
-        //    try
-        //    {
-
-        //        if (form == null)
-        //        {
-        //            return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
-        //        }
-
-        //        var userId = this.help.GetCurrentUser(HttpContext);
-
-        //        if (userId <= 0)
-        //        {
-        //            return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
-        //        }
-
-        //        Lectures lectures = new Lectures();
-        //        lectures.ShaptersId = form.shapterSelected;
-        //        lectures.Name = form.Name;
-        //        lectures.Number = form.Number;
-        //        lectures.Description = form.decreption;
-        //        lectures.VideoFile = form.Video;
-        //        lectures.CreatedOn = DateTime.Now;
-        //        lectures.CreatedBy = userId;
-        //        lectures.Status = 1;
-
-        //        List<LectureFiles> lectureFiles = new List<LectureFiles>();
+                return Ok("تمت عملية الحدف بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
 
 
-        //        foreach (var item in form.Photo)
-        //        {
-        //            LectureFiles lectureImage = new LectureFiles();
-        //            lectureImage.AttashmentFile = item.FileBase64;
-        //            lectureImage.Type = 1;
-        //            lectureFiles.Add(lectureImage);
-        //        }
+        [HttpPost("addLecture")]
+        public IActionResult addLecture([FromBody] LectureObject form)
+        {
+            try
+            {
 
-        //        foreach (var item in form.attashFile)
-        //        {
-        //            LectureFiles lectureImage = new LectureFiles();
-        //            lectureImage.LectureId = lectures.Id;
-        //            lectureImage.AttashmentFile = item.FileBase64;
-        //            lectureImage.Type = 2;
-        //            lectureFiles.Add(lectureImage);
-        //        }
+                if (form == null)
+                {
+                    return BadRequest("حذث خطأ في ارسال البيانات الرجاء إعادة الادخال");
+                }
 
-        //        foreach (var item in form.sound)
-        //        {
-        //            LectureFiles lectureImage = new LectureFiles();
-        //            lectureImage.LectureId = lectures.Id;
-        //            lectureImage.AttashmentFile = item.FileBase64;
-        //            lectureImage.Type = 3;
-        //            lectureFiles.Add(lectureImage);
-        //        }
-        //        lectures.LectureFiles = lectureFiles;
-        //        db.Lectures.Add(lectures);
-        //        db.SaveChanges();
+                var userId = this.help.GetCurrentUser(HttpContext);
+
+                if (userId <= 0)
+                {
+                    return StatusCode(401, "الرجاء الـتأكد من أنك قمت بتسجيل الدخول");
+                }
+
+                Lectures lectures = new Lectures();
+                lectures.ShaptersId = form.shapterSelected;
+                lectures.Name = form.Name;
+                lectures.Number = form.Number;
+                lectures.Description = form.decreption;
+                lectures.VideoPath = form.Video;
+                lectures.CreatedOn = DateTime.Now;
+                lectures.CreatedBy = userId;
+                lectures.Status = 1;
+
+                List<LectureFiles> lectureFiles = new List<LectureFiles>();
+
+
+                foreach (var item in form.Photo)
+                {
+                    LectureFiles lectureImage = new LectureFiles();
+                    lectureImage.AttashmentFile = Convert.FromBase64String(item.FileBase64.Substring(item.FileBase64.IndexOf(",") + 1));
+                    lectureImage.Status = 1;
+                    lectureFiles.Add(lectureImage);
+                }
+
+                foreach (var item in form.attashFile)
+                {
+                    LectureFiles lectureImage = new LectureFiles();
+                    lectureImage.LectureId = lectures.Id;
+                    lectureImage.AttashmentFile = Convert.FromBase64String(item.FileBase64.Substring(item.FileBase64.IndexOf(",") + 1));
+                    lectureImage.Status = 2;
+                    lectureFiles.Add(lectureImage);
+                }
+
+                foreach (var item in form.sound)
+                {
+                    LectureFiles lectureImage = new LectureFiles();
+                    lectureImage.LectureId = lectures.Id;
+                    lectureImage.AttashmentFile = Convert.FromBase64String(item.FileBase64.Substring(item.FileBase64.IndexOf(",") + 1));
+                    lectureImage.Status = 3;
+                    lectureFiles.Add(lectureImage);
+                }
+
+                lectures.LectureFiles = lectureFiles;
+                db.Lectures.Add(lectures);
+                db.SaveChanges();
 
 
 
-        //        return Ok("تمت عملية الاضافة بنجاح");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, e.Message);
-        //    }
-        //}
+                return Ok("تمت عملية الاضافة بنجاح");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
 
 
         [HttpGet("getEvents")]

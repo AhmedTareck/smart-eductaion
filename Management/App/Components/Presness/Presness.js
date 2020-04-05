@@ -1,16 +1,16 @@
-﻿﻿import moment from 'moment';
-import EditLectures from './EditLectures/EditLectures.vue';
-import AddLectures from './AddLectures/AddLectures.vue';
+﻿import PresnessInfo from './PresnessInfo/PresnessInfo.vue';
+import EditPresness from './EditPresness/EditPresness.vue';
+﻿import moment from 'moment';
 export default {
-    name: 'Lectures',
+    name: 'Presness',
     
     created() { 
-        this.getyearName();
-        this.getLectures();
+        this.GetPresness();
+        this.GetYears();
     },
     components: {
-        'EditLectures': EditLectures,
-        'AddLectures': AddLectures,
+        'PresnessInfo': PresnessInfo,
+        'EditPresness': EditPresness,
     },
     data() {
         return {
@@ -21,20 +21,15 @@ export default {
             pageSize: 5,
             pages: 0,
 
-            year: [],
+            Years:[],
+            YearSelected:'',
 
-            SubjectName: [],
-            shapterName: [],
+            Events:[],
+            EventSelectd:'',
 
-            shapterSelected: '',
-            yearSelectedId: '',
-            subjectSeletect: '',
+            Presness:[],
 
-
-            selectedItem: '',
-
-            info:[],
-
+            selectedPresness:[],
         };
     },
 
@@ -50,15 +45,18 @@ export default {
 
 
     methods: {
+        AddStudent()
+        {
+            this.state = 1;
+        },
 
-        getyearName() {
-
+        GetYears(){
             this.$blockUI.Start();
-            this.$http.getyearName()
+            this.$http.GetYears()
                 .then(response => {
 
                     this.$blockUI.Stop();
-                    this.year = response.data.years;
+                    this.Years = response.data.years;
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();
@@ -66,19 +64,18 @@ export default {
                 });
         },
 
-        getSubject() {
-            this.SubjectName = [];
-            this.subjectSeletect = '';
-            this.shapterName = [];
-            this.shapterSelected = '';
-            //this.getShpater();
+        getEvents() 
+        {
+            
+            this.EventSelectd = '';
+            this.GetPresness(this.pageNo);
             this.$blockUI.Start();
-            this.$http.getSubject(this.yearSelectedId)
+            this.$http.GetEvents(this.YearSelected)
 
                 .then(response => {
 
                     this.$blockUI.Stop();
-                    this.SubjectName = response.data.subject;
+                    this.Events = response.data.events;
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();
@@ -86,66 +83,57 @@ export default {
                 });
         },
 
-        getShapterName() {
-            this.shapterName = [];
-            this.shapterSelected = '';
-            //this.getShpater();
-            this.$blockUI.Start();
-            this.$http.getShapterName(this.subjectSeletect)
-
-                .then(response => {
-
-                    this.$blockUI.Stop();
-                    this.shapterName = response.data.shapterNames;
-                })
-                .catch((err) => {
-                    this.$blockUI.Stop();
-                    console.error(err);
-                });
-        },
-
-        getLectures(pageNo) {
+        GetPresness(pageNo) {
+            this.presness=[],
             this.pageNo = pageNo;
             if (this.pageNo === undefined) {
                 this.pageNo = 1;
             }
             this.$blockUI.Start();
-
-            this.$http.getLectures(this.pageNo, this.pageSize, this.shapterSelected)
+            this.$http.GetPresness(this.pageNo, this.pageSize,this.EventSelectd)
                 .then(response => {
+
                     this.$blockUI.Stop();
-                    this.info = response.data.lectures;
+                    this.Presness = response.data.presness;
                     this.pages = response.data.count;
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();
+                    console.error(err);
                     this.pages = 0;
                 });
         },
 
-        editLecture(item) {
-            this.selectedItem = item;
-            this.state = 2;
+        viewStudent(item)
+        {
+            this.state=1;
+            this.selectedPresness=item;
         },
 
-        deletelecture(id) {
+        editePresness(item) {
+            this.state = 2;
+            this.selectedPresness = item;
+        },
 
 
-            this.$confirm('سيؤدي ذلك إلى حدف المحاضرة  . استمر؟', 'تـحذير', {
+        deltePresness(id) {
+
+
+            this.$confirm('سيؤدي ذلك إلى حدف السجل  . استمر؟', 'تـحذير', {
                 confirmButtonText: 'نـعم',
                 cancelButtonText: 'لا',
                 type: 'warning'
             }).then(() => {
 
 
-                this.$http.deletelecture(id)
+                this.$http.deltePresness(id)
                     .then(response => {
                         this.$message({
                             type: 'info',
                             message: response.data
                         });
                         this.$blockUI.Stop();
-                        this.getLectures();
+                        this.getEvents();
                     })
                     .catch((err) => {
                         this.$blockUI.Stop();

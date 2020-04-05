@@ -1,58 +1,59 @@
 ﻿<div class="content">
-    <EditShapters v-if="state==2"></EditShapters>
-    <AddShapters v-if="state==1"></AddShapters>
+    <PresnessInfo v-if="state==1"></PresnessInfo>
+    <EditPresness v-if="state==2"></EditPresness>
     <div class="container-fluid" v-if="state==0">
-
-
         <div class="row">
             <div class="card">
 
                 <div class="card-header card-header-info">
-                    <h4 class="card-title ">إدارة بيانات الشباتر </h4>
-                    <p class="card-category"> هذه الصفحه خاصه بإدرة بيانات الشابتر</p>
+                    <h4 class="card-title ">عرض بيانات الحصور و الإنصراف</h4>
                 </div>
 
                 <br />
                 <br />
-                <!--<div class="row" style="margin-right: 0px; margin-left: 0px">
-        <div class="col-md-3">
-            <el-select v-model="yearSelected"
-                       @change="getSubject()"
-                       filterable placeholder="السنة الدراسية ">
+                <div class="row" style="margin-right: 0px; margin-left: 0px;">
 
-                <el-option v-for="item in year"
-                           :key="item.id"
-                           :label="item.name"
-                           :value="item.id">
-                </el-option>
+                    <div class="col-md-3">
+                        <el-select v-model="YearSelected"
+                                   @change="getEvents()"
+                                   style="width:100%"
+                                   filterable placeholder="السنة الدراسية ">
 
-            </el-select>
-        </div>
+                            <el-option v-for="item in Years"
+                                       :key="item.acadimecYearId"
+                                       :label="item.name"
+                                       :value="item.acadimecYearId">
+                            </el-option>
 
-        <div class="col-md-3">
-            <el-select v-model="SubjectSelected"
-                       style="    width: 100%;"
-                       @change="getShpater()"
-                       filterable placeholder="المادة الدراسية ">
+                        </el-select>
+                    </div>
 
-                <el-option v-for="item in SubjectName"
-                           :key="item.id"
-                           :label="item.name"
-                           :value="item.id">
-                </el-option>
+                    <div class="col-md-3">
+                        <el-select v-model="EventSelectd"
+                                   filterable
+                                   placeholder="الفصل "
+                                   style="width:100%"
+                                   v-if="YearSelected!=0"
+                                   @change="GetPresness()">
 
-            </el-select>
-        </div>
+                            <el-option v-for="item in Events"
+                                       :key="item.eventId"
+                                       :label="item.eventGroup"
+                                       :value="item.eventId">
+                            </el-option>
+
+                        </el-select>
+                    </div>
 
 
-    </div>-->
+                </div>
 
-                <div class="row" v-if="shapters==0">
+                <div class="row" v-if="Presness==0">
 
                     <div class="col-md-10">
                         <div class="form-group">
                             <br /><br />
-                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات  للشباتر "
+                            <el-alert style="font-size: 35px;" title="عفــوا! لاتوجد بيانات للحضور والإنصراف"
                                       type="info">
                             </el-alert>
                         </div>
@@ -61,7 +62,7 @@
                 <br />
                 <br />
                 <!--Table Info-->
-                <div class="row" v-if="shapters!=0">
+                <div class="row" v-if="Presness!=0">
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -71,42 +72,51 @@
                                         #
                                     </th>
                                     <th>
-                                        السنة الدراسبة
+                                        السنة الدراسية
                                     </th>
                                     <th>
-                                        المادة الدراسية
+                                        الفصل
                                     </th>
                                     <th>
-                                        المجموعة
+                                        عدد الطلبة
                                     </th>
                                     <th>
-                                        رقم الشابتر
+                                        عدد الحضور
                                     </th>
                                     <th>
-                                        اسم الشابتر
+                                        عدد الغياب
                                     </th>
                                     <th>
-                                        تاريخ الإدراج
+                                        تاريخ المحاضرة
+                                    </th>
+                                    <th>
+                                        تاريخ الإضافة
                                     </th>
                                     <th style="text-align:left">
                                         العمليات
                                     </th>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="item,index in shapters">
+                                        <tr v-for="item,index in Presness">
                                             <td>{{index+1}} </td>
                                             <td>{{item.year }} </td>
-                                            <td>{{item.subject }} </td>
-                                            <td>{{item.eventName }} </td>
-                                            <td>{{item.number }} </td>
-                                            <td>{{item.name }} </td>
-                                            <td>{{item.createdOn | moment }} </td>
+                                            <td>{{item.eventGroup}}</td>
+                                            <td>{{item.studentCount}}</td>
+                                            <td>{{item.activeStudent}}</td>
+                                            <td>{{item.notActiveStudent}}</td>
+                                            <td>{{item.lectureDate | moment}}</td>
+                                            <td>{{item.createdon | moment}}</td>
+
 
                                             <td class="td-actions text-left">
-                                                <button type="button" rel="tooltip" @click.prevent="viewStudent(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
+                                                <button type="button" rel="tooltip" @click.prevent="viewStudent(item)" class="btn btn-info btn-link" data-original-title="" title="">
+                                                    <i class="material-icons" title="عرض بيانات الطلبة ">dvr</i>
+                                                    <div class="ripple-container"></div>
+                                                </button>
+                                                <button type="button" rel="tooltip" @click.prevent="editePresness(item)" class="btn btn-success btn-link" data-original-title="" title="تعديل البيانات">
                                                     <i class="material-icons">edit</i>
                                                 </button>
-                                                <button type="button" rel="tooltip" @click.prevent="delteShpter(item.id)" class="btn btn-danger btn-link" data-original-title="" title="حذف">
+                                                <button type="button" rel="tooltip" @click.prevent="deltePresness(item.id)" class="btn btn-danger btn-link" data-original-title="" title="">
                                                     <i class="material-icons" title="حدف">close</i>
                                                 </button>
                                             </td>
@@ -125,20 +135,18 @@
                                                                    :current-page="pageNo"
                                                                    :page-size="pageSize"
                                                                    :total="pages"
-                                                                   @current-change="GetSubjectInfo($event)">
+                                                                   @current-change="GetStudent($event)">
                                                     </el-pagination>
 
                                                 </div>
 
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="col-sm-12 col-md-5">
                                         <div class="pull-left">
                                             <div class="disabled-sorting text-right" id="datatable_info" role="status" aria-live="polite">Showing {{pageNo}} to {{pageSize}} of {{pages}} entries</div>
                                         </div>
-
                                     </div>
 
                                 </div>

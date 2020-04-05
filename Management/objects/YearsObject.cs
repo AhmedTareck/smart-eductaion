@@ -7,8 +7,9 @@ namespace Management.objects
 {
     public class YearsObject
     {
-        public long id { get; set; }
+        public long? id { get; set; }
         public long? SubjectId { get; set; }
+        public long? EventId { get; set; }
         public int? ShapterNumber { get; set; }
         public string name { get; set; }
     }
