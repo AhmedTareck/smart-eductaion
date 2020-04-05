@@ -5,8 +5,8 @@ export default {
     name: 'Presness',
     
     created() { 
-        this.GetPresness();
-        this.GetYears();
+        //this.GetPresness();
+        //this.GetYears();
     },
     components: {
         'PresnessInfo': PresnessInfo,

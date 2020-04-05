@@ -436,7 +436,7 @@ namespace CMS.Controllers
 
                 Shapters Shapter = new Shapters();
                 Shapter.Name = form.name;
-                Shapter.EventId = form.SubjectId;
+                Shapter.EventId = form.EventId;
                 Shapter.Number = form.ShapterNumber;
                 Shapter.Status = 1;
                 Shapter.CreatedBy = userId;
@@ -708,7 +708,7 @@ namespace CMS.Controllers
         {
             try
             {
-                var teatsher = from p in db.Users where p.State ==5 select p;
+                var teatsher = from p in db.Users where p.UserType ==3 select p;
 
                 var tetshers = (from p in teatsher
                                 orderby p.CreatedOn descending

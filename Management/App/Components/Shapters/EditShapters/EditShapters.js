@@ -11,8 +11,8 @@ export default {
         this.form.EventId = this.$parent.selectedItem.eventId;
         this.form.yearId = this.$parent.selectedItem.yearId;
         
-        this.getSubject()();
-        this.getEventName()();
+        //this.getSubject()();
+        //this.getEventName()();
         //this.form.id = this.$parent.selectedItem.id;
         //this.form.name = this.$parent.selectedItem.name;
         //this.form.SubjectId = this.$parent.selectedItem.subjectId;

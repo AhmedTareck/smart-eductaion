@@ -39,6 +39,9 @@ import AddParents from './Components/Parents/AddParents/AddParents.vue';
 import Presness from './Components/Presness/Presness.vue';
 import AddPresness from './Components/Presness/AddPresness/AddPresness.vue';
 
+import Permissions from './Components/Permissions/Permissions.vue';
+import Group from './Components/Group/Group.vue';
+
 
 
 
@@ -97,6 +100,8 @@ const router = new VueRouter({
         { path: '/Excaming', name: 'Excaming', component: Excaming },
         { path: '/Events', name: 'Events', component: Events },
         { path: '/AddEvents', name: 'AddEvents', component: AddEvents },
+        { path: '/Permission', name: 'Permission', component: Permissions },
+        { path: '/Group', name: 'Group', component: Group },
 
 
 
