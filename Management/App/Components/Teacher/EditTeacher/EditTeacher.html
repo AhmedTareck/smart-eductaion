@@ -1,0 +1,146 @@
+﻿
+
+
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="card-header card-header-info">
+                <h4 class="card-title ">تعديل بيانات الاساتذة </h4>
+                <p class="card-category"> هذه الصفحه خاصه بالعمليات علي ادارة الاساتذة من عرض واضافه وتعديل</p>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-position="top" label-width="120px" class="demo-ruleForm">
+
+                        <!--User Name / Login Name-->
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+
+
+                                <el-form-item label="الاسم التلاثي" prop="FullName">
+                                    <el-input placeholder="الاسم التلاثي" v-model="ruleForm.FullName"></el-input>
+                                </el-form-item>
+
+
+                            </div>
+
+                            <div class="col-md-6">
+
+
+
+
+                                <el-form-item label="اسم الدخول" prop="LoginName">
+                                    <el-input placeholder="اسم الدخول" v-model="ruleForm.LoginName"></el-input>
+                                </el-form-item>
+
+
+                            </div>
+
+                        </div>
+
+                        <!--Email / Gender / DateOfBirth-->
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+
+                                <el-form-item label="البريد الإلكتروني" prop="Email">
+                                    <el-input placeholder="البريد الإلكتروني" v-model="ruleForm.Email"></el-input>
+                                </el-form-item>
+                            </div>
+
+                            <div class="col-md-4">
+
+
+                                <el-form-item label="الجنس" prop="Gender">
+                                    <el-select style="width: 100%;" v-model="ruleForm.Gender" filterable placeholder="الجنس">
+
+                                        <el-option v-for="item in [{id:1,Gender:'ذكـر'},{id:2,Gender:'انـثي'}]"
+                                                   :key="item.id"
+                                                   :label="item.Gender"
+                                                   :value="item.id">
+                                        </el-option>
+
+                                    </el-select>
+
+                                </el-form-item>
+
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <el-form-item label="تاريخ الميلاد" prop="DateOfBirth">
+                                    <el-date-picker v-model="ruleForm.DateOfBirth"
+                                                    type="date"
+                                                    placeholder="تاريخ الميلاد">
+                                    </el-date-picker>
+
+                                </el-form-item>
+
+
+                            </div>
+
+                        </div>
+
+                        <!--Pass / ConfirmPass / PhoneNumber-->
+                        <div class="row">
+
+
+
+                            <div class="col-md-4">
+
+
+                                <el-form-item label="رقم الهاتف" prop="Phone">
+                                    <el-input placeholder="رقم الهاتف" v-model="ruleForm.Phone"></el-input>
+                                </el-form-item>
+                            </div>
+
+
+
+                            <!--Permations-->
+                            <div class="col-md-5">
+
+
+
+
+
+
+
+                                <!--<el-form-item label="صلاحيات الإستخدام" prop="UserType">
+                                    <el-radio v-model="ruleForm.UserType" label=1 border><label style="padding-right:10px">مسئول</label></el-radio>
+                                    <el-radio v-model="ruleForm.UserType" label=2 border><label style="padding-right:10px">مستخدم</label></el-radio>
+                                    <el-radio v-model="ruleForm.UserType" label=3 border><label style="padding-right:10px">مراقبه الرسائل</label></el-radio>
+                                </el-form-item>-->
+
+
+                            </div>
+                        </div>
+                        <!--Add User-->
+                        <div class="tile-footer">
+                            <button class="btn btn-danger" @click.prevent="Back()">رجوع</button>
+                            <button class="btn btn-info" @click.prevent="Edit('ruleForm')">تـعديل</button>
+                        </div>
+
+
+
+
+
+                    </el-form>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
