@@ -51,6 +51,7 @@
                 </div>
             </div>
         </div>
+
         <ul class="nav">
 
             <li :class="menuFlag[0]">
@@ -71,15 +72,15 @@
                 </a>
                 <div class="collapse" id="homeWorck">
                     <ul class="nav">
-                        <li :class="menuFlag[5]">
-                            <a class="nav-link" href="#" v-if="IsAuth('Lectures_View')==1" @click.prevent="href('/Lectures',5)">
+                        <li :class="menuFlag[1]">
+                            <a class="nav-link" href="#" v-if="IsAuth('Lectures_View')==1" @click.prevent="href('/Lectures',1)">
                                 <i class="material-icons">book</i>
 
                                 <p>عرض المحاضرات </p>
                             </a>
                         </li>
-                        <li :class="menuFlag[6]">
-                            <a class="nav-link" href="#" v-if="IsAuth('Lectures_Add')==1" @click.prevent="href('/AddLectures',6)">
+                        <li :class="menuFlag[2]">
+                            <a class="nav-link" href="#" v-if="IsAuth('Lectures_Add')==1" @click.prevent="href('/AddLectures',2)">
                                 <i class="material-icons">book</i>
 
                                 <p>إضافة محاضرة </p>
@@ -99,15 +100,15 @@
                 </a>
                 <div class="collapse" id="shpter">
                     <ul class="nav">
-                        <li :class="menuFlag[17]">
-                            <a class="nav-link" href="#" v-if="IsAuth('Shapters_View')==1" @click.prevent="href('/Shapters',17)">
+                        <li :class="menuFlag[3]">
+                            <a class="nav-link" href="#" v-if="IsAuth('Shapters_View')==1" @click.prevent="href('/Shapters',3)">
                                 <i class="fa fa-shekel"></i>
 
                                 <p>عرض بيانات الشباتر </p>
                             </a>
                         </li>
-                        <li :class="menuFlag[18]">
-                            <a class="nav-link" href="#" v-if="IsAuth('Shapters_Add')==1" @click.prevent="href('/AddShapters',18)">
+                        <li :class="menuFlag[4]">
+                            <a class="nav-link" href="#" v-if="IsAuth('Shapters_Add')==1" @click.prevent="href('/AddShapters',4)">
                                 <i class="fa fa-shekel"></i>
 
                                 <p>إضافة شابتر </p>
@@ -127,15 +128,15 @@
                 </a>
                 <div class="collapse" id="shapter">
                     <ul class="nav">
-                        <li :class="menuFlag[12]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Events',12)">
+                        <li :class="menuFlag[5]">
+                            <a class="nav-link" href="#" @click.prevent="href('/Events',5)">
                                 <i class="material-icons">date_range</i>
 
                                 <p>عرض المجموعات </p>
                             </a>
                         </li>
-                        <li :class="menuFlag[13]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddEvents',13)">
+                        <li :class="menuFlag[5]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddEvents',5)">
                                 <i class="material-icons">date_range</i>
 
                                 <p>إضافة مجموعة </p>
@@ -144,8 +145,6 @@
                     </ul>
                 </div>
             </li>
-
-
 
             <li class="nav-item " v-if="IsAuth('Exams_View')==1">
                 <a class="nav-link" data-toggle="collapse" href="#exam">
@@ -157,15 +156,15 @@
                 </a>
                 <div class="collapse" id="exam">
                     <ul class="nav">
-                        <li :class="menuFlag[7]">
-                            <a class="nav-link" href="#" v-if="IsAuth('Exams_View')==1" @click.prevent="href('/Excaming',7)">
+                        <li :class="menuFlag[6]">
+                            <a class="nav-link" href="#" v-if="IsAuth('Exams_View')==1" @click.prevent="href('/Excaming',6)">
                                 <i class="material-icons">file_copy</i>
 
                                 <p>عرض الإختبارات </p>
                             </a>
                         </li>
-                        <li :class="menuFlag[8]">
-                            <a class="nav-link" href="#" v-if="IsAuth('Exams_Add')==1" @click.prevent="href('/AddExaming',8)">
+                        <li :class="menuFlag[7]">
+                            <a class="nav-link" href="#" v-if="IsAuth('Exams_Add')==1" @click.prevent="href('/AddExaming',7)">
                                 <i class="material-icons">file_copy</i>
 
                                 <p>إضافة إختبار</p>
@@ -185,15 +184,15 @@
                 </a>
                 <div class="collapse" id="mapsExamples">
                     <ul class="nav">
-                        <li :class="menuFlag[3]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Presness',3)">
+                        <li :class="menuFlag[8]">
+                            <a class="nav-link" href="#" @click.prevent="href('/Presness',8)">
                                 <i class="material-icons">event_available</i>
 
                                 <p>عرض الحضور والإنصراف </p>
                             </a>
                         </li>
-                        <li :class="menuFlag[4]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddPresness',4)">
+                        <li :class="menuFlag[8]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddPresness',8)">
                                 <i class="material-icons">event_available</i>
 
                                 <p>تسجيل الحضور</p>
@@ -202,7 +201,6 @@
                     </ul>
                 </div>
             </li>
-
 
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#StudentInfo">
@@ -214,15 +212,15 @@
                 </a>
                 <div class="collapse" id="StudentInfo">
                     <ul class="nav">
-                        <li :class="menuFlag[1]">
-                            <a class="nav-link" href="#" @click.prevent="href('/Parents',1)">
+                        <li :class="menuFlag[9]">
+                            <a class="nav-link" href="#" @click.prevent="href('/Parents',9)">
                                 <i class="fa fa-users"></i>
 
                                 <p>عرض اولياء الامور </p>
                             </a>
                         </li>
-                        <li :class="menuFlag[2]">
-                            <a class="nav-link" href="#" @click.prevent="href('/AddParents',2)">
+                        <li :class="menuFlag[10]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddParents',10)">
                                 <i class="fa fa-users"></i>
 
                                 <p>إضافة ولي امر </p>
@@ -232,9 +230,33 @@
                 </div>
             </li>
 
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#teacher">
+                    <i class="fa fa-users"></i>
+                    <p>
+                        إدارة الاساتذة
+                        <b class="caret" style="    float: left;position:relative;"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="teacher">
+                    <ul class="nav">
+                        <li :class="menuFlag[10]">
+                            <a class="nav-link" href="#" @click.prevent="href('/Teacher',10)">
+                                <i class="fa fa-users"></i>
 
+                                <p>عرض الاساتذة </p>
+                            </a>
+                        </li>
+                        <li :class="menuFlag[11]">
+                            <a class="nav-link" href="#" @click.prevent="href('/AddTeacher',11)">
+                                <i class="fa fa-users"></i>
 
-
+                                <p>إضافة استاذ </p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
 
             <li class="nav-item " v-if="IsAuth('Subjects_View')==1">
                 <a class="nav-link" data-toggle="collapse" href="#subject">
@@ -246,15 +268,15 @@
                 </a>
                 <div class="collapse" id="subject">
                     <ul class="nav">
-                        <li :class="menuFlag[15]">
-                            <a class="nav-link" href="#" v-if="IsAuth('Subjects_View')==1" @click.prevent="href('/Subjects',15)">
+                        <li :class="menuFlag[12]">
+                            <a class="nav-link" href="#" v-if="IsAuth('Subjects_View')==1" @click.prevent="href('/Subjects',12)">
                                 <i class="fa fa-book"></i>
 
                                 <p>عرض المواد الدراسية </p>
                             </a>
                         </li>
-                        <li :class="menuFlag[16]">
-                            <a class="nav-link" href="#" v-if="IsAuth('Subjects_Add')==1" @click.prevent="href('/AddSubjects',16)">
+                        <li :class="menuFlag[13]">
+                            <a class="nav-link" href="#" v-if="IsAuth('Subjects_Add')==1" @click.prevent="href('/AddSubjects',13)">
                                 <i class="fa fa-book"></i>
 
                                 <p>إضافة مادة دراسية </p>
@@ -263,12 +285,6 @@
                     </ul>
                 </div>
             </li>
-
-
-
-
-
-
 
             <li :class="menuFlag[14]">
                 <a class="nav-link" href="#" v-if="IsAuth('Years_View')==1" @click.prevent="href('/Years',14)">
@@ -279,7 +295,15 @@
                 </a>
             </li>
 
-            <li class="nav-item "v-if="IsAuth('Users_View')==1">
+            <!--<li :class="menuFlag[16]" v-if="IsAuth('Group_View')==1">
+        <a class="nav-link" href="#" @click.prevent="href('/Group',16)">
+            <i class="fa fa-files-o"></i>
+            <p>
+                المجموعات
+            </p>
+        </a>
+    </li>-->
+            <!--<li class="nav-item "v-if="IsAuth('Users_View')==1">
             <a class="nav-link" data-toggle="collapse" href="#user">
                 <i class="fa fa-users"></i>
                 <p>
@@ -313,15 +337,7 @@
                 الصلاحيات
             </p>
         </a>
-    </li>
-    <li :class="menuFlag[16]" v-if="IsAuth('Group_View')==1">
-        <a class="nav-link" href="#" @click.prevent="href('/Group',16)">
-            <i class="fa fa-files-o"></i>
-            <p>
-                المجموعات
-            </p>
-        </a>
-    </li>
+    </li>-->
             <!--<li class="nav-item " v-if="IsAuth('Ads_View')==1">
         <a class="nav-link" data-toggle="collapse" href="#parents">
             <i class="material-icons">poll</i>

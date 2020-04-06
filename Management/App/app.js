@@ -42,6 +42,9 @@ import AddPresness from './Components/Presness/AddPresness/AddPresness.vue';
 import Permissions from './Components/Permissions/Permissions.vue';
 import Group from './Components/Group/Group.vue';
 
+import Teacher from './Components/Teacher/Teacher.vue';
+import AddTeacher from './Components/Teacher/AddTeacher/AddTeacher.vue';
+
 
 
 
@@ -102,6 +105,8 @@ const router = new VueRouter({
         { path: '/AddEvents', name: 'AddEvents', component: AddEvents },
         { path: '/Permission', name: 'Permission', component: Permissions },
         { path: '/Group', name: 'Group', component: Group },
+        { path: '/Teacher', name: 'Teacher', component: Teacher },
+        { path: '/AddTeacher', name: 'AddTeacher', component: AddTeacher },
 
 
 
