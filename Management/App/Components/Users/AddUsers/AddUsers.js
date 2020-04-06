@@ -175,14 +175,10 @@
         },
 
         GetGroup() {
- 
-            this.$blockUI.Start();
-            this.$http.GetGroup()
-                .then(response => {
-
-                    this.$blockUI.Stop();
-                    
+            this.$http.GetAllGroup()
+                .then(response => {                    
                     this.Group = response.data.group;
+                    console.log(this.Group);
                 })
                 .catch((err) => {
                     this.$blockUI.Stop();

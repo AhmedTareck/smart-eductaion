@@ -683,7 +683,7 @@ export default {
         document.querySelector('meta[name="api-token"]').getAttribute("content");
         return axios.post(baseUrl + `/admin/Permission/addGroup`, form);
     },
-    GetGroup() {
+    GetAllGroup() {
         axios.defaults.headers.common["Authorization"] =
             "Bearer " +
             document.querySelector('meta[name="api-token"]').getAttribute("content");

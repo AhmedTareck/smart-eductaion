@@ -262,11 +262,11 @@ namespace Management.Controllers
                     return StatusCode(401, "لا تملك الصلاحية");
                 }
                
-                var GroupInfo = from p in db.Groups where p.State != 9 select p;
+                var GroupInfo = (from p in db.Groups where p.State != 9 select p).ToList();
 
                 
 
-                return Ok(new { group = GroupInfo.ToList() });
+                return Ok(new { group = GroupInfo });
             }
             catch (Exception e)
             {
