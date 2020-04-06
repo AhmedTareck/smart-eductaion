@@ -909,35 +909,36 @@ namespace CMS.Controllers
             }
         }
 
-        //[HttpGet("getDetals")]
-        //public IActionResult getDetals()
-        //{
-        //    try
-        //    {
+        [HttpGet("getDetals")]
+        public IActionResult getDetals()
+        {
+            try
+            {
 
-        //        var StudentCount = (from p in db.Users where p.Status == 3 select p).Count();
-        //        var LectureCount = (from p in db.Lectures where p.Status != 9 select p).Count();
-        //        // var homeWorckCount = (from p in db where p.Status != 9 select p).Count();
-        //        var AdsCount = (from p in db.Ads where p.Status != 9 select p).Count();
-        //        var LastSudent = (from p in db.Users where p.Status == 3 select p).OrderByDescending(p => p.UserId).Select(x => new { x.Name, x.Phone, x.LoginName, x.Gender, x.Email }).Take(5).ToList();
-        //        //var LastSubScribtions = (from p in db.ShoortNumber select p).OrderByDescending(p => p.Id).Select(x => new { x.Code, x.Service, x.Amount, x.Smscount, x.UsageSms }).Take(5).ToList();
+                var StudentCount = (from p in db.Users where p.Status == 3 select p).Count();
+                var LectureCount = (from p in db.Lectures where p.Status != 9 select p).Count();
+                 var ExamCount = (from p in db.Exams where p.Status != 9 select p).Count();
+                var AdsCount = (from p in db.Ads where p.Status != 9 select p).Count();
+                var LastSudent = (from p in db.Students where p.Status != 9 select p).OrderByDescending(p => p.Id).Select(x => new { x.FirstName,x.FatherName,x.SurName, x.Phone, x.LoginName, x.Gender, x.Email }).Take(5).ToList();
+                //var LastSubScribtions = (from p in db.ShoortNumber select p).OrderByDescending(p => p.Id).Select(x => new { x.Code, x.Service, x.Amount, x.Smscount, x.UsageSms }).Take(5).ToList();
 
-        //        var Detalss = new
-        //        {
-        //            StudentCount = StudentCount,
-        //            LectureCount = LectureCount,
-        //            AdsCount = AdsCount,
-        //            LastSudent = LastSudent
-        //        };
+                var Detalss = new
+                {
+                    StudentCount = StudentCount,
+                    LectureCount = LectureCount,
+                    AdsCount = AdsCount,
+                    ExamCount = ExamCount,
+                    LastSudent = LastSudent
+                };
 
 
-        //        return Ok(new { Detals = Detalss });
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, e.Message);
-        //    }
-        //}
+                return Ok(new { Detals = Detalss });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
 
         [HttpGet("getShapterName")]
         public IActionResult getShapterName(long id)

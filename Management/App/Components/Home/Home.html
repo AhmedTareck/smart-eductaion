@@ -109,7 +109,7 @@
                                                 <tr v-for="item,index in Detals.lastSudent">
                                                     <td>{{index+1}} </td>
                                                     <td>{{item.loginName }} </td>
-                                                    <td>{{item.name}}</td>
+                                                    <td>{{item.firstName}} {{item.fatherName}} {{item.surName}}</td>
                                                     <td>{{item.phone}}</td>
                                                     <td v-if="item.gender==1">ذكر</td>
                                                     <td v-if="item.gender==2">انتي</td>
